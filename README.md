@@ -12,17 +12,17 @@
 - RESOLUTION: Country level
 
 ## Model Scripts
-### Script: MatrixCreation.R
-Creates trade, production, and reserves matrices for use in cascade model. Requires existing files in input directory: 
-- croplist (with kcal conversions), 
-- countrylist (with FAO country code, and true/false for country pop over 500k), 
+### MatrixCreation.R
+Creates trade, production, and reserves matrices for use in cascade model. Requires existing files in ancillary directory: 
+- crop_list.tsv = croplist (with kcal conversions), 
+- country_list.csv = FAO country code and true/false for country pop over 500k 
+- ciso3.txt = country codes
 - Production data from FAOSTAT, production quantity in tonnes (prod_dat<-read.csv("productiondataFAOSTAT.csv"))
 - Trade data from FAOSTAT, detailed trail matrix, normalized, all data (trade_dat <- read.csv("Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv")
 - Reserves data from USDA, downloadable dataset - psd grains pulses (psd <- read.csv("psd_grains_pulses.csv"))
 
-### Scripts: Run_multi_shock.R and Run_DustBowl.R
-- Run_DustBowl.R: Calls the relevant functions in CascadeFunction.R for shocks originating in the US.
-- Run_multi_shock.R: Calls the relevant functions in CascadeFunction.R for shocks originating in multiple countries.
+### CascadeFunction.R
+Contains functions for the FSC model
 
-### Script: CascadeFunction.R
-Contains functions for agent-based network model of shock propagation.
+### Analyze.R
+- Example script to run the FSC model, calling functions in *CascadeFunction.R* for the case where production 1) in a single country is negatively affected and 2) in multiple countries are negatively affected.
