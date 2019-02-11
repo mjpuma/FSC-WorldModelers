@@ -10,11 +10,11 @@
 ## Reserves data from USDA, downloadable dataset - psd grains pulses 
 
 
-install.packages("tidyr")
-install.packages("dplyr")
-install.packages("reshape2")
-install.packages("igraph")
-install.packages("stringr")
+#install.packages("tidyr")
+#install.packages("dplyr")
+#install.packages("reshape2")
+#install.packages("igraph")
+#install.packages("stringr")
 
 library(tidyr)
 library(dplyr)
@@ -22,8 +22,8 @@ library(reshape2)
 library(igraph)
 library(stringr)
 
-setwd("~/Dropbox/MURI/NuclearWinter")
-
+#setwd("~/Dropbox/MURI/NuclearWinter")
+setwd("~/Dropbox/PumaModels/FSC-Model/inputs")
 
 #load crop list, restrict to cereal crops (group_id=1)
 

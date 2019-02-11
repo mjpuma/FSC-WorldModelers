@@ -2,7 +2,7 @@
 
 
 
-install.packages("igraph")
+#install.packages("igraph")
 library(igraph) # for network metrics
 
 
@@ -18,7 +18,7 @@ get_trade_data <- function(year, prod_trade_file, stocks_file = NA, mov_avg = 0)
     data_years <- 2000:2010
     yrange <- year + -mov_avg:mov_avg
     miss_years <- !(yrange %in% data_years)
-    if (any(miss_years)) stop(paste("no data for", yrange[miss_years]))
+    if (any(miss_years)) stop(paste("no data for ", yrange[miss_years]))
     # Get production and trade data
     load(prod_trade_file)
     dimnames(Pkbyc) <- list(cnames, data_years)
