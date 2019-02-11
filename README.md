@@ -27,6 +27,6 @@ Contains functions for the FSC model
 - ciso3.txt = country codes
 
 ## Input files
-- Production data from FAOSTAT, production quantity in tonnes (prod_dat<-read.csv("productiondataFAOSTAT.csv"))
-- Trade data from FAOSTAT, detailed trail matrix, normalized, all data (trade_dat <- read.csv("Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv")
-- Reserves data from USDA, downloadable dataset - psd grains pulses (psd <- read.csv("psd_grains_pulses.csv"))
+- Trade data from FAOSTAT, detailed trail matrix, normalized, all data. The trade matrix is available here - http://www.fao.org/faostat/en/#data/TM - on the right side bar under "Bulk Downloads", select "All Data Normalized".   *trade_dat <- read.csv("Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv"*
+- Production data from FAOSTAT, production quantity in tonnes. The crop production data are available at: http://www.fao.org/faostat/en/#data/QC. *prod_dat<-read.csv("productiondataFAOSTAT.csv")*
+- Reserves data from USDA, downloadable dataset - psd grains pulses. The stocks data are available here - https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads - listed as "Grains" the file is called "psd_grains_pulses_csv.zip". *psd <- read.csv("psd_grains_pulses.csv")*
