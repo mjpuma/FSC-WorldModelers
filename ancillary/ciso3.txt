@@ -1,4 +1,4 @@
-﻿"FAO" "iso3" "name"
+"FAO" "iso3" "name"
 "1" 2 "AFG" "Afghanistan"
 "2" 3 "ALB" "Albania"
 "3" 4 "DZA" "Algeria"
