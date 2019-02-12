@@ -125,7 +125,7 @@ exp_mat[, !country_list$gt.500k, ] <- 0
 dimnames(exp_mat) <- NULL
 
 Tkbyc <- exp_mat
-save(Pkbyc, Tkbyc, file="cereals_prod_trade.RData")
+save(Pkbyc, Tkbyc, file="inputs/cereals_prod_trade.RData")
 
 ###########################################################################
 ##Part 3: Stocks of cereals in countries x years matrix 
@@ -257,7 +257,7 @@ rownames(Rkbyc_all)<-ciso$name
 dimnames(Rkbyc_all)<-NULL
 
 #save(Rkbyc_all, file= "cereals_stocks.RData")
-saveRDS(Rkbyc_all, file = "cereals_stocks.RData")
+saveRDS(Rkbyc_all, file = "inputs/cereals_stocks.RData")
 
 ### clear environment
 rm(list=ls()) 
