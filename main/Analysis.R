@@ -6,7 +6,9 @@
 #   stocks file "cereals_stocks.RData"  (Rkbyc_all) 
 #   country list - "ciso3.txt" 
 
+
 setwd("~/Dropbox/MURI/NuclearWinter/FSC-Model/inputs")
+#setwd("/Users/puma/Dropbox/PumaModels/FSC-Model/")
 
 library(dplyr)
 iso3 <- read.table("ciso3.txt", stringsAsFactors = FALSE) #load country list 

@@ -24,6 +24,7 @@ library(stringr)
 
 
 setwd("~/Dropbox/MURI/NuclearWinter/FSC-Model/")
+#setwd("/Users/puma/Dropbox/PumaModels/FSC-Model/")
 
 #load crop list, restrict to cereal crops (group_id=1)
 
