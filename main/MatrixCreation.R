@@ -22,24 +22,21 @@ library(reshape2)
 library(igraph)
 library(stringr)
 
-#setwd("~/Dropbox/MURI/NuclearWinter")
-setwd("~/Dropbox/PumaModels/FSC-Model/inputs")
+
+setwd("~/Dropbox/MURI/NuclearWinter/FSC-Model/")
 
 #load crop list, restrict to cereal crops (group_id=1)
 
-crop_list <- read.delim("crop_list.tsv", header = TRUE, as.is = TRUE) %>%
+crop_list <- read.delim("ancillary/crop_list.tsv", header = TRUE, as.is = TRUE) %>%
     filter(Groupnum == 1) # restrict to Cereals, group==1
 prod_crops <- filter(crop_list, ProductionL == 1, cropname != "Bulgur") %>%
     select(cropid, cropname, kcal.ton) #restrict to 'primary' crops, ProductionL==1
 trade_crops <- filter(crop_list, TradeL == 1) %>%
     select(cropid, kcal.ton)
-country_list <- read.csv("country_list.csv")
+country_list <- read.csv("ancillary/country_list.csv")
 yr_range <- 2000:2010
-ciso <- read.table("ciso3.txt", stringsAsFactors = FALSE)
-colnames(ciso) <- c("FAO", "iso3", "name")
-ciso$name[56] <- "Cote d'Ivoire" 
-ciso$name[185] <- "Reunion"
-write.table(ciso, "ciso3.txt")
+ciso <- read.table("ancillary/ciso3.txt", stringsAsFactors = FALSE)
+
 
 ###########################################################################
 ## PART 1 : Get production data from FAOSTAT
@@ -47,7 +44,7 @@ write.table(ciso, "ciso3.txt")
 ###########################################################################
 
 # download production data from FAOSTAT, import  
-prod_dat<-read.csv("productiondataFAOSTAT.csv")
+prod_dat<-read.csv("inputs/productiondataFAOSTAT.csv")
 
 # rename to match functions code, keep only relevant columns
 prod_dat$itemCode<-prod_dat$Item.Code
@@ -83,7 +80,7 @@ Pkbyc <- prod_mat
 ## download detailed trade matrix from FAO 
 ###########################################################################
 
-trade_dat <- read.csv("Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv",
+trade_dat <- read.csv("inputs/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv",
                       stringsAsFactors = FALSE)
 
 trade_dat <- select(trade_dat, reporter = Reporter.Country.Code, 
@@ -136,7 +133,7 @@ save(Pkbyc, Tkbyc, file="cereals_prod_trade.RData")
 ###########################################################################
 
 ## (1) Load data and get reserves in kcal
-psd <- read.csv("psd_grains_pulses.csv")
+psd <- read.csv("inputs/psd_grains_pulses.csv")
 
 # Extract year-end stocks 2000-2010 (units: 1000 metric tons)
 psd0010 <- select(psd, Country = Country_Name, Year = Market_Year,

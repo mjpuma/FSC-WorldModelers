@@ -503,3 +503,4 @@ get_stats_multiyr <- function(result_multiRcoef) {
        avg_dSrel_by_cty_rank = avg_dSrel_by_cty_rank, 
        avg_dS_S0_by_sim_rank = avg_dS_S0_by_sim_rank)
 }
+
