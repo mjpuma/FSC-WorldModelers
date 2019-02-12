@@ -94,7 +94,7 @@ sim_cascade <- function(dP, P0, R0, E0, cfrac = 0, asym = TRUE,
     if (length(R0) != length(P0)) stop("dimensions of P0 and R0 don't match.")
     if (any(dim(E0) != length(P0))) stop("dimensions of P0 and E0 don't match.")
     
-    if (cfrac < 0 || cfrac > 1) stop("cfrac must be between 0 and 1")
+    #if (cfrac < 0 || cfrac > 1) stop("cfrac must be between 0 and 1") allow for increases
     
     # Initialize arrays
     R <- matrix(0, nc, kmax, dimnames = list(cnames))
@@ -181,7 +181,7 @@ sim_1c <- function(c_init, a_init, P0, R0, E0, cfrac = 0, asym = TRUE,
     stop("invalid value of c_init")
   }
   nc <- length(P0)
-  if (a_init < 0 || a_init > 1) stop("a_init must be between 0 and 1")
+  #if (a_init < 0 || a_init > 1) stop("a_init must be between 0 and 1")
   
   dP <- rep(0, nc)
   names(dP) <- cnames
@@ -227,7 +227,7 @@ sim_mc <- function(a_init, P0, R0, E0, cfrac, asym, kmax, amin, anim_out) {
         stop("invalid country codes")
     }
     nc <- length(P0)
-    if (any(a_init < 0 || a_init > 1)) stop("a_init values must be between 0 and 1")
+   # if (any(a_init < 0 || a_init > 1)) stop("a_init values must be between 0 and 1")
     
     dP <- rep(0, nc)
     names(dP) <- cnames
