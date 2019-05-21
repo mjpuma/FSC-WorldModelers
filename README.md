@@ -84,3 +84,17 @@ In this case, we have chosen the following parameters:
 * `production decrease`: 20%
 * `fractional reserve access`: 30%
 * `output file name`: single_test
+
+
+## Running with Docker
+First, you must build the Docker image. To do this, navigate to the top-level of this repository and then run:
+
+```
+docker build -t fsc/latest .
+```
+
+Here, we have tagged the container as `fsc/latest`. Once the container is built we can run it by mounting an `outputs` directory from our host to the container and then passing the appropriate arguments in the correct order:
+
+```
+docker run -v $PWD/outputs:/outputs fsc/latest 2005 SOM 0.2 0.3 single_test
+```
