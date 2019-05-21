@@ -43,3 +43,44 @@ unzip 'Trade_DetailedTradeMatrix_E_All_Data_(Normalized).zip'
 unzip 'Production_Crops_E_All_Data_(Normalized).zip'
 unzip 'psd_grains_pulses_csv.zip'
 ```
+
+## Running a Simulation
+To run a simulation, first clone this repository and navigate to the top-level directory with:
+
+```
+git clone git@github.com:mjpuma/FSC-WorldModelers.git
+cd FSC-WorldModelers
+```
+
+Next, you need to install the required R Packages:
+
+```
+rscript main/Requirements.R
+```
+
+Next, you should prepare the input data:
+
+```
+rscript main/MatrixCreation.R
+```
+
+Now you are ready to run a simulation. To run a simulation you should choose the following:
+
+* `year`: the year you wish to simulate
+* `country`: the [ISO 3 country code](https://unstats.un.org/unsd/tradekb/Knowledgebase/Country-Code) for the country of interest. *Note*: if you choose `All`, an equal shock is simulated for all countries
+* `production decrease`: the decrease in production you wish to induce (from 0 to 1, where 1 equals a 100% decrease)
+* `fractional reserve access`: the percentage of fractional reserves which may be accessed (from 0 to 1, where 1 equals a 100% decrease)
+* `output file name`: this is the name of the file which will be created by the simulation. Note that if you chose `all` for `country`, this will be the name of the directory that is created housing the several output files. This should not include a file type (for example, it should be `some_output` instead of `some_output.csv`).
+
+Now, you can run a simulation with something like the following:
+
+```
+rscript main/main.R 2005 "SOM" 0.2 0.3 single_test
+```
+In this case, we have chosen the following parameters:
+
+* `year`: 2005
+* `country`: Somalia
+* `production decrease`: 20%
+* `fractional reserve access`: 30%
+* `output file name`: single_test
