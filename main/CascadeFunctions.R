@@ -2,15 +2,14 @@
 
 
 #install.packages("igraph")
-library(igraph) # for network metrics
-
+library(igraph, warn.conflicts = FALSE) # for network metrics
 # Function to load input data for the simulation model
 # mov_avg is the number of years to average on each side of the focal year
 
 get_trade_data <- function(year, prod_trade_file, stocks_file = NA, mov_avg = 0) {
     # Get country names
     if (!("ciso3.txt" %in% dir())) stop("ciso3.txt not found in working directory")
-    iso3 <- read.table("ancillary/ciso3.txt")
+    iso3 <- read.table("ciso3.txt")
     cnames <- iso3[, 2]
     # Check that year range is in data
     data_years <- 2000:2010
