@@ -12,6 +12,9 @@
 - RESOLUTION: Country level
 
 ## Model Scripts
+### main.R
+This is the main script for running FSC from the command line. It wraps much of the functionality demonstrated in `Analyze.R` into a set of callable functions.
+
 ### MatrixCreation.R
 Creates trade, production, and reserves matrices for use in cascade model. Requires existing files in *ancillary* and *inputs* directory: 
 
