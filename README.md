@@ -75,15 +75,15 @@ Now you are ready to run a simulation. To run a simulation you should choose the
 Now, you can run a simulation with something like the following:
 
 ```
-rscript main/main.R 2005 "SOM" 0.2 0.3 single_test
+rscript main/main.R 2005 "USA" 0.4 0.5 single_country_example
 ```
 In this case, we have chosen the following parameters:
 
 * `year`: 2005
-* `country`: Somalia
-* `production decrease`: 20%
-* `fractional reserve access`: 30%
-* `output file name`: single_test
+* `country`: United States
+* `production decrease`: 40%
+* `fractional reserve access`: 50%
+* `output file name`: single_country_example
 
 
 ## Running with Docker
@@ -96,5 +96,5 @@ docker build -t fsc/latest .
 Here, we have tagged the container as `fsc/latest`. Once the container is built we can run it by mounting an `outputs` directory from our host to the container and then passing the appropriate arguments in the correct order:
 
 ```
-docker run -v $PWD/outputs:/outputs fsc/latest 2005 SOM 0.2 0.3 single_test
+docker run -v $PWD/outputs:/outputs fsc/latest 2005 "USA" 0.4 0.5 single_country_example
 ```
