@@ -63,10 +63,36 @@ single_country <- function(P0,
   cat(casc_depth)
   cat("\n\n")
   
-  #lapply(shock, function(x) write.table( data.frame(x), 'test.csv'  , append= T, sep=',' ))
+  # Write output
   setwd(paste(topdir, "/outputs", sep=""))
-  write.csv(shock, file = output_file_name)
-  return(cat("Output file stored to /outputs/", output_file_name, sep=""))
+  if (dir.exists(output_file_name) == FALSE) {
+    dir.create(output_file_name)
+  }
+  setwd(paste(topdir, "/outputs/", output_file_name, sep=""))
+  
+  # Write shock results
+  shock_results <- data.frame(names(shock$dP), 
+                             shock$dP, 
+                             shock$P0, 
+                             shock$R0, 
+                             shock$dR, 
+                             shock$dC)
+  colnames(shock_results) <- c("country", "dP", "P0", "R0", "dR", "dC")
+  file_name <- "single_shock_results.csv"
+  cat("\nWriting output of: shock_results", sep="")
+  write.csv(shock_results, file = file_name, row.names=FALSE)
+  
+  # Write E0
+  file_name <- "E0.csv"
+  cat("\nWriting output of: E0", sep="")
+  write.csv(shock$E0, file = file_name)
+  
+  # Write dE
+  file_name <- "dE.csv"
+  cat("\nWriting output of: dE", sep="")
+  write.csv(shock$dE, file = file_name)
+  
+  return(cat("\nOutput files stored to /outputs/", output_file_name, sep=""))
 }
 
 ###########################
@@ -90,6 +116,42 @@ multi_country <- function(P0,
     dir.create(output_file_name)
   }
   setwd(paste(topdir, "/outputs/", output_file_name, sep=""))
+  
+  # Write shock results
+  shock_results <- data.frame(names(AllCountriesStats$depth_by_sim), 
+                              AllCountriesStats$depth_by_sim, 
+                              AllCountriesStats$countries_hit_by_sim, 
+                              AllCountriesStats$links_hit_by_sim, 
+                              AllCountriesStats$total_dC_by_sim, 
+                              AllCountriesStats$avg_dS_S0_by_sim_rank)
+  colnames(shock_results) <- c("country", 
+                               "depth_by_sim", 
+                               "countries_hit_by_sim", 
+                               "links_hit_by_sim", 
+                               "total_dC_by_sim", 
+                               "avg_dS_S0_by_sim_rank")
+  file_name <- "multi_shock_results.csv"
+  cat("\nWriting output of: shock_results", sep="")
+  write.csv(shock_results, file = file_name, row.names=FALSE)  
+  
+  # Write cty results
+  # These vectors have length 166 whereas the other vectors have 
+  # length 163 so they are written out separately
+  # TODO: determine why these vectors have differing lengths
+  shock_results <- data.frame(names(AllCountriesStats$hits_by_cty), 
+                              AllCountriesStats$hits_by_cty,
+                              AllCountriesStats$avg_links_hit_by_cty,
+                              AllCountriesStats$avg_dSrel_by_cty_rank)
+  colnames(shock_results) <- c("country", 
+                               "hits_by_cty",
+                               "avg_links_hit_by_cty",
+                               "avg_dSrel_by_cty_rank")
+  file_name <- "multi_cty_results.csv"
+  cat("\nWriting output of: shock_results", sep="")
+  write.csv(shock_results, file = file_name, row.names=FALSE)  
+  
+  # Write delta results
+  stat_names <- c("dRrel", "dCrel", "dC_S0", "dS_S0", "hits_by_link")
   for (stat in stat_names) {
     file_name <- paste(stat, ".csv", sep="")
     cat("\nWriting output of: ", stat, sep="")
@@ -114,9 +176,6 @@ if (tolower(country) == "all") {
                 fractional_reserve_access, 
                 output_file_name)
 } else {
-  if (grepl(".csv", output_file_name) == FALSE) {
-    output_file_name <- paste(output_file_name, ".csv", sep="")
-  } 
   cat("Country: ", country, "\n", sep=" ")
   cat("Production Decrease: ", production_decrease*100, "%\n", sep="")
   cat("Fractional Reserve Access: ", fractional_reserve_access*100, "%\n\n", sep="")
