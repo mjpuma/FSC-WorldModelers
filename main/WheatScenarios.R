@@ -1,12 +1,16 @@
 ## Wheat Shock Scenarios
 
 
-setwd("~/Desktop/DustBowl")
+setwd("~/Dropbox/MURI/FSC_Scenarios")
 
-#load 2012-2016 average production, trade, and reserves matrices from "MatricCreationWheat.R"
+#load 2012-2016 average production, trade, and reserves matrices from "MatrixCreationWheat.R"
 load("WheatP0.Rdata")
 load("WheatE0.Rdata")
 load("WheatR0.Rdata")
+E0<-E0[!is.na(rownames(E0)),]
+E0<-E0[,!is.na(colnames(E0))]
+P0<-P0[!is.na(names(P0))]
+R0<-R0[!is.na(names(R0))]
 
 #load list of all countries in wheat trade matrix
 Countries<-read.csv("WheatTradeCountries.csv")
@@ -89,13 +93,23 @@ NAF_High_Results<-sim_mc_multi(NAF_High, P0, R0, E0,
                                cfrac = 0.01, asym = T, 
                                kmax = 1000, amin = 1E-5)
 
-NAF_High_Results<-data.frame(P0 = NAF_High_Results$P0,
+S0 <- with(NAF_High_Results, P0 + colSums(E0) - rowSums(E0))
+NegS0<-names(which((S0<0))) # 25 countries with negative supply
+NS0<-data.frame(P0 = P0[names(P0) %in% NegS0], #16 have zero production
+                Imp = colSums(E0[,colnames(E0) %in% NegS0]),
+                Exp = rowSums(E0[rownames(E0) %in% NegS0,]),
+                ISO = NegS0)
+NS0$S0<- (NS0$P0-NS0$Exp+NS0$Imp)
+write.csv(NS0, "Negative_S0_Countries.csv")
+
+NAF_High_Resultsdf<-data.frame(P0 = NAF_High_Results$P0,
                                 R0 = NAF_High_Results$R0,
                                 dR = NAF_High_Results$dR,
-                                dC = NAF_High_Results$dC)
+                                dC = NAF_High_Results$dC, 
+                                S0=S0)
 
 
-write.csv(NAF_High_Results, "NAF_High_Results.csv")
+write.csv(NAF_High_Resultsdf, "NAF_High_Results.csv")
 
 #NAF Mid
 NAF_Mid<-(Scenarios$NAF_Mid)  
@@ -109,7 +123,8 @@ NAF_Mid_Results<-sim_mc_multi(NAF_Mid, P0, R0, E0,
 NAF_Mid_Results<-data.frame(P0 = NAF_Mid_Results$P0,
                              R0 = NAF_Mid_Results$R0,
                              dR = NAF_Mid_Results$dR,
-                             dC = NAF_Mid_Results$dC)
+                             dC = NAF_Mid_Results$dC, 
+                            S0=S0)
 
 write.csv(NAF_Mid_Results, "NAF_Mid_Results.csv")
 
@@ -125,7 +140,8 @@ NAF_Low_Results<-sim_mc_multi(NAF_Low, P0, R0, E0,
 NAF_Low_Results<-data.frame(P0 = NAF_Low_Results$P0,
                              R0 = NAF_Low_Results$R0,
                              dR = NAF_Low_Results$dR,
-                             dC = NAF_Low_Results$dC)
+                             dC = NAF_Low_Results$dC,
+                            S0=S0)
 
 write.csv(NAF_Low_Results, "NAF_Low_Results.csv")
 
@@ -143,7 +159,8 @@ CPA_High_Results<-sim_mc_multi(CPA_High, P0, R0, E0,
 CPA_High_Results<-data.frame(P0 = CPA_High_Results$P0,
                              R0 = CPA_High_Results$R0,
                              dR = CPA_High_Results$dR,
-                             dC = CPA_High_Results$dC)
+                             dC = CPA_High_Results$dC,
+                             S0=S0)
 
 write.csv(CPA_High_Results, "CPA_High_Results.csv")
 
@@ -159,7 +176,8 @@ CPA_Mid_Results<-sim_mc_multi(CPA_Mid, P0, R0, E0,
 CPA_Mid_Results<-data.frame(P0 = CPA_Mid_Results$P0,
                              R0 = CPA_Mid_Results$R0,
                              dR = CPA_Mid_Results$dR,
-                             dC = CPA_Mid_Results$dC)
+                             dC = CPA_Mid_Results$dC,
+                            S0=S0)
 
 write.csv(CPA_Mid_Results, "CPA_Mid_Results.csv")
 
@@ -175,7 +193,8 @@ CPA_Low_Results<-sim_mc_multi(CPA_Low, P0, R0, E0,
 CPA_Low_Results<-data.frame(P0 = CPA_Low_Results$P0,
                              R0 = CPA_Low_Results$R0,
                              dR = CPA_Low_Results$dR,
-                             dC = CPA_Low_Results$dC)
+                             dC = CPA_Low_Results$dC,
+                            S0=S0)
 
 write.csv(CPA_Low_Results, "CPA_Low_Results.csv")
 
@@ -193,7 +212,8 @@ FSU_High_Results<-sim_mc_multi(FSU_High, P0, R0, E0,
 FSU_High_Results<-data.frame(P0 = FSU_High_Results$P0,
                              R0 = FSU_High_Results$R0,
                              dR = FSU_High_Results$dR,
-                             dC = FSU_High_Results$dC)
+                             dC = FSU_High_Results$dC,
+                             S0=S0)
 
 write.csv(FSU_High_Results, "FSU_High_Results.csv")
 
@@ -209,7 +229,8 @@ FSU_Mid_Results<-sim_mc_multi(FSU_Mid, P0, R0, E0,
 FSU_Mid_Results<-data.frame(P0 = FSU_Mid_Results$P0,
                             R0 = FSU_Mid_Results$R0,
                             dR = FSU_Mid_Results$dR,
-                            dC = FSU_Mid_Results$dC)
+                            dC = FSU_Mid_Results$dC,
+                            S0=S0)
 
 write.csv(FSU_Mid_Results, "FSU_Mid_Results.csv")
 
@@ -225,7 +246,8 @@ FSU_Low_Results<-sim_mc_multi(FSU_Low, P0, R0, E0,
 FSU_Low_Results<-data.frame(P0 = FSU_Low_Results$P0,
                             R0 = FSU_Low_Results$R0,
                             dR = FSU_Low_Results$dR,
-                            dC = FSU_Low_Results$dC)
+                            dC = FSU_Low_Results$dC,
+                            S0=S0)
 
 write.csv(FSU_Low_Results, "FSU_Low_Results.csv")
 
@@ -244,7 +266,8 @@ EUR_High_Results<-sim_mc_multi(EUR_High, P0, R0, E0,
 EUR_High_Results<-data.frame(P0 = EUR_High_Results$P0,
                              R0 = EUR_High_Results$R0,
                              dR = EUR_High_Results$dR,
-                             dC = EUR_High_Results$dC)
+                             dC = EUR_High_Results$dC,
+                             S0=S0)
 
 write.csv(EUR_High_Results, "EUR_High_Results.csv")
 
@@ -260,7 +283,8 @@ EUR_Mid_Results<-sim_mc_multi(EUR_Mid, P0, R0, E0,
 EUR_Mid_Results<-data.frame(P0 = EUR_Mid_Results$P0,
                             R0 = EUR_Mid_Results$R0,
                             dR = EUR_Mid_Results$dR,
-                            dC = EUR_Mid_Results$dC)
+                            dC = EUR_Mid_Results$dC,
+                            S0=S0)
 
 write.csv(EUR_Mid_Results, "EUR_Mid_Results.csv")
 
@@ -276,7 +300,8 @@ EUR_Low_Results<-sim_mc_multi(EUR_Low, P0, R0, E0,
 EUR_Low_Results<-data.frame(P0 = EUR_Low_Results$P0,
                             R0 = EUR_Low_Results$R0,
                             dR = EUR_Low_Results$dR,
-                            dC = EUR_Low_Results$dC)
+                            dC = EUR_Low_Results$dC,
+                            S0=S0)
 
 write.csv(EUR_Low_Results, "EUR_Low_Results.csv")
 
@@ -294,7 +319,8 @@ MBBF_High_Results<-sim_mc_multi(MBBF_High, P0, R0, E0,
 MBBF_High_Results<-data.frame(P0 = MBBF_High_Results$P0,
                              R0 = MBBF_High_Results$R0,
                              dR = MBBF_High_Results$dR,
-                             dC = MBBF_High_Results$dC)
+                             dC = MBBF_High_Results$dC,
+                             S0=S0)
 
 write.csv(MBBF_High_Results, "MBBF_High_Results.csv")
 
@@ -310,7 +336,8 @@ MBBF_Mid_Results<-sim_mc_multi(MBBF_Mid, P0, R0, E0,
 MBBF_Mid_Results<-data.frame(P0 = MBBF_Mid_Results$P0,
                             R0 = MBBF_Mid_Results$R0,
                             dR = MBBF_Mid_Results$dR,
-                            dC = MBBF_Mid_Results$dC)
+                            dC = MBBF_Mid_Results$dC,
+                            S0=S0)
 
 write.csv(MBBF_Mid_Results, "MBBF_Mid_Results.csv")
 
@@ -326,7 +353,8 @@ MBBF_Low_Results<-sim_mc_multi(MBBF_Low, P0, R0, E0,
 MBBF_Low_Results<-data.frame(P0 = MBBF_Low_Results$P0,
                             R0 = MBBF_Low_Results$R0,
                             dR = MBBF_Low_Results$dR,
-                            dC = MBBF_Low_Results$dC)
+                            dC = MBBF_Low_Results$dC,
+                            S0=S0)
 
 write.csv(MBBF_Low_Results, "MBBF_Low_Results.csv")
 
