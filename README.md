@@ -1,7 +1,6 @@
 # Food Shocks Cascade Model
 - A simple agent-based network model that computes chain-reactions due to negative production anomalies based on dynamic food balance sheets at the country level.
 - Based on original code at https://github.com/pmarchand1/cereals-network-shocks, which was described in the paper by Marchand *et al.* [Reserves and trade jointly determine exposure to food supply shocks](http://iopscience.iop.org/article/10.1088/1748-9326/11/9/095009).
-- Revised version: multiple people including  A. Heslin, B. Rose, P. Marchand, M. Puma
 
 ## Model Vignette
 - INPUT (required): Bilateral trade of commodities at country level, production/consumption/storage for all countries
@@ -15,7 +14,7 @@
 ### main.R
 This is the main script for running FSC from the command line. It wraps much of the functionality demonstrated in `Analyze.R` into a set of callable functions.
 
-### MatrixCreation.R
+### ProcessInputs.R
 Creates trade, production, and reserves matrices for use in cascade model. Requires existing files in *ancillary* and *inputs* directory: 
 
 ### CascadeFunction.R
