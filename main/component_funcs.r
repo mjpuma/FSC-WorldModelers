@@ -1,3 +1,55 @@
+## Functions for the Food Shocks Cascade (FSC) model
+
+get_trade_data <- function(year, prod_trade_file, stocks_file = NA, mov_avg = 0) {
+  # Get country names
+  if (!("ciso3.txt" %in% dir())) stop("ciso3.txt not found in working directory")
+  iso3 <- read.table("ciso3.txt")
+  cnames <- iso3[, 2]
+  
+  # Check that year range is in data
+  data_years <- 2000:2010
+  
+  # mov_avg is the number of years to average on each side of the focal year
+  yrange <- year + -mov_avg:mov_avg
+  miss_years <- !(yrange %in% data_years)
+  if (any(miss_years)) stop(paste("no data for ", yrange[miss_years]))
+  
+  # Get production and trade data
+  load(prod_trade_file)
+  dimnames(Pkbyc) <- list(cnames, data_years)
+  dimnames(Tkbyc) <- list(cnames, cnames, data_years)
+  yi <- which(data_years %in% yrange)
+  if (mov_avg == 0) {
+    P0 <- Pkbyc[, yi]
+    E0 <- Tkbyc[, , yi]             
+  } else {
+    P0 <- rowMeans(Pkbyc[, yi])
+    E0 <- apply(Tkbyc[, , yi], 1:2, mean)   
+  }
+  
+  # Get reserves if applicable
+  if (is.na(stocks_file)) {
+    R0 <- rep(0, length(cnames))
+    names(R0) <- cnames
+  } else {
+    Rkbyc <- readRDS(stocks_file)
+    dimnames(Rkbyc) <- list(cnames, data_years)
+    if (mov_avg == 0)  {
+      R0 <- Rkbyc[, yi]
+    } else {
+      R0 <- rowMeans(Rkbyc[, yi])   
+    }        
+  }
+  
+  # Remove countries with no trade data
+  no_dat <- which(rowSums(E0) == 0 & colSums(E0) == 0)
+  P0 <- P0[-no_dat]
+  R0 <- R0[-no_dat]
+  E0 <- E0[-no_dat, -no_dat]
+  
+  list(P0 = P0, R0 = R0, E0 = E0)
+}
+
 # Calculate net supply (P + E - I - dR) for each country in a food_net object
 get_supply <- function(food_net) {
     food_net$P + colSums(food_net$E) - rowSums(food_net$E) - food_net$dR
@@ -90,3 +142,28 @@ increase_imp_prop_resv <- function(food_net, need = food_net$shortage,
     update_shortage(food_net)
 }
 
+
+# Dignostic: This function takes the output of sim_cascade (or sim_1c)
+#  and tests whether it respects equation: S = P + I - E = R + C
+sim_diagnostics <- function(sim_res, tol = 1E-5) {
+  S0 <- sim_res$P0 + colSums(sim_res$E0) - rowSums(sim_res$E0) 
+  dS0 <- sum(sim_res$dP)
+  cnames <- names(sim_res$P0)
+  
+  # Test 1: Total dR + dC must match initial shock
+  # (within relative difference of tol)
+  discrep <- (sum(sim_res$dR) + sum(sim_res$dC))/dS0 - 1
+  if (abs(discrep) > tol)
+    return(paste("Total dC + dR does not match initial shock.",
+                 "Relative difference:", discrep))
+  
+  # Test 2: After initial shock, dI - dE = dR + dC by country
+  # (within relative difference of tol * final net supply)
+  dS_byc <- sim_res$dP + colSums(sim_res$dE) - rowSums(sim_res$dE)
+  discrep <- which(abs((dS_byc - sim_res$dR - sim_res$dC)/(dS_byc + S0)) > tol)
+  if (length(discrep) > 0)
+    return(paste("Net supply change does not match dC + dR for countries:",
+                 paste(cnames[discrep], collapse = ", ")))
+  
+  return("All tests passed.")
+}
