@@ -28,9 +28,11 @@
 "Cape Verde",0
 "Central African Republic",0
 "Sri Lanka",2.7243e+12
+"Chad",7.476e+10
 "Chile",2.362544e+12
 "China (mainland)",0
 "Colombia",4.670824e+12
+"Comoros",0
 "Congo",1.5698e+11
 "Cook Islands",0
 "Costa Rica",4.54444e+11
@@ -45,6 +47,7 @@
 "Ecuador",1.417524e+12
 "Egypt",2.4752604e+13
 "El Salvador",9.24836e+11
+"Equatorial Guinea",0
 "Estonia",200285481670.386
 "Faroe Islands",0
 "Fiji",1.09552e+11
@@ -65,6 +68,7 @@
 "Guatemala",1.71864e+12
 "Guinea",8.18204e+11
 "Guyana",5.18212e+11
+"Haiti",2.3544e+11
 "Honduras",5.7022e+11
 "Hong Kong SAR, China",0
 "Hungary",4098894577442.83
@@ -73,6 +77,7 @@
 "India",1.35985352e+14
 "Indonesia",2.6887012e+13
 "Iran (Islamic Republic of)",3.7436868e+13
+"Iraq",3.35462e+12
 "Ireland",221059426557.206
 "Israel",1.283552e+12
 "Italy",5367612866172.14
@@ -84,10 +89,14 @@
 "Kyrgyzstan",9.29056e+11
 "Kenya",2.051444e+12
 "Cambodia",1.655848e+12
+"Democratic People's Republic of Korea",0
 "Republic of Korea",1.6042672e+13
 "Kuwait",4.984e+10
 "Latvia",590458179933.121
+"Lao People's Democratic Republic",2.542432e+12
 "Lebanon",2.93648e+11
+"Lesotho",0
+"Liberia",1.2744e+11
 "Libya",7.45708e+11
 "Lithuania",1190224122212.78
 "Macao SAR, China",0
@@ -125,6 +134,9 @@
 "Philippines",1.2518632e+13
 "Poland",4703674953522.93
 "Portugal",389615002440.225
+"Guinea-Bissau",5.4e+10
+"Timor-Leste",0
+"Eritrea",1.2024e+10
 "Qatar",0
 "Zimbabwe",3.5906e+11
 "Romania",6078307041309.38
@@ -141,14 +153,16 @@
 "Slovenia",187741550621.093
 "Slovakia",1091982196628.03
 "Singapore",2.41816e+11
+"Somalia",0
 "South Africa",9.51758e+12
 "Spain",4030984706928.92
-"Sudan",1.319968e+12
 "Suriname",0
+"Tajikistan",1.777976e+12
 "Swaziland",0
 "Sweden",850151415022.583
 "Switzerland",1.11904e+12
 "Syrian Arab Republic",8.18468e+12
+"Turkmenistan",2.15052e+12
 "Taiwan",4.450076e+12
 "United Republic of Tanzania",4.14434e+12
 "Thailand",3.8633888e+13
@@ -177,3 +191,6 @@
 "Luxembourg",64019723939.724
 "Serbia",3.521176e+12
 "Montenegro",0
+"Sudan",1.319968e+12
+"South Sudan",0
+"Occupied Palestinian Territory",0

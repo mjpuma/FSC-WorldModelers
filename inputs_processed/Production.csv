@@ -28,9 +28,11 @@
 "Cape Verde",136897664000
 "Central African Republic",923474704000
 "Sri Lanka",14128443368000
+"Chad",4016992092000
 "Chile",12509922104000
 "China (mainland)",2145151434568000
 "Colombia",16241958632000
+"Comoros",290458888000
 "Congo",143225872000
 "Cook Islands",0
 "Costa Rica",992311440000
@@ -45,6 +47,7 @@
 "Ecuador",12277620164000
 "Egypt",85041238292000
 "El Salvador",4556399488000
+"Equatorial Guinea",0
 "Estonia",2471245292000
 "Faroe Islands",0
 "Fiji",205822232000
@@ -65,6 +68,7 @@
 "Guatemala",9914550832000
 "Guinea",15154412808000
 "Guyana",2518829624000
+"Haiti",2916681152000
 "Honduras",3875881168000
 "Hong Kong SAR, China",56011200000
 "Hungary",51222891108000
@@ -73,6 +77,7 @@
 "India",1095385854108000
 "Indonesia",330410016536000
 "Iran (Islamic Republic of)",72295993476000
+"Iraq",19954566020000
 "Ireland",2767073100000
 "Israel",2349985524000
 "Italy",67541435408000
@@ -84,10 +89,14 @@
 "Kyrgyzstan",6222229012000
 "Kenya",22742846596000
 "Cambodia",37913261824000
+"Democratic People's Republic of Korea",19537784996000
 "Republic of Korea",18946539860000
 "Kuwait",896627500000
 "Latvia",7353193700000
+"Lao People's Democratic Republic",19379154080000
 "Lebanon",861403516000
+"Lesotho",729774164000
+"Liberia",1472879408000
 "Libya",1589072612000
 "Lithuania",14818441508000
 "Macao SAR, China",0
@@ -125,6 +134,9 @@
 "Philippines",100068457432000
 "Poland",58884677636000
 "Portugal",4903310692000
+"Guinea-Bissau",943055744000
+"Timor-Leste",1050731352000
+"Eritrea",395526656000
 "Qatar",581597268000
 "Zimbabwe",8026380336000
 "Romania",76072846540000
@@ -141,14 +153,16 @@
 "Slovenia",2344330040000
 "Slovakia",13648954044000
 "Singapore",0
+"Somalia",1019710700000
 "South Africa",57140113472000
 "Spain",50704628140000
-"Sudan",0
 "Suriname",1110172720000
+"Tajikistan",5707474480000
 "Swaziland",806629600000
 "Sweden",10522734796000
 "Switzerland",3129485208000
 "Syrian Arab Republic",14508899788000
+"Turkmenistan",10501322556000
 "Taiwan",6448678476000
 "United Republic of Tanzania",45881023196000
 "Thailand",142298769472000
@@ -177,3 +191,6 @@
 "Luxembourg",807996956000
 "Serbia",36121708188000
 "Montenegro",278805796000
+"Sudan",2843235972000
+"South Sudan",1404615088000
+"Occupied Palestinian Territory",322459984000

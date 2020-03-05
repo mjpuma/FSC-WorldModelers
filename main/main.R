@@ -3,13 +3,13 @@
 #######################
 
 # Specify arguments
-years <- 2005
+years <- 2014
 country <- "USA"
 production_decrease <- 0.4
 fractional_reserve_access <- 0.5
-output_file_name <- "single_country_example"
+output_file_name <- "USA_shock"
 
-# # Parse arguments
+## Command line version: Parse arguments
 # args <- commandArgs(trailingOnly = TRUE)
 # years <- c(as.numeric(args[1]))
 # country <- args[2]
@@ -23,17 +23,112 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Load trade data
-topdir <- getwd()
-setwd(paste(topdir, "/main", sep=""))
-#source("CascadeFunctions.R")
-source("component_funcs.R")
-source("sim_funcs.R")
-
-# Load country list and processed trade data
-setwd(paste(topdir, "/inputs", sep=""))
+setwd("~/GitHub_mjpuma/FSC-WorldModelers/")            ###Remove before commit
+source("main/component_funcs.R")
+source("main/sim_funcs.R")
 library(dplyr, warn.conflicts = FALSE)
-iso3 <- read.table("ciso3.txt", stringsAsFactors = FALSE)  
-cnames <- iso3[, 2] #select 3 digit ISO character codes 
+
+# Set year range for production, trade, and reserves data
+yr_range <- 2012:2016
+
+Anomalies = pd.DataFrame(index=np.arange(length(yr_range)), columns=np.arange(1))
+for (i in 1:length(Anomalies)) {
+  Anomalies[i] <-production_decrease
+}
+
+# Load ancillary data
+# 1)  Commodity list 
+commodities<-read.csv("ancillary/cropcommodity_list.csv")
+# 2) Load country list
+country_list <- read.csv("ancillary/country_list195.csv")
+
+## Load production, trade(export matrix), stocks data
+load("inputs_processed/P0.Rdata") #Production
+load("inputs_processed/E0.RData") #Export Matrix
+load("inputs_processed/R0.RData") #Reserves (a.k.a. Stocks)
+
+for (i in 1:length(years)) {
+  
+  ## Create 'Shocks' dataframe
+  Shocks <-
+    merge(
+      country_list,
+      Anomalies[i],
+      by.x = 'iso3',
+      by.y = 'X',
+      all.x = TRUE,
+      all.y = FALSE
+    )
+  Shocks[is.na(Shocks)] <- 0
+  colnames(Shocks)[4] <- "singleyr"
+  
+  ## Separate fractional gains and losses in production
+  Shocks$FracGain <- ifelse(Shocks$singleyr > 0, Shocks$singleyr, 0)
+  Shocks$FracLoss <-
+    ifelse(Shocks$singleyr > 0, 0, (Shocks$singleyr * -1))
+  P <- data.frame(P0 = P0, iso3 = names(P0))
+  Shocks <- merge(Shocks, P, by = "iso3")
+  Shocks$dP <- (-Shocks$FracLoss) * (Shocks$P0)
+  Shocks <- Shocks[order(Shocks$FAO), ]
+  
+  ## Create 'Reserves' dataframe
+  Reserves <- data_frame(iso3 = names(R0), R0 = R0)
+  Reserves <-
+    merge(Shocks,
+          Reserves,
+          by = 'iso3',
+          all.x = TRUE,
+          all.y = FALSE)
+  Reserves <- Reserves[order(Reserves$FAO), ]
+  
+  ## Add positive anomalies to reserves
+  Reserves$R1 <- (Reserves$P0 * Reserves$FracGain) + Reserves$R0
+  identical(Reserves$R0[Reserves$Y1Inc == 0], Reserves$R1[Reserves$FracGain ==
+                                                            0]) ## R0=R1 where no production increases occurred
+  R1 <- (Reserves$R1)
+  names(R1) <- Reserves$iso3
+  
+  ## Convert negative production shocks from dataframe to list
+  shockintensities <- Shocks$FracLoss
+  names(shockintensities) <- Shocks$iso3
+  SingleyrLoss <- list(shockintensities)
+  
+  ## Run Marchand et al (2016) version of Food Shocks Cascade (FSC) model
+  Results_raw <- sim_mc_multi(
+    SingleyrLoss, 
+    P0, 
+    R1,
+    E0,
+    cfrac = 0.1,
+    asym = T,
+    kmax = 1000,
+    amin = 1E-5
+  )
+  
+  ## Store output in dataframe
+  
+  # Create dataframe for output if i = 1
+  if (i == 1) {
+    FSCResults <- data.frame(iso3 = names(Results_raw$P0), 
+                             dR = 1:length(years),
+                             R1 = R1)
+  }
+  text <- paste("dR", i)
+  FSCResults$dR[[text]] <- ifelse(FSCResults$dR == i, 1, 0)
+  FSCResults <- data.frame(dR = Results_raw$dR)
+}
+
+
+
+
+
+
+
+
+
+
+
+
 # Load selected year data with moving average of X years on either side
 trade_dat <- lapply(years, get_trade_data, mov_avg = 1, 
                     prod_trade_file = "cereals_prod_trade.RData", 
