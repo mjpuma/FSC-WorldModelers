@@ -23,7 +23,7 @@ topdir <- getwd()
 # 1)  Commodity list 
 commodities<-read.csv("ancillary/cropcommodity_list.csv")
 # 2) Load country list
-country_list <- read.csv("ancillary/country_list178.csv")
+country_list <- read.csv("ancillary/country_list195.csv")
 
 
 ###########################################################################
@@ -53,14 +53,18 @@ trade_dat <- select(trade_dat, reporter = Reporter.Country.Code,
 #                         trade_dat$cropid==21|
 #                         trade_dat$cropid==22),]
 
-# # Put parts of China under same ID
+## Crop list adjustments
+# # Put item 30 (rice total - milled eq.) under 31 (rice milled)
+# trade_dat$cropid[trade_dat$cropid == 30] <- 31
+
+## Country list adjustments
+# 1) China note: combine Hong Kong, Macau, mainland China and Taiwan?
+# Put parts of China under same ID
 # china_ids <- c(41, 96, 128, 214)
 # trade_dat$reporter[trade_dat$reporter %in% china_ids] <- 351
 # trade_dat$partner[trade_dat$partner %in% china_ids] <- 351
 # rm(china_ids)
-
-# # Put item 30 (rice total - milled eq.) under 31 (rice milled)
-# trade_dat$cropid[trade_dat$cropid == 30] <- 31
+# 2) Sudan note: before 2012, Sudan code is 206; in 2012, it split  to Sudan (276) and South Sudan (277)
 
 ## Keep countries in country_list and remove trade between a country and itself
 #trade_dat <- filter(trade_dat, reporter %in% country_list$FAOST_CODE,
@@ -240,9 +244,13 @@ cnames <- Rkbyc$Country
 Rkbyc <- as.matrix(Rkbyc[, -1,])
 rownames(Rkbyc) <- cnames
 
-## Add Taiwan and HK to China, South Sudan to Sudan, and two Yemens
+## Country  list adjustments
+# Sudan note: before 2012, Sudan code is 206; in 2012, it split 
+# to Sudan (276) and South Sudan (277)
+
+# China note: Add Taiwan and HK to China, South Sudan to Sudan, and two Yemens
 #Rkbyc["China", ] <- Rkbyc["China", ] + Rkbyc["Hong Kong", ] + Rkbyc["Taiwan", ]
-#Rkbyc["Sudan", ] <- Rkbyc["Sudan", ] + Rkbyc["South Sudan", ] #data end in 2010
+#Rkbyc["Sudan", ] <- Rkbyc["Sudan", ] + Rkbyc["South Sudan", ] # Sudna only up to 2011
 #Rkbyc["Yemen", ] <- Rkbyc["Yemen", ] + Rkbyc["Yemen Ar Rp", ] + Rkbyc["Yemen Dem", ]
 #Rkbyc <- Rkbyc[!(rownames(Rkbyc) %in% c("Hong Kong", "Taiwan", "South Sudan", 
 #                                        "Yemen Ar Rp", "Yemen Dem")), ]
