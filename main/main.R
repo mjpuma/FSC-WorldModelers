@@ -60,9 +60,13 @@ Shocks <- Shocks[order(Shocks$FAO), ]
 Prod <-as.numeric(unlist(P0$P0))
 
 # Initialize  output vectors ====
-dR_C0 <- array(0,c(nrow(country_list),length(years)))
-dC_C0 <- array(0,c(nrow(country_list),length(years)))
-dE <- array(0,c(nrow(country_list),nrow(country_list),length(years)))
+C_C0_PTA <- array(0,c(nrow(country_list),length(years)))
+dR_C0_PTA <- array(0,c(nrow(country_list),length(years)))
+dE_PTA <- array(0,c(nrow(country_list),nrow(country_list),length(years)))
+
+C_C0_RTA <- array(0,c(nrow(country_list),length(years)))
+dR_C0_RTA <- array(0,c(nrow(country_list),length(years)))
+dE_RTA <- array(0,c(nrow(country_list),nrow(country_list),length(years)))
 
 # Step 7: Time loop (annual timestep, updating Reserves) ----
 for (i in 1:length(years)) {
@@ -113,12 +117,17 @@ for (i in 1:length(years)) {
   ##names(dP) <- Shocks$iso3
   
   # Call main simulation functions ====
-  ##results_FSC_PTA <- sim_cascade_PTA(trade_dat, dP)  # Run the FSC Reserves-based Trade Allocation Model (FSC-PTA)
+  results_FSC_PTA <- sim_cascade_PTA(trade_dat, dP)  # Run the FSC Reserves-based Trade Allocation Model (FSC-PTA)
   results_FSC_RTA <- sim_cascade_RTA(trade_dat, dP)  # Run the FSC Reserves-based Trade Allocation Model (FSC-RTA)
   
   # Calculate outputs of interest from results ====
-  dR_C0[,i] <- results_FSC_RTA$dR / trade_dat$C # change in reserves relative to initial consumption
-  dE[, ,i] <- results_FSC_RTA$E - trade_dat$E # change in trade
+  C_C0_PTA[,i] <- results_FSC_PTA$C / trade_dat$C # consumption relative to initial consumption
+  dR_C0_PTA[,i] <- results_FSC_PTA$dR / trade_dat$C # change in reserves relative to initial consumption
+  dE_PTA[, ,i] <- results_FSC_PTA$E - trade_dat$E # change in trade
+  
+  C_C0_RTA[,i] <- results_FSC_RTA$C / trade_dat$C # consumption relative to initial consumption
+  dR_C0_RTA[,i] <- results_FSC_RTA$dR / trade_dat$C # change in reserves relative to initial consumption
+  dE_RTA[, ,i] <- results_FSC_RTA$E - trade_dat$E # change in trade
   
   # Update reserve levels for next timestep ====
   #R1<-((results_FSC_RTA$R)+(results_FSC_RTA$P*results_FSC_RTA$Inc))
