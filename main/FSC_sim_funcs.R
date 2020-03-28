@@ -31,7 +31,6 @@ sim_cascade_PTA <- function(food_net, dP, rfrac = 0.5, cfrac = 0, kmax = 50) {
     food_net
 }
 
-
 # Simulation with new mechanism to reallocate trade
 #  (first reduce exports, then incrase imports based on exporters' available reserves)
 #  dP: vector of initial change in production (must be negative) by country
