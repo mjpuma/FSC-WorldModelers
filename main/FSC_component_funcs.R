@@ -1,6 +1,6 @@
 ## Functions for the Food Shocks Cascade (FSC) model
 
-# Calculate net supply (P + E - I - dR) for each country in a food_net object
+# Calculate net supply (P + I - E - dR) for each country in a food_net object
 get_supply <- function(food_net) {
     food_net$P + colSums(food_net$E) - rowSums(food_net$E) - food_net$dR
 }

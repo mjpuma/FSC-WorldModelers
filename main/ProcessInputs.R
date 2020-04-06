@@ -266,4 +266,4 @@ Rkbyc<-data_frame(iso3=names(R0), R0=R0)
 write.csv(Rkbyc,"inputs_processed/Reserves.csv", row.names=FALSE)
 
 ### clear environment
-#rm(list=ls()) 
+rm(list=ls()) 
