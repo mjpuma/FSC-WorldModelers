@@ -12,7 +12,7 @@ setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
 # Set year range to run model
 years <- 1:4
 # Specify model version to run: 0-> PTA; 1-> RTA
-FSCversion = 1
+FSCversion = 0
 
 # Command line version: Parse arguments ====
 # args <- commandArgs(trailingOnly = TRUE)
@@ -127,10 +127,11 @@ for (i in 1:length(years)) {
     trade_dat <- list(P = Prod, R = Rcurrent, E = E0)
     # Number of countries
     trade_dat$nc <- length(trade_dat$P)
-    # Change in reserves
+    # Change in reserves; set initially to zero
     trade_dat$dR <- rep(0, trade_dat$nc)
     # Compute consumption assuming that it is initially equal to supply
     trade_dat$C <- get_supply(trade_dat)
+    C0_initial <- trade_dat$C
     # Initial shortage is 0
     trade_dat$shortage <-
       rep(0, trade_dat$nc)
@@ -168,9 +169,9 @@ for (i in 1:length(years)) {
   Rout[, i + 1]    <- Rcurrent + results_FSC$dR
   shortageout[, i] <- results_FSC$shortage
   #     consumption relative to initial consumption
-  C_C0out[, i] <- results_FSC$C / trade_dat$C
+  C_C0out[, i] <- results_FSC$C / C0_initial
   #     change in reserves relative to initial consumption
-  dR_C0out[, i] <- results_FSC$dR / trade_dat$C
+  dR_C0out[, i] <- results_FSC$dR / C0_initial
   #   Output as 2D arrays
   Eout[, , i + 1]  <- results_FSC$E
   
