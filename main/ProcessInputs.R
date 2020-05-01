@@ -66,7 +66,7 @@ exp_mat <- exp_mat[match(country_list$FAOST_CODE, dimnames(exp_mat)[[1]]), , ]
 exp_mat <- exp_mat[, match(country_list$FAOST_CODE, dimnames(exp_mat)[[2]]), ]
 exp_mat[is.na(exp_mat)] <- 0
 dimnames(exp_mat) <- list(country_list$FAOST_CODE, country_list$FAOST_CODE, yr_range)
-E0 <- apply(exp_mat[, , 1:5], 1:2, mean) ###Remove before commit (assumes fixed length 1:5)
+E0 <- apply(exp_mat[, , 1:length(yr_range)], 1:2, mean) ###Remove before commit (assumes fixed length 1:5)
 
 # Step 7: Save bilateral export matrix ordered by FAOSTAT country code ====
 #         FAOSTAT country code are in increasing order
@@ -114,7 +114,7 @@ prod_mat <- as.matrix(prod_mat[, -1]) #remove country code column
 prod_mat[is.na(prod_mat)] <- 0 #replace NAs with 0
 
 # Step 6: Average for time period and put in  dataframe ----
-P0 <- rowMeans(prod_mat[, 1:5])
+P0 <- rowMeans(prod_mat[, 1:length(yr_range)])
 colnames(prod_mat) <- NULL
 Pkbyc <- prod_mat
 Pkbyc<-data_frame(country_list$iso3, P0=P0)
@@ -176,7 +176,8 @@ countries_to_match
 country_repl <- c("Bolivia" = "Bolivia (Plurinational State of)", 
                   "Brunei" =  "Brunei Darussalam", 
                   "Burkina" =  "Burkina Faso",
-                  "Burma" =   "Myanmar", 
+                  "Burma" =   "Myanmar",
+                  "China" = "China (mainland)",
                   "Former Czechoslovakia" = "Czechoslovakia", 
                   "Former Yugoslavia" = "Yugoslav SFR", 
                   "Gambia, The" = "Gambia",
@@ -198,6 +199,11 @@ Rkbyc$Country <- str_replace(Rkbyc$Country, fixed("Congo (Brazzaville)"), "Congo
   str_replace(fixed("Congo (Kinshasa)"), "Democratic Republic of the Congo") %>%
   str_replace(fixed("Yemen (Aden)"), "Yemen Dem") %>%
   str_replace(fixed("Yemen (Sanaa)"), "Yemen Ar Rp")
+
+## Add Taiwan and HK to China, South Sudan to Sudan, and two Yemens
+#Rkbyc["China", ] <- Rkbyc["China", ] + Rkbyc["Hong Kong", ] + Rkbyc["Taiwan", ]
+#Rkbyc <- Rkbyc[!(rownames(Rkbyc) %in% c("Hong Kong", "Taiwan", "South Sudan", 
+#                                        "Yemen Ar Rp", "Yemen Dem")), ]
 
 cnames <- Rkbyc$Country
 Rkbyc <- as.matrix(Rkbyc[, -1,])
