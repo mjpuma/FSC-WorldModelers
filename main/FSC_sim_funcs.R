@@ -28,7 +28,7 @@ sim_cascade_PTA <-
         absorb_tiny_shortages() %>%
         realloc_trade_prop_link()
       # Stop if trade matrix is same from previous iteration
-      if (all.equal(food_net$E, new_food_net$E) == TRUE) {
+      if(isTRUE(all.equal.numeric(food_net$E,new_food_net$E,check.attributes = TRUE))){
         food_net <- new_food_net
         break
       } else if (k == kmax) {
