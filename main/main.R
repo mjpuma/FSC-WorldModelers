@@ -9,10 +9,21 @@ if (dir.exists("outputs") == FALSE) {
 # RStudio version: Specify arguments  ====
 setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
 
-# Set year range to run model
-years <- 1:4
 # Specify model version to run: 0-> PTA; 1-> RTA
 FSCversion = 0
+
+# Specify exogenous trade restriction scenario to run
+i_scenario = 0  # normal FSC run without exogenous restriction
+#i_scenario = 1 # wheat
+#i_scenario = 2 # rice
+#i_scenario = 3 # maize
+
+# Set year range to run model
+years <- 1:5
+
+# Create column names for output files
+column_names = c('0', '1', '2', '3', '4','5')
+column_names2 = c('1', '2', '3', '4','5')
 
 # Command line version: Parse arguments ====
 # args <- commandArgs(trailingOnly = TRUE)
@@ -39,9 +50,30 @@ load("inputs_processed/E0.RData") #Export Matrix ordered by FAOSTAT country code
 load("inputs_processed/P0.Rdata") #Production
 load("inputs_processed/R0.RData") #Reserves (a.k.a. Stocks)
 
-# Step 5: Load production *fractional declines* list by year by country ----
-anomalies <-
-  read.csv("inputs/Prod_DeclineFraction_DustBowl_195countries.csv")
+# Step 5: Load disruptions ----
+# Production *fractional declines* list by year by country ====
+# Read production declines and Select countries for export bans
+if (i_scenario == 0)        {        # general
+  anomalies <- read.csv("inputs/ProdWheat_DeclineFraction_195countries.csv")
+
+} else if (i_scenario == 1) {        # Wheat
+  anomalies <- read.csv("inputs/ProdWheat_DeclineFraction_195countries.csv")
+  i_Russia = 143    # country_list[143,] Russia
+  i_Ukraine = 178   # country_list[178,] Ukraine
+  i_Kazakhstan = 84 # country_list[84,]  Kazakhstan
+  
+} else if (i_scenario == 2) { # Rice
+  anomalies <- read.csv("inputs/ProdRice_DeclineFraction_195countries.csv")
+  i_India = 76    # country_list[76,] India
+  i_Thailand = 167   # country_list[167,] Thailand
+  i_Vietnam = 184 # country_list[184,]  Vietnam
+  
+} else if (i_scenario == 3) { # Maize
+  anomalies <- read.csv("inputs/ProdMaize_DeclineFraction_195countries.csv")
+  i_Argentina = 6    # country_list[6,] Argentina
+  i_Brazil = 17   # country_list[17,] Brazil
+  i_Ukraine = 178 # country_list[178,]  Ukraine
+}
 
 # Step 6: Setup production and shocks; initialize output vectors ----
 # Assign production vector to P0 ====
@@ -64,6 +96,7 @@ Prod <- as.numeric(unlist(P0$P0))
 # Initialize  output vectors ====
 Pout <-  array(0, c(nrow(country_list), length(years) + 1))
 Rout <-  array(0, c(nrow(country_list), length(years) + 1))
+Cout <-  array(0, c(nrow(country_list), length(years) + 1))
 Eout <-  array(0, c(nrow(country_list), nrow(country_list), length(years) + 1))
 
 shortageout <- array(0, c(nrow(country_list), length(years)))
@@ -88,15 +121,13 @@ for (i in 1:length(years)) {
   #   Note: Initial production, P0, is fixed but Shocks vary in time
   FracGain <- Shocks[i + 3]
   FracGain[FracGain > 0] <- 0
-  FracGain <-
-    -FracGain # adjust sign because fractional declines read in
+  FracGain <- -FracGain      # adjust sign (fractional *declines* read in)
   
   FracLoss <- Shocks[i + 3]
   FracLoss[FracLoss < 0] <- 0
   
   # Create vector for NEGATIVE shock anomalies ====
-  # Adjust sign because fractional declines read in
-  dP <- -FracLoss * Shocks$P0
+  dP <- -FracLoss * Shocks$P0 # adjust sign (fractional *declines* read in)
   Shocks$dP <- dP
   
   # Set Reserves and add POSTIVE anomalies to reserves ====
@@ -118,7 +149,6 @@ for (i in 1:length(years)) {
     # Update reserve levels: use ending levels from previous timestep and add production gains
     Rcurrent <- Rcurrent + results_FSC$dR  + InputFSC$P0 * FracGain
     Rcurrent <- as.numeric(unlist(Rcurrent))
-    
   }
   
   # Update state variables for trade_dat ====
@@ -132,9 +162,9 @@ for (i in 1:length(years)) {
     # Compute consumption assuming that it is initially equal to supply
     trade_dat$C <- get_supply(trade_dat)
     C0_initial <- trade_dat$C
+    Cout[, 1] <- C0_initial
     # Initial shortage is 0
-    trade_dat$shortage <-
-      rep(0, trade_dat$nc)
+    trade_dat$shortage <-rep(0, trade_dat$nc)
   } else {
     # Clear trade_dat dataframe
     rm(trade_dat)
@@ -153,6 +183,56 @@ for (i in 1:length(years)) {
     rm(results_FSC)
   }
   
+  # Impose export restrictions
+  if (i_scenario == 1) {
+    # Wheat
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_Russia] = Rcurrent[i_Russia] + sum(E0[i_Russia, ])
+    Rcurrent[i_Ukraine] = Rcurrent[i_Ukraine] + sum(E0[i_Ukraine, ])
+    Rcurrent[i_Kazakhstan] = Rcurrent[i_Kazakhstan] + sum(E0[i_Kazakhstan, ])
+    
+    #  Impose export restrictions by setting export values to zero
+    E0[i_Russia, ] = 0
+    E0[i_Ukraine, ] = 0
+    E0[i_Kazakhstan, ] = 0
+    
+    #  Update state variables for trade_dat after trade restrictions
+    trade_dat$R <- Rcurrent
+    trade_dat$E <- E0
+    
+  } else if (i_scenario == 2) {
+    # Rice
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_India] = Rcurrent[i_India] + sum(E0[i_India, ])
+    Rcurrent[i_Thailand] = Rcurrent[i_Thailand] + sum(E0[i_Thailand, ])
+    Rcurrent[i_Vietnam] = Rcurrent[i_Vietnam] + sum(E0[i_Vietnam, ])
+    
+    #  Impose export restrictions by setting export values to zero
+    E0[i_India, ] = 0
+    E0[i_Thailand, ] = 0
+    E0[i_Vietnam, ] = 0
+    
+    #  Update state variables for trade_dat after trade restrictions
+    trade_dat$R <- Rcurrent
+    trade_dat$E <- E0
+    
+  } else if (i_scenario == 3) {
+    # Maize
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_Argentina] = Rcurrent[i_Argentina] + sum(E0[i_Argentina, ])
+    Rcurrent[i_Brazil] = Rcurrent[i_Brazil] + sum(E0[i_Brazil, ])
+    Rcurrent[i_Ukraine] = Rcurrent[i_Ukraine] + sum(E0[i_Ukraine, ])
+    
+    #  Impose export restrictions by setting export values to zero
+    E0[i_Argentina, ] = 0
+    E0[i_Brazil, ] = 0
+    E0[i_Ukraine, ] = 0
+    
+    #  Update state variables for trade_dat after trade restrictions
+    trade_dat$R <- Rcurrent
+    trade_dat$E <- E0
+  }
+  
   # Call main simulation functions
   dP <- as.numeric(unlist(Shocks$dP))
   if (FSCversion == 0) {
@@ -163,31 +243,27 @@ for (i in 1:length(years)) {
       sim_cascade_RTA(trade_dat, dP)  # Run Reserves-based Trade Allocation (RTA) Model
   }
   
-  # Calculate and store outputs of interest from results ====
-  #   Output as 1D arrays
+  # Store outputs of interest from simulations ====
+  #   Output: 1D arrays
   Pout[, i + 1]    <- results_FSC$P
   Rout[, i + 1]    <- Rcurrent + results_FSC$dR
+  Cout[, i + 1]    <- results_FSC$C
   shortageout[, i] <- results_FSC$shortage
   #     consumption relative to initial consumption
   C_C0out[, i] <- results_FSC$C / C0_initial
   #     change in reserves relative to initial consumption
   dR_C0out[, i] <- results_FSC$dR / C0_initial
-  #   Output as 2D arrays
+  
+  #   Output: 2D arrays
   Eout[, , i + 1]  <- results_FSC$E
   
   # Clear unneeded variables
   Shocks <- select(Shocks,-dP)
   rm(FracGain)
   rm(FracLoss)
-  
 }
 
 # Step 8: Collect, reformat and save output data ----
-
-## Add row aand column names to output files
-column_names = c('0', '1', '2', '3', '4')
-column_names2 = c('1', '2', '3', '4')
-
 # Production
 colnames(Pout)  <- column_names
 rownames(Pout)  <- InputFSC$iso3
