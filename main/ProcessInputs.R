@@ -10,13 +10,13 @@
 library(tidyr)
 library(dplyr)
 library(reshape2)
-library(igraph)
 library(stringr)
 
 topdir <- getwd()
+setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
 
 # Set year range for production, trade, and reserves data ---------------------------------
-yr_range <- 2012:2016
+yr_range <- 2015:2017
 
 # Load ancillary data  ---------------------------------
 # 1) Load country list valid for simulation years
@@ -84,7 +84,7 @@ write.csv(Tkbyc, "inputs_processed/E0.csv")
 prod_dat<-read.csv("inputs/Production_Crops_E_All_Data_(Normalized).csv")
 
 # Step 2: Format imported data ====
-
+yr_range = 2015:2017
 # Rename to match functions code
 prod_dat$FAO<-prod_dat$Area.Code
 prod_dat$itemCode<-prod_dat$Item.Code
@@ -131,7 +131,7 @@ rm(prod_dat, prod_agg)
 #         USDA Foreign Agricultural Service 
 #         Production, Supply, and Distribution (PSD) data
 #         Download the file USDA-PSD data pulses grains
-
+yr_range = 2017:2019 # NOTE: length must match number of years for production
 # Step 1: Load data ----
 psd <- read.csv("inputs/psd_grains_pulses.csv")
 
@@ -239,11 +239,12 @@ eu_list <- c("Austria",
              "Slovenia")
 eu_yrs <- which(as.numeric(colnames(Rkbyc)) >= 1998)
 
+
 # Label rows in production matrix from from country_list ====
 Pkbyc_v2<-prod_mat
 rownames(Pkbyc_v2) <- country_list$Country
-prop_eu <- scale(Pkbyc_v2[eu_list, eu_yrs], center = FALSE,
-                 scale = colSums(Pkbyc_v2[eu_list, eu_yrs]))
+ prop_eu <- scale(Pkbyc_v2[eu_list, eu_yrs], center = FALSE,
+                  scale = colSums(Pkbyc_v2[eu_list, eu_yrs]))
 
 # Add individual EU countries to matrix ====
 Rkbyc <- rbind(Rkbyc, matrix(0, nrow = length(eu_list), ncol = ncol(Rkbyc), 
@@ -272,4 +273,4 @@ Rkbyc<-data_frame(iso3=names(R0), R0=R0)
 write.csv(Rkbyc,"inputs_processed/Reserves.csv", row.names=FALSE)
 
 ### clear environment
-rm(list=ls()) 
+#rm(list=ls()) 
