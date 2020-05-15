@@ -1,12 +1,11 @@
-# Food Shocks Cascade Model
-- A simple agent-based network model that computes chain-reactions due to production anomalies based on dynamic food balance sheets at the country level.
-- Development version of the model introduced and described in Heslin, A., M.J. Puma, P. Marchand, J.A. Carr, J. Dell'Angelo, P. D'Odorico, J.A. Gephart, M. Kummu, M. Porkka, M.C. Rulli, D. Seekell, S. Suweis, and A. Tavoni, 2020: Simulating the cascading effects of an extreme agricultural production shock: Global implications of a contemporary US Dust Bowl event. Front. Sustain. Food Syst., 20 March 2020, doi:10.3389/fsufs.2020.00026.
-- Earlier model version is available at https://github.com/pmarchand1/cereals-network-shocks and described in the paper: Marchand, P., J.A. Carr, J. Dell'Angelo, M. Fader, J.A. Gephard, M. Kummu, N.R. Magliocca, M. Porkka, M.J. Puma, and Z. Ratajczak, 2016: Reserves and trade jointly determine exposure to food supply shocks. Environ. Res. Lett., 11, no. 9, 095009, doi:10.1088/1748-9326/11/9/095009.
+# Food Shocks Cascade Model - USA
+- A simple agent-based network model that computes chain-reactions due to production anomalies based on dynamic food balance sheets at the county level in the USA.
+- Adapted from the global, country-to-country version decribed in Heslin, A., M.J. Puma, P. Marchand, J.A. Carr, J. Dell'Angelo, P. D'Odorico, J.A. Gephart, M. Kummu, M. Porkka, M.C. Rulli, D. Seekell, S. Suweis, and A. Tavoni, 2020: Simulating the cascading effects of an extreme agricultural production shock: Global implications of a contemporary US Dust Bowl event. Front. Sustain. Food Syst., 20 March 2020, doi:10.3389/fsufs.2020.00026.
 
 ## Model Vignette
-- INPUT (required): Bilateral trade of commodities at country level, production/consumption/storage for all countries
+- INPUT (required): Bilateral trade of commodities at county level, production/consumption/storage for all counties in USA
 - INPUT (ancillary): Commodity list, country list, conversion factors from commodity mass to common units (e.g. kcal, protein, US dollars)
-- OUTPUT: Changes in stocks and consumption at country level
+- OUTPUT: Changes in stocks and consumption at county level
 - CODE: Written in R
 - RUNTIME: few minutes on desktop computer
 - RESOLUTION: Country level
@@ -18,16 +17,18 @@ This is the main script for running FSC from the command line. It wraps much of 
 ### ProcessInputs.R
 Creates trade, production, and reserves matrices for use in cascade model. Requires existing files in *ancillary* and *inputs* directory: 
 
-### CascadeFunction.R
+
+### FSC_component_funcs.R
 Contains functions for the FSC model
 
-### Analyze.R
-- Example script to run the FSC model, calling functions in *CascadeFunction.R* for the case where production 1) in a single country is negatively affected and 2) in multiple countries are negatively affected.
+### FSC_sim_funcs.R
+- Example script to run the FSC model, calling functions in *FSC_component_funcs.R*
 
 ## Ancillary files
-- crop_list.csv = croplist with kcal conversions
-- country_list.csv = FAO country code and true/false for country pop over 500k 
-- ciso3.txt = country codes
+- cropcommodity_prodlist.csv = croplist for production with kcal conversions
+- cropcommodity_reserveslist.csv = croplist for reserves with kcal conversions
+- cropcommodity_tradelist.csv = croplist for bilateraal trade with kcal conversions
+- country_list195_2012to2016.csv = country list for simulations
 
 ## Input files
 - Trade data from FAOSTAT, detailed trail matrix, normalized, all data. The trade matrix is available here - http://www.fao.org/faostat/en/#data/TM - on the right side bar under "Bulk Downloads", select "All Data Normalized".   *trade_dat <- read.csv("Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv"*
@@ -64,40 +65,7 @@ rscript main/Requirements.R
 Next, you should prepare the input data:
 
 ```
-rscript main/MatrixCreation.R
+rscript main/ProcessInputs.R
 ```
 
-Now you are ready to run a simulation. To run a simulation you should choose the following:
-
-* `year`: the year you wish to simulate
-* `country`: the [ISO 3 country code](https://unstats.un.org/unsd/tradekb/Knowledgebase/Country-Code) for the country of interest. *Note*: if you choose `All`, an equal shock is simulated for all countries
-* `production decrease`: the decrease in production you wish to induce (from 0 to 1, where 1 equals a 100% decrease)
-* `fractional reserve access`: the percentage of fractional reserves which may be accessed (from 0 to 1, where 1 equals a 100% decrease)
-* `output file name`: this is the name of the file which will be created by the simulation. Note that if you chose `all` for `country`, this will be the name of the directory that is created housing the several output files. This should not include a file type (for example, it should be `some_output` instead of `some_output.csv`).
-
-Now, you can run a simulation with something like the following:
-
-```
-rscript main/main.R 2005 "USA" 0.4 0.5 single_country_example
-```
-In this case, we have chosen the following parameters:
-
-* `year`: 2005
-* `country`: United States
-* `production decrease`: 40%
-* `fractional reserve access`: 50%
-* `output file name`: single_country_example
-
-
-## Running with Docker
-First, you must build the Docker image. To do this, navigate to the top-level of this repository and then run:
-
-```
-docker build -t fsc/latest .
-```
-
-Here, we have tagged the container as `fsc/latest`. Once the container is built we can run it by mounting an `outputs` directory from our host to the container and then passing the appropriate arguments in the correct order:
-
-```
-docker run -v $PWD/outputs:/outputs fsc/latest 2005 "USA" 0.4 0.5 single_country_example
-```
+Now you are ready to run a simulation. To run a simulation, you should set various options in main/main.R.
