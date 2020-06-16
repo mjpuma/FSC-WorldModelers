@@ -6,7 +6,8 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Command line version: Parse arguments ====
-# args <- commandArgs(trailingOnly = TRUE)
+args <- commandArgs(trailingOnly = TRUE)
+FSCversion <- c(as.numeric(args[1]))
 # years <- c(as.numeric(args[1]))
 # country <- args[2]
 # production_decrease <- as.numeric(args[3])
