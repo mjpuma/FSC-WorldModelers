@@ -9,7 +9,7 @@
 - OUTPUT: Changes in stocks and consumption at country level
 - CODE: Written in R
 - RUNTIME: few minutes on desktop computer
-- RESOLUTION: Country level
+- RESOLUTION: annual food balances; country level
 
 ## Model Scripts
 ### main.R
