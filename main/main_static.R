@@ -5,6 +5,10 @@ if (dir.exists("outputs") == FALSE) {
   dir.create("outputs")
 }
 
+# Step 0: Load FSC functions ----
+library(dplyr, warn.conflicts = FALSE)
+library(tidyr)
+
 # Step 1: Input Arguments ----
 # RStudio version: Specify arguments  ====
 setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
@@ -14,74 +18,60 @@ column_names = c('0', '1')
 column_names2 = c('1')
 
 # Step 2: Specify crop + exogenous trade restriction scenario ----
-#i_scenario = 1 # wheat
+i_scenario = 1 # wheat
 #i_scenario = 2 # rice
-i_scenario = 3 # maize
+#i_scenario = 3 # maize
 
 # Production *fractional declines* list by year by country ====
 # Read production declines and Select countries for export bans
+#  Index based on iso3 alphabetical ordering
 if (i_scenario == 1) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_Avg20152017')
-  i_Russia = 143    # country_list[143,] Russia
-  i_Ukraine = 178   # country_list[178,] Ukraine
-  i_Kazakhstan = 84 # country_list[84,]  Kazakhstan
   
 } else if (i_scenario == 2) {
   name_crop <-c('Rice')
   runname <- c('Rice_Avg20152017')
-  i_India = 76    # country_list[76,] India
-  i_Thailand = 167   # country_list[167,] Thailand
-  i_Vietnam = 184 # country_list[184,]  Vietnam
   
 } else if (i_scenario == 3) {
   name_crop <-c('Maize')
   runname <- c('Maize_Avg20152017')
-  i_Argentina = 6    # country_list[6,] Argentina
-  i_Brazil = 17   # country_list[17,] Brazil
-  i_Ukraine = 178 # country_list[178,]  Ukraine
 }
 
 # Step 3: Load ancillary data ----
-anomalies <- read.csv(paste0("COVID-19_data/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
 # Commodity list for bilateral trade
 commodities <- read.csv(paste0("COVID-19_data/", runname, "cropcommodity_tradelist.csv"))
 # Load country list
 country_list <- read.csv("COVID-19_data/country_list195_2012to2016.csv")
+country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
+# Production decline fractions
+anomalies <- read.csv(paste0("COVID-19_data/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
 
 # Step 4: Load production/trade/stocks data ----
 load(paste0("COVID-19_data/", runname, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
 load(paste0("COVID-19_data/", runname, "P0.Rdata")) #Production
 load(paste0("COVID-19_data/", runname, "R0.RData")) #Reserves (a.k.a. Stocks)
 
-# Step 5: Load FSC functions ----
-library(dplyr, warn.conflicts = FALSE)
-library(tidyr)
 
-# Step 6: Setup production and shocks; initialize output vectors ----
+# Step 5: Setup production and shocks; initialize output vectors ----
 # Assign production vector to P0 ====
 P0 <- Pkbyc
-colnames(P0)[1] <- "iso3"
 
 # Create 'Shocks' dataframe ====
-Shocks <-
-  merge(country_list,
-        anomalies,
-        by = 'iso3')
+Shocks <- merge(country_list,anomalies,by = 'iso3')
 Shocks[is.na(Shocks)] <- 0
 
 # Order shocks dataframe by FAOSTAT country code (in increasing order) ====
 P <- P0
 Shocks <- merge(Shocks, P, by = "iso3")
-Shocks <- Shocks[order(Shocks$FAO), ]
+Shocks <- Shocks[order(Shocks$iso3), ]
 Prod <- as.numeric(unlist(P0$P0))
 
 # Initialize  output vectors ====
 Pout <-  array(0, c(nrow(country_list), length(years) + 1))
 Rout <-  array(0, c(nrow(country_list), length(years) + 1))
 Cout <-  array(0, c(nrow(country_list), length(years) + 1))
-Eout <-
-  array(0, c(nrow(country_list), nrow(country_list), length(years) + 1))
+Eout <-  array(0, c(nrow(country_list), nrow(country_list), length(years) + 1))
 
 shortageout <- array(0, c(nrow(country_list), length(years)))
 C1_C0out <- array(0, c(nrow(country_list), length(years)))
@@ -89,31 +79,33 @@ C2_C0out <- array(0, c(nrow(country_list), length(years)))
 dR_C0out <- array(0, c(nrow(country_list), length(years)))
 
 ## Add initial conditions to output arrays
+E0 <- E0_avg
+Eout[, , 1] <- E0
 Pout[, 1] <- Prod
 Rout[, 1] <- R0
-Eout[, , 1] <- E0
 
 ## Create 'InputFSC' dataframe adding initial reserves====
 InputFSC <- data_frame(iso3 = names(R0), R0 = R0)
 
-# Step 7:
+# Step 6:
 # Separate NEGATIVE and POSITIVE shock anomalies ====
 #   Fractional gains and losses in production
 #   Note: Initial production, P0, is fixed but Shocks vary in time
-FracGain <- Shocks[4]
+FracGain <- Shocks$year_1
 FracGain[FracGain > 0] <- 0
 FracGain <- -FracGain      # adjust sign (fractional *declines* read in)
 
 FracLoss <- Shocks[4]
 FracLoss[FracLoss < 0] <- 0
+FracLoss <- -FracLoss      # adjust sign (fractional *declines* read in)
 
 # Create vector for NEGATIVE shock anomalies ====
-dP <-  -FracLoss * Shocks$P0 # adjust sign (fractional *declines* read in)
+dP <-  FracLoss * Shocks$P0 
 Shocks$dP <- dP
 
 # Set Reserves and add POSTIVE anomalies to reserves ====
 InputFSC <- merge(Shocks,InputFSC, by = 'iso3', all.x = TRUE, all.y = FALSE)
-InputFSC <- InputFSC[order(InputFSC$FAO), ]
+InputFSC <- InputFSC[order(InputFSC$iso3), ]
 
 # Add positive anomalies to reserves ====
 InputFSC$Rcurrent <- InputFSC$R0  + (InputFSC$P0 * FracGain)
@@ -136,61 +128,68 @@ trade_dat$shortage <- rep(0, trade_dat$nc)
 # Domestic Supply after production declines
 trade_dat$C1 <- trade_dat$P + Shocks$dP + colSums(trade_dat$E) - rowSums(trade_dat$E)
 
+ImportsInitial<-colSums(trade_dat$E)
+ExportsInitial<-rowSums(trade_dat$E)
+
 # Impose export restrictions
 if (i_scenario == 1) {
   # Wheat
+  i_Russia = which(row.names(E0)=='RUS')   
+  i_Ukraine = which(row.names(E0)=='UKR')  
+  i_Kazakhstan = which(row.names(E0)=='KAZ') 
+  
   #   Add *restricted* exports to reserves
   Rcurrent[i_Russia] = Rcurrent[i_Russia] + sum(E0[i_Russia,])
   Rcurrent[i_Ukraine] = Rcurrent[i_Ukraine] + sum(E0[i_Ukraine,])
   Rcurrent[i_Kazakhstan] = Rcurrent[i_Kazakhstan] + sum(E0[i_Kazakhstan,])
   
   #  Impose export restrictions by setting export values to zero
-  E0[i_Russia,] = 0
-  E0[i_Ukraine,] = 0
-  E0[i_Kazakhstan,] = 0
-  
-  #  Update state variables for trade_dat after trade restrictions
-  trade_dat$R <- Rcurrent
-  trade_dat$E <- E0
+  E0[i_Russia,]<-0
+  E0[i_Ukraine,]<-0
+  E0[i_Kazakhstan,]<-0
   
 } else if (i_scenario == 2) {
   # Rice
+  i_India = which(row.names(E0)=='IND')    # country_list[76,] India
+  i_Thailand = which(row.names(E0)=='THA')   # country_list[167,] Thailand
+  i_Vietnam = which(row.names(E0)=='VNM') # country_list[184,]  Vietnam
+  
   #   Add *restricted* exports to reserves
   Rcurrent[i_India] = Rcurrent[i_India] + sum(E0[i_India,])
   Rcurrent[i_Thailand] = Rcurrent[i_Thailand] + sum(E0[i_Thailand,])
   Rcurrent[i_Vietnam] = Rcurrent[i_Vietnam] + sum(E0[i_Vietnam,])
   
   #  Impose export restrictions by setting export values to zero
-  E0[i_India,] = 0
-  E0[i_Thailand,] = 0
-  E0[i_Vietnam,] = 0
-  
-  #  Update state variables for trade_dat after trade restrictions
-  trade_dat$R <- Rcurrent
-  trade_dat$E <- E0
+  E0[i_India,]<-0
+  E0[i_Thailand,]<-0
+  E0[i_Vietnam,]<-0
   
 } else if (i_scenario == 3) {
   # Maize
+  i_Argentina = which(row.names(E0)=='ARG')    # country_list[6,] Argentina
+  i_Brazil = which(row.names(E0)=='BRA')   # country_list[17,] Brazil
+  i_Ukraine = which(row.names(E0)=='UKR') # country_list[178,]  Ukraine
+  
   #   Add *restricted* exports to reserves
   Rcurrent[i_Argentina] = Rcurrent[i_Argentina] + sum(E0[i_Argentina,])
   Rcurrent[i_Brazil] = Rcurrent[i_Brazil] + sum(E0[i_Brazil,])
   Rcurrent[i_Ukraine] = Rcurrent[i_Ukraine] + sum(E0[i_Ukraine,])
   
   #  Impose export restrictions by setting export values to zero
-  E0[i_Argentina,] = 0
-  E0[i_Brazil,] = 0
-  E0[i_Ukraine,] = 0
-  
-  #  Update state variables for trade_dat after trade restrictions
-  trade_dat$R <- Rcurrent
-  trade_dat$E <- E0
+  E0[i_Argentina,]<-0
+  E0[i_Brazil,]<-0
+  E0[i_Ukraine,]<-0
 }
 
-# Domestic Supply After trade restritcions and production declines
-#SR=Productionx100/(Production+Imports-Exports)
+#  Update state variables for trade_dat after trade restrictions
+trade_dat$R <- Rcurrent
+trade_dat$E <- E0
 
 # Domestic Supply after  production declines and trade restritcions
 trade_dat$C2 <- trade_dat$P + Shocks$dP + colSums(trade_dat$E) - rowSums(trade_dat$E)
+
+ImportsFinal<-colSums(trade_dat$E)
+ExportsFinal<-rowSums(trade_dat$E)
 
 #Update results
 results_FSCstatic <- list(P = trade_dat$P + Shocks$dP, R = Rcurrent, C1=trade_dat$C1, C2=trade_dat$C2, shortage =trade_dat$shortage,E=E0)
@@ -207,19 +206,16 @@ C1_C0out[, i] <- as.numeric(unlist(results_FSCstatic$C1)) / C0_initial
 C2_C0out[, i] <- as.numeric(unlist(results_FSCstatic$C2)) / C0_initial
 #     change in reserves relative to initial consumption
 #dR_C0out[, i] <- results_FSC$dR / C0_initial
-
-#   Output: 2D arrays
-Eout[, , i+1]  <- as.numeric(unlist(results_FSCstatic$E))
   
-# Step 8: Collect, reformat and save output data ----
+# Step 7: Collect, reformat and save output data ----
 # Production
 colnames(Pout)  <- column_names
 rownames(Pout)  <- InputFSC$iso3
 Pout_df <- data.frame(Pout)
 Pout_df <- tibble::rownames_to_column(Pout_df, "iso3")
-Pout_df <- merge(InputFSC[, c("iso3", "Country")], Pout_df, by = "iso3")
+Pout_df <- merge(InputFSC[, c("iso3", "Country.x")], Pout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-Pout_df <- gather(Pout_df, Year, Value, -iso3, -Country)
+Pout_df <- gather(Pout_df, Year, Value, -iso3, -Country.x)
 # remove preceeding X character for Year column aand convert to numeric
 Pout_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", Pout_df$Year))
 
@@ -228,11 +224,16 @@ colnames(Rout)  <- column_names
 rownames(Rout)  <- InputFSC$iso3
 Rout_df <- data.frame(Rout)
 Rout_df <- tibble::rownames_to_column(Rout_df, "iso3")
-Rout_df <- merge(InputFSC[, c("iso3", "Country")], Rout_df, by = "iso3")
+Rout_df <- merge(InputFSC[, c("iso3", "Country.x")], Rout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-Rout_df <- gather(Rout_df, Year, Value, -iso3, -Country)
+Rout_df <- gather(Rout_df, Year, Value, -iso3, -Country.x)
 # remove preceeding X character for Year column aand convert to numeric
 Rout_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", Rout_df$Year))
+
+# Trade matrix (2D array)
+Eout[, , i+1]  <- as.numeric(unlist(results_FSCstatic$E))
+colnames(Eout)  <- InputFSC$iso3
+rownames(Eout)  <- InputFSC$iso3
 
 # Shortage
 colnames(shortageout)  <- column_names2
@@ -240,9 +241,9 @@ rownames(shortageout)  <- InputFSC$iso3
 shortageout_df <- data.frame(shortageout)
 shortageout_df <- tibble::rownames_to_column(shortageout_df, "iso3")
 shortageout_df <-
-  merge(InputFSC[, c("iso3", "Country")], shortageout_df, by = "iso3")
+  merge(InputFSC[, c("iso3", "Country.x")], shortageout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-shortageout_df <- gather(shortageout_df, Year, Value, -iso3, -Country)
+shortageout_df <- gather(shortageout_df, Year, Value, -iso3, -Country.x)
 # remove preceeding X character for Year column aand convert to numeric
 shortageout_df$Year <-
   as.numeric(gsub("[a-zA-Z ]", "", shortageout_df$Year))
@@ -253,9 +254,9 @@ rownames(C1_C0out)  <- InputFSC$iso3
 C1_C0out_df <- data.frame(C1_C0out)
 C1_C0out_df <- tibble::rownames_to_column(C1_C0out_df, "iso3")
 C1_C0out_df <-
-  merge(InputFSC[, c("iso3", "Country")], C1_C0out_df, by = "iso3")
+  merge(InputFSC[, c("iso3", "Country.x")], C1_C0out_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-C1_C0out_df <- gather(C1_C0out_df, Year, Value, -iso3, -Country)
+C1_C0out_df <- gather(C1_C0out_df, Year, Value, -iso3, -Country.x)
 # remove preceeding X character for Year column aand convert to numeric
 C1_C0out_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", C1_C0out_df$Year))
 
@@ -264,36 +265,25 @@ rownames(C2_C0out)  <- InputFSC$iso3
 C2_C0out_df <- data.frame(C2_C0out)
 C2_C0out_df <- tibble::rownames_to_column(C2_C0out_df, "iso3")
 C2_C0out_df <-
-  merge(InputFSC[, c("iso3", "Country")], C2_C0out_df, by = "iso3")
+  merge(InputFSC[, c("iso3", "Country.x")], C2_C0out_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-C2_C0out_df <- gather(C2_C0out_df, Year, Value, -iso3, -Country)
-# remove preceeding X character for Year column aand convert to numeric
+C2_C0out_df <- gather(C2_C0out_df, Year, Value, -iso3, -Country.x)
+# remove preceeding X character for Year column and convert to numeric
 C2_C0out_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", C2_C0out_df$Year))
 
-# # Change in Reserves to C0
-# colnames(dR_C0out)  <- column_names2
-# rownames(dR_C0out)  <- InputFSC$iso3
-# dR_C0out_df <- data.frame(dR_C0out)
-# dR_C0out_df <- tibble::rownames_to_column(dR_C0out_df, "iso3")
-# dR_C0out_df <-
-#   merge(InputFSC[, c("iso3", "Country")], dR_C0out_df, by = "iso3")
-# # combine the year columns into a single column with separate rows for each year; assign to new vector
-# dR_C0out_df <- gather(dR_C0out_df, Year, Value, -iso3, -Country)
-# # remove preceeding X character for Year column aand convert to numeric
-# dR_C0out_df$Year <-
-#   as.numeric(gsub("[a-zA-Z ]", "", dR_C0out_df$Year))
+## Save as CSV
+write.csv(Pout_df, paste0("COVID-19_data/data_network/",runname,"ProductionStatic.csv"), row.names = FALSE)
+write.csv(Rout_df, paste0("COVID-19_data/data_network/",runname,"ReserveStatic.csv"), row.names = FALSE)
+write.csv(shortageout_df, paste0("COVID-19_data/data_network/",runname,"ShortageStatic.csv"), row.names = FALSE)
+write.csv(C1_C0out_df, paste0("COVID-19_data/data_network/",runname,"C1C0Static.csv"), row.names = FALSE)
+write.csv(C2_C0out_df, paste0("COVID-19_data/data_network/",runname,"C2C0Static.csv"), row.names = FALSE)
+write.csv(Eout, paste0("COVID-19_data/data_network/",runname, "ExportStatic.csv"), row.names = TRUE)
 
-# Export matrix
-colnames(Eout)  <- InputFSC$iso3
-rownames(Eout)  <- InputFSC$iso3
+## Save lists of initial and final imports and outputs by country
+write.csv(ExportsFinal, paste0("COVID-19_data/data_network/",runname, "ExportsFinal.csv"), row.names = FALSE)
+write.csv(ExportsInitial, paste0("COVID-19_data/data_network/",runname, "ExportsInitial.csv"), row.names = FALSE)
+write.csv(ImportsFinal, paste0("COVID-19_data/data_network/",runname, "ImportsFinal.csv"), row.names = FALSE)
+write.csv(ImportsInitial, paste0("COVID-19_data/data_network/",runname, "ImportsInitial.csv"), row.names = FALSE)
 
 # Save Exports as R data file
-saveRDS(Eout, file = paste0("COVID-19_data/", runname,"ExportStatic.rds"))
-
-## Save as CSV
-write.csv(Pout_df, paste0("COVID-19_data/",runname,"ProductionStatic.csv"), row.names = FALSE)
-write.csv(Rout_df, paste0("COVID-19_data/",runname,"ReserveStatic.csv"), row.names = FALSE)
-write.csv(shortageout_df, paste0("COVID-19_data/",runname,"ShortageStatic.csv"), row.names = FALSE)
-write.csv(C1_C0out_df, paste0("COVID-19_data/",runname,"C1C0Static.csv"), row.names = FALSE)
-write.csv(C2_C0out_df, paste0("COVID-19_data/",runname,"C2C0Static.csv"), row.names = FALSE)
-write.csv(Eout, paste0("COVID-19_data/",runname, "ExportStatic.csv"), row.names = TRUE)
+saveRDS(Eout, file = paste0("COVID-19_data/data_network/", runname,"ExportStatic.rds"))

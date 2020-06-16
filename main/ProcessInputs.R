@@ -11,6 +11,7 @@ library(tidyr)
 library(dplyr)
 library(reshape2)
 library(stringr)
+library(abind)
 
 topdir <- getwd()
 setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
@@ -18,9 +19,16 @@ setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
 # Set year range for production, trade, and reserves data ---------------------------------
 yr_range <- 2015:2017
 
+# Specify source data for export matrix:
+# 1 => Exports from reported export values
+# 2 => Exports from average of reported export and imported values (excluding zeros)
+exportWghts = 2
+
 # Load ancillary data  ---------------------------------
 # 1) Load country list valid for simulation years
 country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
+country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
+
 # 2)  Commodity list for bilateral trade 
 commodities<-read.csv("ancillary/cropcommodity_tradelist.csv")
 # 3)  Commodity list for production
@@ -51,31 +59,72 @@ trade_dat <- filter(trade_dat, reporter != partner)
 
 # Step 4: Extract element "export quantity" from bilateral trade data  ====
 exp_dat <- filter(trade_dat, element == "Export Quantity") %>% select(-element)
+exp_dat_fromimports <- filter(trade_dat, element == "Import Quantity") %>% select(-element)
 
 # Step 5: Aggregate commodities after converting to kilocalories ====
 #  caloric conversions are in dataframe "commoditites" 
-exp_agg <- inner_join(exp_dat, commodities) %>%
-  mutate(value_kcal = value * as.numeric(kcal.ton)) %>%  ##caloric conversion##
-  group_by(reporter, partner, year) %>%
-  summarise(ekcal = sum(value_kcal, na.rm = TRUE))       ##sum commodities##
+
+# Exports from reported export values
+exp_agg <- inner_join(exp_dat, commodities, by = "cropid") %>%
+  mutate(value_kcal = value * as.numeric(kcal.ton)) %>%  ## Caloric conversion
+  group_by(reporter, partner, year) %>%                  ## Identify groups wanted
+  summarise(ekcal = sum(value_kcal, na.rm = TRUE))       ## ... and sum up values of values in "value_kcal"
+
+# Exports from reported import values
+exp_agg_fromimports <- inner_join(exp_dat_fromimports, commodities, by = "cropid") %>%
+  mutate(value_kcal = value * as.numeric(kcal.ton)) %>%  ## Caloric conversion##
+  group_by(reporter, partner, year) %>%                  ## Identify groups wanted
+  summarise(ekcal = sum(value_kcal, na.rm = TRUE))       ## ... and sum up values of values in "value_kcal"
 
 # Step 6: Convert export dataframe to a country x country x year matrix ====
-#         Countries are ordered by FAOSTAT country code (increasing)
+#         Countries are ordered by iso3 country codes (alphabetically)
+
+# Exports from reported export values
 exp_mat <- acast(exp_agg, reporter ~ partner ~ year)
 exp_mat <- exp_mat[match(country_list$FAOST_CODE, dimnames(exp_mat)[[1]]), , ]
 exp_mat <- exp_mat[, match(country_list$FAOST_CODE, dimnames(exp_mat)[[2]]), ]
 exp_mat[is.na(exp_mat)] <- 0
-dimnames(exp_mat) <- list(country_list$FAOST_CODE, country_list$FAOST_CODE, yr_range)
-E0 <- apply(exp_mat[, , 1:length(yr_range)], 1:2, mean) ###Remove before commit (assumes fixed length 1:5)
+#   apply iso3 country codes to row and columns and year names to 3rd dimesnion  
+dimnames(exp_mat) <- list(country_list$iso3, country_list$iso3, yr_range)
+#   compute mean over year range
+E0 <- apply(exp_mat[, , 1:length(yr_range)], 1:2, mean)
+#   reorder alphabeticaally by iso3 country codes 
+E0 <- E0[order(rownames(E0)), order(colnames(E0))]
+
+# Exports from reported import values
+exp_mat_fromimports <- acast(exp_agg_fromimports, partner ~ reporter ~ year) #switch paartner with reporter
+exp_mat_fromimports <- exp_mat_fromimports[match(country_list$FAOST_CODE, dimnames(exp_mat_fromimports)[[1]]), , ]
+exp_mat_fromimports <- exp_mat_fromimports[, match(country_list$FAOST_CODE, dimnames(exp_mat_fromimports)[[2]]), ]
+exp_mat_fromimports[is.na(exp_mat_fromimports)] <- 0
+#   apply iso3 country codes to row and columns and year names to 3rd dimesnion  
+dimnames(exp_mat_fromimports) <- list(country_list$iso3, country_list$iso3, yr_range)
+#   compute mean over year range
+E0_fromimports <- apply(exp_mat_fromimports[, , 1:length(yr_range)], 1:2, mean)
+#   reorder alphabeticaally by iso3 country codes 
+E0_fromimports <- E0_fromimports[order(rownames(E0_fromimports)), order(colnames(E0_fromimports))]
+
+# Exports from average of two reported values (Order based on ISO3 code)
+E0_all <- abind(E0,E0_fromimports,along=3)
+E0_all[E0_all==0] <- NA
+E0_avg <-apply(E0_all, c(1,2), mean, na.rm=TRUE)
+E0_avg[is.nan(E0_avg)] <- 0
 
 # Step 7: Save bilateral export matrix ordered by FAOSTAT country code ====
 #         FAOSTAT country code are in increasing order
-save(E0, file="inputs_processed/E0.RData")
+if (exportWghts == 1) {
+  save(E0, file = "inputs_processed/E0.RData")
+} else if (exportWghts == 2)  {
+  save(E0_avg, file = "inputs_processed/E0.RData")
+}
 
 # Export matrices with country names
 Tkbyc<-as.data.frame(E0, row.names = country_list$Country, col.names = dimnames(E0)[[2]] )
-write.csv(Tkbyc, "inputs_processed/E0.csv")
+Tkbyc_fromimports<-as.data.frame(E0_fromimports, row.names = country_list$Country, col.names = dimnames(E0_fromimports)[[2]] )
+Tkbyc_avg<-as.data.frame(E0_avg, row.names = country_list$Country, col.names = dimnames(E0_avg)[[2]] )
 
+write.csv(Tkbyc, "inputs_processed/E0.csv")
+write.csv(Tkbyc_fromimports, "inputs_processed/E0_fromimports.csv")
+write.csv(Tkbyc_avg, "inputs_processed/E0_avg.csv")
 
 ## PART 2 : Get production data from FAOSTAT  ----
 ## QC: production-crops domain, 5510: production in tonnes
@@ -117,7 +166,8 @@ prod_mat[is.na(prod_mat)] <- 0 #replace NAs with 0
 P0 <- rowMeans(prod_mat[, 1:length(yr_range)])
 colnames(prod_mat) <- NULL
 Pkbyc <- prod_mat
-Pkbyc<-data_frame(country_list$iso3, P0=P0)
+Pkbyc<-data_frame(country_list, P0=P0)
+Pkbyc<-Pkbyc %>% arrange(country_list$iso3)  # Order based on ISO3 code
 
 # Step 7: Save files ----
 write.csv(Pkbyc,"inputs_processed/Production.csv", row.names=FALSE)
@@ -267,6 +317,8 @@ saveRDS(Rkbyc_all, file = "inputs_processed/cereals_stocks.RData")
 dimnames(Rkbyc_all) <- list(country_list$iso3, yr_range)
 R0 <- rowMeans(Rkbyc_all[, eu_yrs])
 R0<-R0[!is.na(names(R0))]
+R0 <- R0[order(names(R0))] # Order based on ISO3 code
+
 save(R0, file = "inputs_processed/R0.RData")
 
 Rkbyc<-data_frame(iso3=names(R0), R0=R0)
