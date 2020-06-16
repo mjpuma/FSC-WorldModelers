@@ -20,7 +20,7 @@ This is the main script for running the *static* FSC from the command line.  Thi
 
 ### ProcessInputs.R
 Creates trade, production, and reserves matrices for use in the FSC model. 
-Requires existing files in *ancillary* and *inputs* directory: 
+Requires existing files in *ancillary* and *inputs* directory.  Processed inputs are saved and subsequently accessed by main.R or main_static.R in a separate folder called *inputs_processed*
 #### Ancillary files
 - country_list195_2012to2016.csv = FAO country code, iso3 abbreviation, and full country names
 - cropcommodity_tradelist.csv = Commodity list for *bilateral trade* with kcal conversions
