@@ -13,26 +13,27 @@
 
 ## Model Scripts
 ### main.R
-This is the main script for running FSC from the command line. It wraps much of the functionality demonstrated in `Analyze.R` into a set of callable functions.
+This is the main script for running the dynamic FSC from the command line including time loop and reading of processed inputs aand saving of outputs.
 
 ### ProcessInputs.R
-Creates trade, production, and reserves matrices for use in cascade model. Requires existing files in *ancillary* and *inputs* directory: 
+Creates trade, production, and reserves matrices for use in the FSC model. 
+Requires existing files in *ancillary* and *inputs* directory: 
+#### Ancillary files
+- country_list195_2012to2016.csv = FAO country code, iso3 abbreviation, and full country names
+- cropcommodity_tradelist.csv = Commodity list for *bilateral trade* with kcal conversions
+- cropcommodity_prodlist.csv = Commodity list for *production* with kcal conversions
+- cropcommodity_reserveslist.csv = Commodity list for *reserves* with kcal conversions
 
-### CascadeFunction.R
-Contains functions for the FSC model
-
-### Analyze.R
-- Example script to run the FSC model, calling functions in *CascadeFunction.R* for the case where production 1) in a single country is negatively affected and 2) in multiple countries are negatively affected.
-
-## Ancillary files
-- crop_list.csv = croplist with kcal conversions
-- country_list.csv = FAO country code and true/false for country pop over 500k 
-- ciso3.txt = country codes
-
-## Input files
+#### Input files
 - Trade data from FAOSTAT, detailed trail matrix, normalized, all data. The trade matrix is available here - http://www.fao.org/faostat/en/#data/TM - on the right side bar under "Bulk Downloads", select "All Data Normalized".   *trade_dat <- read.csv("Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv"*
 - Production data from FAOSTAT, production quantity in tonnes. The crop production data are available at: http://www.fao.org/faostat/en/#data/QC. *prod_dat<-read.csv("productiondataFAOSTAT.csv")*
 - Reserves data from USDA, downloadable dataset - psd grains pulses. The stocks data are available here - https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads - listed as "Grains" the file is called "psd_grains_pulses_csv.zip". *psd <- read.csv("psd_grains_pulses.csv")*
+
+### FSC_sim_funcs.R
+Main iteration loop to implement FSC Model 
+
+### FSC_component_funcs.R
+Functions for the FSC model
 
 
 ## Automatically pulling inputs
@@ -47,7 +48,7 @@ unzip 'Production_Crops_E_All_Data_(Normalized).zip'
 unzip 'psd_grains_pulses_csv.zip'
 ```
 
-## Running a Simulation
+## Running a dynamic simulation
 To run a simulation, first clone this repository and navigate to the top-level directory with:
 
 ```
@@ -64,29 +65,25 @@ rscript main/Requirements.R
 Next, you should prepare the input data:
 
 ```
-rscript main/MatrixCreation.R
+rscript main/ProcessInputs.R
 ```
 
 Now you are ready to run a simulation. To run a simulation you should choose the following:
 
-* `year`: the year you wish to simulate
-* `country`: the [ISO 3 country code](https://unstats.un.org/unsd/tradekb/Knowledgebase/Country-Code) for the country of interest. *Note*: if you choose `All`, an equal shock is simulated for all countries
-* `production decrease`: the decrease in production you wish to induce (from 0 to 1, where 1 equals a 100% decrease)
-* `fractional reserve access`: the percentage of fractional reserves which may be accessed (from 0 to 1, where 1 equals a 100% decrease)
-* `output file name`: this is the name of the file which will be created by the simulation. Note that if you chose `all` for `country`, this will be the name of the directory that is created housing the several output files. This should not include a file type (for example, it should be `some_output` instead of `some_output.csv`).
+* `FSCversion`: Specify model version to run: 0-> Run Proportional Trade Allocation (PTA) version; 
+                                              1-> Run Reserves-based Trade Allocation (RTA) version
+* `i_scenario`:  i_scenario -> 0  # normal (default wheat) FSC run without exogenous restriction
+                 i_scenario -> 1 # wheat; i_scenario -> 2 # rice; i_scenario -> 3 # maize
 
-Now, you can run a simulation with something like the following:
+Now, you can run a dynamic simulation with something like the following:
 
 ```
-rscript main/main.R 2005 "USA" 0.4 0.5 single_country_example
+rscript main/main.R 0 0
 ```
 In this case, we have chosen the following parameters:
 
-* `year`: 2005
-* `country`: United States
-* `production decrease`: 40%
-* `fractional reserve access`: 50%
-* `output file name`: single_country_example
+* `FSCversion`: 0
+* `i_scenario`: 0
 
 
 ## Running with Docker
@@ -99,5 +96,6 @@ docker build -t fsc/latest .
 Here, we have tagged the container as `fsc/latest`. Once the container is built we can run it by mounting an `outputs` directory from our host to the container and then passing the appropriate arguments in the correct order:
 
 ```
-docker run -v $PWD/outputs:/outputs fsc/latest 2005 "USA" 0.4 0.5 single_country_example
+docker run -v $PWD/outputs:/outputs fsc/latest 0 0
+
 ```
