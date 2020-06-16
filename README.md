@@ -33,12 +33,16 @@ Requires existing files in *ancillary* and *inputs* directory.  Processed inputs
 - Production data from FAOSTAT, production quantity in tonnes. The crop production data are available at: http://www.fao.org/faostat/en/#data/QC. *prod_dat<-read.csv("productiondataFAOSTAT.csv")*
 - Reserves data from USDA, downloadable dataset - psd grains pulses. The stocks data are available here - https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads - listed as "Grains" the file is called "psd_grains_pulses_csv.zip". *psd <- read.csv("psd_grains_pulses.csv")*
 
+#### Processed input files
+- Export Matrix ordered by FAOSTAT country code (increasing). *load("inputs_processed/E0.RData")*
+- Production. *load("inputs_processed/P0.Rdata")* 
+- Reserves. (a.k.a. Stocks) *load("inputs_processed/R0.RData")*
+
 ### FSC_sim_funcs.R
 Main iteration loop to implement FSC Model 
 
 ### FSC_component_funcs.R
 Functions for the FSC model
-
 
 ## Automatically pulling inputs
 ```
