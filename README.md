@@ -13,7 +13,10 @@
 
 ## Model Scripts
 ### main.R
-This is the main script for running the dynamic FSC from the command line including time loop and reading of processed inputs aand saving of outputs.
+This is the main script for running the *dynamic* FSC from the command line including time loop and reading of processed inputs and saving of outputs.
+
+### main_static.R
+This is the main script for running the *static* FSC from the command line.  This script simply computes changes in country supplies due to production decline anomalies (as a country list).
 
 ### ProcessInputs.R
 Creates trade, production, and reserves matrices for use in the FSC model. 
@@ -25,6 +28,7 @@ Requires existing files in *ancillary* and *inputs* directory:
 - cropcommodity_reserveslist.csv = Commodity list for *reserves* with kcal conversions
 
 #### Input files
+- Production *fractional declines* list by year by country. List depends on ancillary country list file. anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_DeclineFraction_195countries.csv"))
 - Trade data from FAOSTAT, detailed trail matrix, normalized, all data. The trade matrix is available here - http://www.fao.org/faostat/en/#data/TM - on the right side bar under "Bulk Downloads", select "All Data Normalized".   *trade_dat <- read.csv("Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv"*
 - Production data from FAOSTAT, production quantity in tonnes. The crop production data are available at: http://www.fao.org/faostat/en/#data/QC. *prod_dat<-read.csv("productiondataFAOSTAT.csv")*
 - Reserves data from USDA, downloadable dataset - psd grains pulses. The stocks data are available here - https://apps.fas.usda.gov/psdonline/app/index.html#/app/downloads - listed as "Grains" the file is called "psd_grains_pulses_csv.zip". *psd <- read.csv("psd_grains_pulses.csv")*
