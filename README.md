@@ -16,7 +16,7 @@
 This is the main script for running the *dynamic* FSC from the command line including time loop and reading of processed inputs and saving of outputs.
 
 ### main_static.R
-This is the main script for running the *static* FSC from the command line.  This script simply computes changes in country supplies due to production decline anomalies (as a country list).
+This is the main script for running the *static* FSC from the command line.  This script simply computes changes in supply by country due to production decline anomalies (as a country list).
 
 ### ProcessInputs.R
 Creates trade, production, and reserves matrices for use in the FSC model. 
