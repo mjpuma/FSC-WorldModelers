@@ -656,7 +656,7 @@
 "GNQ","Equatorial Guinea",4,0
 "GRC","Greece",4,0
 "GRD","Grenada",4,0
-"GRL","Greenland",4,423753632.285816
+"GRL","Greenland",4,0
 "GTM","Guatemala",4,0
 "GUY","Guyana",4,0
 "HKG","Hong Kong SAR, China",4,0
@@ -840,7 +840,7 @@
 "FIN","Finland",5,0
 "FJI","Fiji",5,0
 "FRA","France",5,0
-"FRO","Faroe Islands",5,1322617331.17023
+"FRO","Faroe Islands",5,0
 "GAB","Gabon",5,0
 "GBR","United Kingdom",5,0
 "GEO","Georgia",5,0
@@ -851,7 +851,7 @@
 "GNQ","Equatorial Guinea",5,0
 "GRC","Greece",5,0
 "GRD","Grenada",5,0
-"GRL","Greenland",5,809160686.721394
+"GRL","Greenland",5,0
 "GTM","Guatemala",5,0
 "GUY","Guyana",5,0
 "HKG","Hong Kong SAR, China",5,0
@@ -945,7 +945,7 @@
 "SVK","Slovakia",5,0
 "SVN","Slovenia",5,0
 "SWE","Sweden",5,0
-"SWZ","Swaziland",5,8154167751.28894
+"SWZ","Swaziland",5,0
 "SYC","Seychelles",5,0
 "SYR","Syrian Arab Republic",5,0
 "TCD","Chad",5,0

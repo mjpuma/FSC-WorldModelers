@@ -6,8 +6,9 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Command line version: Parse arguments ====
-args <- commandArgs(trailingOnly = TRUE)
-FSCversion <- c(as.numeric(args[1]))
+#args <- commandArgs(trailingOnly = TRUE)
+#FSCversion <- c(as.numeric(args[1]))
+#i_scenario <- c(as.numeric(args[2]))
 # years <- c(as.numeric(args[1]))
 # country <- args[2]
 # production_decrease <- as.numeric(args[3])
@@ -35,19 +36,14 @@ column_names = c('0', '1', '2', '3', '4','5')
 column_names2 = c('1', '2', '3', '4','5')
 
 # Step 2: Specify crop + exogenous trade restriction scenario ----
-i_scenario = 0  # normal FSC run without exogenous restriction
-#i_scenario = 1 # wheat
+i_scenario = 1 # wheat
 #i_scenario = 2 # rice
 #i_scenario = 3 # maize
 
 # Production *fractional declines* list by year by country ====
 # Read production declines and Select countries for export bans
 #  Index based on iso3 alphabetical ordering
-if (i_scenario == 0) {
-  name_crop <-c('Wheat')
-  runname <- c('Wheat_Avg20152017')
-
-} else if (i_scenario == 1) {
+if (i_scenario == 1) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_Avg20152017')
     
@@ -68,7 +64,8 @@ commodities <- read.csv("ancillary/cropcommodity_tradelist.csv")
 country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
 # 3) Production *fractional declines* list by year by country ====
-anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_DeclineFraction_195countries.csv"))
+anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
+
 
 # Step 4: Load production/trade/stocks data ----
 load("inputs_processed/E0.RData") #Export Matrix ordered by FAOSTAT country code (increasing)
@@ -102,7 +99,7 @@ C2_C0out <- array(0, c(nrow(country_list), length(years)))
 dR_C0out <- array(0, c(nrow(country_list), length(years)))
 
 ## Add initial conditions to output arrays
-E0 <- E0_avg
+#E0 <- E0_avg
 Eout[, , 1] <- E0
 Pout[, 1] <- Prod
 Rout[, 1] <- R0
@@ -177,56 +174,6 @@ for (i in 1:length(years)) {
     rm(results_FSC)
   }
   
-  # Impose export restrictions
-  if (i_scenario == 1) {
-    # Wheat
-    #   Add *restricted* exports to reserves
-    Rcurrent[i_Russia] = Rcurrent[i_Russia] + sum(E0[i_Russia, ])
-    Rcurrent[i_Ukraine] = Rcurrent[i_Ukraine] + sum(E0[i_Ukraine, ])
-    Rcurrent[i_Kazakhstan] = Rcurrent[i_Kazakhstan] + sum(E0[i_Kazakhstan, ])
-    
-    #  Impose export restrictions by setting export values to zero
-    E0[i_Russia, ] = 0
-    E0[i_Ukraine, ] = 0
-    E0[i_Kazakhstan, ] = 0
-    
-    #  Update state variables for trade_dat after trade restrictions
-    trade_dat$R <- Rcurrent
-    trade_dat$E <- E0
-    
-  } else if (i_scenario == 2) {
-    # Rice
-    #   Add *restricted* exports to reserves
-    Rcurrent[i_India] = Rcurrent[i_India] + sum(E0[i_India, ])
-    Rcurrent[i_Thailand] = Rcurrent[i_Thailand] + sum(E0[i_Thailand, ])
-    Rcurrent[i_Vietnam] = Rcurrent[i_Vietnam] + sum(E0[i_Vietnam, ])
-    
-    #  Impose export restrictions by setting export values to zero
-    E0[i_India, ] = 0
-    E0[i_Thailand, ] = 0
-    E0[i_Vietnam, ] = 0
-    
-    #  Update state variables for trade_dat after trade restrictions
-    trade_dat$R <- Rcurrent
-    trade_dat$E <- E0
-    
-  } else if (i_scenario == 3) {
-    # Maize
-    #   Add *restricted* exports to reserves
-    Rcurrent[i_Argentina] = Rcurrent[i_Argentina] + sum(E0[i_Argentina, ])
-    Rcurrent[i_Brazil] = Rcurrent[i_Brazil] + sum(E0[i_Brazil, ])
-    Rcurrent[i_Ukraine] = Rcurrent[i_Ukraine] + sum(E0[i_Ukraine, ])
-    
-    #  Impose export restrictions by setting export values to zero
-    E0[i_Argentina, ] = 0
-    E0[i_Brazil, ] = 0
-    E0[i_Ukraine, ] = 0
-    
-    #  Update state variables for trade_dat after trade restrictions
-    trade_dat$R <- Rcurrent
-    trade_dat$E <- E0
-  }
-  
   # Call main simulation functions
   dP <- as.numeric(unlist(Shocks$dP))
   if (FSCversion == 0) {
@@ -263,9 +210,9 @@ colnames(Pout)  <- column_names
 rownames(Pout)  <- InputFSC$iso3
 Pout_df <- data.frame(Pout)
 Pout_df <- tibble::rownames_to_column(Pout_df, "iso3")
-Pout_df <- merge(InputFSC[, c("iso3", "Country.x")], Pout_df, by = "iso3")
+Pout_df <- merge(InputFSC[, c("iso3", "Country")], Pout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-Pout_df <- gather(Pout_df, Year, Value, -iso3, -Country.x)
+Pout_df <- gather(Pout_df, Year, Value, -iso3, -Country)
 # remove preceeding X character for Year column aand convert to numeric
 Pout_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", Pout_df$Year))
 
@@ -274,9 +221,9 @@ colnames(Rout)  <- column_names
 rownames(Rout)  <- InputFSC$iso3
 Rout_df <- data.frame(Rout)
 Rout_df <- tibble::rownames_to_column(Rout_df, "iso3")
-Rout_df <- merge(InputFSC[, c("iso3", "Country.x")], Rout_df, by = "iso3")
+Rout_df <- merge(InputFSC[, c("iso3", "Country")], Rout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-Rout_df <- gather(Rout_df, Year, Value, -iso3, -Country.x)
+Rout_df <- gather(Rout_df, Year, Value, -iso3, -Country)
 # remove preceeding X character for Year column aand convert to numeric
 Rout_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", Rout_df$Year))
 
@@ -286,9 +233,9 @@ rownames(shortageout)  <- InputFSC$iso3
 shortageout_df <- data.frame(shortageout)
 shortageout_df <- tibble::rownames_to_column(shortageout_df, "iso3")
 shortageout_df <-
-  merge(InputFSC[, c("iso3", "Country.x")], shortageout_df, by = "iso3")
+  merge(InputFSC[, c("iso3", "Country")], shortageout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-shortageout_df <- gather(shortageout_df, Year, Value, -iso3, -Country.x)
+shortageout_df <- gather(shortageout_df, Year, Value, -iso3, -Country)
 # remove preceeding X character for Year column aand convert to numeric
 shortageout_df$Year <-
   as.numeric(gsub("[a-zA-Z ]", "", shortageout_df$Year))
@@ -299,9 +246,9 @@ rownames(C1_C0out)  <- InputFSC$iso3
 C1_C0out_df <- data.frame(C1_C0out)
 C1_C0out_df <- tibble::rownames_to_column(C1_C0out_df, "iso3")
 C1_C0out_df <-
-  merge(InputFSC[, c("iso3", "Country.x")], C1_C0out_df, by = "iso3")
+  merge(InputFSC[, c("iso3", "Country")], C1_C0out_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-C1_C0out_df <- gather(C1_C0out_df, Year, Value, -iso3, -Country.x)
+C1_C0out_df <- gather(C1_C0out_df, Year, Value, -iso3, -Country)
 # remove preceeding X character for Year column aand convert to numeric
 C1_C0out_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", C1_C0out_df$Year))
 
@@ -311,9 +258,9 @@ rownames(dR_C0out)  <- InputFSC$iso3
 dR_C0out_df <- data.frame(dR_C0out)
 dR_C0out_df <- tibble::rownames_to_column(dR_C0out_df, "iso3")
 dR_C0out_df <-
-  merge(InputFSC[, c("iso3", "Country.x")], dR_C0out_df, by = "iso3")
+  merge(InputFSC[, c("iso3", "Country")], dR_C0out_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-dR_C0out_df <- gather(dR_C0out_df, Year, Value, -iso3, -Country.x)
+dR_C0out_df <- gather(dR_C0out_df, Year, Value, -iso3, -Country)
 # remove preceeding X character for Year column aand convert to numeric
 dR_C0out_df$Year <-
   as.numeric(gsub("[a-zA-Z ]", "", dR_C0out_df$Year))
