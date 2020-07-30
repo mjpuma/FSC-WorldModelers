@@ -1,6 +1,0 @@
-﻿cropid,cropname,primary(1)_secondary(2)_feed(3),Edible_(1 yes)_(0isno)_(2isnonnutritinoal),ProductionL,TradeL,FBS ID,FBS name,group,kcal/ton,Protein(g/ton),Fat(g/ton),Group,Groupnum
-56,Maize,1,1,1,1,2514,Maize,Cereals,3560000,95000,43000,1 - CEREALS AND CEREAL PRODUCTS,1
-57,Germ of Maize,2,,0,1,2514,Maize,Cereals,3730000,111000,385000,1 - CEREALS AND CEREAL PRODUCTS,1
-58,Flour of Maize,2,,0,1,2514,Maize,Cereals,3630000,84000,12000,1 - CEREALS AND CEREAL PRODUCTS,1
-60,Maize oil,2,,0,1,2514,Maize,Cereals,8840000,0,1000000,14 - VEGETABLE AND ANIMAL OILS AND FATS,14
-446,"Maize, green",1,1,1,1,2605,"Vegetables, Other",Fruits&Vegs,560000,21000,8000,7 - VEGETABLES AND DERIVED PRODUCTS,7

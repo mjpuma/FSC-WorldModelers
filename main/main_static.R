@@ -18,9 +18,9 @@ column_names = c('0', '1')
 column_names2 = c('1')
 
 # Step 2: Specify crop + exogenous trade restriction scenario ----
-i_scenario = 1 # wheat
+#i_scenario = 1 # wheat
 #i_scenario = 2 # rice
-#i_scenario = 3 # maize
+i_scenario = 3 # maize
 
 # Production *fractional declines* list by year by country ====
 # Read production declines and Select countries for export bans
@@ -40,17 +40,17 @@ if (i_scenario == 1) {
 
 # Step 3: Load ancillary data ----
 # Commodity list for bilateral trade
-commodities <- read.csv(paste0("COVID-19_data/", runname, "cropcommodity_tradelist.csv"))
+commodities <- read.csv(paste0("ancillary/", runname, "cropcommodity_tradelist.csv"))
 # Load country list
-country_list <- read.csv("COVID-19_data/country_list195_2012to2016.csv")
+country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
 # Production decline fractions
-anomalies <- read.csv(paste0("COVID-19_data/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
+anomalies <- read.csv(paste0("ancillary/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
 
 # Step 4: Load production/trade/stocks data ----
-load(paste0("COVID-19_data/", runname, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
-load(paste0("COVID-19_data/", runname, "P0.Rdata")) #Production
-load(paste0("COVID-19_data/", runname, "R0.RData")) #Reserves (a.k.a. Stocks)
+load(paste0("inputs_processed/", runname, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
+load(paste0("inputs_processed/", runname, "P0.Rdata")) #Production
+load(paste0("inputs_processed/", runname, "R0.RData")) #Reserves (a.k.a. Stocks)
 
 
 # Step 5: Setup production and shocks; initialize output vectors ----
@@ -272,18 +272,18 @@ C2_C0out_df <- gather(C2_C0out_df, Year, Value, -iso3, -Country.x)
 C2_C0out_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", C2_C0out_df$Year))
 
 ## Save as CSV
-write.csv(Pout_df, paste0("COVID-19_data/data_network/",runname,"ProductionStatic.csv"), row.names = FALSE)
-write.csv(Rout_df, paste0("COVID-19_data/data_network/",runname,"ReserveStatic.csv"), row.names = FALSE)
-write.csv(shortageout_df, paste0("COVID-19_data/data_network/",runname,"ShortageStatic.csv"), row.names = FALSE)
-write.csv(C1_C0out_df, paste0("COVID-19_data/data_network/",runname,"C1C0Static.csv"), row.names = FALSE)
-write.csv(C2_C0out_df, paste0("COVID-19_data/data_network/",runname,"C2C0Static.csv"), row.names = FALSE)
-write.csv(Eout, paste0("COVID-19_data/data_network/",runname, "ExportStatic.csv"), row.names = TRUE)
+write.csv(Pout_df, paste0("outputs/data_network/",runname,"ProductionStatic.csv"), row.names = FALSE)
+write.csv(Rout_df, paste0("outputs/data_network/",runname,"ReserveStatic.csv"), row.names = FALSE)
+write.csv(shortageout_df, paste0("outputs/data_network/",runname,"ShortageStatic.csv"), row.names = FALSE)
+write.csv(C1_C0out_df, paste0("outputs/data_network/",runname,"C1C0Static.csv"), row.names = FALSE)
+write.csv(C2_C0out_df, paste0("outputs/data_network/",runname,"C2C0Static.csv"), row.names = FALSE)
+write.csv(Eout, paste0("outputs/data_network/",runname, "ExportStatic.csv"), row.names = TRUE)
 
 ## Save lists of initial and final imports and outputs by country
-write.csv(ExportsFinal, paste0("COVID-19_data/data_network/",runname, "ExportsFinal.csv"), row.names = FALSE)
-write.csv(ExportsInitial, paste0("COVID-19_data/data_network/",runname, "ExportsInitial.csv"), row.names = FALSE)
-write.csv(ImportsFinal, paste0("COVID-19_data/data_network/",runname, "ImportsFinal.csv"), row.names = FALSE)
-write.csv(ImportsInitial, paste0("COVID-19_data/data_network/",runname, "ImportsInitial.csv"), row.names = FALSE)
+write.csv(ExportsFinal, paste0("outputs/data_network/",runname, "ExportsFinal.csv"), row.names = FALSE)
+write.csv(ExportsInitial, paste0("outputs/data_network/",runname, "ExportsInitial.csv"), row.names = FALSE)
+write.csv(ImportsFinal, paste0("outputs/data_network/",runname, "ImportsFinal.csv"), row.names = FALSE)
+write.csv(ImportsInitial, paste0("outputs/data_network/",runname, "ImportsInitial.csv"), row.names = FALSE)
 
 # Save Exports as R data file
-saveRDS(Eout, file = paste0("COVID-19_data/data_network/", runname,"ExportStatic.rds"))
+saveRDS(Eout, file = paste0("outputs/data_network/", runname,"ExportStatic.rds"))
