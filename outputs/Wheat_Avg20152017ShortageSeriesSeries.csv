@@ -2,32 +2,32 @@
 "AFG","Afghanistan",1,0
 "ALB","Albania",1,0
 "ANT","Netherlands Antilles",1,0
-"ARB","Aruba",1,0
-"ARE","United Arab Emirates",1,166802883.780151
+"ARB","Aruba",1,9752566826.00195
+"ARE","United Arab Emirates",1,0
 "ARG","Argentina",1,0
 "ARM","Armenia",1,0
 "ATG","Antigua and Barbuda",1,0
 "AUS","Australia",1,0
 "AUT","Austria",1,0
 "AZE","Azerbaijan",1,0
-"BDI","Burundi",1,0
+"BDI","Burundi",1,170584893946.145
 "BEL","Belgium",1,0
 "BEN","Benin",1,0
 "BFA","Burkina Faso",1,0
 "BGD","Bangladesh",1,0
 "BGR","Bulgaria",1,0
-"BHR","Bahrain",1,35568893.1446419
+"BHR","Bahrain",1,0
 "BHS","Bahamas",1,0
 "BIH","Bosnia and Herzegovina",1,0
 "BLR","Belarus",1,0
 "BLZ","Belize",1,0
-"BMU","Bermuda",1,1501833751.45605
+"BMU","Bermuda",1,1783949437.74609
 "BOL","Bolivia (Plurinational State of)",1,0
 "BRA","Brazil",1,0
 "BRB","Barbados",1,0
-"BRN","Brunei Darussalam",1,0
+"BRN","Brunei Darussalam",1,2467141929.65823
 "BTN","Bhutan",1,0
-"BWA","Botswana",1,1138086312.2019
+"BWA","Botswana",1,3580757285.38452
 "CAF","Central African Republic",1,0
 "CAN","Canada",1,0
 "CHE","Switzerland",1,0
@@ -36,7 +36,7 @@
 "CIV","Cote dIvoire",1,0
 "CMR","Cameroon",1,0
 "COD","Democratic Republic of the Congo",1,0
-"COG","Congo",1,20270263909.4238
+"COG","Congo",1,0
 "COK","Cook Islands",1,0
 "COL","Colombia",1,0
 "COM","Comoros",1,0
@@ -53,7 +53,7 @@
 "DZA","Algeria",1,0
 "ECU","Ecuador",1,0
 "EGY","Egypt",1,0
-"ERI","Eritrea",1,0
+"ERI","Eritrea",1,5147198.56319427
 "ESP","Spain",1,0
 "EST","Estonia",1,0
 "ETH","Ethiopia",1,0
@@ -68,7 +68,7 @@
 "GIN","Guinea",1,0
 "GMB","Gambia",1,0
 "GNB","Guinea-Bissau",1,0
-"GNQ","Equatorial Guinea",1,54358788.7558594
+"GNQ","Equatorial Guinea",1,143947165.360107
 "GRC","Greece",1,0
 "GRD","Grenada",1,0
 "GRL","Greenland",1,0
@@ -91,7 +91,7 @@
 "JOR","Jordan",1,0
 "JPN","Japan",1,0
 "KAZ","Kazakhstan",1,0
-"KEN","Kenya",1,0
+"KEN","Kenya",1,4477669901492.15
 "KGZ","Kyrgyzstan",1,0
 "KHM","Cambodia",1,0
 "KIR","Kiribati",1,0
@@ -114,7 +114,7 @@
 "MDG","Madagascar",1,0
 "MDV","Maldives",1,0
 "MEX","Mexico",1,0
-"MKD","The former Yugoslav Republic of Macedonia",1,2566522961.87305
+"MKD","The former Yugoslav Republic of Macedonia",1,2883257694.6875
 "MLI","Mali",1,0
 "MLT","Malta",1,0
 "MMR","Myanmar",1,0
@@ -135,7 +135,7 @@
 "NPL","Nepal",1,0
 "NZL","New Zealand",1,0
 "OMN","Oman",1,0
-"PAK","Pakistan",1,0
+"PAK","Pakistan",1,860764007086.023
 "PAN","Panama",1,0
 "PER","Peru",1,0
 "PHL","Philippines",1,0
@@ -145,15 +145,15 @@
 "PRT","Portugal",1,0
 "PRY","Paraguay",1,0
 "PSE","Occupied Palestinian Territory",1,0
-"PYF","French Polynesia",1,166885785.463028
+"PYF","French Polynesia",1,696494726.546219
 "QAT","Qatar",1,0
 "ROU","Romania",1,0
-"RUS","Russian Federation",1,1375250561169.04
+"RUS","Russian Federation",1,3739993717440.08
 "RWA","Rwanda",1,0
 "SAU","Saudi Arabia",1,0
 "SDN","Sudan",1,0
 "SEN","Senegal",1,0
-"SGP","Singapore",1,729273013.766724
+"SGP","Singapore",1,692026902.202148
 "SLB","Solomon Islands",1,0
 "SLE","Sierra Leone",1,0
 "SLV","El Salvador",1,0
@@ -182,7 +182,7 @@
 "TWN","Taiwan",1,0
 "TZA","United Republic of Tanzania",1,0
 "UGA","Uganda",1,0
-"UKR","Ukraine",1,0
+"UKR","Ukraine",1,2166457471422.83
 "URY","Uruguay",1,0
 "USA","United States of America",1,0
 "UZB","Uzbekistan",1,0
@@ -197,7 +197,7 @@
 "AFG","Afghanistan",2,0
 "ALB","Albania",2,0
 "ANT","Netherlands Antilles",2,0
-"ARB","Aruba",2,245883053880.369
+"ARB","Aruba",2,743068591270.65
 "ARE","United Arab Emirates",2,0
 "ARG","Argentina",2,0
 "ARM","Armenia",2,0
@@ -205,7 +205,7 @@
 "AUS","Australia",2,0
 "AUT","Austria",2,0
 "AZE","Azerbaijan",2,0
-"BDI","Burundi",2,188595629178.625
+"BDI","Burundi",2,213324899530.047
 "BEL","Belgium",2,0
 "BEN","Benin",2,0
 "BFA","Burkina Faso",2,0
@@ -216,13 +216,13 @@
 "BIH","Bosnia and Herzegovina",2,0
 "BLR","Belarus",2,0
 "BLZ","Belize",2,0
-"BMU","Bermuda",2,2064749439.92188
+"BMU","Bermuda",2,2094206559.13086
 "BOL","Bolivia (Plurinational State of)",2,0
 "BRA","Brazil",2,0
 "BRB","Barbados",2,0
-"BRN","Brunei Darussalam",2,8304951775.4552
+"BRN","Brunei Darussalam",2,2553455546.32791
 "BTN","Bhutan",2,0
-"BWA","Botswana",2,1775426140.66797
+"BWA","Botswana",2,11531682083.5044
 "CAF","Central African Republic",2,0
 "CAN","Canada",2,0
 "CHE","Switzerland",2,0
@@ -231,7 +231,7 @@
 "CIV","Cote dIvoire",2,0
 "CMR","Cameroon",2,0
 "COD","Democratic Republic of the Congo",2,0
-"COG","Congo",2,191198823921.467
+"COG","Congo",2,196606842586.716
 "COK","Cook Islands",2,0
 "COL","Colombia",2,0
 "COM","Comoros",2,0
@@ -240,7 +240,7 @@
 "CUB","Cuba",2,0
 "CYP","Cyprus",2,0
 "CZE","Czech Republic",2,0
-"DEU","Germany",2,35330163226.375
+"DEU","Germany",2,271551697533.844
 "DJI","Djibouti",2,0
 "DMA","Dominica",2,0
 "DNK","Denmark",2,0
@@ -248,7 +248,7 @@
 "DZA","Algeria",2,0
 "ECU","Ecuador",2,0
 "EGY","Egypt",2,0
-"ERI","Eritrea",2,6917947.31874847
+"ERI","Eritrea",2,10391220.4491463
 "ESP","Spain",2,0
 "EST","Estonia",2,0
 "ETH","Ethiopia",2,0
@@ -263,15 +263,15 @@
 "GIN","Guinea",2,0
 "GMB","Gambia",2,0
 "GNB","Guinea-Bissau",2,0
-"GNQ","Equatorial Guinea",2,171041555.23291
+"GNQ","Equatorial Guinea",2,104694663.133057
 "GRC","Greece",2,0
 "GRD","Grenada",2,0
 "GRL","Greenland",2,0
 "GTM","Guatemala",2,0
 "GUY","Guyana",2,0
 "HKG","Hong Kong SAR, China",2,0
-"HND","Honduras",2,2585093179.89062
-"HRV","Croatia",2,0
+"HND","Honduras",2,14658296388.375
+"HRV","Croatia",2,718495275103.402
 "HTI","Haiti",2,0
 "HUN","Hungary",2,0
 "IDN","Indonesia",2,0
@@ -286,10 +286,10 @@
 "JOR","Jordan",2,0
 "JPN","Japan",2,0
 "KAZ","Kazakhstan",2,0
-"KEN","Kenya",2,0
+"KEN","Kenya",2,8051303554221.54
 "KGZ","Kyrgyzstan",2,0
 "KHM","Cambodia",2,0
-"KIR","Kiribati",2,327496972.816895
+"KIR","Kiribati",2,180156896.067383
 "KNA","Saint Kitts and Nevis",2,0
 "KOR","Republic of Korea",2,0
 "KWT","Kuwait",2,0
@@ -297,19 +297,19 @@
 "LBN","Lebanon",2,0
 "LBR","Liberia",2,0
 "LBY","Libya",2,0
-"LCA","Saint Lucia",2,363350026064.834
+"LCA","Saint Lucia",2,625491644896.426
 "LKA","Sri Lanka",2,0
 "LSO","Lesotho",2,0
 "LTU","Lithuania",2,0
 "LUX","Luxembourg",2,0
-"LVA","Latvia",2,1929372790.7605
+"LVA","Latvia",2,161273406.953369
 "MAC","Macao SAR, China",2,0
 "MAR","Morocco",2,0
 "MDA","Republic of Moldova",2,0
 "MDG","Madagascar",2,0
 "MDV","Maldives",2,0
 "MEX","Mexico",2,0
-"MKD","The former Yugoslav Republic of Macedonia",2,5361362650.73242
+"MKD","The former Yugoslav Republic of Macedonia",2,5521632759.02148
 "MLI","Mali",2,0
 "MLT","Malta",2,0
 "MMR","Myanmar",2,0
@@ -326,11 +326,11 @@
 "NGA","Nigeria",2,0
 "NIC","Nicaragua",2,0
 "NLD","Netherlands",2,0
-"NOR","Norway",2,0
+"NOR","Norway",2,172427136151.148
 "NPL","Nepal",2,0
 "NZL","New Zealand",2,0
 "OMN","Oman",2,0
-"PAK","Pakistan",2,0
+"PAK","Pakistan",2,1660276436461.58
 "PAN","Panama",2,0
 "PER","Peru",2,0
 "PHL","Philippines",2,0
@@ -340,15 +340,15 @@
 "PRT","Portugal",2,0
 "PRY","Paraguay",2,0
 "PSE","Occupied Palestinian Territory",2,0
-"PYF","French Polynesia",2,2596474930.32539
+"PYF","French Polynesia",2,951229673.151001
 "QAT","Qatar",2,0
 "ROU","Romania",2,0
-"RUS","Russian Federation",2,4145211419151.56
+"RUS","Russian Federation",2,4147062776070.11
 "RWA","Rwanda",2,0
 "SAU","Saudi Arabia",2,0
 "SDN","Sudan",2,0
 "SEN","Senegal",2,0
-"SGP","Singapore",2,1677848907.26111
+"SGP","Singapore",2,10092161208.6163
 "SLB","Solomon Islands",2,0
 "SLE","Sierra Leone",2,0
 "SLV","El Salvador",2,0
@@ -377,7 +377,7 @@
 "TWN","Taiwan",2,0
 "TZA","United Republic of Tanzania",2,0
 "UGA","Uganda",2,0
-"UKR","Ukraine",2,4050508358559
+"UKR","Ukraine",2,4112056836476.28
 "URY","Uruguay",2,0
 "USA","United States of America",2,0
 "UZB","Uzbekistan",2,0
@@ -392,7 +392,7 @@
 "AFG","Afghanistan",3,0
 "ALB","Albania",3,0
 "ANT","Netherlands Antilles",3,0
-"ARB","Aruba",3,1161398332000.21
+"ARB","Aruba",3,1223080105767.17
 "ARE","United Arab Emirates",3,0
 "ARG","Argentina",3,0
 "ARM","Armenia",3,0
@@ -400,7 +400,7 @@
 "AUS","Australia",3,0
 "AUT","Austria",3,0
 "AZE","Azerbaijan",3,0
-"BDI","Burundi",3,221714455871.848
+"BDI","Burundi",3,229978397253.73
 "BEL","Belgium",3,0
 "BEN","Benin",3,0
 "BFA","Burkina Faso",3,0
@@ -411,13 +411,13 @@
 "BIH","Bosnia and Herzegovina",3,0
 "BLR","Belarus",3,0
 "BLZ","Belize",3,0
-"BMU","Bermuda",3,2306682532.45215
+"BMU","Bermuda",3,2375450076.46582
 "BOL","Bolivia (Plurinational State of)",3,0
 "BRA","Brazil",3,0
 "BRB","Barbados",3,0
-"BRN","Brunei Darussalam",3,4569520896.13669
+"BRN","Brunei Darussalam",3,6563239421.69803
 "BTN","Bhutan",3,0
-"BWA","Botswana",3,12947332129.335
+"BWA","Botswana",3,20887436693.9441
 "CAF","Central African Republic",3,0
 "CAN","Canada",3,0
 "CHE","Switzerland",3,0
@@ -426,7 +426,7 @@
 "CIV","Cote dIvoire",3,0
 "CMR","Cameroon",3,0
 "COD","Democratic Republic of the Congo",3,0
-"COG","Congo",3,271470228795.336
+"COG","Congo",3,279041206295.636
 "COK","Cook Islands",3,0
 "COL","Colombia",3,0
 "COM","Comoros",3,0
@@ -435,15 +435,15 @@
 "CUB","Cuba",3,0
 "CYP","Cyprus",3,0
 "CZE","Czech Republic",3,0
-"DEU","Germany",3,858382924456.734
+"DEU","Germany",3,1195273726788.44
 "DJI","Djibouti",3,0
-"DMA","Dominica",3,165614197.367875
+"DMA","Dominica",3,169830094.4122
 "DNK","Denmark",3,0
 "DOM","Dominican Republic",3,0
 "DZA","Algeria",3,0
 "ECU","Ecuador",3,0
 "EGY","Egypt",3,0
-"ERI","Eritrea",3,19380247.2949066
+"ERI","Eritrea",3,22307697.9429321
 "ESP","Spain",3,0
 "EST","Estonia",3,0
 "ETH","Ethiopia",3,0
@@ -456,17 +456,17 @@
 "GEO","Georgia",3,0
 "GHA","Ghana",3,0
 "GIN","Guinea",3,0
-"GMB","Gambia",3,0
+"GMB","Gambia",3,585883312.473633
 "GNB","Guinea-Bissau",3,0
-"GNQ","Equatorial Guinea",3,1276457048.60107
+"GNQ","Equatorial Guinea",3,1751418297.28638
 "GRC","Greece",3,0
 "GRD","Grenada",3,0
 "GRL","Greenland",3,0
 "GTM","Guatemala",3,0
 "GUY","Guyana",3,0
 "HKG","Hong Kong SAR, China",3,0
-"HND","Honduras",3,166566020543.094
-"HRV","Croatia",3,740518611697.668
+"HND","Honduras",3,179844691338.953
+"HRV","Croatia",3,1304982318775.5
 "HTI","Haiti",3,0
 "HUN","Hungary",3,0
 "IDN","Indonesia",3,0
@@ -480,11 +480,11 @@
 "JAM","Jamaica",3,0
 "JOR","Jordan",3,0
 "JPN","Japan",3,0
-"KAZ","Kazakhstan",3,0
-"KEN","Kenya",3,0
+"KAZ","Kazakhstan",3,319450228089.973
+"KEN","Kenya",3,8867607364453.03
 "KGZ","Kyrgyzstan",3,0
 "KHM","Cambodia",3,0
-"KIR","Kiribati",3,6779583324.77148
+"KIR","Kiribati",3,12238529222.6729
 "KNA","Saint Kitts and Nevis",3,0
 "KOR","Republic of Korea",3,0
 "KWT","Kuwait",3,0
@@ -492,19 +492,19 @@
 "LBN","Lebanon",3,0
 "LBR","Liberia",3,0
 "LBY","Libya",3,0
-"LCA","Saint Lucia",3,981728709576.811
+"LCA","Saint Lucia",3,1031864516475.01
 "LKA","Sri Lanka",3,0
 "LSO","Lesotho",3,0
 "LTU","Lithuania",3,0
 "LUX","Luxembourg",3,0
-"LVA","Latvia",3,36320108107.6638
+"LVA","Latvia",3,37219250723.0721
 "MAC","Macao SAR, China",3,0
 "MAR","Morocco",3,0
 "MDA","Republic of Moldova",3,0
 "MDG","Madagascar",3,0
 "MDV","Maldives",3,0
 "MEX","Mexico",3,0
-"MKD","The former Yugoslav Republic of Macedonia",3,6408450197.7207
+"MKD","The former Yugoslav Republic of Macedonia",3,6771595258.42969
 "MLI","Mali",3,0
 "MLT","Malta",3,0
 "MMR","Myanmar",3,0
@@ -521,11 +521,11 @@
 "NGA","Nigeria",3,0
 "NIC","Nicaragua",3,0
 "NLD","Netherlands",3,0
-"NOR","Norway",3,263931821297.352
+"NOR","Norway",3,317088614156.758
 "NPL","Nepal",3,0
 "NZL","New Zealand",3,0
 "OMN","Oman",3,0
-"PAK","Pakistan",3,0
+"PAK","Pakistan",3,2059890477525.6
 "PAN","Panama",3,0
 "PER","Peru",3,0
 "PHL","Philippines",3,0
@@ -535,15 +535,15 @@
 "PRT","Portugal",3,0
 "PRY","Paraguay",3,0
 "PSE","Occupied Palestinian Territory",3,0
-"PYF","French Polynesia",3,1418535277.89108
+"PYF","French Polynesia",3,2006683990.24261
 "QAT","Qatar",3,0
 "ROU","Romania",3,0
-"RUS","Russian Federation",3,4349585195667.99
+"RUS","Russian Federation",3,4350005426383.45
 "RWA","Rwanda",3,0
 "SAU","Saudi Arabia",3,0
 "SDN","Sudan",3,0
 "SEN","Senegal",3,0
-"SGP","Singapore",3,12885545551.8483
+"SGP","Singapore",3,15859528974.4181
 "SLB","Solomon Islands",3,0
 "SLE","Sierra Leone",3,0
 "SLV","El Salvador",3,0
@@ -572,7 +572,7 @@
 "TWN","Taiwan",3,0
 "TZA","United Republic of Tanzania",3,0
 "UGA","Uganda",3,0
-"UKR","Ukraine",3,4658328311246.16
+"UKR","Ukraine",3,4762539528305.05
 "URY","Uruguay",3,0
 "USA","United States of America",3,0
 "UZB","Uzbekistan",3,0
@@ -587,7 +587,7 @@
 "AFG","Afghanistan",4,0
 "ALB","Albania",4,0
 "ANT","Netherlands Antilles",4,0
-"ARB","Aruba",4,1295829277313.74
+"ARB","Aruba",4,1330740458315.05
 "ARE","United Arab Emirates",4,0
 "ARG","Argentina",4,0
 "ARM","Armenia",4,0
@@ -595,7 +595,7 @@
 "AUS","Australia",4,0
 "AUT","Austria",4,0
 "AZE","Azerbaijan",4,0
-"BDI","Burundi",4,237379611563.334
+"BDI","Burundi",4,243493659368.994
 "BEL","Belgium",4,0
 "BEN","Benin",4,0
 "BFA","Burkina Faso",4,0
@@ -606,13 +606,13 @@
 "BIH","Bosnia and Herzegovina",4,0
 "BLR","Belarus",4,0
 "BLZ","Belize",4,0
-"BMU","Bermuda",4,2296034837.3457
+"BMU","Bermuda",4,2313494098.8291
 "BOL","Bolivia (Plurinational State of)",4,0
 "BRA","Brazil",4,0
 "BRB","Barbados",4,0
-"BRN","Brunei Darussalam",4,9191248638.53671
+"BRN","Brunei Darussalam",4,9348354351.18472
 "BTN","Bhutan",4,0
-"BWA","Botswana",4,25664476143.7666
+"BWA","Botswana",4,13417130399.8188
 "CAF","Central African Republic",4,0
 "CAN","Canada",4,0
 "CHE","Switzerland",4,0
@@ -621,24 +621,24 @@
 "CIV","Cote dIvoire",4,0
 "CMR","Cameroon",4,0
 "COD","Democratic Republic of the Congo",4,0
-"COG","Congo",4,294120890140.127
-"COK","Cook Islands",4,0
+"COG","Congo",4,301790204621.719
+"COK","Cook Islands",4,18768748.395874
 "COL","Colombia",4,0
 "COM","Comoros",4,0
 "CPV","Cape Verde",4,0
 "CRI","Costa Rica",4,0
-"CUB","Cuba",4,41100089553.2002
+"CUB","Cuba",4,0
 "CYP","Cyprus",4,0
 "CZE","Czech Republic",4,0
-"DEU","Germany",4,1550961204964.59
+"DEU","Germany",4,1596132563874.1
 "DJI","Djibouti",4,0
-"DMA","Dominica",4,177048474.311123
+"DMA","Dominica",4,178916212.655131
 "DNK","Denmark",4,0
 "DOM","Dominican Republic",4,0
 "DZA","Algeria",4,0
 "ECU","Ecuador",4,0
 "EGY","Egypt",4,0
-"ERI","Eritrea",4,23022522.0073185
+"ERI","Eritrea",4,27639436.5059357
 "ESP","Spain",4,0
 "EST","Estonia",4,0
 "ETH","Ethiopia",4,0
@@ -651,17 +651,17 @@
 "GEO","Georgia",4,0
 "GHA","Ghana",4,0
 "GIN","Guinea",4,0
-"GMB","Gambia",4,1242656665.29004
+"GMB","Gambia",4,382255104.59082
 "GNB","Guinea-Bissau",4,0
-"GNQ","Equatorial Guinea",4,1816941516.74463
+"GNQ","Equatorial Guinea",4,2001678489.84009
 "GRC","Greece",4,0
 "GRD","Grenada",4,0
 "GRL","Greenland",4,0
 "GTM","Guatemala",4,0
 "GUY","Guyana",4,0
 "HKG","Hong Kong SAR, China",4,0
-"HND","Honduras",4,232904598011.594
-"HRV","Croatia",4,1394436841212.55
+"HND","Honduras",4,245391487319.203
+"HRV","Croatia",4,1600013689535.82
 "HTI","Haiti",4,0
 "HUN","Hungary",4,0
 "IDN","Indonesia",4,0
@@ -669,17 +669,17 @@
 "IRL","Ireland",4,0
 "IRN","Iran (Islamic Republic of)",4,0
 "IRQ","Iraq",4,0
-"ISL","Iceland",4,28832145735.7188
+"ISL","Iceland",4,297734582301.977
 "ISR","Israel",4,0
 "ITA","Italy",4,0
 "JAM","Jamaica",4,0
 "JOR","Jordan",4,0
 "JPN","Japan",4,0
-"KAZ","Kazakhstan",4,363803549442.691
-"KEN","Kenya",4,0
+"KAZ","Kazakhstan",4,953684611341.414
+"KEN","Kenya",4,9316164892968.83
 "KGZ","Kyrgyzstan",4,0
 "KHM","Cambodia",4,0
-"KIR","Kiribati",4,13717605238.2251
+"KIR","Kiribati",4,13289870427.9609
 "KNA","Saint Kitts and Nevis",4,0
 "KOR","Republic of Korea",4,0
 "KWT","Kuwait",4,0
@@ -687,19 +687,19 @@
 "LBN","Lebanon",4,0
 "LBR","Liberia",4,0
 "LBY","Libya",4,0
-"LCA","Saint Lucia",4,1145375670851.12
+"LCA","Saint Lucia",4,1206465040927.16
 "LKA","Sri Lanka",4,0
 "LSO","Lesotho",4,0
 "LTU","Lithuania",4,0
 "LUX","Luxembourg",4,0
-"LVA","Latvia",4,37613082886.5449
+"LVA","Latvia",4,38477213567.4744
 "MAC","Macao SAR, China",4,0
 "MAR","Morocco",4,0
-"MDA","Republic of Moldova",4,0
+"MDA","Republic of Moldova",4,100797004132.355
 "MDG","Madagascar",4,0
 "MDV","Maldives",4,0
 "MEX","Mexico",4,0
-"MKD","The former Yugoslav Republic of Macedonia",4,7112261478.19531
+"MKD","The former Yugoslav Republic of Macedonia",4,7262020790.81836
 "MLI","Mali",4,0
 "MLT","Malta",4,0
 "MMR","Myanmar",4,0
@@ -716,11 +716,11 @@
 "NGA","Nigeria",4,0
 "NIC","Nicaragua",4,0
 "NLD","Netherlands",4,0
-"NOR","Norway",4,330050923228.352
+"NOR","Norway",4,333846659325.844
 "NPL","Nepal",4,0
-"NZL","New Zealand",4,0
+"NZL","New Zealand",4,793665447.6875
 "OMN","Oman",4,0
-"PAK","Pakistan",4,0
+"PAK","Pakistan",4,2259694745874.25
 "PAN","Panama",4,0
 "PER","Peru",4,0
 "PHL","Philippines",4,0
@@ -730,15 +730,15 @@
 "PRT","Portugal",4,0
 "PRY","Paraguay",4,0
 "PSE","Occupied Palestinian Territory",4,0
-"PYF","French Polynesia",4,2705147510.58569
+"PYF","French Polynesia",4,2705196920.30876
 "QAT","Qatar",4,0
 "ROU","Romania",4,0
-"RUS","Russian Federation",4,4451396346174.52
+"RUS","Russian Federation",4,4451867691312.16
 "RWA","Rwanda",4,0
 "SAU","Saudi Arabia",4,0
 "SDN","Sudan",4,0
-"SEN","Senegal",4,8827585413.39987
-"SGP","Singapore",4,18436355953.1469
+"SEN","Senegal",4,5398133883.38516
+"SGP","Singapore",4,18985252190.1078
 "SLB","Solomon Islands",4,0
 "SLE","Sierra Leone",4,0
 "SLV","El Salvador",4,0
@@ -748,7 +748,7 @@
 "STP","Sao Tome and Principe",4,0
 "SUR","Suriname",4,0
 "SVK","Slovakia",4,0
-"SVN","Slovenia",4,375200715723.225
+"SVN","Slovenia",4,706377895848.855
 "SWE","Sweden",4,0
 "SWZ","Swaziland",4,0
 "SYC","Seychelles",4,0
@@ -766,8 +766,8 @@
 "TUV","Tuvalu",4,0
 "TWN","Taiwan",4,0
 "TZA","United Republic of Tanzania",4,0
-"UGA","Uganda",4,5828621726.15039
-"UKR","Ukraine",4,5002445493124.69
+"UGA","Uganda",4,57403020114.5391
+"UKR","Ukraine",4,5104904531894.34
 "URY","Uruguay",4,0
 "USA","United States of America",4,0
 "UZB","Uzbekistan",4,0
@@ -782,32 +782,32 @@
 "AFG","Afghanistan",5,0
 "ALB","Albania",5,0
 "ANT","Netherlands Antilles",5,0
-"ARB","Aruba",5,1352239561113.51
-"ARE","United Arab Emirates",5,199336443.352913
+"ARB","Aruba",5,1386724004010.27
+"ARE","United Arab Emirates",5,0
 "ARG","Argentina",5,0
 "ARM","Armenia",5,0
 "ATG","Antigua and Barbuda",5,0
 "AUS","Australia",5,0
 "AUT","Austria",5,0
 "AZE","Azerbaijan",5,0
-"BDI","Burundi",5,242242519175.971
+"BDI","Burundi",5,247223889224.191
 "BEL","Belgium",5,0
 "BEN","Benin",5,0
 "BFA","Burkina Faso",5,0
 "BGD","Bangladesh",5,0
 "BGR","Bulgaria",5,0
-"BHR","Bahrain",5,1371511807.13837
+"BHR","Bahrain",5,0
 "BHS","Bahamas",5,0
 "BIH","Bosnia and Herzegovina",5,0
-"BLR","Belarus",5,10587431157.245
+"BLR","Belarus",5,12044850519.7553
 "BLZ","Belize",5,0
-"BMU","Bermuda",5,2323690840.4209
+"BMU","Bermuda",5,2339409433.4082
 "BOL","Bolivia (Plurinational State of)",5,0
 "BRA","Brazil",5,0
 "BRB","Barbados",5,0
-"BRN","Brunei Darussalam",5,9574412396.73007
+"BRN","Brunei Darussalam",5,9712437563.74277
 "BTN","Bhutan",5,0
-"BWA","Botswana",5,14409154780.6375
+"BWA","Botswana",5,15041989942.5
 "CAF","Central African Republic",5,0
 "CAN","Canada",5,0
 "CHE","Switzerland",5,0
@@ -816,24 +816,24 @@
 "CIV","Cote dIvoire",5,0
 "CMR","Cameroon",5,0
 "COD","Democratic Republic of the Congo",5,0
-"COG","Congo",5,305250777717.995
-"COK","Cook Islands",5,1304986636.82104
+"COG","Congo",5,312763715445.633
+"COK","Cook Islands",5,5971702428.69495
 "COL","Colombia",5,0
-"COM","Comoros",5,2117128176.70215
+"COM","Comoros",5,327362673.395508
 "CPV","Cape Verde",5,0
 "CRI","Costa Rica",5,0
-"CUB","Cuba",5,260152550302.855
+"CUB","Cuba",5,219907041409.709
 "CYP","Cyprus",5,0
 "CZE","Czech Republic",5,0
-"DEU","Germany",5,1698147480632.73
+"DEU","Germany",5,1745212589890.15
 "DJI","Djibouti",5,0
-"DMA","Dominica",5,181347014.364174
+"DMA","Dominica",5,182877104.715728
 "DNK","Denmark",5,0
 "DOM","Dominican Republic",5,0
 "DZA","Algeria",5,0
 "ECU","Ecuador",5,0
 "EGY","Egypt",5,0
-"ERI","Eritrea",5,28273418.4496212
+"ERI","Eritrea",5,34461413.4261913
 "ESP","Spain",5,0
 "EST","Estonia",5,0
 "ETH","Ethiopia",5,0
@@ -846,63 +846,63 @@
 "GEO","Georgia",5,0
 "GHA","Ghana",5,0
 "GIN","Guinea",5,0
-"GMB","Gambia",5,2320125118.87793
+"GMB","Gambia",5,1454328258.05273
 "GNB","Guinea-Bissau",5,0
-"GNQ","Equatorial Guinea",5,1932322565.53467
+"GNQ","Equatorial Guinea",5,2100996689.90527
 "GRC","Greece",5,0
 "GRD","Grenada",5,0
 "GRL","Greenland",5,0
 "GTM","Guatemala",5,0
 "GUY","Guyana",5,0
 "HKG","Hong Kong SAR, China",5,0
-"HND","Honduras",5,264096304367.031
-"HRV","Croatia",5,1646499468665.48
+"HND","Honduras",5,276383222094.469
+"HRV","Croatia",5,1732975355526.41
 "HTI","Haiti",5,0
 "HUN","Hungary",5,0
 "IDN","Indonesia",5,0
 "IND","India",5,0
 "IRL","Ireland",5,0
 "IRN","Iran (Islamic Republic of)",5,0
-"IRQ","Iraq",5,578954682.533447
-"ISL","Iceland",5,760450379432.18
+"IRQ","Iraq",5,0
+"ISL","Iceland",5,1069801763098.69
 "ISR","Israel",5,0
 "ITA","Italy",5,0
 "JAM","Jamaica",5,0
 "JOR","Jordan",5,0
 "JPN","Japan",5,0
-"KAZ","Kazakhstan",5,940849138548.539
-"KEN","Kenya",5,0
+"KAZ","Kazakhstan",5,1212789797750.65
+"KEN","Kenya",5,9446016434315.75
 "KGZ","Kyrgyzstan",5,0
 "KHM","Cambodia",5,0
-"KIR","Kiribati",5,32084195712.0767
+"KIR","Kiribati",5,35135654081.3804
 "KNA","Saint Kitts and Nevis",5,0
 "KOR","Republic of Korea",5,0
-"KWT","Kuwait",5,9645303179.24756
+"KWT","Kuwait",5,52161350853.7632
 "LAO","Lao People's Democratic Republic",5,0
 "LBN","Lebanon",5,0
 "LBR","Liberia",5,0
 "LBY","Libya",5,0
-"LCA","Saint Lucia",5,1233874880894.08
+"LCA","Saint Lucia",5,1264750449148.23
 "LKA","Sri Lanka",5,0
 "LSO","Lesotho",5,0
 "LTU","Lithuania",5,0
 "LUX","Luxembourg",5,0
-"LVA","Latvia",5,39158265062.8043
+"LVA","Latvia",5,40012605510.6118
 "MAC","Macao SAR, China",5,0
 "MAR","Morocco",5,0
-"MDA","Republic of Moldova",5,352013863718.84
+"MDA","Republic of Moldova",5,377717464691.064
 "MDG","Madagascar",5,0
 "MDV","Maldives",5,0
 "MEX","Mexico",5,0
-"MKD","The former Yugoslav Republic of Macedonia",5,7345991441.09961
+"MKD","The former Yugoslav Republic of Macedonia",5,7494136067.36914
 "MLI","Mali",5,0
 "MLT","Malta",5,0
 "MMR","Myanmar",5,0
 "MNE","Montenegro",5,0
 "MNG","Mongolia",5,0
 "MOZ","Mozambique",5,0
-"MRT","Mauritania",5,15219501268.3926
-"MUS","Mauritius",5,9797265936.59424
+"MRT","Mauritania",5,5400146620.55127
+"MUS","Mauritius",5,16050539169.5165
 "MWI","Malawi",5,0
 "MYS","Malaysia",5,0
 "NAM","Namibia",5,0
@@ -911,11 +911,11 @@
 "NGA","Nigeria",5,0
 "NIC","Nicaragua",5,0
 "NLD","Netherlands",5,0
-"NOR","Norway",5,338426636420.602
+"NOR","Norway",5,341671431429.742
 "NPL","Nepal",5,0
-"NZL","New Zealand",5,44013811012.3379
+"NZL","New Zealand",5,90880615346.2188
 "OMN","Oman",5,0
-"PAK","Pakistan",5,0
+"PAK","Pakistan",5,2359597471117.72
 "PAN","Panama",5,0
 "PER","Peru",5,0
 "PHL","Philippines",5,0
@@ -925,15 +925,15 @@
 "PRT","Portugal",5,0
 "PRY","Paraguay",5,0
 "PSE","Occupied Palestinian Territory",5,0
-"PYF","French Polynesia",5,2705179892.28427
+"PYF","French Polynesia",5,2705229207.17526
 "QAT","Qatar",5,0
 "ROU","Romania",5,0
-"RUS","Russian Federation",5,4502486652526.19
+"RUS","Russian Federation",5,4502523960590.75
 "RWA","Rwanda",5,0
 "SAU","Saudi Arabia",5,0
 "SDN","Sudan",5,0
-"SEN","Senegal",5,11443920771.4636
-"SGP","Singapore",5,19567101223.9036
+"SEN","Senegal",5,12333488107.4757
+"SGP","Singapore",5,20273113337.0656
 "SLB","Solomon Islands",5,0
 "SLE","Sierra Leone",5,0
 "SLV","El Salvador",5,0
@@ -941,9 +941,9 @@
 "SRB","Serbia",5,0
 "SSD","South Sudan",5,0
 "STP","Sao Tome and Principe",5,0
-"SUR","Suriname",5,5883912476.14478
+"SUR","Suriname",5,8512462559.89185
 "SVK","Slovakia",5,0
-"SVN","Slovenia",5,712013977320.932
+"SVN","Slovenia",5,744223123596.744
 "SWE","Sweden",5,0
 "SWZ","Swaziland",5,0
 "SYC","Seychelles",5,0
@@ -961,8 +961,8 @@
 "TUV","Tuvalu",5,0
 "TWN","Taiwan",5,0
 "TZA","United Republic of Tanzania",5,0
-"UGA","Uganda",5,120783033917.895
-"UKR","Ukraine",5,5153460236855.47
+"UGA","Uganda",5,189976096988.732
+"UKR","Ukraine",5,5255244964453.14
 "URY","Uruguay",5,0
 "USA","United States of America",5,0
 "UZB","Uzbekistan",5,0

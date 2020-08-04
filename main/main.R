@@ -6,10 +6,10 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Command line version: Parse arguments ====
-#args <- commandArgs(trailingOnly = TRUE)
-#FSCversion <- c(as.numeric(args[1]))
-#i_scenario <- c(as.numeric(args[2]))
-# years <- c(as.numeric(args[1]))
+args <- commandArgs(trailingOnly = TRUE)
+FSCversion <- c(as.numeric(args[1]))
+i_scenario <- c(as.numeric(args[2]))
+num_years <- c(as.numeric(args[3]))
 # country <- args[2]
 # production_decrease <- as.numeric(args[3])
 # fractional_reserve_access <- as.numeric(args[4])
@@ -21,24 +21,39 @@ source("main/FSC_sim_funcs.R")
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
 
-# Step 1: Input Arguments ----
-# RStudio version: Specify arguments  ====
-setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
+# Step 1: Input Arguments ---
 
-# Specify model version to run: 0-> PTA; 1-> RTA
-FSCversion = 0
+# Uncomment below if running in RStudio or the like
+# # RStudio version: *Start* Specify arguments  ====
+# # Specify working directory
+# setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
+# 
+# # Specify model version to run: 0-> PTA; 1-> RTA
+# FSCversion = 0
+#
+# # Specify commodity scenario: 0-> wheat; 2-> rice; 3-> maize
+# i_scenario = 1 
+# 
+# # Specify number of years to run model
+# num_years = 5
+# # RStudio version: *End* Specify arguments  ====
 
-# Set year range to run model
-years <- 1:5
 
-# Create column names for output files (Depends on year range)
-column_names = c('0', '1', '2', '3', '4','5')
-column_names2 = c('1', '2', '3', '4','5')
+# Create year range to run model along with column names for output
+years0 <- 0:num_years # vector includes initial year
+years <- 1:num_years
 
-# Step 2: Specify crop + exogenous trade restriction scenario ----
-i_scenario = 1 # wheat
-#i_scenario = 2 # rice
-#i_scenario = 3 # maize
+column_names <- 0
+for(i in 1:num_years+1) {
+  column_names[i] <- toString(years0[i])
+}
+
+column_names2 <- 0
+for(i in years) {
+  column_names2[i] <- toString(years[i])
+}
+
+# Step 2: Selection of commodity scenario ----
 
 # Production *fractional declines* list by year by country ====
 # Read production declines and Select countries for export bans
@@ -64,7 +79,12 @@ commodities <- read.csv("ancillary/cropcommodity_tradelist.csv")
 country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
 # 3) Production *fractional declines* list by year by country ====
-anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
+anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_5YearsDeclineFraction_195countries.csv"))
+
+# Check *fractional declines* to ensure that the max number of 
+#   simulation years doesn't exceed "anomalies" input
+if (num_years>ncol(anomalies)-1)
+  stop("Number of simulation years exceeds number of years in production decline input file")
 
 
 # Step 4: Load production/trade/stocks data ----
@@ -150,12 +170,14 @@ for (i in 1:length(years)) {
     trade_dat$nc <- length(trade_dat$P)
     # Change in reserves; set initially to zero
     trade_dat$dR <- rep(0, trade_dat$nc)
-    # Compute consumption assuming that it is initially equal to supply
-    trade_dat$C <- get_supply(trade_dat)
-    C0_initial <- trade_dat$C
-    Cout[, 1] <- C0_initial
     # Initial shortage is 0
     trade_dat$shortage <-rep(0, trade_dat$nc)
+    # Compute consumption assuming that it is initially equal to supply
+    trade_dat$C <- get_supply(trade_dat)
+    # Assign initial consumption to variable for later use
+    C0_initial <- trade_dat$C
+    Cout[, 1] <- C0_initial
+
   } else {
     # Clear trade_dat dataframe
     rm(trade_dat)
@@ -213,7 +235,7 @@ Pout_df <- tibble::rownames_to_column(Pout_df, "iso3")
 Pout_df <- merge(InputFSC[, c("iso3", "Country")], Pout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
 Pout_df <- gather(Pout_df, Year, Value, -iso3, -Country)
-# remove preceeding X character for Year column aand convert to numeric
+# remove preceding X character for Year column and convert to numeric
 Pout_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", Pout_df$Year))
 
 # Reserves
