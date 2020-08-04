@@ -34,23 +34,22 @@ rscript main/ProcessInputs.R
 ```
 
 ### Step 5: Run a simulation
-To run a simulation you should choose the following:
+To run a simulation you need to specify 1) the version of the FSC, 2) the crop or set of commodity (aggregated) to simulation, and 3) the number of time steps (annual) to run.
 
 * `FSCversion`: Specify model version to run: 0-> Run Proportional Trade Allocation (PTA) version; 
                                               1-> Run Reserves-based Trade Allocation (RTA) version
-* `i_scenario`:  i_scenario -> 0  # normal (default wheat) FSC run without exogenous restriction
-                 i_scenario -> 1 # wheat; i_scenario -> 2 # rice; i_scenario -> 3 # maize
+* `i_scenario`:  i_scenario -> 1 # wheat; i_scenario -> 2 # rice; i_scenario -> 3 # maize
+* `num_years`: number of time steps to run consecutively (time size = 1 year) 
 
 You can run a dynamic simulation with something like the following:
 ```
-rscript main/main.R 0 0
+rscript main/main.R 0 1 5
 ```
 In this case, we have chosen the following parameters:
 
-* `FSCversion`: 0
-* `i_scenario`: 0
-
-
+* `FSCversion`: 0 -> RTA version of the FSC moodel
+* `i_scenario`: 1 -> wheat commoditites
+* `num_years`: 5 years
 
 ## Summary of Model Scripts
 ### main.R
