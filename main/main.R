@@ -1,30 +1,29 @@
 ## Main script for the Food Shock Cascade (FSC) Model
 
-# Create output directory if needed
-if (dir.exists("outputs") == FALSE) {
-  dir.create("outputs")
-}
-
-# Command line version: Parse arguments ====
-args <- commandArgs(trailingOnly = TRUE)
-FSCversion <- c(as.numeric(args[1]))
-i_scenario <- c(as.numeric(args[2]))
-num_years <- c(as.numeric(args[3]))
-# country <- args[2]
-# production_decrease <- as.numeric(args[3])
-# fractional_reserve_access <- as.numeric(args[4])
-# output_file_name <- args[5]
-
 # Step 0: Load FSC functions ----
 source("main/FSC_component_funcs.R")
 source("main/FSC_sim_funcs.R")
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
 
+# Create output directory if needed
+if (dir.exists("outputs") == FALSE) {
+  dir.create("outputs")
+}
+
 # Step 1: Input Arguments ---
+# Command line version: Parse arguments ====
+args <- commandArgs(trailingOnly = TRUE)
+FSCversion <- c(as.numeric(args[1]))
+i_scenario <- c(as.numeric(args[2]))
+num_years <- c(as.numeric(args[3]))
+## country <- args[2]
+## production_decrease <- as.numeric(args[3])
+## fractional_reserve_access <- as.numeric(args[4])
+## output_file_name <- args[5]
 
 # Uncomment below if running in RStudio or the like
-# # RStudio version: *Start* Specify arguments  ====
+# # RStudio version: Specify arguments  ====
 # # Specify working directory
 # setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
 # 
@@ -36,13 +35,13 @@ library(tidyr)
 # 
 # # Specify number of years to run model
 # num_years = 5
-# # RStudio version: *End* Specify arguments  ====
-
+# # RStudio version: End Specify arguments  ====
 
 # Create year range to run model along with column names for output
 years0 <- 0:num_years # vector includes initial year
 years <- 1:num_years
 
+# Format column names
 column_names <- 0
 for(i in 1:num_years+1) {
   column_names[i] <- toString(years0[i])
