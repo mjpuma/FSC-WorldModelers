@@ -1,1171 +1,793 @@
-"iso3","Country","Year","Value"
-"AFG","Afghanistan",0,22382142713333.3
-"ALB","Albania",0,1282517693333.33
-"ANT","Netherlands Antilles",0,0
-"ARB","Aruba",0,0
-"ARE","United Arab Emirates",0,0
-"ARG","Argentina",0,64803451540000
-"ARM","Armenia",0,1419183813333.33
-"ATG","Antigua and Barbuda",0,0
-"AUS","Australia",0,126650418580000
-"AUT","Austria",0,6918847853333.33
-"AZE","Azerbaijan",0,7822463700000
-"BDI","Burundi",0,97465653333.3333
-"BEL","Belgium",0,6659785206666.67
-"BEN","Benin",0,0
-"BFA","Burkina Faso",0,0
-"BGD","Bangladesh",0,6009064140000
-"BGR","Bulgaria",0,22707987546666.7
-"BHR","Bahrain",0,0
-"BHS","Bahamas",0,0
-"BIH","Bosnia and Herzegovina",0,1262278406666.67
-"BLR","Belarus",0,11271417840000
-"BLZ","Belize",0,0
-"BMU","Bermuda",0,0
-"BOL","Bolivia (Plurinational State of)",0,1627821366666.67
-"BRA","Brazil",0,25948146040000
-"BRB","Barbados",0,0
-"BRN","Brunei Darussalam",0,0
-"BTN","Bhutan",0,77225253333.3333
-"BWA","Botswana",0,0
-"CAF","Central African Republic",0,0
-"CAN","Canada",0,130691425573333
-"CHE","Switzerland",0,2084883666666.67
-"CHL","Chile",0,6139184973333.33
-"CHN","China (mainland)",0,527950130453333
-"CIV","Cote dIvoire",0,0
-"CMR","Cameroon",0,49733713333.3333
-"COD","Democratic Republic of the Congo",0,83732686666.6667
-"COG","Congo",0,0
-"COK","Cook Islands",0,0
-"COL","Colombia",0,115884640000
-"COM","Comoros",0,0
-"CPV","Cape Verde",0,0
-"CRI","Costa Rica",0,0
-"CUB","Cuba",0,0
-"CYP","Cyprus",0,161180606666.667
-"CZE","Czech Republic",0,20189136566666.7
-"DEU","Germany",0,95096066953333.3
-"DJI","Djibouti",0,0
-"DMA","Dominica",0,0
-"DNK","Denmark",0,17925672006666.7
-"DOM","Dominican Republic",0,0
-"DZA","Algeria",0,15104231500000
-"ECU","Ecuador",0,68713820000
-"EGY","Egypt",0,35255009280000
-"ERI","Eritrea",0,2.004e+11
-"ESP","Spain",0,28644319846666.7
-"EST","Estonia",0,2897996646666.67
-"ETH","Ethiopia",0,21299859133333.3
-"FIN","Finland",0,3773987353333.33
-"FJI","Fiji",0,0
-"FRA","France",0,141729821633333
-"FRO","Faroe Islands",0,0
-"GAB","Gabon",0,0
-"GBR","United Kingdom",0,57183531006666.7
-"GEO","Georgia",0,630004160000
-"GHA","Ghana",0,0
-"GIN","Guinea",0,0
-"GMB","Gambia",0,0
-"GNB","Guinea-Bissau",0,0
-"GNQ","Equatorial Guinea",0,0
-"GRC","Greece",0,6644936680000
-"GRD","Grenada",0,0
-"GRL","Greenland",0,0
-"GTM","Guatemala",0,74276033333.3333
-"GUY","Guyana",0,0
-"HKG","Hong Kong SAR, China",0,0
-"HND","Honduras",0,29962026666.6667
-"HRV","Croatia",0,3356119953333.33
-"HTI","Haiti",0,0
-"HUN","Hungary",0,21577109193333.3
-"IDN","Indonesia",0,0
-"IND","India",0,412044476286667
-"IRL","Ireland",0,2816491740000
-"IRN","Iran (Islamic Republic of)",0,65157089626666.7
-"IRQ","Iraq",0,12975080586666.7
-"ISL","Iceland",0,0
-"ISR","Israel",0,713774700000
-"ITA","Italy",0,31307167133333.3
-"JAM","Jamaica",0,0
-"JOR","Jordan",0,202042166666.667
-"JPN","Japan",0,3861046680000
-"KAZ","Kazakhstan",0,88428290240000
-"KEN","Kenya",0,1206625100000
-"KGZ","Kyrgyzstan",0,3180698700000
-"KHM","Cambodia",0,0
-"KIR","Kiribati",0,0
-"KNA","Saint Kitts and Nevis",0,0
-"KOR","Republic of Korea",0,262731080000
-"KWT","Kuwait",0,110254513333.333
-"LAO","Lao People's Democratic Republic",0,0
-"LBN","Lebanon",0,683328373333.333
-"LBR","Liberia",0,0
-"LBY","Libya",0,1334205306666.67
-"LCA","Saint Lucia",0,0
-"LKA","Sri Lanka",0,0
-"LSO","Lesotho",0,79091200000
-"LTU","Lithuania",0,16494218146666.7
-"LUX","Luxembourg",0,500775106666.667
-"LVA","Latvia",0,8868388040000
-"MAC","Macao SAR, China",0,0
-"MAR","Morocco",0,30088126140000
-"MDA","Republic of Moldova",0,5139023086666.67
-"MDG","Madagascar",0,103739286666.667
-"MDV","Maldives",0,0
-"MEX","Mexico",0,14956173753333.3
-"MKD","The former Yugoslav Republic of Macedonia",0,1143292020000
-"MLI","Mali",0,294788400000
-"MLT","Malta",0,211158140000
-"MMR","Myanmar",0,782456233333.333
-"MNE","Montenegro",0,113003333333.333
-"MNG","Mongolia",0,2237126433333.33
-"MOZ","Mozambique",0,150328946666.667
-"MRT","Mauritania",0,106410173333.333
-"MUS","Mauritius",0,0
-"MWI","Malawi",0,45806986666.6667
-"MYS","Malaysia",0,0
-"NAM","Namibia",0,210597020000
-"NCL","New Caledonia",0,44803873333.3333
-"NER","Niger",0,112231793333.333
-"NGA","Nigeria",0,453782420000
-"NIC","Nicaragua",0,0
-"NLD","Netherlands",0,4473881013333.33
-"NOR","Norway",0,1770570740000
-"NPL","Nepal",0,8806968780000
-"NZL","New Zealand",0,1886104680000
-"OMN","Oman",0,143346120000
-"PAK","Pakistan",0,116763838220000
-"PAN","Panama",0,0
-"PER","Peru",0,1154347420000
-"PHL","Philippines",0,0
-"PNG","Papua New Guinea",0,0
-"POL","Poland",0,45360642426666.7
-"PRK","Democratic People's Republic of Korea",0,323171720000
-"PRT","Portugal",0,446795140000
-"PRY","Paraguay",0,5560134740000
-"PSE","Occupied Palestinian Territory",0,232671080000
-"PYF","French Polynesia",0,0
-"QAT","Qatar",0,51048560000
-"ROU","Romania",0,36566527080000
-"RUS","Russian Federation",0,336133683293333
-"RWA","Rwanda",0,105825673333.333
-"SAU","Saudi Arabia",0,2707896093333.33
-"SDN","Sudan",0,2740147133333.33
-"SEN","Senegal",0,0
-"SGP","Singapore",0,0
-"SLB","Solomon Islands",0,0
-"SLE","Sierra Leone",0,0
-"SLV","El Salvador",0,0
-"SOM","Somalia",0,25336126666.6667
-"SRB","Serbia",0,10532210153333.3
-"SSD","South Sudan",0,0
-"STP","Sao Tome and Principe",0,0
-"SUR","Suriname",0,0
-"SVK","Slovakia",0,8479222373333.33
-"SVN","Slovenia",0,784537053333.333
-"SWE","Sweden",0,12265269353333.3
-"SWZ","Swaziland",0,63434393333.3333
-"SYC","Seychelles",0,0
-"SYR","Syrian Arab Republic",0,9.81793e+12
-"TCD","Chad",0,67665060000
-"TGO","Togo",0,0
-"THA","Thailand",0,43378806666.6667
-"TJK","Tajikistan",0,4102291540000
-"TKM","Turkmenistan",0,8323109660000
-"TLS","Timor-Leste",0,0
-"TON","Tonga",0,0
-"TTO","Trinidad and Tobago",0,0
-"TUN","Tunisia",0,5375105420000
-"TUR","Turkey",0,97864844566666.7
-"TUV","Tuvalu",0,0
-"TWN","Taiwan",0,118081246666.667
-"TZA","United Republic of Tanzania",0,645598620000
-"UGA","Uganda",0,177037813333.333
-"UKR","Ukraine",0,109534804566667
-"URY","Uruguay",0,4527189640000
-"USA","United States of America",0,242871651533333
-"UZB","Uzbekistan",0,27183340386666.7
-"VCT","Saint Vincent and the Grenadines",0,0
-"VEN","Venezuela (Bolivarian Republic of)",0,100294633333.333
-"VNM","Viet Nam",0,0
-"VUT","Vanuatu",0,0
-"YEM","Yemen",0,625844746666.667
-"ZAF","South Africa",0,7198565060000
-"ZMB","Zambia",0,953870600000
-"ZWE","Zimbabwe",0,277602986666.667
-"AFG","Afghanistan",1,22382142713333.3
-"ALB","Albania",1,1282517693333.33
-"ANT","Netherlands Antilles",1,0
-"ARB","Aruba",1,0
-"ARE","United Arab Emirates",1,0
-"ARG","Argentina",1,64803451540000
-"ARM","Armenia",1,1419183813333.33
-"ATG","Antigua and Barbuda",1,0
-"AUS","Australia",1,126650418580000
-"AUT","Austria",1,6918847853333.33
-"AZE","Azerbaijan",1,7822463700000
-"BDI","Burundi",1,97465653333.3333
-"BEL","Belgium",1,6659785206666.67
-"BEN","Benin",1,0
-"BFA","Burkina Faso",1,0
-"BGD","Bangladesh",1,6009064140000
-"BGR","Bulgaria",1,22707987546666.7
-"BHR","Bahrain",1,0
-"BHS","Bahamas",1,0
-"BIH","Bosnia and Herzegovina",1,1262278406666.67
-"BLR","Belarus",1,11271417840000
-"BLZ","Belize",1,0
-"BMU","Bermuda",1,0
-"BOL","Bolivia (Plurinational State of)",1,1627821366666.67
-"BRA","Brazil",1,25948146040000
-"BRB","Barbados",1,0
-"BRN","Brunei Darussalam",1,0
-"BTN","Bhutan",1,77225253333.3333
-"BWA","Botswana",1,0
-"CAF","Central African Republic",1,0
-"CAN","Canada",1,130691425573333
-"CHE","Switzerland",1,2084883666666.67
-"CHL","Chile",1,6139184973333.33
-"CHN","China (mainland)",1,527950130453333
-"CIV","Cote dIvoire",1,0
-"CMR","Cameroon",1,49733713333.3333
-"COD","Democratic Republic of the Congo",1,83732686666.6667
-"COG","Congo",1,0
-"COK","Cook Islands",1,0
-"COL","Colombia",1,115884640000
-"COM","Comoros",1,0
-"CPV","Cape Verde",1,0
-"CRI","Costa Rica",1,0
-"CUB","Cuba",1,0
-"CYP","Cyprus",1,161180606666.667
-"CZE","Czech Republic",1,20189136566666.7
-"DEU","Germany",1,95096066953333.3
-"DJI","Djibouti",1,0
-"DMA","Dominica",1,0
-"DNK","Denmark",1,17925672006666.7
-"DOM","Dominican Republic",1,0
-"DZA","Algeria",1,15104231500000
-"ECU","Ecuador",1,68713820000
-"EGY","Egypt",1,35255009280000
-"ERI","Eritrea",1,2.004e+11
-"ESP","Spain",1,28644319846666.7
-"EST","Estonia",1,2897996646666.67
-"ETH","Ethiopia",1,21299859133333.3
-"FIN","Finland",1,3773987353333.33
-"FJI","Fiji",1,0
-"FRA","France",1,141729821633333
-"FRO","Faroe Islands",1,0
-"GAB","Gabon",1,0
-"GBR","United Kingdom",1,57183531006666.7
-"GEO","Georgia",1,630004160000
-"GHA","Ghana",1,0
-"GIN","Guinea",1,0
-"GMB","Gambia",1,0
-"GNB","Guinea-Bissau",1,0
-"GNQ","Equatorial Guinea",1,0
-"GRC","Greece",1,6644936680000
-"GRD","Grenada",1,0
-"GRL","Greenland",1,0
-"GTM","Guatemala",1,74276033333.3333
-"GUY","Guyana",1,0
-"HKG","Hong Kong SAR, China",1,0
-"HND","Honduras",1,29962026666.6667
-"HRV","Croatia",1,3356119953333.33
-"HTI","Haiti",1,0
-"HUN","Hungary",1,21577109193333.3
-"IDN","Indonesia",1,0
-"IND","India",1,412044476286667
-"IRL","Ireland",1,2816491740000
-"IRN","Iran (Islamic Republic of)",1,65157089626666.7
-"IRQ","Iraq",1,12975080586666.7
-"ISL","Iceland",1,0
-"ISR","Israel",1,713774700000
-"ITA","Italy",1,31307167133333.3
-"JAM","Jamaica",1,0
-"JOR","Jordan",1,202042166666.667
-"JPN","Japan",1,3861046680000
-"KAZ","Kazakhstan",1,72352027074368
-"KEN","Kenya",1,1206625100000
-"KGZ","Kyrgyzstan",1,3180698700000
-"KHM","Cambodia",1,0
-"KIR","Kiribati",1,0
-"KNA","Saint Kitts and Nevis",1,0
-"KOR","Republic of Korea",1,262731080000
-"KWT","Kuwait",1,110254513333.333
-"LAO","Lao People's Democratic Republic",1,0
-"LBN","Lebanon",1,683328373333.333
-"LBR","Liberia",1,0
-"LBY","Libya",1,1334205306666.67
-"LCA","Saint Lucia",1,0
-"LKA","Sri Lanka",1,0
-"LSO","Lesotho",1,79091200000
-"LTU","Lithuania",1,16494218146666.7
-"LUX","Luxembourg",1,500775106666.667
-"LVA","Latvia",1,8868388040000
-"MAC","Macao SAR, China",1,0
-"MAR","Morocco",1,30088126140000
-"MDA","Republic of Moldova",1,5139023086666.67
-"MDG","Madagascar",1,103739286666.667
-"MDV","Maldives",1,0
-"MEX","Mexico",1,14956173753333.3
-"MKD","The former Yugoslav Republic of Macedonia",1,1143292020000
-"MLI","Mali",1,294788400000
-"MLT","Malta",1,211158140000
-"MMR","Myanmar",1,782456233333.333
-"MNE","Montenegro",1,113003333333.333
-"MNG","Mongolia",1,2237126433333.33
-"MOZ","Mozambique",1,150328946666.667
-"MRT","Mauritania",1,106410173333.333
-"MUS","Mauritius",1,0
-"MWI","Malawi",1,45806986666.6667
-"MYS","Malaysia",1,0
-"NAM","Namibia",1,210597020000
-"NCL","New Caledonia",1,44803873333.3333
-"NER","Niger",1,112231793333.333
-"NGA","Nigeria",1,453782420000
-"NIC","Nicaragua",1,0
-"NLD","Netherlands",1,4473881013333.33
-"NOR","Norway",1,1770570740000
-"NPL","Nepal",1,8806968780000
-"NZL","New Zealand",1,1886104680000
-"OMN","Oman",1,143346120000
-"PAK","Pakistan",1,116763838220000
-"PAN","Panama",1,0
-"PER","Peru",1,1154347420000
-"PHL","Philippines",1,0
-"PNG","Papua New Guinea",1,0
-"POL","Poland",1,45360642426666.7
-"PRK","Democratic People's Republic of Korea",1,323171720000
-"PRT","Portugal",1,446795140000
-"PRY","Paraguay",1,5560134740000
-"PSE","Occupied Palestinian Territory",1,232671080000
-"PYF","French Polynesia",1,0
-"QAT","Qatar",1,51048560000
-"ROU","Romania",1,36566527080000
-"RUS","Russian Federation",1,310318616416405
-"RWA","Rwanda",1,105825673333.333
-"SAU","Saudi Arabia",1,2707896093333.33
-"SDN","Sudan",1,2740147133333.33
-"SEN","Senegal",1,0
-"SGP","Singapore",1,0
-"SLB","Solomon Islands",1,0
-"SLE","Sierra Leone",1,0
-"SLV","El Salvador",1,0
-"SOM","Somalia",1,25336126666.6667
-"SRB","Serbia",1,10532210153333.3
-"SSD","South Sudan",1,0
-"STP","Sao Tome and Principe",1,0
-"SUR","Suriname",1,0
-"SVK","Slovakia",1,8479222373333.33
-"SVN","Slovenia",1,784537053333.333
-"SWE","Sweden",1,12265269353333.3
-"SWZ","Swaziland",1,63434393333.3333
-"SYC","Seychelles",1,0
-"SYR","Syrian Arab Republic",1,9.81793e+12
-"TCD","Chad",1,67665060000
-"TGO","Togo",1,0
-"THA","Thailand",1,43378806666.6667
-"TJK","Tajikistan",1,4102291540000
-"TKM","Turkmenistan",1,8323109660000
-"TLS","Timor-Leste",1,0
-"TON","Tonga",1,0
-"TTO","Trinidad and Tobago",1,0
-"TUN","Tunisia",1,5375105420000
-"TUR","Turkey",1,97864844566666.7
-"TUV","Tuvalu",1,0
-"TWN","Taiwan",1,118081246666.667
-"TZA","United Republic of Tanzania",1,645598620000
-"UGA","Uganda",1,177037813333.333
-"UKR","Ukraine",1,87080169630500
-"URY","Uruguay",1,4527189640000
-"USA","United States of America",1,242871651533333
-"UZB","Uzbekistan",1,27183340386666.7
-"VCT","Saint Vincent and the Grenadines",1,0
-"VEN","Venezuela (Bolivarian Republic of)",1,100294633333.333
-"VNM","Viet Nam",1,0
-"VUT","Vanuatu",1,0
-"YEM","Yemen",1,625844746666.667
-"ZAF","South Africa",1,7198565060000
-"ZMB","Zambia",1,953870600000
-"ZWE","Zimbabwe",1,277602986666.667
-"AFG","Afghanistan",2,22382142713333.3
-"ALB","Albania",2,1282517693333.33
-"ANT","Netherlands Antilles",2,0
-"ARB","Aruba",2,0
-"ARE","United Arab Emirates",2,0
-"ARG","Argentina",2,64803451540000
-"ARM","Armenia",2,1419183813333.33
-"ATG","Antigua and Barbuda",2,0
-"AUS","Australia",2,126650418580000
-"AUT","Austria",2,6918847853333.33
-"AZE","Azerbaijan",2,7822463700000
-"BDI","Burundi",2,97465653333.3333
-"BEL","Belgium",2,6659785206666.67
-"BEN","Benin",2,0
-"BFA","Burkina Faso",2,0
-"BGD","Bangladesh",2,6009064140000
-"BGR","Bulgaria",2,22707987546666.7
-"BHR","Bahrain",2,0
-"BHS","Bahamas",2,0
-"BIH","Bosnia and Herzegovina",2,1262278406666.67
-"BLR","Belarus",2,11271417840000
-"BLZ","Belize",2,0
-"BMU","Bermuda",2,0
-"BOL","Bolivia (Plurinational State of)",2,1627821366666.67
-"BRA","Brazil",2,25948146040000
-"BRB","Barbados",2,0
-"BRN","Brunei Darussalam",2,0
-"BTN","Bhutan",2,77225253333.3333
-"BWA","Botswana",2,0
-"CAF","Central African Republic",2,0
-"CAN","Canada",2,130691425573333
-"CHE","Switzerland",2,2084883666666.67
-"CHL","Chile",2,6139184973333.33
-"CHN","China (mainland)",2,527950130453333
-"CIV","Cote dIvoire",2,0
-"CMR","Cameroon",2,49733713333.3333
-"COD","Democratic Republic of the Congo",2,83732686666.6667
-"COG","Congo",2,0
-"COK","Cook Islands",2,0
-"COL","Colombia",2,115884640000
-"COM","Comoros",2,0
-"CPV","Cape Verde",2,0
-"CRI","Costa Rica",2,0
-"CUB","Cuba",2,0
-"CYP","Cyprus",2,161180606666.667
-"CZE","Czech Republic",2,20189136566666.7
-"DEU","Germany",2,95096066953333.3
-"DJI","Djibouti",2,0
-"DMA","Dominica",2,0
-"DNK","Denmark",2,17925672006666.7
-"DOM","Dominican Republic",2,0
-"DZA","Algeria",2,15104231500000
-"ECU","Ecuador",2,68713820000
-"EGY","Egypt",2,35255009280000
-"ERI","Eritrea",2,2.004e+11
-"ESP","Spain",2,28644319846666.7
-"EST","Estonia",2,2897996646666.67
-"ETH","Ethiopia",2,21299859133333.3
-"FIN","Finland",2,3773987353333.33
-"FJI","Fiji",2,0
-"FRA","France",2,141729821633333
-"FRO","Faroe Islands",2,0
-"GAB","Gabon",2,0
-"GBR","United Kingdom",2,57183531006666.7
-"GEO","Georgia",2,630004160000
-"GHA","Ghana",2,0
-"GIN","Guinea",2,0
-"GMB","Gambia",2,0
-"GNB","Guinea-Bissau",2,0
-"GNQ","Equatorial Guinea",2,0
-"GRC","Greece",2,6644936680000
-"GRD","Grenada",2,0
-"GRL","Greenland",2,0
-"GTM","Guatemala",2,74276033333.3333
-"GUY","Guyana",2,0
-"HKG","Hong Kong SAR, China",2,0
-"HND","Honduras",2,29962026666.6667
-"HRV","Croatia",2,3356119953333.33
-"HTI","Haiti",2,0
-"HUN","Hungary",2,21577109193333.3
-"IDN","Indonesia",2,0
-"IND","India",2,412044476286667
-"IRL","Ireland",2,2816491740000
-"IRN","Iran (Islamic Republic of)",2,65157089626666.7
-"IRQ","Iraq",2,12975080586666.7
-"ISL","Iceland",2,0
-"ISR","Israel",2,713774700000
-"ITA","Italy",2,31307167133333.3
-"JAM","Jamaica",2,0
-"JOR","Jordan",2,202042166666.667
-"JPN","Japan",2,3861046680000
-"KAZ","Kazakhstan",2,72352027074368
-"KEN","Kenya",2,1206625100000
-"KGZ","Kyrgyzstan",2,3180698700000
-"KHM","Cambodia",2,0
-"KIR","Kiribati",2,0
-"KNA","Saint Kitts and Nevis",2,0
-"KOR","Republic of Korea",2,262731080000
-"KWT","Kuwait",2,110254513333.333
-"LAO","Lao People's Democratic Republic",2,0
-"LBN","Lebanon",2,683328373333.333
-"LBR","Liberia",2,0
-"LBY","Libya",2,1334205306666.67
-"LCA","Saint Lucia",2,0
-"LKA","Sri Lanka",2,0
-"LSO","Lesotho",2,79091200000
-"LTU","Lithuania",2,16494218146666.7
-"LUX","Luxembourg",2,500775106666.667
-"LVA","Latvia",2,8868388040000
-"MAC","Macao SAR, China",2,0
-"MAR","Morocco",2,30088126140000
-"MDA","Republic of Moldova",2,5139023086666.67
-"MDG","Madagascar",2,103739286666.667
-"MDV","Maldives",2,0
-"MEX","Mexico",2,14956173753333.3
-"MKD","The former Yugoslav Republic of Macedonia",2,1143292020000
-"MLI","Mali",2,294788400000
-"MLT","Malta",2,211158140000
-"MMR","Myanmar",2,782456233333.333
-"MNE","Montenegro",2,113003333333.333
-"MNG","Mongolia",2,2237126433333.33
-"MOZ","Mozambique",2,150328946666.667
-"MRT","Mauritania",2,106410173333.333
-"MUS","Mauritius",2,0
-"MWI","Malawi",2,45806986666.6667
-"MYS","Malaysia",2,0
-"NAM","Namibia",2,210597020000
-"NCL","New Caledonia",2,44803873333.3333
-"NER","Niger",2,112231793333.333
-"NGA","Nigeria",2,453782420000
-"NIC","Nicaragua",2,0
-"NLD","Netherlands",2,4473881013333.33
-"NOR","Norway",2,1770570740000
-"NPL","Nepal",2,8806968780000
-"NZL","New Zealand",2,1886104680000
-"OMN","Oman",2,143346120000
-"PAK","Pakistan",2,116763838220000
-"PAN","Panama",2,0
-"PER","Peru",2,1154347420000
-"PHL","Philippines",2,0
-"PNG","Papua New Guinea",2,0
-"POL","Poland",2,45360642426666.7
-"PRK","Democratic People's Republic of Korea",2,323171720000
-"PRT","Portugal",2,446795140000
-"PRY","Paraguay",2,5560134740000
-"PSE","Occupied Palestinian Territory",2,232671080000
-"PYF","French Polynesia",2,0
-"QAT","Qatar",2,51048560000
-"ROU","Romania",2,36566527080000
-"RUS","Russian Federation",2,310318616416405
-"RWA","Rwanda",2,105825673333.333
-"SAU","Saudi Arabia",2,2707896093333.33
-"SDN","Sudan",2,2740147133333.33
-"SEN","Senegal",2,0
-"SGP","Singapore",2,0
-"SLB","Solomon Islands",2,0
-"SLE","Sierra Leone",2,0
-"SLV","El Salvador",2,0
-"SOM","Somalia",2,25336126666.6667
-"SRB","Serbia",2,10532210153333.3
-"SSD","South Sudan",2,0
-"STP","Sao Tome and Principe",2,0
-"SUR","Suriname",2,0
-"SVK","Slovakia",2,8479222373333.33
-"SVN","Slovenia",2,784537053333.333
-"SWE","Sweden",2,12265269353333.3
-"SWZ","Swaziland",2,63434393333.3333
-"SYC","Seychelles",2,0
-"SYR","Syrian Arab Republic",2,9.81793e+12
-"TCD","Chad",2,67665060000
-"TGO","Togo",2,0
-"THA","Thailand",2,43378806666.6667
-"TJK","Tajikistan",2,4102291540000
-"TKM","Turkmenistan",2,8323109660000
-"TLS","Timor-Leste",2,0
-"TON","Tonga",2,0
-"TTO","Trinidad and Tobago",2,0
-"TUN","Tunisia",2,5375105420000
-"TUR","Turkey",2,97864844566666.7
-"TUV","Tuvalu",2,0
-"TWN","Taiwan",2,118081246666.667
-"TZA","United Republic of Tanzania",2,645598620000
-"UGA","Uganda",2,177037813333.333
-"UKR","Ukraine",2,87080169630500
-"URY","Uruguay",2,4527189640000
-"USA","United States of America",2,242871651533333
-"UZB","Uzbekistan",2,27183340386666.7
-"VCT","Saint Vincent and the Grenadines",2,0
-"VEN","Venezuela (Bolivarian Republic of)",2,100294633333.333
-"VNM","Viet Nam",2,0
-"VUT","Vanuatu",2,0
-"YEM","Yemen",2,625844746666.667
-"ZAF","South Africa",2,7198565060000
-"ZMB","Zambia",2,953870600000
-"ZWE","Zimbabwe",2,277602986666.667
-"AFG","Afghanistan",3,22382142713333.3
-"ALB","Albania",3,1282517693333.33
-"ANT","Netherlands Antilles",3,0
-"ARB","Aruba",3,0
-"ARE","United Arab Emirates",3,0
-"ARG","Argentina",3,64803451540000
-"ARM","Armenia",3,1419183813333.33
-"ATG","Antigua and Barbuda",3,0
-"AUS","Australia",3,126650418580000
-"AUT","Austria",3,6918847853333.33
-"AZE","Azerbaijan",3,7822463700000
-"BDI","Burundi",3,97465653333.3333
-"BEL","Belgium",3,6659785206666.67
-"BEN","Benin",3,0
-"BFA","Burkina Faso",3,0
-"BGD","Bangladesh",3,6009064140000
-"BGR","Bulgaria",3,22707987546666.7
-"BHR","Bahrain",3,0
-"BHS","Bahamas",3,0
-"BIH","Bosnia and Herzegovina",3,1262278406666.67
-"BLR","Belarus",3,11271417840000
-"BLZ","Belize",3,0
-"BMU","Bermuda",3,0
-"BOL","Bolivia (Plurinational State of)",3,1627821366666.67
-"BRA","Brazil",3,25948146040000
-"BRB","Barbados",3,0
-"BRN","Brunei Darussalam",3,0
-"BTN","Bhutan",3,77225253333.3333
-"BWA","Botswana",3,0
-"CAF","Central African Republic",3,0
-"CAN","Canada",3,130691425573333
-"CHE","Switzerland",3,2084883666666.67
-"CHL","Chile",3,6139184973333.33
-"CHN","China (mainland)",3,527950130453333
-"CIV","Cote dIvoire",3,0
-"CMR","Cameroon",3,49733713333.3333
-"COD","Democratic Republic of the Congo",3,83732686666.6667
-"COG","Congo",3,0
-"COK","Cook Islands",3,0
-"COL","Colombia",3,115884640000
-"COM","Comoros",3,0
-"CPV","Cape Verde",3,0
-"CRI","Costa Rica",3,0
-"CUB","Cuba",3,0
-"CYP","Cyprus",3,161180606666.667
-"CZE","Czech Republic",3,20189136566666.7
-"DEU","Germany",3,95096066953333.3
-"DJI","Djibouti",3,0
-"DMA","Dominica",3,0
-"DNK","Denmark",3,17925672006666.7
-"DOM","Dominican Republic",3,0
-"DZA","Algeria",3,15104231500000
-"ECU","Ecuador",3,68713820000
-"EGY","Egypt",3,35255009280000
-"ERI","Eritrea",3,2.004e+11
-"ESP","Spain",3,28644319846666.7
-"EST","Estonia",3,2897996646666.67
-"ETH","Ethiopia",3,21299859133333.3
-"FIN","Finland",3,3773987353333.33
-"FJI","Fiji",3,0
-"FRA","France",3,141729821633333
-"FRO","Faroe Islands",3,0
-"GAB","Gabon",3,0
-"GBR","United Kingdom",3,57183531006666.7
-"GEO","Georgia",3,630004160000
-"GHA","Ghana",3,0
-"GIN","Guinea",3,0
-"GMB","Gambia",3,0
-"GNB","Guinea-Bissau",3,0
-"GNQ","Equatorial Guinea",3,0
-"GRC","Greece",3,6644936680000
-"GRD","Grenada",3,0
-"GRL","Greenland",3,0
-"GTM","Guatemala",3,74276033333.3333
-"GUY","Guyana",3,0
-"HKG","Hong Kong SAR, China",3,0
-"HND","Honduras",3,29962026666.6667
-"HRV","Croatia",3,3356119953333.33
-"HTI","Haiti",3,0
-"HUN","Hungary",3,21577109193333.3
-"IDN","Indonesia",3,0
-"IND","India",3,412044476286667
-"IRL","Ireland",3,2816491740000
-"IRN","Iran (Islamic Republic of)",3,65157089626666.7
-"IRQ","Iraq",3,12975080586666.7
-"ISL","Iceland",3,0
-"ISR","Israel",3,713774700000
-"ITA","Italy",3,31307167133333.3
-"JAM","Jamaica",3,0
-"JOR","Jordan",3,202042166666.667
-"JPN","Japan",3,3861046680000
-"KAZ","Kazakhstan",3,72352027074368
-"KEN","Kenya",3,1206625100000
-"KGZ","Kyrgyzstan",3,3180698700000
-"KHM","Cambodia",3,0
-"KIR","Kiribati",3,0
-"KNA","Saint Kitts and Nevis",3,0
-"KOR","Republic of Korea",3,262731080000
-"KWT","Kuwait",3,110254513333.333
-"LAO","Lao People's Democratic Republic",3,0
-"LBN","Lebanon",3,683328373333.333
-"LBR","Liberia",3,0
-"LBY","Libya",3,1334205306666.67
-"LCA","Saint Lucia",3,0
-"LKA","Sri Lanka",3,0
-"LSO","Lesotho",3,79091200000
-"LTU","Lithuania",3,16494218146666.7
-"LUX","Luxembourg",3,500775106666.667
-"LVA","Latvia",3,8868388040000
-"MAC","Macao SAR, China",3,0
-"MAR","Morocco",3,30088126140000
-"MDA","Republic of Moldova",3,5139023086666.67
-"MDG","Madagascar",3,103739286666.667
-"MDV","Maldives",3,0
-"MEX","Mexico",3,14956173753333.3
-"MKD","The former Yugoslav Republic of Macedonia",3,1143292020000
-"MLI","Mali",3,294788400000
-"MLT","Malta",3,211158140000
-"MMR","Myanmar",3,782456233333.333
-"MNE","Montenegro",3,113003333333.333
-"MNG","Mongolia",3,2237126433333.33
-"MOZ","Mozambique",3,150328946666.667
-"MRT","Mauritania",3,106410173333.333
-"MUS","Mauritius",3,0
-"MWI","Malawi",3,45806986666.6667
-"MYS","Malaysia",3,0
-"NAM","Namibia",3,210597020000
-"NCL","New Caledonia",3,44803873333.3333
-"NER","Niger",3,112231793333.333
-"NGA","Nigeria",3,453782420000
-"NIC","Nicaragua",3,0
-"NLD","Netherlands",3,4473881013333.33
-"NOR","Norway",3,1770570740000
-"NPL","Nepal",3,8806968780000
-"NZL","New Zealand",3,1886104680000
-"OMN","Oman",3,143346120000
-"PAK","Pakistan",3,116763838220000
-"PAN","Panama",3,0
-"PER","Peru",3,1154347420000
-"PHL","Philippines",3,0
-"PNG","Papua New Guinea",3,0
-"POL","Poland",3,45360642426666.7
-"PRK","Democratic People's Republic of Korea",3,323171720000
-"PRT","Portugal",3,446795140000
-"PRY","Paraguay",3,5560134740000
-"PSE","Occupied Palestinian Territory",3,232671080000
-"PYF","French Polynesia",3,0
-"QAT","Qatar",3,51048560000
-"ROU","Romania",3,36566527080000
-"RUS","Russian Federation",3,310318616416405
-"RWA","Rwanda",3,105825673333.333
-"SAU","Saudi Arabia",3,2707896093333.33
-"SDN","Sudan",3,2740147133333.33
-"SEN","Senegal",3,0
-"SGP","Singapore",3,0
-"SLB","Solomon Islands",3,0
-"SLE","Sierra Leone",3,0
-"SLV","El Salvador",3,0
-"SOM","Somalia",3,25336126666.6667
-"SRB","Serbia",3,10532210153333.3
-"SSD","South Sudan",3,0
-"STP","Sao Tome and Principe",3,0
-"SUR","Suriname",3,0
-"SVK","Slovakia",3,8479222373333.33
-"SVN","Slovenia",3,784537053333.333
-"SWE","Sweden",3,12265269353333.3
-"SWZ","Swaziland",3,63434393333.3333
-"SYC","Seychelles",3,0
-"SYR","Syrian Arab Republic",3,9.81793e+12
-"TCD","Chad",3,67665060000
-"TGO","Togo",3,0
-"THA","Thailand",3,43378806666.6667
-"TJK","Tajikistan",3,4102291540000
-"TKM","Turkmenistan",3,8323109660000
-"TLS","Timor-Leste",3,0
-"TON","Tonga",3,0
-"TTO","Trinidad and Tobago",3,0
-"TUN","Tunisia",3,5375105420000
-"TUR","Turkey",3,97864844566666.7
-"TUV","Tuvalu",3,0
-"TWN","Taiwan",3,118081246666.667
-"TZA","United Republic of Tanzania",3,645598620000
-"UGA","Uganda",3,177037813333.333
-"UKR","Ukraine",3,87080169630500
-"URY","Uruguay",3,4527189640000
-"USA","United States of America",3,242871651533333
-"UZB","Uzbekistan",3,27183340386666.7
-"VCT","Saint Vincent and the Grenadines",3,0
-"VEN","Venezuela (Bolivarian Republic of)",3,100294633333.333
-"VNM","Viet Nam",3,0
-"VUT","Vanuatu",3,0
-"YEM","Yemen",3,625844746666.667
-"ZAF","South Africa",3,7198565060000
-"ZMB","Zambia",3,953870600000
-"ZWE","Zimbabwe",3,277602986666.667
-"AFG","Afghanistan",4,22382142713333.3
-"ALB","Albania",4,1282517693333.33
-"ANT","Netherlands Antilles",4,0
-"ARB","Aruba",4,0
-"ARE","United Arab Emirates",4,0
-"ARG","Argentina",4,64803451540000
-"ARM","Armenia",4,1419183813333.33
-"ATG","Antigua and Barbuda",4,0
-"AUS","Australia",4,126650418580000
-"AUT","Austria",4,6918847853333.33
-"AZE","Azerbaijan",4,7822463700000
-"BDI","Burundi",4,97465653333.3333
-"BEL","Belgium",4,6659785206666.67
-"BEN","Benin",4,0
-"BFA","Burkina Faso",4,0
-"BGD","Bangladesh",4,6009064140000
-"BGR","Bulgaria",4,22707987546666.7
-"BHR","Bahrain",4,0
-"BHS","Bahamas",4,0
-"BIH","Bosnia and Herzegovina",4,1262278406666.67
-"BLR","Belarus",4,11271417840000
-"BLZ","Belize",4,0
-"BMU","Bermuda",4,0
-"BOL","Bolivia (Plurinational State of)",4,1627821366666.67
-"BRA","Brazil",4,25948146040000
-"BRB","Barbados",4,0
-"BRN","Brunei Darussalam",4,0
-"BTN","Bhutan",4,77225253333.3333
-"BWA","Botswana",4,0
-"CAF","Central African Republic",4,0
-"CAN","Canada",4,130691425573333
-"CHE","Switzerland",4,2084883666666.67
-"CHL","Chile",4,6139184973333.33
-"CHN","China (mainland)",4,527950130453333
-"CIV","Cote dIvoire",4,0
-"CMR","Cameroon",4,49733713333.3333
-"COD","Democratic Republic of the Congo",4,83732686666.6667
-"COG","Congo",4,0
-"COK","Cook Islands",4,0
-"COL","Colombia",4,115884640000
-"COM","Comoros",4,0
-"CPV","Cape Verde",4,0
-"CRI","Costa Rica",4,0
-"CUB","Cuba",4,0
-"CYP","Cyprus",4,161180606666.667
-"CZE","Czech Republic",4,20189136566666.7
-"DEU","Germany",4,95096066953333.3
-"DJI","Djibouti",4,0
-"DMA","Dominica",4,0
-"DNK","Denmark",4,17925672006666.7
-"DOM","Dominican Republic",4,0
-"DZA","Algeria",4,15104231500000
-"ECU","Ecuador",4,68713820000
-"EGY","Egypt",4,35255009280000
-"ERI","Eritrea",4,2.004e+11
-"ESP","Spain",4,28644319846666.7
-"EST","Estonia",4,2897996646666.67
-"ETH","Ethiopia",4,21299859133333.3
-"FIN","Finland",4,3773987353333.33
-"FJI","Fiji",4,0
-"FRA","France",4,141729821633333
-"FRO","Faroe Islands",4,0
-"GAB","Gabon",4,0
-"GBR","United Kingdom",4,57183531006666.7
-"GEO","Georgia",4,630004160000
-"GHA","Ghana",4,0
-"GIN","Guinea",4,0
-"GMB","Gambia",4,0
-"GNB","Guinea-Bissau",4,0
-"GNQ","Equatorial Guinea",4,0
-"GRC","Greece",4,6644936680000
-"GRD","Grenada",4,0
-"GRL","Greenland",4,0
-"GTM","Guatemala",4,74276033333.3333
-"GUY","Guyana",4,0
-"HKG","Hong Kong SAR, China",4,0
-"HND","Honduras",4,29962026666.6667
-"HRV","Croatia",4,3356119953333.33
-"HTI","Haiti",4,0
-"HUN","Hungary",4,21577109193333.3
-"IDN","Indonesia",4,0
-"IND","India",4,412044476286667
-"IRL","Ireland",4,2816491740000
-"IRN","Iran (Islamic Republic of)",4,65157089626666.7
-"IRQ","Iraq",4,12975080586666.7
-"ISL","Iceland",4,0
-"ISR","Israel",4,713774700000
-"ITA","Italy",4,31307167133333.3
-"JAM","Jamaica",4,0
-"JOR","Jordan",4,202042166666.667
-"JPN","Japan",4,3861046680000
-"KAZ","Kazakhstan",4,72352027074368
-"KEN","Kenya",4,1206625100000
-"KGZ","Kyrgyzstan",4,3180698700000
-"KHM","Cambodia",4,0
-"KIR","Kiribati",4,0
-"KNA","Saint Kitts and Nevis",4,0
-"KOR","Republic of Korea",4,262731080000
-"KWT","Kuwait",4,110254513333.333
-"LAO","Lao People's Democratic Republic",4,0
-"LBN","Lebanon",4,683328373333.333
-"LBR","Liberia",4,0
-"LBY","Libya",4,1334205306666.67
-"LCA","Saint Lucia",4,0
-"LKA","Sri Lanka",4,0
-"LSO","Lesotho",4,79091200000
-"LTU","Lithuania",4,16494218146666.7
-"LUX","Luxembourg",4,500775106666.667
-"LVA","Latvia",4,8868388040000
-"MAC","Macao SAR, China",4,0
-"MAR","Morocco",4,30088126140000
-"MDA","Republic of Moldova",4,5139023086666.67
-"MDG","Madagascar",4,103739286666.667
-"MDV","Maldives",4,0
-"MEX","Mexico",4,14956173753333.3
-"MKD","The former Yugoslav Republic of Macedonia",4,1143292020000
-"MLI","Mali",4,294788400000
-"MLT","Malta",4,211158140000
-"MMR","Myanmar",4,782456233333.333
-"MNE","Montenegro",4,113003333333.333
-"MNG","Mongolia",4,2237126433333.33
-"MOZ","Mozambique",4,150328946666.667
-"MRT","Mauritania",4,106410173333.333
-"MUS","Mauritius",4,0
-"MWI","Malawi",4,45806986666.6667
-"MYS","Malaysia",4,0
-"NAM","Namibia",4,210597020000
-"NCL","New Caledonia",4,44803873333.3333
-"NER","Niger",4,112231793333.333
-"NGA","Nigeria",4,453782420000
-"NIC","Nicaragua",4,0
-"NLD","Netherlands",4,4473881013333.33
-"NOR","Norway",4,1770570740000
-"NPL","Nepal",4,8806968780000
-"NZL","New Zealand",4,1886104680000
-"OMN","Oman",4,143346120000
-"PAK","Pakistan",4,116763838220000
-"PAN","Panama",4,0
-"PER","Peru",4,1154347420000
-"PHL","Philippines",4,0
-"PNG","Papua New Guinea",4,0
-"POL","Poland",4,45360642426666.7
-"PRK","Democratic People's Republic of Korea",4,323171720000
-"PRT","Portugal",4,446795140000
-"PRY","Paraguay",4,5560134740000
-"PSE","Occupied Palestinian Territory",4,232671080000
-"PYF","French Polynesia",4,0
-"QAT","Qatar",4,51048560000
-"ROU","Romania",4,36566527080000
-"RUS","Russian Federation",4,310318616416405
-"RWA","Rwanda",4,105825673333.333
-"SAU","Saudi Arabia",4,2707896093333.33
-"SDN","Sudan",4,2740147133333.33
-"SEN","Senegal",4,0
-"SGP","Singapore",4,0
-"SLB","Solomon Islands",4,0
-"SLE","Sierra Leone",4,0
-"SLV","El Salvador",4,0
-"SOM","Somalia",4,25336126666.6667
-"SRB","Serbia",4,10532210153333.3
-"SSD","South Sudan",4,0
-"STP","Sao Tome and Principe",4,0
-"SUR","Suriname",4,0
-"SVK","Slovakia",4,8479222373333.33
-"SVN","Slovenia",4,784537053333.333
-"SWE","Sweden",4,12265269353333.3
-"SWZ","Swaziland",4,63434393333.3333
-"SYC","Seychelles",4,0
-"SYR","Syrian Arab Republic",4,9.81793e+12
-"TCD","Chad",4,67665060000
-"TGO","Togo",4,0
-"THA","Thailand",4,43378806666.6667
-"TJK","Tajikistan",4,4102291540000
-"TKM","Turkmenistan",4,8323109660000
-"TLS","Timor-Leste",4,0
-"TON","Tonga",4,0
-"TTO","Trinidad and Tobago",4,0
-"TUN","Tunisia",4,5375105420000
-"TUR","Turkey",4,97864844566666.7
-"TUV","Tuvalu",4,0
-"TWN","Taiwan",4,118081246666.667
-"TZA","United Republic of Tanzania",4,645598620000
-"UGA","Uganda",4,177037813333.333
-"UKR","Ukraine",4,87080169630500
-"URY","Uruguay",4,4527189640000
-"USA","United States of America",4,242871651533333
-"UZB","Uzbekistan",4,27183340386666.7
-"VCT","Saint Vincent and the Grenadines",4,0
-"VEN","Venezuela (Bolivarian Republic of)",4,100294633333.333
-"VNM","Viet Nam",4,0
-"VUT","Vanuatu",4,0
-"YEM","Yemen",4,625844746666.667
-"ZAF","South Africa",4,7198565060000
-"ZMB","Zambia",4,953870600000
-"ZWE","Zimbabwe",4,277602986666.667
-"AFG","Afghanistan",5,22382142713333.3
-"ALB","Albania",5,1282517693333.33
-"ANT","Netherlands Antilles",5,0
-"ARB","Aruba",5,0
-"ARE","United Arab Emirates",5,0
-"ARG","Argentina",5,64803451540000
-"ARM","Armenia",5,1419183813333.33
-"ATG","Antigua and Barbuda",5,0
-"AUS","Australia",5,126650418580000
-"AUT","Austria",5,6918847853333.33
-"AZE","Azerbaijan",5,7822463700000
-"BDI","Burundi",5,97465653333.3333
-"BEL","Belgium",5,6659785206666.67
-"BEN","Benin",5,0
-"BFA","Burkina Faso",5,0
-"BGD","Bangladesh",5,6009064140000
-"BGR","Bulgaria",5,22707987546666.7
-"BHR","Bahrain",5,0
-"BHS","Bahamas",5,0
-"BIH","Bosnia and Herzegovina",5,1262278406666.67
-"BLR","Belarus",5,11271417840000
-"BLZ","Belize",5,0
-"BMU","Bermuda",5,0
-"BOL","Bolivia (Plurinational State of)",5,1627821366666.67
-"BRA","Brazil",5,25948146040000
-"BRB","Barbados",5,0
-"BRN","Brunei Darussalam",5,0
-"BTN","Bhutan",5,77225253333.3333
-"BWA","Botswana",5,0
-"CAF","Central African Republic",5,0
-"CAN","Canada",5,130691425573333
-"CHE","Switzerland",5,2084883666666.67
-"CHL","Chile",5,6139184973333.33
-"CHN","China (mainland)",5,527950130453333
-"CIV","Cote dIvoire",5,0
-"CMR","Cameroon",5,49733713333.3333
-"COD","Democratic Republic of the Congo",5,83732686666.6667
-"COG","Congo",5,0
-"COK","Cook Islands",5,0
-"COL","Colombia",5,115884640000
-"COM","Comoros",5,0
-"CPV","Cape Verde",5,0
-"CRI","Costa Rica",5,0
-"CUB","Cuba",5,0
-"CYP","Cyprus",5,161180606666.667
-"CZE","Czech Republic",5,20189136566666.7
-"DEU","Germany",5,95096066953333.3
-"DJI","Djibouti",5,0
-"DMA","Dominica",5,0
-"DNK","Denmark",5,17925672006666.7
-"DOM","Dominican Republic",5,0
-"DZA","Algeria",5,15104231500000
-"ECU","Ecuador",5,68713820000
-"EGY","Egypt",5,35255009280000
-"ERI","Eritrea",5,2.004e+11
-"ESP","Spain",5,28644319846666.7
-"EST","Estonia",5,2897996646666.67
-"ETH","Ethiopia",5,21299859133333.3
-"FIN","Finland",5,3773987353333.33
-"FJI","Fiji",5,0
-"FRA","France",5,141729821633333
-"FRO","Faroe Islands",5,0
-"GAB","Gabon",5,0
-"GBR","United Kingdom",5,57183531006666.7
-"GEO","Georgia",5,630004160000
-"GHA","Ghana",5,0
-"GIN","Guinea",5,0
-"GMB","Gambia",5,0
-"GNB","Guinea-Bissau",5,0
-"GNQ","Equatorial Guinea",5,0
-"GRC","Greece",5,6644936680000
-"GRD","Grenada",5,0
-"GRL","Greenland",5,0
-"GTM","Guatemala",5,74276033333.3333
-"GUY","Guyana",5,0
-"HKG","Hong Kong SAR, China",5,0
-"HND","Honduras",5,29962026666.6667
-"HRV","Croatia",5,3356119953333.33
-"HTI","Haiti",5,0
-"HUN","Hungary",5,21577109193333.3
-"IDN","Indonesia",5,0
-"IND","India",5,412044476286667
-"IRL","Ireland",5,2816491740000
-"IRN","Iran (Islamic Republic of)",5,65157089626666.7
-"IRQ","Iraq",5,12975080586666.7
-"ISL","Iceland",5,0
-"ISR","Israel",5,713774700000
-"ITA","Italy",5,31307167133333.3
-"JAM","Jamaica",5,0
-"JOR","Jordan",5,202042166666.667
-"JPN","Japan",5,3861046680000
-"KAZ","Kazakhstan",5,72352027074368
-"KEN","Kenya",5,1206625100000
-"KGZ","Kyrgyzstan",5,3180698700000
-"KHM","Cambodia",5,0
-"KIR","Kiribati",5,0
-"KNA","Saint Kitts and Nevis",5,0
-"KOR","Republic of Korea",5,262731080000
-"KWT","Kuwait",5,110254513333.333
-"LAO","Lao People's Democratic Republic",5,0
-"LBN","Lebanon",5,683328373333.333
-"LBR","Liberia",5,0
-"LBY","Libya",5,1334205306666.67
-"LCA","Saint Lucia",5,0
-"LKA","Sri Lanka",5,0
-"LSO","Lesotho",5,79091200000
-"LTU","Lithuania",5,16494218146666.7
-"LUX","Luxembourg",5,500775106666.667
-"LVA","Latvia",5,8868388040000
-"MAC","Macao SAR, China",5,0
-"MAR","Morocco",5,30088126140000
-"MDA","Republic of Moldova",5,5139023086666.67
-"MDG","Madagascar",5,103739286666.667
-"MDV","Maldives",5,0
-"MEX","Mexico",5,14956173753333.3
-"MKD","The former Yugoslav Republic of Macedonia",5,1143292020000
-"MLI","Mali",5,294788400000
-"MLT","Malta",5,211158140000
-"MMR","Myanmar",5,782456233333.333
-"MNE","Montenegro",5,113003333333.333
-"MNG","Mongolia",5,2237126433333.33
-"MOZ","Mozambique",5,150328946666.667
-"MRT","Mauritania",5,106410173333.333
-"MUS","Mauritius",5,0
-"MWI","Malawi",5,45806986666.6667
-"MYS","Malaysia",5,0
-"NAM","Namibia",5,210597020000
-"NCL","New Caledonia",5,44803873333.3333
-"NER","Niger",5,112231793333.333
-"NGA","Nigeria",5,453782420000
-"NIC","Nicaragua",5,0
-"NLD","Netherlands",5,4473881013333.33
-"NOR","Norway",5,1770570740000
-"NPL","Nepal",5,8806968780000
-"NZL","New Zealand",5,1886104680000
-"OMN","Oman",5,143346120000
-"PAK","Pakistan",5,116763838220000
-"PAN","Panama",5,0
-"PER","Peru",5,1154347420000
-"PHL","Philippines",5,0
-"PNG","Papua New Guinea",5,0
-"POL","Poland",5,45360642426666.7
-"PRK","Democratic People's Republic of Korea",5,323171720000
-"PRT","Portugal",5,446795140000
-"PRY","Paraguay",5,5560134740000
-"PSE","Occupied Palestinian Territory",5,232671080000
-"PYF","French Polynesia",5,0
-"QAT","Qatar",5,51048560000
-"ROU","Romania",5,36566527080000
-"RUS","Russian Federation",5,310318616416405
-"RWA","Rwanda",5,105825673333.333
-"SAU","Saudi Arabia",5,2707896093333.33
-"SDN","Sudan",5,2740147133333.33
-"SEN","Senegal",5,0
-"SGP","Singapore",5,0
-"SLB","Solomon Islands",5,0
-"SLE","Sierra Leone",5,0
-"SLV","El Salvador",5,0
-"SOM","Somalia",5,25336126666.6667
-"SRB","Serbia",5,10532210153333.3
-"SSD","South Sudan",5,0
-"STP","Sao Tome and Principe",5,0
-"SUR","Suriname",5,0
-"SVK","Slovakia",5,8479222373333.33
-"SVN","Slovenia",5,784537053333.333
-"SWE","Sweden",5,12265269353333.3
-"SWZ","Swaziland",5,63434393333.3333
-"SYC","Seychelles",5,0
-"SYR","Syrian Arab Republic",5,9.81793e+12
-"TCD","Chad",5,67665060000
-"TGO","Togo",5,0
-"THA","Thailand",5,43378806666.6667
-"TJK","Tajikistan",5,4102291540000
-"TKM","Turkmenistan",5,8323109660000
-"TLS","Timor-Leste",5,0
-"TON","Tonga",5,0
-"TTO","Trinidad and Tobago",5,0
-"TUN","Tunisia",5,5375105420000
-"TUR","Turkey",5,97864844566666.7
-"TUV","Tuvalu",5,0
-"TWN","Taiwan",5,118081246666.667
-"TZA","United Republic of Tanzania",5,645598620000
-"UGA","Uganda",5,177037813333.333
-"UKR","Ukraine",5,87080169630500
-"URY","Uruguay",5,4527189640000
-"USA","United States of America",5,242871651533333
-"UZB","Uzbekistan",5,27183340386666.7
-"VCT","Saint Vincent and the Grenadines",5,0
-"VEN","Venezuela (Bolivarian Republic of)",5,100294633333.333
-"VNM","Viet Nam",5,0
-"VUT","Vanuatu",5,0
-"YEM","Yemen",5,625844746666.667
-"ZAF","South Africa",5,7198565060000
-"ZMB","Zambia",5,953870600000
-"ZWE","Zimbabwe",5,277602986666.667
+"faf","SHORTNAME","Year","Value"
+11,"Birmingham",0,339.98
+12,"Mobile",0,0
+19,"Rest of AL",0,1852.12
+20,"Alaska",0,949.04
+41,"Phoenix",0,0
+42,"Tucson",0,0
+49,"Rest of AZ",0,0
+50,"Arkansas",0,2637.34
+61,"Los Angeles",0,775.98
+62,"Sacramento",0,0
+63,"San Diego",0,0
+64,"San Francisco",0,218.13
+65,"Fresno",0,0
+69,"Rest of CA",0,296.33
+81,"Denver",0,786.13
+89,"Rest of CO",0,1252.69
+91,"Hartford",0,0
+92,"New York (CT)",0,195.99
+99,"Rest of CT",0,0
+101,"Philadelphia (DE)",0,0
+109,"Rest of DE",0,462.83
+111,"Washington (DC)",0,0
+121,"Jacksonville",0,0
+122,"Miami",0,190.14
+123,"Orlando",0,0
+124,"Tampa",0,0
+129,"Rest of FL",0,359.3
+131,"Atlanta",0,1663.89
+132,"Savannah",0,0
+139,"Rest of GA",0,1833.85
+151,"Honolulu",0,0
+159,"Rest of HI",0,0
+160,"Idaho",0,0
+171,"Chicago (IL)",0,581.06
+172,"St. Louis (IL)",0,520.29
+179,"Rest of IL",0,1157.02
+181,"Chicago (IN)",0,0
+182,"Indianapolis",0,118.26
+183,"Fort Wayne",0,0
+189,"Rest of IN",0,1364.89
+190,"Iowa",0,4300.32
+201,"Kansas City (KS)",0,0
+202,"Wichita",0,0
+209,"Rest of KS",0,2702.84
+211,"Cincinnati (KY)",0,0
+212,"Louisville",0,1119.32
+219,"Rest of KY",0,110.79
+221,"Baton Rouge",0,0
+222,"Lake Charles",0,0
+223,"New Orleans",0,0
+229,"Rest of LA",0,1649.43
+230,"Maine",0,0
+241,"Baltimore",0,0
+242,"Washington (MD)",0,0
+249,"Rest of MD",0,0
+251,"Boston (MA)",0,0
+259,"Rest of MA",0,0
+261,"Detroit",0,0
+262,"Grand Rapids",0,0
+269,"Rest of MI",0,227.24
+271,"Minneapolis",0,0
+279,"Rest of MN",0,497.69
+280,"Mississippi",0,410.77
+291,"Kansas City (MO)",0,0
+292,"St. Louis (MO)",0,0
+299,"Rest of MO",0,642.23
+300,"Montana",0,159.23
+311,"Omaha",0,2008.48
+319,"Rest of NE",0,4905.21
+321,"Las Vegas",0,0
+329,"Rest of NV",0,0
+331,"Boston (NH)",0,0
+339,"Rest of NH",0,0
+341,"New York (NJ)",0,0
+342,"Philadelphia (NJ)",0,0
+350,"New Mexico",0,951.84
+361,"Albany",0,207.64
+362,"Buffalo",0,0
+363,"New York (NY)",0,0
+364,"Rochester",0,343.74
+369,"Rest of NY",0,0
+371,"Charlotte",0,0
+372,"Greensboro",0,155.67
+373,"Raleigh",0,0
+379,"Rest of NC",0,1676.9
+380,"North Dakota",0,0
+391,"Cincinnati (OH)",0,0
+392,"Cleveland",0,0
+393,"Columbus",0,0
+394,"Dayton",0,0
+399,"Rest of OH",0,0
+401,"Oklahoma City",0,0
+402,"Tulsa",0,27.59
+409,"Rest of OK",0,1330.7
+411,"Portland (OR)",0,0
+419,"Rest of OR",0,619.78
+421,"Philadelphia (PA)",0,0
+422,"Pittsburgh",0,300.85
+423,"New York (PA)",0,0
+429,"Rest of PA",0,413.09
+441,"Rhode Island",0,0
+451,"Charleston",0,0
+452,"Greenville",0,0
+459,"Rest of SC",0,0
+460,"South Dakota",0,1204.16
+471,"Memphis",0,0
+472,"Nashville",0,0
+473,"Knoxville",0,0
+479,"Rest of TN",0,242.03
+481,"Austin",0,0
+482,"Beaumont",0,0
+483,"Corpus Christi",0,0
+484,"Dallas",0,522.95
+485,"El Paso",0,16.54
+486,"Houston",0,669.28
+487,"Laredo",0,0
+488,"San Antonio",0,0
+489,"Rest of TX",0,4418.63
+491,"Salt Lake City",0,0
+499,"Rest of UT",0,0
+500,"Vermont",0,0
+511,"Richmond",0,0
+512,"Norfolk",0,128.97
+513,"Washington (VA)",0,0
+519,"Rest of VA",0,347.87
+531,"Seattle",0,0
+532,"Portland (WA)",0,290.12
+539,"Rest of WA",0,539.67
+540,"West Virginia",0,0
+551,"Milwaukee",0,0
+559,"Rest of WI",0,2528.24
+560,"Wyoming",0,0
+11,"Birmingham",1,339.98
+12,"Mobile",1,0
+19,"Rest of AL",1,1852.12
+20,"Alaska",1,949.04
+41,"Phoenix",1,0
+42,"Tucson",1,0
+49,"Rest of AZ",1,0
+50,"Arkansas",1,2637.34
+61,"Los Angeles",1,775.98
+62,"Sacramento",1,0
+63,"San Diego",1,0
+64,"San Francisco",1,218.13
+65,"Fresno",1,0
+69,"Rest of CA",1,296.33
+81,"Denver",1,786.13
+89,"Rest of CO",1,1252.69
+91,"Hartford",1,0
+92,"New York (CT)",1,195.99
+99,"Rest of CT",1,0
+101,"Philadelphia (DE)",1,0
+109,"Rest of DE",1,462.83
+111,"Washington (DC)",1,0
+121,"Jacksonville",1,0
+122,"Miami",1,190.14
+123,"Orlando",1,0
+124,"Tampa",1,0
+129,"Rest of FL",1,359.3
+131,"Atlanta",1,1663.89
+132,"Savannah",1,0
+139,"Rest of GA",1,1833.85
+151,"Honolulu",1,0
+159,"Rest of HI",1,0
+160,"Idaho",1,0
+171,"Chicago (IL)",1,581.06
+172,"St. Louis (IL)",1,520.29
+179,"Rest of IL",1,1157.02
+181,"Chicago (IN)",1,0
+182,"Indianapolis",1,118.26
+183,"Fort Wayne",1,0
+189,"Rest of IN",1,1364.89
+190,"Iowa",1,4300.32
+201,"Kansas City (KS)",1,0
+202,"Wichita",1,0
+209,"Rest of KS",1,2702.84
+211,"Cincinnati (KY)",1,0
+212,"Louisville",1,1119.32
+219,"Rest of KY",1,110.79
+221,"Baton Rouge",1,0
+222,"Lake Charles",1,0
+223,"New Orleans",1,0
+229,"Rest of LA",1,1649.43
+230,"Maine",1,0
+241,"Baltimore",1,0
+242,"Washington (MD)",1,0
+249,"Rest of MD",1,0
+251,"Boston (MA)",1,0
+259,"Rest of MA",1,0
+261,"Detroit",1,0
+262,"Grand Rapids",1,0
+269,"Rest of MI",1,227.24
+271,"Minneapolis",1,0
+279,"Rest of MN",1,497.69
+280,"Mississippi",1,410.77
+291,"Kansas City (MO)",1,0
+292,"St. Louis (MO)",1,0
+299,"Rest of MO",1,642.23
+300,"Montana",1,159.23
+311,"Omaha",1,2008.48
+319,"Rest of NE",1,4905.21
+321,"Las Vegas",1,0
+329,"Rest of NV",1,0
+331,"Boston (NH)",1,0
+339,"Rest of NH",1,0
+341,"New York (NJ)",1,0
+342,"Philadelphia (NJ)",1,0
+350,"New Mexico",1,951.84
+361,"Albany",1,207.64
+362,"Buffalo",1,0
+363,"New York (NY)",1,0
+364,"Rochester",1,343.74
+369,"Rest of NY",1,0
+371,"Charlotte",1,0
+372,"Greensboro",1,155.67
+373,"Raleigh",1,0
+379,"Rest of NC",1,1676.9
+380,"North Dakota",1,0
+391,"Cincinnati (OH)",1,0
+392,"Cleveland",1,0
+393,"Columbus",1,0
+394,"Dayton",1,0
+399,"Rest of OH",1,0
+401,"Oklahoma City",1,0
+402,"Tulsa",1,27.59
+409,"Rest of OK",1,1330.7
+411,"Portland (OR)",1,0
+419,"Rest of OR",1,619.78
+421,"Philadelphia (PA)",1,0
+422,"Pittsburgh",1,300.85
+423,"New York (PA)",1,0
+429,"Rest of PA",1,413.09
+441,"Rhode Island",1,0
+451,"Charleston",1,0
+452,"Greenville",1,0
+459,"Rest of SC",1,0
+460,"South Dakota",1,1204.16
+471,"Memphis",1,0
+472,"Nashville",1,0
+473,"Knoxville",1,0
+479,"Rest of TN",1,242.03
+481,"Austin",1,0
+482,"Beaumont",1,0
+483,"Corpus Christi",1,0
+484,"Dallas",1,522.95
+485,"El Paso",1,16.54
+486,"Houston",1,669.28
+487,"Laredo",1,0
+488,"San Antonio",1,0
+489,"Rest of TX",1,4418.63
+491,"Salt Lake City",1,0
+499,"Rest of UT",1,0
+500,"Vermont",1,0
+511,"Richmond",1,0
+512,"Norfolk",1,128.97
+513,"Washington (VA)",1,0
+519,"Rest of VA",1,347.87
+531,"Seattle",1,0
+532,"Portland (WA)",1,290.12
+539,"Rest of WA",1,539.67
+540,"West Virginia",1,0
+551,"Milwaukee",1,0
+559,"Rest of WI",1,2528.24
+560,"Wyoming",1,0
+11,"Birmingham",2,339.98
+12,"Mobile",2,0
+19,"Rest of AL",2,1852.12
+20,"Alaska",2,949.04
+41,"Phoenix",2,0
+42,"Tucson",2,0
+49,"Rest of AZ",2,0
+50,"Arkansas",2,2637.34
+61,"Los Angeles",2,775.98
+62,"Sacramento",2,0
+63,"San Diego",2,0
+64,"San Francisco",2,218.13
+65,"Fresno",2,0
+69,"Rest of CA",2,296.33
+81,"Denver",2,786.13
+89,"Rest of CO",2,1252.69
+91,"Hartford",2,0
+92,"New York (CT)",2,195.99
+99,"Rest of CT",2,0
+101,"Philadelphia (DE)",2,0
+109,"Rest of DE",2,462.83
+111,"Washington (DC)",2,0
+121,"Jacksonville",2,0
+122,"Miami",2,190.14
+123,"Orlando",2,0
+124,"Tampa",2,0
+129,"Rest of FL",2,359.3
+131,"Atlanta",2,1663.89
+132,"Savannah",2,0
+139,"Rest of GA",2,1833.85
+151,"Honolulu",2,0
+159,"Rest of HI",2,0
+160,"Idaho",2,0
+171,"Chicago (IL)",2,581.06
+172,"St. Louis (IL)",2,520.29
+179,"Rest of IL",2,1157.02
+181,"Chicago (IN)",2,0
+182,"Indianapolis",2,118.26
+183,"Fort Wayne",2,0
+189,"Rest of IN",2,1364.89
+190,"Iowa",2,4300.32
+201,"Kansas City (KS)",2,0
+202,"Wichita",2,0
+209,"Rest of KS",2,2702.84
+211,"Cincinnati (KY)",2,0
+212,"Louisville",2,1119.32
+219,"Rest of KY",2,110.79
+221,"Baton Rouge",2,0
+222,"Lake Charles",2,0
+223,"New Orleans",2,0
+229,"Rest of LA",2,1649.43
+230,"Maine",2,0
+241,"Baltimore",2,0
+242,"Washington (MD)",2,0
+249,"Rest of MD",2,0
+251,"Boston (MA)",2,0
+259,"Rest of MA",2,0
+261,"Detroit",2,0
+262,"Grand Rapids",2,0
+269,"Rest of MI",2,227.24
+271,"Minneapolis",2,0
+279,"Rest of MN",2,497.69
+280,"Mississippi",2,410.77
+291,"Kansas City (MO)",2,0
+292,"St. Louis (MO)",2,0
+299,"Rest of MO",2,642.23
+300,"Montana",2,159.23
+311,"Omaha",2,2008.48
+319,"Rest of NE",2,4905.21
+321,"Las Vegas",2,0
+329,"Rest of NV",2,0
+331,"Boston (NH)",2,0
+339,"Rest of NH",2,0
+341,"New York (NJ)",2,0
+342,"Philadelphia (NJ)",2,0
+350,"New Mexico",2,951.84
+361,"Albany",2,207.64
+362,"Buffalo",2,0
+363,"New York (NY)",2,0
+364,"Rochester",2,343.74
+369,"Rest of NY",2,0
+371,"Charlotte",2,0
+372,"Greensboro",2,155.67
+373,"Raleigh",2,0
+379,"Rest of NC",2,1676.9
+380,"North Dakota",2,0
+391,"Cincinnati (OH)",2,0
+392,"Cleveland",2,0
+393,"Columbus",2,0
+394,"Dayton",2,0
+399,"Rest of OH",2,0
+401,"Oklahoma City",2,0
+402,"Tulsa",2,27.59
+409,"Rest of OK",2,1330.7
+411,"Portland (OR)",2,0
+419,"Rest of OR",2,619.78
+421,"Philadelphia (PA)",2,0
+422,"Pittsburgh",2,300.85
+423,"New York (PA)",2,0
+429,"Rest of PA",2,413.09
+441,"Rhode Island",2,0
+451,"Charleston",2,0
+452,"Greenville",2,0
+459,"Rest of SC",2,0
+460,"South Dakota",2,1204.16
+471,"Memphis",2,0
+472,"Nashville",2,0
+473,"Knoxville",2,0
+479,"Rest of TN",2,242.03
+481,"Austin",2,0
+482,"Beaumont",2,0
+483,"Corpus Christi",2,0
+484,"Dallas",2,522.95
+485,"El Paso",2,16.54
+486,"Houston",2,669.28
+487,"Laredo",2,0
+488,"San Antonio",2,0
+489,"Rest of TX",2,4418.63
+491,"Salt Lake City",2,0
+499,"Rest of UT",2,0
+500,"Vermont",2,0
+511,"Richmond",2,0
+512,"Norfolk",2,128.97
+513,"Washington (VA)",2,0
+519,"Rest of VA",2,347.87
+531,"Seattle",2,0
+532,"Portland (WA)",2,290.12
+539,"Rest of WA",2,539.67
+540,"West Virginia",2,0
+551,"Milwaukee",2,0
+559,"Rest of WI",2,2528.24
+560,"Wyoming",2,0
+11,"Birmingham",3,339.98
+12,"Mobile",3,0
+19,"Rest of AL",3,1852.12
+20,"Alaska",3,949.04
+41,"Phoenix",3,0
+42,"Tucson",3,0
+49,"Rest of AZ",3,0
+50,"Arkansas",3,2637.34
+61,"Los Angeles",3,775.98
+62,"Sacramento",3,0
+63,"San Diego",3,0
+64,"San Francisco",3,218.13
+65,"Fresno",3,0
+69,"Rest of CA",3,296.33
+81,"Denver",3,786.13
+89,"Rest of CO",3,1252.69
+91,"Hartford",3,0
+92,"New York (CT)",3,195.99
+99,"Rest of CT",3,0
+101,"Philadelphia (DE)",3,0
+109,"Rest of DE",3,462.83
+111,"Washington (DC)",3,0
+121,"Jacksonville",3,0
+122,"Miami",3,190.14
+123,"Orlando",3,0
+124,"Tampa",3,0
+129,"Rest of FL",3,359.3
+131,"Atlanta",3,1663.89
+132,"Savannah",3,0
+139,"Rest of GA",3,1833.85
+151,"Honolulu",3,0
+159,"Rest of HI",3,0
+160,"Idaho",3,0
+171,"Chicago (IL)",3,581.06
+172,"St. Louis (IL)",3,520.29
+179,"Rest of IL",3,1157.02
+181,"Chicago (IN)",3,0
+182,"Indianapolis",3,118.26
+183,"Fort Wayne",3,0
+189,"Rest of IN",3,1364.89
+190,"Iowa",3,4300.32
+201,"Kansas City (KS)",3,0
+202,"Wichita",3,0
+209,"Rest of KS",3,2702.84
+211,"Cincinnati (KY)",3,0
+212,"Louisville",3,1119.32
+219,"Rest of KY",3,110.79
+221,"Baton Rouge",3,0
+222,"Lake Charles",3,0
+223,"New Orleans",3,0
+229,"Rest of LA",3,1649.43
+230,"Maine",3,0
+241,"Baltimore",3,0
+242,"Washington (MD)",3,0
+249,"Rest of MD",3,0
+251,"Boston (MA)",3,0
+259,"Rest of MA",3,0
+261,"Detroit",3,0
+262,"Grand Rapids",3,0
+269,"Rest of MI",3,227.24
+271,"Minneapolis",3,0
+279,"Rest of MN",3,497.69
+280,"Mississippi",3,410.77
+291,"Kansas City (MO)",3,0
+292,"St. Louis (MO)",3,0
+299,"Rest of MO",3,642.23
+300,"Montana",3,159.23
+311,"Omaha",3,2008.48
+319,"Rest of NE",3,4905.21
+321,"Las Vegas",3,0
+329,"Rest of NV",3,0
+331,"Boston (NH)",3,0
+339,"Rest of NH",3,0
+341,"New York (NJ)",3,0
+342,"Philadelphia (NJ)",3,0
+350,"New Mexico",3,951.84
+361,"Albany",3,207.64
+362,"Buffalo",3,0
+363,"New York (NY)",3,0
+364,"Rochester",3,343.74
+369,"Rest of NY",3,0
+371,"Charlotte",3,0
+372,"Greensboro",3,155.67
+373,"Raleigh",3,0
+379,"Rest of NC",3,1676.9
+380,"North Dakota",3,0
+391,"Cincinnati (OH)",3,0
+392,"Cleveland",3,0
+393,"Columbus",3,0
+394,"Dayton",3,0
+399,"Rest of OH",3,0
+401,"Oklahoma City",3,0
+402,"Tulsa",3,27.59
+409,"Rest of OK",3,1330.7
+411,"Portland (OR)",3,0
+419,"Rest of OR",3,619.78
+421,"Philadelphia (PA)",3,0
+422,"Pittsburgh",3,300.85
+423,"New York (PA)",3,0
+429,"Rest of PA",3,413.09
+441,"Rhode Island",3,0
+451,"Charleston",3,0
+452,"Greenville",3,0
+459,"Rest of SC",3,0
+460,"South Dakota",3,1204.16
+471,"Memphis",3,0
+472,"Nashville",3,0
+473,"Knoxville",3,0
+479,"Rest of TN",3,242.03
+481,"Austin",3,0
+482,"Beaumont",3,0
+483,"Corpus Christi",3,0
+484,"Dallas",3,522.95
+485,"El Paso",3,16.54
+486,"Houston",3,669.28
+487,"Laredo",3,0
+488,"San Antonio",3,0
+489,"Rest of TX",3,4418.63
+491,"Salt Lake City",3,0
+499,"Rest of UT",3,0
+500,"Vermont",3,0
+511,"Richmond",3,0
+512,"Norfolk",3,128.97
+513,"Washington (VA)",3,0
+519,"Rest of VA",3,347.87
+531,"Seattle",3,0
+532,"Portland (WA)",3,290.12
+539,"Rest of WA",3,539.67
+540,"West Virginia",3,0
+551,"Milwaukee",3,0
+559,"Rest of WI",3,2528.24
+560,"Wyoming",3,0
+11,"Birmingham",4,339.98
+12,"Mobile",4,0
+19,"Rest of AL",4,1852.12
+20,"Alaska",4,949.04
+41,"Phoenix",4,0
+42,"Tucson",4,0
+49,"Rest of AZ",4,0
+50,"Arkansas",4,2637.34
+61,"Los Angeles",4,775.98
+62,"Sacramento",4,0
+63,"San Diego",4,0
+64,"San Francisco",4,218.13
+65,"Fresno",4,0
+69,"Rest of CA",4,296.33
+81,"Denver",4,786.13
+89,"Rest of CO",4,1252.69
+91,"Hartford",4,0
+92,"New York (CT)",4,195.99
+99,"Rest of CT",4,0
+101,"Philadelphia (DE)",4,0
+109,"Rest of DE",4,462.83
+111,"Washington (DC)",4,0
+121,"Jacksonville",4,0
+122,"Miami",4,190.14
+123,"Orlando",4,0
+124,"Tampa",4,0
+129,"Rest of FL",4,359.3
+131,"Atlanta",4,1663.89
+132,"Savannah",4,0
+139,"Rest of GA",4,1833.85
+151,"Honolulu",4,0
+159,"Rest of HI",4,0
+160,"Idaho",4,0
+171,"Chicago (IL)",4,581.06
+172,"St. Louis (IL)",4,520.29
+179,"Rest of IL",4,1157.02
+181,"Chicago (IN)",4,0
+182,"Indianapolis",4,118.26
+183,"Fort Wayne",4,0
+189,"Rest of IN",4,1364.89
+190,"Iowa",4,4300.32
+201,"Kansas City (KS)",4,0
+202,"Wichita",4,0
+209,"Rest of KS",4,2702.84
+211,"Cincinnati (KY)",4,0
+212,"Louisville",4,1119.32
+219,"Rest of KY",4,110.79
+221,"Baton Rouge",4,0
+222,"Lake Charles",4,0
+223,"New Orleans",4,0
+229,"Rest of LA",4,1649.43
+230,"Maine",4,0
+241,"Baltimore",4,0
+242,"Washington (MD)",4,0
+249,"Rest of MD",4,0
+251,"Boston (MA)",4,0
+259,"Rest of MA",4,0
+261,"Detroit",4,0
+262,"Grand Rapids",4,0
+269,"Rest of MI",4,227.24
+271,"Minneapolis",4,0
+279,"Rest of MN",4,497.69
+280,"Mississippi",4,410.77
+291,"Kansas City (MO)",4,0
+292,"St. Louis (MO)",4,0
+299,"Rest of MO",4,642.23
+300,"Montana",4,159.23
+311,"Omaha",4,2008.48
+319,"Rest of NE",4,4905.21
+321,"Las Vegas",4,0
+329,"Rest of NV",4,0
+331,"Boston (NH)",4,0
+339,"Rest of NH",4,0
+341,"New York (NJ)",4,0
+342,"Philadelphia (NJ)",4,0
+350,"New Mexico",4,951.84
+361,"Albany",4,207.64
+362,"Buffalo",4,0
+363,"New York (NY)",4,0
+364,"Rochester",4,343.74
+369,"Rest of NY",4,0
+371,"Charlotte",4,0
+372,"Greensboro",4,155.67
+373,"Raleigh",4,0
+379,"Rest of NC",4,1676.9
+380,"North Dakota",4,0
+391,"Cincinnati (OH)",4,0
+392,"Cleveland",4,0
+393,"Columbus",4,0
+394,"Dayton",4,0
+399,"Rest of OH",4,0
+401,"Oklahoma City",4,0
+402,"Tulsa",4,27.59
+409,"Rest of OK",4,1330.7
+411,"Portland (OR)",4,0
+419,"Rest of OR",4,619.78
+421,"Philadelphia (PA)",4,0
+422,"Pittsburgh",4,300.85
+423,"New York (PA)",4,0
+429,"Rest of PA",4,413.09
+441,"Rhode Island",4,0
+451,"Charleston",4,0
+452,"Greenville",4,0
+459,"Rest of SC",4,0
+460,"South Dakota",4,1204.16
+471,"Memphis",4,0
+472,"Nashville",4,0
+473,"Knoxville",4,0
+479,"Rest of TN",4,242.03
+481,"Austin",4,0
+482,"Beaumont",4,0
+483,"Corpus Christi",4,0
+484,"Dallas",4,522.95
+485,"El Paso",4,16.54
+486,"Houston",4,669.28
+487,"Laredo",4,0
+488,"San Antonio",4,0
+489,"Rest of TX",4,4418.63
+491,"Salt Lake City",4,0
+499,"Rest of UT",4,0
+500,"Vermont",4,0
+511,"Richmond",4,0
+512,"Norfolk",4,128.97
+513,"Washington (VA)",4,0
+519,"Rest of VA",4,347.87
+531,"Seattle",4,0
+532,"Portland (WA)",4,290.12
+539,"Rest of WA",4,539.67
+540,"West Virginia",4,0
+551,"Milwaukee",4,0
+559,"Rest of WI",4,2528.24
+560,"Wyoming",4,0
+11,"Birmingham",5,0
+12,"Mobile",5,0
+19,"Rest of AL",5,0
+20,"Alaska",5,0
+41,"Phoenix",5,0
+42,"Tucson",5,0
+49,"Rest of AZ",5,0
+50,"Arkansas",5,0
+61,"Los Angeles",5,0
+62,"Sacramento",5,0
+63,"San Diego",5,0
+64,"San Francisco",5,0
+65,"Fresno",5,0
+69,"Rest of CA",5,0
+81,"Denver",5,0
+89,"Rest of CO",5,0
+91,"Hartford",5,0
+92,"New York (CT)",5,0
+99,"Rest of CT",5,0
+101,"Philadelphia (DE)",5,0
+109,"Rest of DE",5,0
+111,"Washington (DC)",5,0
+121,"Jacksonville",5,0
+122,"Miami",5,0
+123,"Orlando",5,0
+124,"Tampa",5,0
+129,"Rest of FL",5,0
+131,"Atlanta",5,0
+132,"Savannah",5,0
+139,"Rest of GA",5,0
+151,"Honolulu",5,0
+159,"Rest of HI",5,0
+160,"Idaho",5,0
+171,"Chicago (IL)",5,0
+172,"St. Louis (IL)",5,0
+179,"Rest of IL",5,0
+181,"Chicago (IN)",5,0
+182,"Indianapolis",5,0
+183,"Fort Wayne",5,0
+189,"Rest of IN",5,0
+190,"Iowa",5,0
+201,"Kansas City (KS)",5,0
+202,"Wichita",5,0
+209,"Rest of KS",5,0
+211,"Cincinnati (KY)",5,0
+212,"Louisville",5,0
+219,"Rest of KY",5,0
+221,"Baton Rouge",5,0
+222,"Lake Charles",5,0
+223,"New Orleans",5,0
+229,"Rest of LA",5,0
+230,"Maine",5,0
+241,"Baltimore",5,0
+242,"Washington (MD)",5,0
+249,"Rest of MD",5,0
+251,"Boston (MA)",5,0
+259,"Rest of MA",5,0
+261,"Detroit",5,0
+262,"Grand Rapids",5,0
+269,"Rest of MI",5,0
+271,"Minneapolis",5,0
+279,"Rest of MN",5,0
+280,"Mississippi",5,0
+291,"Kansas City (MO)",5,0
+292,"St. Louis (MO)",5,0
+299,"Rest of MO",5,0
+300,"Montana",5,0
+311,"Omaha",5,0
+319,"Rest of NE",5,0
+321,"Las Vegas",5,0
+329,"Rest of NV",5,0
+331,"Boston (NH)",5,0
+339,"Rest of NH",5,0
+341,"New York (NJ)",5,0
+342,"Philadelphia (NJ)",5,0
+350,"New Mexico",5,0
+361,"Albany",5,0
+362,"Buffalo",5,0
+363,"New York (NY)",5,0
+364,"Rochester",5,0
+369,"Rest of NY",5,0
+371,"Charlotte",5,0
+372,"Greensboro",5,0
+373,"Raleigh",5,0
+379,"Rest of NC",5,0
+380,"North Dakota",5,0
+391,"Cincinnati (OH)",5,0
+392,"Cleveland",5,0
+393,"Columbus",5,0
+394,"Dayton",5,0
+399,"Rest of OH",5,0
+401,"Oklahoma City",5,0
+402,"Tulsa",5,0
+409,"Rest of OK",5,0
+411,"Portland (OR)",5,0
+419,"Rest of OR",5,0
+421,"Philadelphia (PA)",5,0
+422,"Pittsburgh",5,0
+423,"New York (PA)",5,0
+429,"Rest of PA",5,0
+441,"Rhode Island",5,0
+451,"Charleston",5,0
+452,"Greenville",5,0
+459,"Rest of SC",5,0
+460,"South Dakota",5,0
+471,"Memphis",5,0
+472,"Nashville",5,0
+473,"Knoxville",5,0
+479,"Rest of TN",5,0
+481,"Austin",5,0
+482,"Beaumont",5,0
+483,"Corpus Christi",5,0
+484,"Dallas",5,0
+485,"El Paso",5,0
+486,"Houston",5,0
+487,"Laredo",5,0
+488,"San Antonio",5,0
+489,"Rest of TX",5,0
+491,"Salt Lake City",5,0
+499,"Rest of UT",5,0
+500,"Vermont",5,0
+511,"Richmond",5,0
+512,"Norfolk",5,0
+513,"Washington (VA)",5,0
+519,"Rest of VA",5,0
+531,"Seattle",5,0
+532,"Portland (WA)",5,0
+539,"Rest of WA",5,0
+540,"West Virginia",5,0
+551,"Milwaukee",5,0
+559,"Rest of WI",5,0
+560,"Wyoming",5,0
