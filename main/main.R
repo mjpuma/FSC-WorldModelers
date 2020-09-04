@@ -1,8 +1,6 @@
 ## Main script for the Food Shock Cascade (FSC) Model
 
-# Step 0: Load FSC functions ----
-source("main/FSC_component_funcs.R")
-source("main/FSC_sim_funcs.R")
+# Step 0: Load required libraries ----
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
 
@@ -11,31 +9,33 @@ if (dir.exists("outputs") == FALSE) {
   dir.create("outputs")
 }
 
-# Step 1: Input Arguments ---
-# Command line version: Parse arguments ====
-args <- commandArgs(trailingOnly = TRUE)
-FSCversion <- c(as.numeric(args[1]))
-i_scenario <- c(as.numeric(args[2]))
-num_years <- c(as.numeric(args[3]))
-## country <- args[2]
-## production_decrease <- as.numeric(args[3])
-## fractional_reserve_access <- as.numeric(args[4])
-## output_file_name <- args[5]
+# Step 1a: Input Arguments ---
 
-# Uncomment below if running in RStudio or the like
-# # RStudio version: Specify arguments  ====
-# # Specify working directory
-# setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
-# 
-# # Specify model version to run: 0-> PTA; 1-> RTA
-# FSCversion = 0
-#
-# # Specify commodity scenario: 0-> wheat; 2-> rice; 3-> maize
-# i_scenario = 1 
-# 
-# # Specify number of years to run model
-# num_years = 5
-# # RStudio version: End Specify arguments  ====
+# # Command line version: Parse arguments ====
+# args <- commandArgs(trailingOnly = TRUE)
+# FSCversion <- c(as.numeric(args[1]))
+# i_scenario <- c(as.numeric(args[2]))
+# num_years <- c(as.numeric(args[3]))
+# ## country <- args[2]
+# ## production_decrease <- as.numeric(args[3])
+# ## fractional_reserve_access <- as.numeric(args[4])
+# ## output_file_name <- args[5]
+
+#  RStudio or similar integrated development environment (IDE)
+#  Specify arguments  ====
+# Specify working directory
+setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
+# Specify model version to run: 0-> PTA; 1-> RTA
+FSCversion = 0
+# Specify commodity scenario: 0-> wheat; 2-> rice; 3-> maize
+i_scenario = 1
+# Specify number of years to run model
+num_years = 5
+# End Specify arguments  ====
+
+# Step 1b: Load FSC functions ----
+source("main/FSC_component_funcs.R")
+source("main/FSC_sim_funcs.R")
 
 # Create year range to run model along with column names for output
 years0 <- 0:num_years # vector includes initial year
@@ -198,11 +198,9 @@ for (i in 1:length(years)) {
   # Call main simulation functions
   dP <- as.numeric(unlist(Shocks$dP))
   if (FSCversion == 0) {
-    results_FSC <-
-      sim_cascade_PTA(trade_dat, dP)  # Run Proportional Trade Allocation (PTA) Model
+    results_FSC <- sim_cascade_PTA(trade_dat, dP)  # Run Proportional Trade Allocation (PTA) Model
   } else if (FSCversion == 1) {
-    results_FSC <-
-      sim_cascade_RTA(trade_dat, dP)  # Run Reserves-based Trade Allocation (RTA) Model
+    results_FSC <- sim_cascade_RTA(trade_dat, dP)  # Run Reserves-based Trade Allocation (RTA) Model
   }
   
   # Store outputs of interest from simulations ====
