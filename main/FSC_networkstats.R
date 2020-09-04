@@ -9,17 +9,17 @@ library(igraph)
 library(ggraph)
 library(tidyverse)
 library(netrankr)
+library(tnet) # for clustering analysis
 
 # RStudio version: Specify arguments  ====
-setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
+setwd("~/Coronavirus/GitHub_codes_data/")
 
 
-source("main/FSC_network_funcs.R")
+source("/Users/puma/GitHub_mjpuma/FSC-WorldModelers/main/FSC_network_funcs.R")
 
 runname <- c('Wheat_Avg20152017')
 #runname <- c('Rice_Avg20152017')
 #runname <- c('Maize_Avg20152017')
-
 Ematrix<-readRDS(file = paste0("COVID-19_data/data_network/",runname,"ExportStatic.rds"))
 
 unitname <- c('kcal')
