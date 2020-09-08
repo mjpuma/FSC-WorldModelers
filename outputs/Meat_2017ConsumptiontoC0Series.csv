@@ -527,135 +527,135 @@
 551,"Milwaukee",4,1
 559,"Rest of WI",4,1
 560,"Wyoming",4,1
-11,"Birmingham",5,0
-12,"Mobile",5,0
-19,"Rest of AL",5,0
-20,"Alaska",5,0
-41,"Phoenix",5,0
-42,"Tucson",5,0
-49,"Rest of AZ",5,0
-50,"Arkansas",5,0
-61,"Los Angeles",5,0
-62,"Sacramento",5,0
-63,"San Diego",5,0
-64,"San Francisco",5,0
-65,"Fresno",5,0
-69,"Rest of CA",5,0
-81,"Denver",5,0
-89,"Rest of CO",5,0
-91,"Hartford",5,0
-92,"New York (CT)",5,0
-99,"Rest of CT",5,0
-101,"Philadelphia (DE)",5,0
-109,"Rest of DE",5,0
-111,"Washington (DC)",5,0
-121,"Jacksonville",5,0
-122,"Miami",5,0
-123,"Orlando",5,0
-124,"Tampa",5,0
-129,"Rest of FL",5,0
-131,"Atlanta",5,0
-132,"Savannah",5,0
-139,"Rest of GA",5,0
-151,"Honolulu",5,0
-159,"Rest of HI",5,0
-160,"Idaho",5,0
-171,"Chicago (IL)",5,0
-172,"St. Louis (IL)",5,0
-179,"Rest of IL",5,0
-181,"Chicago (IN)",5,0
-182,"Indianapolis",5,0
-183,"Fort Wayne",5,0
-189,"Rest of IN",5,0
-190,"Iowa",5,0
-201,"Kansas City (KS)",5,0
-202,"Wichita",5,0
-209,"Rest of KS",5,0
-211,"Cincinnati (KY)",5,0
-212,"Louisville",5,0
-219,"Rest of KY",5,0
-221,"Baton Rouge",5,0
-222,"Lake Charles",5,0
-223,"New Orleans",5,0
-229,"Rest of LA",5,0
-230,"Maine",5,0
-241,"Baltimore",5,0
-242,"Washington (MD)",5,0
-249,"Rest of MD",5,0
-251,"Boston (MA)",5,0
-259,"Rest of MA",5,0
-261,"Detroit",5,0
-262,"Grand Rapids",5,0
-269,"Rest of MI",5,0
-271,"Minneapolis",5,0
-279,"Rest of MN",5,0
-280,"Mississippi",5,0
-291,"Kansas City (MO)",5,0
-292,"St. Louis (MO)",5,0
-299,"Rest of MO",5,0
-300,"Montana",5,0
-311,"Omaha",5,0
-319,"Rest of NE",5,0
-321,"Las Vegas",5,0
-329,"Rest of NV",5,0
-331,"Boston (NH)",5,0
-339,"Rest of NH",5,0
-341,"New York (NJ)",5,0
-342,"Philadelphia (NJ)",5,0
-350,"New Mexico",5,0
-361,"Albany",5,0
-362,"Buffalo",5,0
-363,"New York (NY)",5,0
-364,"Rochester",5,0
-369,"Rest of NY",5,0
-371,"Charlotte",5,0
-372,"Greensboro",5,0
-373,"Raleigh",5,0
-379,"Rest of NC",5,0
-380,"North Dakota",5,0
-391,"Cincinnati (OH)",5,0
-392,"Cleveland",5,0
-393,"Columbus",5,0
-394,"Dayton",5,0
-399,"Rest of OH",5,0
-401,"Oklahoma City",5,0
-402,"Tulsa",5,0
-409,"Rest of OK",5,0
-411,"Portland (OR)",5,0
-419,"Rest of OR",5,0
-421,"Philadelphia (PA)",5,0
-422,"Pittsburgh",5,0
-423,"New York (PA)",5,0
-429,"Rest of PA",5,0
-441,"Rhode Island",5,0
-451,"Charleston",5,0
-452,"Greenville",5,0
-459,"Rest of SC",5,0
-460,"South Dakota",5,0
-471,"Memphis",5,0
-472,"Nashville",5,0
-473,"Knoxville",5,0
-479,"Rest of TN",5,0
-481,"Austin",5,0
-482,"Beaumont",5,0
-483,"Corpus Christi",5,0
-484,"Dallas",5,0
-485,"El Paso",5,0
-486,"Houston",5,0
-487,"Laredo",5,0
-488,"San Antonio",5,0
-489,"Rest of TX",5,0
-491,"Salt Lake City",5,0
-499,"Rest of UT",5,0
-500,"Vermont",5,0
-511,"Richmond",5,0
-512,"Norfolk",5,0
-513,"Washington (VA)",5,0
-519,"Rest of VA",5,0
-531,"Seattle",5,0
-532,"Portland (WA)",5,0
-539,"Rest of WA",5,0
-540,"West Virginia",5,0
-551,"Milwaukee",5,0
-559,"Rest of WI",5,0
-560,"Wyoming",5,0
+11,"Birmingham",5,0.999859665244322
+12,"Mobile",5,0.999894911650122
+19,"Rest of AL",5,1.00002996739002
+20,"Alaska",5,1.0000045936005
+41,"Phoenix",5,0.999909602855615
+42,"Tucson",5,1.000398060478
+49,"Rest of AZ",5,0.994816047438433
+50,"Arkansas",5,1.00009058320488
+61,"Los Angeles",5,0.999794452174014
+62,"Sacramento",5,0.999928654873749
+63,"San Diego",5,0.999841766962937
+64,"San Francisco",5,0.999884524971566
+65,"Fresno",5,1.00001716349385
+69,"Rest of CA",5,1.00005036350048
+81,"Denver",5,0.999853585479192
+89,"Rest of CO",5,1.0000081718866
+91,"Hartford",5,0.999840735863135
+92,"New York (CT)",5,0.999861463672836
+99,"Rest of CT",5,0.999883557568938
+101,"Philadelphia (DE)",5,0.996148115489692
+109,"Rest of DE",5,1.00004671828538
+111,"Washington (DC)",5,0.999667324222593
+121,"Jacksonville",5,0.999910749306137
+122,"Miami",5,0.999456528156207
+123,"Orlando",5,0.999923175920332
+124,"Tampa",5,1.00022742039702
+129,"Rest of FL",5,0.999885958211843
+131,"Atlanta",5,0.999855418069367
+132,"Savannah",5,0.999932446635414
+139,"Rest of GA",5,1.00004577531886
+151,"Honolulu",5,1.00081523411974
+159,"Rest of HI",5,0.998816227013515
+160,"Idaho",5,0.999836966492933
+171,"Chicago (IL)",5,0.999816230314972
+172,"St. Louis (IL)",5,1.00004282723998
+179,"Rest of IL",5,1.0000862537461
+181,"Chicago (IN)",5,0.999945971117846
+182,"Indianapolis",5,0.999899013167353
+183,"Fort Wayne",5,0.999923317172723
+189,"Rest of IN",5,1.00002514012577
+190,"Iowa",5,1.00006979825549
+201,"Kansas City (KS)",5,0.999960536755696
+202,"Wichita",5,1.00001869068012
+209,"Rest of KS",5,1.00000296265546
+211,"Cincinnati (KY)",5,1.00005828894968
+212,"Louisville",5,0.999738839115261
+219,"Rest of KY",5,1.00004373887708
+221,"Baton Rouge",5,0.999835611038106
+222,"Lake Charles",5,0.999778752331014
+223,"New Orleans",5,0.999951856314146
+229,"Rest of LA",5,1.00004054172455
+230,"Maine",5,0.999738517335901
+241,"Baltimore",5,0.99963167816209
+242,"Washington (MD)",5,0.999878652196233
+249,"Rest of MD",5,0.999917670100375
+251,"Boston (MA)",5,0.999811334913302
+259,"Rest of MA",5,0.999915301588171
+261,"Detroit",5,1.00095350213032
+262,"Grand Rapids",5,1.00012181486563
+269,"Rest of MI",5,0.999915367845829
+271,"Minneapolis",5,0.999801711100131
+279,"Rest of MN",5,1.0000142103892
+280,"Mississippi",5,1.00004175208848
+291,"Kansas City (MO)",5,1.00002300305315
+292,"St. Louis (MO)",5,0.999967142679907
+299,"Rest of MO",5,0.996493870243048
+300,"Montana",5,0.99984662894445
+311,"Omaha",5,1.00000813593472
+319,"Rest of NE",5,1.00000374085679
+321,"Las Vegas",5,0.999542260481354
+329,"Rest of NV",5,0.999664863485799
+331,"Boston (NH)",5,1.00028087880376
+339,"Rest of NH",5,0.999879271900819
+341,"New York (NJ)",5,1.00018542116201
+342,"Philadelphia (NJ)",5,0.999908645453107
+350,"New Mexico",5,0.999807268658896
+361,"Albany",5,0.999908571653274
+362,"Buffalo",5,0.997060923654923
+363,"New York (NY)",5,0.999792810023612
+364,"Rochester",5,0.999428603035045
+369,"Rest of NY",5,1.00030990641317
+371,"Charlotte",5,0.999844960088854
+372,"Greensboro",5,0.999907671691897
+373,"Raleigh",5,0.999751496687177
+379,"Rest of NC",5,1.00001603799867
+380,"North Dakota",5,0.99990481219389
+391,"Cincinnati (OH)",5,1.00066146366459
+392,"Cleveland",5,0.999871294679432
+393,"Columbus",5,0.999952999084623
+394,"Dayton",5,0.996803886601512
+399,"Rest of OH",5,0.999790006774316
+401,"Oklahoma City",5,0.999962108145442
+402,"Tulsa",5,0.999825592517405
+409,"Rest of OK",5,0.999564261532836
+411,"Portland (OR)",5,0.999716487200593
+419,"Rest of OR",5,0.996302687927539
+421,"Philadelphia (PA)",5,0.999526620698114
+422,"Pittsburgh",5,0.999559482548762
+423,"New York (PA)",5,0.999475653299173
+429,"Rest of PA",5,0.999805818320035
+441,"Rhode Island",5,0.99944331928404
+451,"Charleston",5,0.995849066574633
+452,"Greenville",5,0.999533436664693
+459,"Rest of SC",5,0.999800062627556
+460,"South Dakota",5,1.00000822422085
+471,"Memphis",5,0.999890443244399
+472,"Nashville",5,0.999850237220518
+473,"Knoxville",5,1.00001542274562
+479,"Rest of TN",5,1.00004088184097
+481,"Austin",5,0.997453419475571
+482,"Beaumont",5,1.00006715850634
+483,"Corpus Christi",5,0.991636736532276
+484,"Dallas",5,0.999916648325268
+485,"El Paso",5,0.997426226756023
+486,"Houston",5,0.999871981954349
+487,"Laredo",5,0.999444650504776
+488,"San Antonio",5,0.999895803912831
+489,"Rest of TX",5,1.00001322846533
+491,"Salt Lake City",5,0.999925594887393
+499,"Rest of UT",5,1.00000020176783
+500,"Vermont",5,0.991856698223512
+511,"Richmond",5,0.999681386383945
+512,"Norfolk",5,1.00029459066376
+513,"Washington (VA)",5,0.999870993199683
+519,"Rest of VA",5,0.99964087187943
+531,"Seattle",5,0.999887819455878
+532,"Portland (WA)",5,0.999874320556779
+539,"Rest of WA",5,1.00003945056828
+540,"West Virginia",5,1.00007350704505
+551,"Milwaukee",5,0.999872632359717
+559,"Rest of WI",5,1.00863170468358
+560,"Wyoming",5,0.995132189789773
