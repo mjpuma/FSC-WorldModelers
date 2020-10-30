@@ -45,7 +45,7 @@ commodities <- read.csv(paste0("ancillary/", runname, "cropcommodity_tradelist.c
 country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
 # Production decline fractions
-anomalies <- read.csv(paste0("ancillary/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
+anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
 
 # Step 4: Load production/trade/stocks data ----
 load(paste0("inputs_processed/", runname, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
