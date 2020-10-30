@@ -29,7 +29,7 @@ rscript main/Requirements.R
 ```
 
 ### Step 4: Prepare the input data
-Here you need to specify the years for the baseline state of the food system, which includes: 1) the list of countries included, 2) the set of crops commodities that will be aggregate for  bilateral trade data, 3) the set of crops commodities that will be aggregate for production data, and 4) the set of crops commodities that will be aggregate for reserves data:
+Here you need to specify the years for the baseline state of the food system (e.g., yr_range <- 2015:2017) as well as the 1)  list of countries included, 2)  set of crops commodities that will be aggregate for  bilateral trade data, 3)  set of crops commodities that will be aggregate for production data, and 4)  set of crops commodities that will be aggregate for reserves data:
   1) country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
   2) commodities<-read.csv("ancillary/cropcommodity_tradelist.csv")
   3) commodities_prod<-read.csv("ancillary/cropcommodity_prodlist.csv")
@@ -52,7 +52,7 @@ rscript main/main.R 0 1 5
 ```
 In this case, we have chosen the following parameters:
 
-* `FSCversion`: 0 -> RTA version of the FSC moodel
+* `FSCversion`: 0 -> PTA version of the FSC moodel
 * `i_scenario`: 1 -> wheat commoditites
 * `num_years`: 5 years
 
