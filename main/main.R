@@ -26,11 +26,11 @@ if (dir.exists("outputs") == FALSE) {
 # Specify working directory
 setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
 # Specify model version to run: 0-> PTA; 1-> RTA
-FSCversion = 0
+FSCversion = 1
 # Specify commodity scenario: 0-> wheat; 2-> rice; 3-> maize
 i_scenario = 1
 # Specify number of years to run model
-num_years = 5
+num_years = 1
 # End Specify arguments  ====
 
 # Step 1b: Load FSC functions ----
