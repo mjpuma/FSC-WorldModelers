@@ -228,7 +228,7 @@ Pout_df <- data.frame(Pout)
 Pout_df <- tibble::rownames_to_column(Pout_df, "iso3")
 Pout_df <- merge(InputFSC[, c("iso3", "Country.x")], Pout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-Pout_df <- gather(Pout_df, Year, Value, -iso3, -Country)
+Pout_df <- gather(Pout_df, Year, Value, -iso3, -Country.x)
 # remove preceding X character for Year column and convert to numeric
 Pout_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", Pout_df$Year))
 
@@ -239,7 +239,7 @@ Rout_df <- data.frame(Rout)
 Rout_df <- tibble::rownames_to_column(Rout_df, "iso3")
 Rout_df <- merge(InputFSC[, c("iso3", "Country.x")], Rout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-Rout_df <- gather(Rout_df, Year, Value, -iso3, -Country)
+Rout_df <- gather(Rout_df, Year, Value, -iso3, -Country.x)
 # remove preceeding X character for Year column aand convert to numeric
 Rout_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", Rout_df$Year))
 
@@ -251,7 +251,7 @@ shortageout_df <- tibble::rownames_to_column(shortageout_df, "iso3")
 shortageout_df <-
   merge(InputFSC[, c("iso3", "Country.x")], shortageout_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-shortageout_df <- gather(shortageout_df, Year, Value, -iso3, -Country)
+shortageout_df <- gather(shortageout_df, Year, Value, -iso3, -Country.x)
 # remove preceeding X character for Year column aand convert to numeric
 shortageout_df$Year <-
   as.numeric(gsub("[a-zA-Z ]", "", shortageout_df$Year))
@@ -264,7 +264,7 @@ C1_C0out_df <- tibble::rownames_to_column(C1_C0out_df, "iso3")
 C1_C0out_df <-
   merge(InputFSC[, c("iso3", "Country.x")], C1_C0out_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-C1_C0out_df <- gather(C1_C0out_df, Year, Value, -iso3, -Country)
+C1_C0out_df <- gather(C1_C0out_df, Year, Value, -iso3, -Country.x)
 # remove preceeding X character for Year column aand convert to numeric
 C1_C0out_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", C1_C0out_df$Year))
 
@@ -276,7 +276,7 @@ dR_C0out_df <- tibble::rownames_to_column(dR_C0out_df, "iso3")
 dR_C0out_df <-
   merge(InputFSC[, c("iso3", "Country.x")], dR_C0out_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
-dR_C0out_df <- gather(dR_C0out_df, Year, Value, -iso3, -Country)
+dR_C0out_df <- gather(dR_C0out_df, Year, Value, -iso3, -Country.x)
 # remove preceeding X character for Year column aand convert to numeric
 dR_C0out_df$Year <-
   as.numeric(gsub("[a-zA-Z ]", "", dR_C0out_df$Year))
