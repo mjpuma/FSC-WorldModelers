@@ -39,12 +39,12 @@ if (i_scenario == 1) {
 }
 
 # Step 3: Load ancillary data ----
-# Commodity list for bilateral trade
+# i) Commodity list for bilateral trade
 commodities <- read.csv(paste0("ancillary/", runname, "cropcommodity_tradelist.csv"))
-# Load country list
+# ii) Load country list
 country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
-# Production decline fractions
+# iii) Production decline fractions
 anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
 
 # Step 4: Load production/trade/stocks data ----
@@ -131,7 +131,7 @@ trade_dat$C1 <- trade_dat$P + Shocks$dP + colSums(trade_dat$E) - rowSums(trade_d
 ImportsInitial<-colSums(trade_dat$E)
 ExportsInitial<-rowSums(trade_dat$E)
 
-# Impose export restrictions
+# Impose export restrictions for COVID-19 scenario
 if (i_scenario == 1) {
   # Wheat
   i_Russia = which(row.names(E0)=='RUS')   
