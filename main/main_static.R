@@ -185,7 +185,7 @@ if (i_scenario == 1) {
 trade_dat$R <- Rcurrent
 trade_dat$E <- E0
 
-# Domestic Supply after  production declines and trade restritcions
+# Domestic Supply after production declines and trade restrictions
 trade_dat$C2 <- trade_dat$P + Shocks$dP + colSums(trade_dat$E) - rowSums(trade_dat$E)
 
 ImportsFinal<-colSums(trade_dat$E)
