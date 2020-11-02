@@ -56,6 +56,32 @@ In this case, we have chosen the following parameters:
 * `i_scenario`: 1 -> wheat commoditites
 * `num_years`: 5 years
 
+### Step 6: Output files
+The model outputs are in CSV files.  There are three configurations for the output.  Below we describe the output variables and the three formats.
+Type 1) Bilateral Export Matrices, where the row name is the origin country and the column is the destination. The first set of m columns is the first time step, the second set is the next timestep and so forth. Units depend on ProcessInputs.R; typically kilocalories or metric tons. 
+* BilateralExportMatrix_TimeSeries.csv
+
+Type 2) These files have four columns.  The first row is the title: iso3,	Country Name ("Country.x"),	Year,	Value. The values for each individual file are production, reserves, or food shortage (demand-supply) as indicated by the file name. These files have units consistent with the Bilateral Export Matrices.  
+* Production_TimeSeries.csv
+* Reserve_TimeSeries.csv
+* Shortage_TimeSeries.csv
+
+There are also two files that are unitless (i.e. norrmalized).  The first is the ratio of consumption to initial consumption and the second is the change in reserves relative to initial consumption.
+* ConsumptiontoC0_TimeSeries.csv
+* ReserveChangetoC0_TimeSeries.csv
+
+Type 3: These files have network metrics computed from BilateralExportMatrix_TimeSeries.csv.  One set of files has the values from the start of the simulation and the other set has the file values.  The first row is the title.  The set of initial value files are:
+* Export_InitialTotalByCountry.csv: units consistent with export matrices.
+* Import_InitialTotalByCountry.csv: units consistent with export matrices.
+* NumberExportTradePartners_InitialTotalByCountry.csv: number of partners
+* NumberImportTradePartners_InitialTotalByCountry.csv: number of partners
+And the final value files:
+* Export_FinalTotalByCountry.csv
+* Import_FinalTotalByCountry.csv
+* NumberExportTradePartners_FinalTotalByCountry.csv
+NumberImportTradePartners_FinalTotalByCountry.csv
+
+
 ## Summary of Model Scripts
 ### main.R
 This is the main script for running the *dynamic* FSC from the command line including time loop and reading of processed inputs and saving of outputs.
