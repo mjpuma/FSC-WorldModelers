@@ -73,11 +73,14 @@ There are also two files that are unitless (i.e. norrmalized).  The first is the
 * ConsumptiontoC0_TimeSeries.csv
 * ReserveChangetoC0_TimeSeries.csv
 
-Type 3: These files have network metrics computed from BilateralExportMatrix_TimeSeries.csv.  One set of files has the values from the start of the simulation and the other set has the file values.  The first row is the title.  The set of initial value files are:
+Type 3: These files have network metrics computed from BilateralExportMatrix_TimeSeries.csv.  One set of files has the values from the start of the simulation and the other set has the file values.  The first row is the title.  
+
+The set of initial value files are:
 * Export_InitialTotalByCountry.csv: units consistent with export matrices.
 * Import_InitialTotalByCountry.csv: units consistent with export matrices.
 * NumberExportTradePartners_InitialTotalByCountry.csv: number of partners
 * NumberImportTradePartners_InitialTotalByCountry.csv: number of partners
+
 And the final value files:
 * Export_FinalTotalByCountry.csv
 * Import_FinalTotalByCountry.csv
