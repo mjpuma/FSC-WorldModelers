@@ -84,7 +84,7 @@ anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_5YearsDeclineFraction_1
 if (num_years>ncol(anomalies)-1)
   stop("Number of simulation years exceeds number of years in production decline input file")
 
-# Step 4: Load production/trade/stocks data ----
+# Step 4: Load production/trade/stocks data (units depend on ProcessInputs.R)----
 load(paste0("inputs_processed/", runname, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
 load(paste0("inputs_processed/", runname, "P0.Rdata")) #Production
 load(paste0("inputs_processed/", runname, "R0.RData")) #Reserves (a.k.a. Stocks)
