@@ -3,6 +3,7 @@
 # Step 0: Load required libraries and functions ----
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
+library(igraph)
 
 source("main/FSC_component_funcs.R")
 source("main/FSC_sim_funcs.R")
@@ -28,7 +29,7 @@ if (dir.exists("outputs") == FALSE) {
 # Specify working directory
 setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
 # Specify model version to run: 0-> PTA; 1-> RTA
-FSCversion = 0
+FSCversion = 1
 # Specify commodity scenario: 1-> wheat; 2-> rice; 3-> maize
 i_scenario = 1
 # Specify number of years to run model
@@ -285,13 +286,64 @@ dR_C0out_df$Year <-
 colnames(Eout)  <- InputFSC$iso3
 rownames(Eout)  <- InputFSC$iso3
 
-# Save Exports as R data file
-saveRDS(Eout, file = paste0("outputs/", runname,"ExportSeries.rds"))
+# Network properties (initial and final)
+G_initial  <- Eout[, , 1]
+G_final  <- Eout[, , length(years) + 1]
+Gnet_initial <- graph_from_adjacency_matrix(G_initial, mode = "directed", weighted = TRUE)
+Gnet_final <- graph_from_adjacency_matrix(G_final, mode = "directed", weighted = TRUE)
+
+# Initial
+Gstrength_out_initial <- strength(Gnet_initial, mode = "out")
+Gstrength_out_initial_df <- data.frame(Gstrength_out_initial)
+rownames(Gstrength_out_initial_df)  <- InputFSC$iso3
+
+Gstrength_in_initial <- strength(Gnet_initial, mode = "in")
+Gstrength_in_initial_df <- data.frame(Gstrength_in_initial)
+rownames(Gstrength_in_initial_df)  <- InputFSC$iso3
+
+Gdeg_out_initial <- degree(Gnet_initial, mode = "out")
+Gdeg_out_initial_df <- data.frame(Gdeg_out_initial)
+rownames(Gdeg_out_initial_df)  <- InputFSC$iso3
+
+Gdeg_in_initial <- degree(Gnet_initial, mode = "in")
+Gdeg_in_initial_df <- data.frame(Gdeg_in_initial)
+rownames(Gdeg_in_initial_df)  <- InputFSC$iso3
+
+# Final
+Gstrength_out_final <- strength(Gnet_final, mode = "out")
+Gstrength_out_final_df <- data.frame(Gstrength_out_final)
+rownames(Gstrength_out_final_df)  <- InputFSC$iso3
+
+Gstrength_in_final <- strength(Gnet_final, mode = "in")
+Gstrength_in_final_df <- data.frame(Gstrength_in_final)
+rownames(Gstrength_in_final_df)  <- InputFSC$iso3
+
+Gdeg_out_final <- degree(Gnet_final, mode = "out")
+Gdeg_out_final_df <- data.frame(Gdeg_out_final)
+rownames(Gdeg_out_final_df)  <- InputFSC$iso3
+
+Gdeg_in_final <- degree(Gnet_final, mode = "in")
+Gdeg_in_final_df <- data.frame(Gdeg_in_final)
+rownames(Gdeg_in_final_df)  <- InputFSC$iso3
+
+# Save Bilateral Export Matrices as R data file
+saveRDS(Eout, file = paste0("outputs/BilateralExportMatrix_TimeSeries.rds"))
+write.csv(Eout, paste0("outputs/BilateralExportMatrix_TimeSeries.csv"), row.names = TRUE)
 
 ## Save as CSV
-write.csv(Pout_df, paste0("outputs/",runname,"ProductionSeries.csv"), row.names = FALSE)
-write.csv(Rout_df, paste0("outputs/",runname,"ReserveSeries.csv"), row.names = FALSE)
-write.csv(shortageout_df, paste0("outputs/",runname,"ShortageSeriesSeries.csv"), row.names = FALSE)
-write.csv(C1_C0out_df, paste0("outputs/",runname,"ConsumptiontoC0Series.csv"), row.names = FALSE)
-write.csv(dR_C0out_df,paste0("outputs/",runname,"ReserveChangetoC0Series.csv"),row.names = FALSE)
-write.csv(Eout, paste0("outputs/",runname, "ExportSeries.csv"), row.names = TRUE)
+write.csv(Pout_df, paste0("outputs/Production_TimeSeries.csv"), row.names = FALSE)
+write.csv(Rout_df, paste0("outputs/Reserve_TimeSeries.csv"), row.names = FALSE)
+write.csv(shortageout_df, paste0("outputs/Shortage_TimeSeries.csv"), row.names = FALSE)
+write.csv(C1_C0out_df, paste0("outputs/ConsumptiontoC0_TimeSeries.csv"), row.names = FALSE)
+write.csv(dR_C0out_df,paste0("outputs/ReserveChangetoC0_TimeSeries.csv"),row.names = FALSE)
+
+## Save network statistics
+write.csv(Gstrength_out_initial_df, paste0("outputs/Export_InitialTotalByCountry.csv"), row.names = TRUE)
+write.csv(Gstrength_in_initial_df, paste0("outputs/Import_InitialTotalByCountry.csv"), row.names = TRUE)
+write.csv(Gdeg_out_initial_df, paste0("outputs/NumberExportTradePartners_InitialTotalByCountry.csv"), row.names = TRUE)
+write.csv(Gdeg_in_initial_df, paste0("outputs/NumberImportTradePartners_InitialTotalByCountry.csv"), row.names = TRUE)
+
+write.csv(Gstrength_out_final_df, paste0("outputs/Export_FinalTotalByCountry.csv"), row.names = TRUE)
+write.csv(Gstrength_in_final_df, paste0("outputs/Import_FinalTotalByCountry.csv"), row.names = TRUE)
+write.csv(Gdeg_out_final_df, paste0("outputs/NumberExportTradePartners_FinalTotalByCountry.csv"), row.names = TRUE)
+write.csv(Gdeg_in_final_df, paste0("outputs/NumberImportTradePartners_FinalTotalByCountry.csv"), row.names = TRUE)
