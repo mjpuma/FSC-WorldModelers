@@ -1,7 +1,9 @@
 # Food Shocks Cascade Model
-- A simple agent-based network model that computes chain-reactions due to production anomalies based on dynamic food balance sheets at the country level.
+- A simple agent-based network model that computes chain-reactions due to production anomalies based on dynamic food balance sheets at the country level.  The model is written in R.
 - Latest published version of the model described in Heslin, A., M.J. Puma, P. Marchand, J.A. Carr, J. Dell'Angelo, P. D'Odorico, J.A. Gephart, M. Kummu, M. Porkka, M.C. Rulli, D. Seekell, S. Suweis, and A. Tavoni, 2020: Simulating the cascading effects of an extreme agricultural production shock: Global implications of a contemporary US Dust Bowl event. Front. Sustain. Food Syst., 20 March 2020, doi:10.3389/fsufs.2020.00026.
 - Earlier model version is available at https://github.com/pmarchand1/cereals-network-shocks and described in the paper: Marchand, P., J.A. Carr, J. Dell'Angelo, M. Fader, J.A. Gephard, M. Kummu, N.R. Magliocca, M. Porkka, M.J. Puma, and Z. Ratajczak, 2016: Reserves and trade jointly determine exposure to food supply shocks. Environ. Res. Lett., 11, no. 9, 095009, doi:10.1088/1748-9326/11/9/095009.
+- Resolution: Food balances/inventories computed at some speciified adminstrative level (e.g. country, province, etc) for a tme interval (e.g., one year) that is long enough for a shock to propagate through the system.
+- Runtime: Preprossesing input data takes roughtly 5 minutes; cascade simulations roughtly a few minutes on desktop computer
 
 ## How to setup and run the model
 ### Step 1: Clone repository
@@ -58,6 +60,7 @@ In this case, we have chosen the following parameters:
 
 ### Step 6: Output files
 The model outputs are in CSV files.  There are three configurations for the output.  Below we describe the output variables and the three formats.
+
 Type 1) Bilateral Export Matrices, where the row name is the origin country and the column is the destination. The first set of m columns is the first time step, the second set is the next timestep and so forth. Units depend on ProcessInputs.R; typically kilocalories or metric tons. 
 * BilateralExportMatrix_TimeSeries.csv
 
@@ -81,7 +84,6 @@ And the final value files:
 * NumberExportTradePartners_FinalTotalByCountry.csv
 NumberImportTradePartners_FinalTotalByCountry.csv
 
-
 ## Summary of Model Scripts
 ### main.R
 This is the main script for running the *dynamic* FSC from the command line including time loop and reading of processed inputs and saving of outputs.
@@ -92,13 +94,16 @@ This is the main script for running the *static* FSC from the command line.  Thi
 ### ProcessInputs.R
 Creates trade, production, and reserves matrices for use in the FSC model. 
 Requires existing files in *ancillary* and *inputs* directory.  Processed inputs are saved and subsequently accessed by main.R or main_static.R in a separate folder called *inputs_processed*
+
 #### Ancillary files
+Commodity list, country list, conversion factors from commodity mass to common units (e.g. kcal, protein, US dollars):
 - country_list195_2012to2016.csv = FAO country code, iso3 abbreviation, and full country names
 - cropcommodity_tradelist.csv = Commodity list for *bilateral trade* with kcal conversions
 - cropcommodity_prodlist.csv = Commodity list for *production* with kcal conversions
 - cropcommodity_reserveslist.csv = Commodity list for *reserves* with kcal conversions
 
 #### Input files
+Bilateral trade of commodities at country level, production/consumption/storage for all countries, and production declines:
 - Production *fractional declines* list by year by country. List depends on ancillary country list file. anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_DeclineFraction_195countries.csv"))
 - Trade data from FAOSTAT, detailed trail matrix, normalized, all data. The trade matrix is available here - http://www.fao.org/faostat/en/#data/TM - on the right side bar under "Bulk Downloads", select "All Data Normalized".   *trade_dat <- read.csv("Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv"*
 - Production data from FAOSTAT, production quantity in tonnes. The crop production data are available at: http://www.fao.org/faostat/en/#data/QC. *prod_dat<-read.csv("productiondataFAOSTAT.csv")*
@@ -114,12 +119,3 @@ Main iteration loop to implement FSC Model
 
 ### FSC_component_funcs.R
 Functions for the FSC model
-
-
-## Model Vignette
-- CODE: Written in R
-- INPUT (required): Bilateral trade of commodities at country level, production/consumption/storage for all countries
-- INPUT (ancillary): Commodity list, country list, conversion factors from commodity mass to common units (e.g. kcal, protein, US dollars)
-- OUTPUT: Changes in stocks and consumption at country level
-- RUNTIME: Preprossesing input data takes roughtly 5 minutes; cascade simulations roughtly a few minutes on desktop computer
-- RESOLUTION: annual food balances; country level
