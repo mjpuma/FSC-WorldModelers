@@ -13,7 +13,7 @@ git clone git@github.com:mjpuma/FSC-WorldModelers.git
 cd FSC-WorldModelers
 ```
 
-### Step 2: Pull raw input files
+### Step 2: Pull raw input files and place in "inputs" folder
 ```
 cd inputs
 wget 'http://fenixservices.fao.org/faostat/static/bulkdownloads/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).zip'
@@ -31,7 +31,13 @@ rscript main/Requirements.R
 ```
 
 ### Step 4: Prepare the input data
-As part of the FSC model, we have a Scenario Library, which includes Here you need to specify the years for the baseline state of the food system (e.g., yr_range <- 2015:2017) as well as the 1)  list of countries included, 2)  set of crops commodities that will be aggregate for  bilateral trade data, 3)  set of crops commodities that will be aggregate for production data, and 4)  set of crops commodities that will be aggregate for reserves data:
+As part of the FSC model, we have a Scenario Library, which includes a set of scenarios that have input data already processed and ancillary files already prepared.  If you want to run one of these scenarios, you can *skip over this step*.
+
+To customize your own simulation, you need to modify "ProcessInputs.R" and create a file with the relevant production fractional-declines list by year by country.  See the file "inputs/Scenario1_COVID_WheatDeclineFraction_1Year_195countries.csv"as an example of a 1-year run and "Scenario4_USDustBowl_WheatDeclineFraction_4Years_195countries.csv" as an example of a 4-year run. Thus, you should add a scenario to "Step 2" of main.R.
+
+Also, you need to specify the years for the baseline state of the food system (e.g., yr_range <- 2015:2017) as well as the 1)  list of countries included, 2)  set of crops commodities that will be aggregate for  bilateral trade data, 3)  set of crops commodities that will be aggregate for production data, and 4)  set of crops commodities that will be aggregate for reserves data.  
+
+This files are as specified below:
   1) country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
   2) commodities<-read.csv("ancillary/cropcommodity_tradelist.csv")
   3) commodities_prod<-read.csv("ancillary/cropcommodity_prodlist.csv")
@@ -125,17 +131,41 @@ Functions for the FSC model
 
 
 ## Scenario Library
-Scenario 1: _COVID_WheatDeclineFraction_1Year_195countries')
-  # Specify number of years to run model
-  num_years = 1
-    
-Scenario 2: COVID_MaizeDeclineFraction_1Year_195countries')
-  # Specify number of years to run model
-  num_years = 1
-  
-Scenario 3: COVID_RiceDeclineFraction_1Year_195countries')
-  # Specify number of years to run model
-  num_years = 1
-  
-Scenario 4: USDustBowl_WheatDeclineFraction_4Years_195countries')
+#### Scenario 1:  COVID-19 + locust disruption to wheat
+A scenario for a hypothetical COVID-19 + locust disruption to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  The production decline fractions are: 
+    Kenya:	0.4916
+    Saudi Arabia:	0.4483
+    Yemen:	0.2335
+    Ukraine:	0.205
+    Kazakhstan:	0.1818
+    Iran:	0.1024
+    Pakistan:	0.0976
+    Ethiopia:	0.0874
+    Russia:	0.0768
 
+#### Scenario 2:  COVID-19 + locust disruption to maize
+A scenario for a hypothetical COVID-19 + locust disruption to the global maize trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  The production decline fractions are:  
+    Saudi Arabia	0.5281
+    Somalia	 	0.4844
+    Iran	0.2975
+    Yemen	0.2518
+    Kenya	0.1521
+    Brazil	0.1328
+    Ethiopia	0.1301
+    Argentina	0.119
+    Ukraine	0.0878
+    Pakistan	0.0717
+  
+#### Scenario 3:  COVID-19 + locust disruption to rice
+A scenario for a hypothetical COVID-19 + locust disruption to the global rice trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  The production decline fractions are: 
+    Kenya	0.3425
+    Pakistan	0.197
+    Iran	0.1883
+    Thailand	0.021
+    India	0.0192
+    Viet Nam	0.0012
+  
+#### Scenario 4:  US Dust Bowl disruption to wheat
+A scenario for a hypothetical US Dust Bowl analogue event to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a four-year simulation.  The production decline fractions are: 
+
+    USA: 0.33	0.36	0.24	0.24 (for years 1 to 4, respectively)
