@@ -14,27 +14,57 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Step 1: Input Arguments ---
-# Command line version: Parse arguments ====
-# args <- commandArgs(trailingOnly = TRUE)
-# FSCversion <- c(as.numeric(args[1]))
-# i_scenario <- c(as.numeric(args[2]))
-# num_years <- c(as.numeric(args[3]))
-# ## country <- args[2]
-# ## production_decrease <- as.numeric(args[3])
-# ## fractional_reserve_access <- as.numeric(args[4])
-# ## output_file_name <- args[5]
+#  Command line version: e.g., "rscript main/main.R 0 1 0.5"
+# Parse arguments ====
+args <- commandArgs(trailingOnly = TRUE)
+FSCversion <- c(as.numeric(args[1]))             # PTA or RTA version of the Food Shock Cascade Model
+i_scenario <- c(as.numeric(args[2]))             # Scenario from the FSC Scenario Library
+fractional_reserve_access <- as.numeric(args[3]) # Parameter specifying fraction of "accessible" existing reserves
 
-#  RStudio or similar integrated development environment (IDE)
-#  Specify arguments  ====
-# Specify working directory
-setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
-# Specify model version to run: 0-> PTA; 1-> RTA
-FSCversion = 1
-# Specify commodity scenario: 1-> wheat; 2-> rice; 3-> maize
-i_scenario = 1
-# Specify number of years to run model
-num_years = 5
-# End Specify arguments  ====
+# #  RStudio or similar integrated development environment (IDE)
+# #  Specify arguments  ====
+# # Specify working directory
+# setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
+# # Specify model version to run: 0-> PTA; 1-> RTA
+# FSCversion = 1
+# # Scenario from the FSC Scenario Library
+# i_scenario = 1
+#  #Specify fraction of actual reserves to use (fractional_reserve_access = rfrac) 
+# fractional_reserve_access = 0.5
+# # End Specify arguments  ====
+
+# Step 2: Selection of simulation scenario ----
+#   Production *fractional declines* list by year by country ====
+#   Read production declines and specify number of consecutive simulation years
+#  Index based on iso3 alphabetical ordering
+if (i_scenario == 1) {
+  name_crop <-c('Wheat')
+  baseline_name <- c('Wheat_Avg20152017')
+  shock_scenario <- c('Scenario1_COVID_WheatDeclineFraction_1Year_195countries')
+  # Specify number of years to run model
+  num_years = 1
+    
+} else if (i_scenario == 2) {
+  name_crop <-c('Maize')
+  baseline_name <- c('Maize_Avg20152017')
+  shock_scenario <- c('Scenario2_COVID_MaizeDeclineFraction_1Year_195countries')
+  # Specify number of years to run model
+  num_years = 1
+  
+} else if (i_scenario == 3) {
+  name_crop <-c('Rice')
+  baseline_name <- c('Rice_Avg20152017')
+  shock_scenario <- c('Scenario3_COVID_RiceDeclineFraction_1Year_195countries')
+  # Specify number of years to run model
+  num_years = 1
+  
+} else if (i_scenario == 4) {
+  name_crop <-c('Wheat')
+  baseline_name <- c('Wheat_Avg20152017')
+  shock_scenario <- c('Scenario4_USDustBowl_WheatDeclineFraction_4Years_195countries')
+  # Specify number of years to run model
+  num_years = 4
+}
 
 # Create year range to run model along with column names for output
 years0 <- 0:num_years # vector includes initial year
@@ -51,33 +81,17 @@ for(i in years) {
   column_names2[i] <- toString(years[i])
 }
 
-# Step 2: Selection of commodity scenario ----
-
-# Production *fractional declines* list by year by country ====
-# Read production declines and Select countries for export bans
-#  Index based on iso3 alphabetical ordering
-if (i_scenario == 1) {
-  name_crop <-c('Wheat')
-  runname <- c('Wheat_Avg20152017')
-    
-} else if (i_scenario == 2) {
-  name_crop <-c('Rice')
-  runname <- c('Rice_Avg20152017')
-  
-} else if (i_scenario == 3) {
-  name_crop <-c('Maize')
-  runname <- c('Maize_Avg20152017')
-}
+#Production decline fractions (positive values=> decline; negative values => increase)
+anomalies <- read.csv(paste0("inputs/", shock_scenario, ".csv"))
 
 
 # Step 3: Load ancillary data ----
 # i) Commodity list for bilateral trade
-commodities <- read.csv(paste0("ancillary/", runname, "cropcommodity_tradelist.csv"))
+commodities <- read.csv(paste0("ancillary/", baseline_name, "cropcommodity_tradelist.csv"))
 # ii) Load country list
 country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
-# iii) Production decline fractions
-anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_5YearsDeclineFraction_195countries.csv"))
+
 
 # Check *fractional declines* to ensure that the max number of 
 #   simulation years doesn't exceed "anomalies" input
@@ -85,9 +99,9 @@ if (num_years>ncol(anomalies)-1)
   stop("Number of simulation years exceeds number of years in production decline input file")
 
 # Step 4: Load production/trade/stocks data (units depend on ProcessInputs.R)----
-load(paste0("inputs_processed/", runname, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
-load(paste0("inputs_processed/", runname, "P0.Rdata")) #Production
-load(paste0("inputs_processed/", runname, "R0.RData")) #Reserves (a.k.a. Stocks)
+load(paste0("inputs_processed/", baseline_name, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
+load(paste0("inputs_processed/", baseline_name, "P0.Rdata")) #Production
+load(paste0("inputs_processed/", baseline_name, "R0.RData")) #Reserves (a.k.a. Stocks)
 
 # Step 5: Setup production and shocks; initialize output vectors ----
 # Assign production vector to P0 ====
@@ -196,9 +210,9 @@ for (i in 1:length(years)) {
   # Call main simulation functions
   dP <- as.numeric(unlist(Shocks$dP))
   if (FSCversion == 0) {
-    results_FSC <- sim_cascade_PTA(trade_dat, dP)  # Run Proportional Trade Allocation (PTA) Model
+    results_FSC <- sim_cascade_PTA(trade_dat, dP, fractional_reserve_access)  # Run Proportional Trade Allocation (PTA) Model
   } else if (FSCversion == 1) {
-    results_FSC <- sim_cascade_RTA(trade_dat, dP)  # Run Reserves-based Trade Allocation (RTA) Model
+    results_FSC <- sim_cascade_RTA(trade_dat, dP, fractional_reserve_access)  # Run Reserves-based Trade Allocation (RTA) Model
   }
   
   # Store outputs of interest from simulations ====

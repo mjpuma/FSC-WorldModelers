@@ -9,7 +9,7 @@
 sim_cascade_PTA <-
   function(food_net,
            dP,
-           rfrac = 0.5,
+           rfrac,
            cfrac = 0.01,
            kmax = 50) {
     # Initial shock and available reserves
@@ -52,7 +52,7 @@ sim_cascade_PTA <-
 sim_cascade_RTA <-
   function(food_net,
            dP,
-           rfrac = 0.5,
+           rfrac,
            rexp = 0.2,
            cfrac = 0.01,
            kmax = 50) {

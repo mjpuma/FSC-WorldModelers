@@ -31,7 +31,7 @@ rscript main/Requirements.R
 ```
 
 ### Step 4: Prepare the input data
-Here you need to specify the years for the baseline state of the food system (e.g., yr_range <- 2015:2017) as well as the 1)  list of countries included, 2)  set of crops commodities that will be aggregate for  bilateral trade data, 3)  set of crops commodities that will be aggregate for production data, and 4)  set of crops commodities that will be aggregate for reserves data:
+As part of the FSC model, we have a Scenario Library, which includes Here you need to specify the years for the baseline state of the food system (e.g., yr_range <- 2015:2017) as well as the 1)  list of countries included, 2)  set of crops commodities that will be aggregate for  bilateral trade data, 3)  set of crops commodities that will be aggregate for production data, and 4)  set of crops commodities that will be aggregate for reserves data:
   1) country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
   2) commodities<-read.csv("ancillary/cropcommodity_tradelist.csv")
   3) commodities_prod<-read.csv("ancillary/cropcommodity_prodlist.csv")
@@ -41,22 +41,22 @@ rscript main/ProcessInputs.R
 ```
 
 ### Step 5: Run a simulation
-To run a simulation you need to specify 1) the version of the FSC, 2) the crop or set of commodity (aggregated) to simulation, and 3) the number of time steps (annual) to run.
+To run a simulation you need to specify 1) the version of the FSC, 2) select a scenario from the Scenario Library, and 3) specify the fraction of "accessible" existing reserves.
 
-* `FSCversion`: Specify model version to run: 0-> Run Proportional Trade Allocation (PTA) version; 
+* `FSCversion`:  Specify model version to run: 0-> Run Proportional Trade Allocation (PTA) version; 
                                               1-> Run Reserves-based Trade Allocation (RTA) version
-* `i_scenario`:  i_scenario -> 1 # wheat; i_scenario -> 2 # rice; i_scenario -> 3 # maize
-* `num_years`: number of time steps to run consecutively (time size = 1 year) 
+* `i_scenario`:  Select a simulation scenario from the Scenarios Library (See below).
+* `fractional_reserve_access`:   Parameter specifying fraction [0 to 1] of "accessible" existing reserves 
 
 You can run a dynamic simulation with something like the following:
 ```
-rscript main/main.R 0 1 5
+rscript main/main.R 0 1 0.5
 ```
 In this case, we have chosen the following parameters:
 
 * `FSCversion`: 0 -> PTA version of the FSC moodel
-* `i_scenario`: 1 -> wheat commoditites
-* `num_years`: 5 years
+* `i_scenario`: 1 -> A scenario for a decline in wheat production due to hypothetical COVID-19 and locust disruptions.
+* `fractional_reserve_access`: 0.5 (i.e., half of each naation's reserves are accessible to buffer shock)
 
 ### Step 6: Output files
 The model outputs are in CSV files.  There are three configurations for the output.  Below we describe the output variables and the three formats.
@@ -122,3 +122,20 @@ Main iteration loop to implement FSC Model
 
 ### FSC_component_funcs.R
 Functions for the FSC model
+
+
+## Scenario Library
+Scenario 1: _COVID_WheatDeclineFraction_1Year_195countries')
+  # Specify number of years to run model
+  num_years = 1
+    
+Scenario 2: COVID_MaizeDeclineFraction_1Year_195countries')
+  # Specify number of years to run model
+  num_years = 1
+  
+Scenario 3: COVID_RiceDeclineFraction_1Year_195countries')
+  # Specify number of years to run model
+  num_years = 1
+  
+Scenario 4: USDustBowl_WheatDeclineFraction_4Years_195countries')
+
