@@ -132,7 +132,10 @@ Functions for the FSC model
 
 ## Scenario Library
 #### Scenario 1:  COVID-19 + locust disruption to wheat
-A scenario for a hypothetical COVID-19 + locust disruption to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  The production decline fractions are: 
+A scenario for a hypothetical COVID-19 + locust disruption to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  
+
+The production decline fractions are: 
+```
     Kenya:	0.4916
     Saudi Arabia:	0.4483
     Yemen:	0.2335
@@ -142,9 +145,13 @@ A scenario for a hypothetical COVID-19 + locust disruption to the global wheat t
     Pakistan:	0.0976
     Ethiopia:	0.0874
     Russia:	0.0768
+```
 
 #### Scenario 2:  COVID-19 + locust disruption to maize
-A scenario for a hypothetical COVID-19 + locust disruption to the global maize trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  The production decline fractions are:  
+A scenario for a hypothetical COVID-19 + locust disruption to the global maize trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  
+
+The production decline fractions are:
+```
     Saudi Arabia	0.5281
     Somalia	 	0.4844
     Iran	0.2975
@@ -155,15 +162,20 @@ A scenario for a hypothetical COVID-19 + locust disruption to the global maize t
     Argentina	0.119
     Ukraine	0.0878
     Pakistan	0.0717
+```
   
 #### Scenario 3:  COVID-19 + locust disruption to rice
-A scenario for a hypothetical COVID-19 + locust disruption to the global rice trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  The production decline fractions are: 
+A scenario for a hypothetical COVID-19 + locust disruption to the global rice trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  
+
+The production decline fractions are:
+```
     Kenya	0.3425
     Pakistan	0.197
     Iran	0.1883
     Thailand	0.021
     India	0.0192
     Viet Nam	0.0012
+```
   
 #### Scenario 4:  US Dust Bowl disruption to wheat
 A scenario for a hypothetical US Dust Bowl analogue event to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a four-year simulation.  The production decline fractions are: 
