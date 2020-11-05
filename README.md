@@ -31,7 +31,7 @@ rscript main/Requirements.R
 ```
 
 ### Step 4: Prepare the input data
-As part of the FSC model, we have a Scenario Library, which includes a set of scenarios that have input data already processed and ancillary files already prepared.  If you want to run one of these scenarios, you can *skip over this step*.
+As part of the FSC model, we have a Scenario Library (see below), which includes a set of scenarios that have input data already processed and ancillary files already prepared.  If you want to run one of these scenarios, you can *skip over this step*.
 
 To customize your own simulation, you need to modify "ProcessInputs.R" and create a file with the relevant production fractional-declines list by year by country.  See the file "inputs/Scenario1_COVID_WheatDeclineFraction_1Year_195countries.csv"as an example of a 1-year run and "Scenario4_USDustBowl_WheatDeclineFraction_4Years_195countries.csv" as an example of a 4-year run. Thus, you should add a scenario to "Step 2" of main.R.
 
