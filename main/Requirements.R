@@ -6,13 +6,13 @@ repo <- "http://cran.us.r-project.org"
 
 cat("Installing required packages....\n")
 
-install.packages("tidyr", repos = repo)
-install.packages("dplyr", repos = repo)
-install.packages("reshape2", repos = repo)
-install.packages("stringr", repos = repo)
-install.packages("igraph", repos = repo)
-install.packages("ggraph", repos = repo)
-install.packages("tidyverse", repos = repo)
-install.packages("netrankr", repos = repo)
+install.packages("tidyr", repos = repo, INSTALL_opts = '--no-lock')
+install.packages("dplyr", repos = repo, INSTALL_opts = '--no-lock')
+install.packages("reshape2", repos = repo, INSTALL_opts = '--no-lock')
+install.packages("stringr", repos = repo, INSTALL_opts = '--no-lock')
+install.packages("igraph", repos = repo, INSTALL_opts = '--no-lock')
+install.packages("ggraph", repos = repo, INSTALL_opts = '--no-lock')
+install.packages("tidyverse", repos = repo, INSTALL_opts = '--no-lock')
+install.packages("netrankr", repos = repo, INSTALL_opts = '--no-lock')
 
 cat("Setup completed!")
