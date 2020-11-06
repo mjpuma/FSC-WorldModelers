@@ -2,8 +2,8 @@
 - A simple agent-based network model that computes chain-reactions due to production anomalies based on dynamic food balance sheets at the country level.  The model is written in R.
 - Latest published version of the model described in Heslin, A., M.J. Puma, P. Marchand, J.A. Carr, J. Dell'Angelo, P. D'Odorico, J.A. Gephart, M. Kummu, M. Porkka, M.C. Rulli, D. Seekell, S. Suweis, and A. Tavoni, 2020: Simulating the cascading effects of an extreme agricultural production shock: Global implications of a contemporary US Dust Bowl event. Front. Sustain. Food Syst., 20 March 2020, doi:10.3389/fsufs.2020.00026.
 - Earlier model version is available at https://github.com/pmarchand1/cereals-network-shocks and described in the paper: Marchand, P., J.A. Carr, J. Dell'Angelo, M. Fader, J.A. Gephard, M. Kummu, N.R. Magliocca, M. Porkka, M.J. Puma, and Z. Ratajczak, 2016: Reserves and trade jointly determine exposure to food supply shocks. Environ. Res. Lett., 11, no. 9, 095009, doi:10.1088/1748-9326/11/9/095009.
-- Resolution: Food balances/inventories computed at some speciified adminstrative level (e.g. country, province, etc) for a tme interval (e.g., one year) that is long enough for a shock to propagate through the system.
-- Runtime: Preprossesing input data takes roughtly 5 minutes; cascade simulations roughtly a few minutes on desktop computer
+- Resolution: Food balances/inventories computed at some specified administrative level (e.g. country, province, etc) for a time interval (e.g., one year) that is long enough for a shock to propagate through the system.
+- Runtime: Preprossesing input data takes roughly 5 minutes; cascade simulations roughly a few minutes on desktop computer
 
 ## How to setup and run the model
 ### Step 1: Clone repository
@@ -60,14 +60,14 @@ rscript main/main.R 0 1 0.5
 ```
 In this case, we have chosen the following parameters:
 
-* `FSCversion`: 0 -> PTA version of the FSC moodel
+* `FSCversion`: 0 -> PTA version of the FSC model
 * `i_scenario`: 1 -> A scenario for a decline in wheat production due to hypothetical COVID-19 and locust disruptions.
-* `fractional_reserve_access`: 0.5 (i.e., half of each naation's reserves are accessible to buffer shock)
+* `fractional_reserve_access`: 0.5 (i.e., half of each nation's reserves are accessible to buffer shock)
 
 ### Step 6: Output files
 The model outputs are in CSV files.  There are three configurations for the output.  Below we describe the output variables and the three formats.
 
-Type 1) Bilateral Export Matrices, where the row name is the origin country and the column is the destination. The first set of m columns is the first time step, the second set is the next timestep and so forth. Units depend on ProcessInputs.R; typically kilocalories or metric tons. 
+Type 1) Bilateral Export Matrices, where the row name is the origin country and the column is the destination. The first set of m columns is the first time step, the second set is the next time step and so forth. Units depend on ProcessInputs.R; typically kilocalories or metric tons. 
 * BilateralExportMatrix_TimeSeries.csv
 
 Type 2) These files have four columns.  The first row is the title: iso3,	Country Name ("Country.x"),	Year,	Value. The values for each individual file are production, reserves, or food shortage (demand-supply) as indicated by the file name. These files have units consistent with the Bilateral Export Matrices.  
@@ -75,7 +75,7 @@ Type 2) These files have four columns.  The first row is the title: iso3,	Countr
 * Reserve_TimeSeries.csv
 * Shortage_TimeSeries.csv
 
-There are also two files that are unitless (i.e. norrmalized).  The first is the ratio of consumption to initial consumption and the second is the change in reserves relative to initial consumption.
+There are also two files that are unitless (i.e. normalized).  The first is the ratio of consumption to initial consumption and the second is the change in reserves relative to initial consumption.
 * ConsumptiontoC0_TimeSeries.csv
 * ReserveChangetoC0_TimeSeries.csv
 
