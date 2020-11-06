@@ -5,6 +5,7 @@ source("main/FSC_component_funcs.R")
 source("main/FSC_sim_funcs.R")
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
+library(data.table)
 
 # Create output directory if needed
 if (dir.exists("outputs") == FALSE) {
@@ -32,7 +33,7 @@ FSCversion = 0
 i_scenario = 1  # meat
 
 # Specify number of years to run model
-num_years = 5
+num_years = 1
 
 # Create year range to run model along with column names for output
 years0 <- 0:num_years # vector includes initial year
@@ -79,7 +80,7 @@ if (i_scenario == 1) {
 # 1)  Commodity list for bilateral trade
 # commodities <- read.csv("ancillary/cropcommodity_tradelist.csv")
 # 2) Load country list
-faf_list <- read.csv("ancillary/faf_zoneid.csv")
+faf_list <- read.csv("ancillary/FAF_zoneid.csv")
 faf_list <- faf_list[order(faf_list$faf), ] # Order by faf code
 # 3) Production *fractional declines* list by year by country ====
 anomalies <- read.csv(paste0("inputs/faf_", name_crop, "_DeclineFraction_sctg5.csv"))
@@ -96,6 +97,7 @@ colnames(E0) <- gsub("X", "", colnames(E0))
 E0[is.na(E0)] <- 0
 E0 <- as.matrix(E0[-1])
 P0 <- read.csv("inputs_processed/P0.csv", stringsAsFactors = F) #Production
+P0[is.na(P0)] <- 0
 R0 <- read.csv("inputs_processed/R0.csv", stringsAsFactors = F) #Reserves (a.k.a. Stocks)
 # load("inputs_processed/R0.Rdata")
 # load("inputs_processed/E0.Rdata")
@@ -142,11 +144,11 @@ for (i in 1:length(years)) {
   # Separate NEGATIVE and POSITIVE shock anomalies ====
   #   Fractional gains and losses in production
   #   Note: Initial production, P0, is fixed but Shocks vary in time
-  FracGain <- Shocks[i + 3]
+  FracGain <- Shocks[i + 2]
   FracGain[FracGain > 0] <- 0
   FracGain <- -FracGain      # adjust sign (fractional *declines* read in)
   
-  FracLoss <- Shocks[i + 3]
+  FracLoss <- Shocks[i + 2]
   FracLoss[FracLoss < 0] <- 0
   
   # Create vector for NEGATIVE shock anomalies ====
@@ -287,7 +289,7 @@ dR_C0out_df <-
   merge(InputFSC[, c("faf", "SHORTNAME")], dR_C0out_df, by = "faf")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
 dR_C0out_df <- gather(dR_C0out_df, Year, Value, -faf, -SHORTNAME)
-# remove preceeding X character for Year column aand convert to numeric
+# remove preceding X character for Year column and convert to numeric
 dR_C0out_df$Year <-  as.numeric(gsub("[a-zA-Z ]", "", dR_C0out_df$Year))
 
 # Export matrix
