@@ -1,133 +1,133 @@
 "faf","SHORTNAME","Year","Value"
-11,"Birmingham",1,0.000195503234863281
-12,"Mobile",1,8.29696655273438e-05
-19,"Rest of AL",1,0.000380754470825195
+11,"Birmingham",1,0
+12,"Mobile",1,0
+19,"Rest of AL",1,0
 20,"Alaska",1,0
-41,"Phoenix",1,0.000738143920898438
-42,"Tucson",1,3.66568565368652e-06
-49,"Rest of AZ",1,1.59740447998047e-05
-50,"Arkansas",1,0.0240170955657959
-61,"Los Angeles",1,0.001678466796875
-62,"Sacramento",1,2.43186950683594e-05
-63,"San Diego",1,3.95774841308594e-05
-64,"San Francisco",1,0.000917434692382812
-65,"Fresno",1,1.62124633789062e-05
-69,"Rest of CA",1,7.62939453125e-06
-81,"Denver",1,0.000514984130859375
-89,"Rest of CO",1,0.000298023223876953
-91,"Hartford",1,0.000125408172607422
-92,"New York (CT)",1,0.000254631042480469
-99,"Rest of CT",1,2.98023223876953e-06
-101,"Philadelphia (DE)",1,6.3776969909668e-06
-109,"Rest of DE",1,1.02519989013672e-05
-111,"Washington (DC)",1,2.07424163818359e-05
-121,"Jacksonville",1,0.000360965728759766
-122,"Miami",1,0.00029754638671875
-123,"Orlando",1,0.000302314758300781
-124,"Tampa",1,0.000225067138671875
-129,"Rest of FL",1,0.000238418579101562
-131,"Atlanta",1,0.00092315673828125
-132,"Savannah",1,4.70876693725586e-06
-139,"Rest of GA",1,9.56058502197266e-05
-151,"Honolulu",1,0.0359343737363815
-159,"Rest of HI",1,0.00515753030776978
-160,"Idaho",1,0.000286579132080078
-171,"Chicago (IL)",1,0.00069427490234375
-172,"St. Louis (IL)",1,6.19888305664062e-06
-179,"Rest of IL",1,0.000281810760498047
-181,"Chicago (IN)",1,1.43051147460938e-06
-182,"Indianapolis",1,0.000187397003173828
-183,"Fort Wayne",1,0.000207901000976562
-189,"Rest of IN",1,8.96453857421875e-05
-190,"Iowa",1,0.0004119873046875
-201,"Kansas City (KS)",1,0.000347137451171875
-202,"Wichita",1,6.91413879394531e-06
-209,"Rest of KS",1,0.000356674194335938
-211,"Cincinnati (KY)",1,7.79032707214355e-05
-212,"Louisville",1,0.000298500061035156
-219,"Rest of KY",1,0.000100612640380859
-221,"Baton Rouge",1,5.36441802978516e-05
+41,"Phoenix",1,0
+42,"Tucson",1,0
+49,"Rest of AZ",1,0
+50,"Arkansas",1,0
+61,"Los Angeles",1,0
+62,"Sacramento",1,0
+63,"San Diego",1,0
+64,"San Francisco",1,0
+65,"Fresno",1,0
+69,"Rest of CA",1,0
+81,"Denver",1,0
+89,"Rest of CO",1,0
+91,"Hartford",1,0
+92,"New York (CT)",1,0
+99,"Rest of CT",1,0
+101,"Philadelphia (DE)",1,0
+109,"Rest of DE",1,0
+111,"Washington (DC)",1,0
+121,"Jacksonville",1,0
+122,"Miami",1,0
+123,"Orlando",1,0
+124,"Tampa",1,0
+129,"Rest of FL",1,0
+131,"Atlanta",1,0
+132,"Savannah",1,0
+139,"Rest of GA",1,0
+151,"Honolulu",1,0
+159,"Rest of HI",1,0
+160,"Idaho",1,0
+171,"Chicago (IL)",1,0
+172,"St. Louis (IL)",1,0
+179,"Rest of IL",1,0
+181,"Chicago (IN)",1,0
+182,"Indianapolis",1,0
+183,"Fort Wayne",1,0
+189,"Rest of IN",1,0
+190,"Iowa",1,0
+201,"Kansas City (KS)",1,0
+202,"Wichita",1,0
+209,"Rest of KS",1,0
+211,"Cincinnati (KY)",1,0
+212,"Louisville",1,0
+219,"Rest of KY",1,0
+221,"Baton Rouge",1,0
 222,"Lake Charles",1,0
-223,"New Orleans",1,0.000418663024902344
-229,"Rest of LA",1,1.43051147460938e-05
-230,"Maine",1,0.000169277191162109
-241,"Baltimore",1,0.000153541564941406
-242,"Washington (MD)",1,5.7220458984375e-05
-249,"Rest of MD",1,6.91413879394531e-05
-251,"Boston (MA)",1,0.0001983642578125
-259,"Rest of MA",1,0.000352859497070312
-261,"Detroit",1,0.000441908836364746
-262,"Grand Rapids",1,6.27040863037109e-05
-269,"Rest of MI",1,0.000122547149658203
-271,"Minneapolis",1,0.000505447387695312
-279,"Rest of MN",1,6.19888305664062e-05
-280,"Mississippi",1,0.000683307647705078
-291,"Kansas City (MO)",1,5.29289245605469e-05
-292,"St. Louis (MO)",1,0.00046086311340332
-299,"Rest of MO",1,0.000760078430175781
-300,"Montana",1,0.000255584716796875
-311,"Omaha",1,4.26769256591797e-05
-319,"Rest of NE",1,0.000268936157226562
-321,"Las Vegas",1,0.000153064727783203
-329,"Rest of NV",1,0.000106453895568848
-331,"Boston (NH)",1,3.62992286682129e-05
-339,"Rest of NH",1,2.14576721191406e-06
-341,"New York (NJ)",1,0.000948905944824219
-342,"Philadelphia (NJ)",1,0.000180244445800781
-350,"New Mexico",1,5.76972961425781e-05
-361,"Albany",1,0.000269889831542969
-362,"Buffalo",1,0.000204801559448242
-363,"New York (NY)",1,0.0010528564453125
-364,"Rochester",1,4.91142272949219e-05
-369,"Rest of NY",1,0.000673532485961914
-371,"Charlotte",1,0.000302314758300781
-372,"Greensboro",1,3.76701354980469e-05
-373,"Raleigh",1,0.000130653381347656
-379,"Rest of NC",1,0.000139236450195312
-380,"North Dakota",1,4.64916229248047e-06
-391,"Cincinnati (OH)",1,0.00015723705291748
-392,"Cleveland",1,6.05583190917969e-05
-393,"Columbus",1,6.866455078125e-05
-394,"Dayton",1,4.33921813964844e-05
-399,"Rest of OH",1,0.000836372375488281
-401,"Oklahoma City",1,0.000266075134277344
-402,"Tulsa",1,9.29832458496094e-05
-409,"Rest of OK",1,0.0009613037109375
-411,"Portland (OR)",1,0.000583648681640625
-419,"Rest of OR",1,0.000154018402099609
-421,"Philadelphia (PA)",1,0.000624656677246094
-422,"Pittsburgh",1,0.000252723693847656
-423,"New York (PA)",1,0.000487327575683594
-429,"Rest of PA",1,0.000303268432617188
-441,"Rhode Island",1,6.43730163574219e-06
-451,"Charleston",1,8.97049903869629e-06
-452,"Greenville",1,1.43051147460938e-05
-459,"Rest of SC",1,0.000103473663330078
-460,"South Dakota",1,1.52587890625e-05
-471,"Memphis",1,0.000123500823974609
-472,"Nashville",1,0.000391006469726562
-473,"Knoxville",1,0.00014650821685791
-479,"Rest of TN",1,0.000245213508605957
-481,"Austin",1,0.000371456146240234
+223,"New Orleans",1,0
+229,"Rest of LA",1,0
+230,"Maine",1,0
+241,"Baltimore",1,0
+242,"Washington (MD)",1,0
+249,"Rest of MD",1,0
+251,"Boston (MA)",1,0
+259,"Rest of MA",1,0
+261,"Detroit",1,0
+262,"Grand Rapids",1,0
+269,"Rest of MI",1,0
+271,"Minneapolis",1,0
+279,"Rest of MN",1,0
+280,"Mississippi",1,0
+291,"Kansas City (MO)",1,0
+292,"St. Louis (MO)",1,0
+299,"Rest of MO",1,0
+300,"Montana",1,0
+311,"Omaha",1,0
+319,"Rest of NE",1,0
+321,"Las Vegas",1,0
+329,"Rest of NV",1,0
+331,"Boston (NH)",1,0
+339,"Rest of NH",1,0
+341,"New York (NJ)",1,0
+342,"Philadelphia (NJ)",1,0
+350,"New Mexico",1,0
+361,"Albany",1,0
+362,"Buffalo",1,0
+363,"New York (NY)",1,0
+364,"Rochester",1,0
+369,"Rest of NY",1,0
+371,"Charlotte",1,0
+372,"Greensboro",1,0
+373,"Raleigh",1,0
+379,"Rest of NC",1,0
+380,"North Dakota",1,0
+391,"Cincinnati (OH)",1,0
+392,"Cleveland",1,0
+393,"Columbus",1,0
+394,"Dayton",1,0
+399,"Rest of OH",1,0
+401,"Oklahoma City",1,0
+402,"Tulsa",1,0
+409,"Rest of OK",1,0
+411,"Portland (OR)",1,0
+419,"Rest of OR",1,0
+421,"Philadelphia (PA)",1,0
+422,"Pittsburgh",1,0
+423,"New York (PA)",1,0
+429,"Rest of PA",1,0
+441,"Rhode Island",1,0
+451,"Charleston",1,0
+452,"Greenville",1,0
+459,"Rest of SC",1,0
+460,"South Dakota",1,0
+471,"Memphis",1,0
+472,"Nashville",1,0
+473,"Knoxville",1,0
+479,"Rest of TN",1,0
+481,"Austin",1,0
 482,"Beaumont",1,0
 483,"Corpus Christi",1,0
-484,"Dallas",1,0.0007476806640625
-485,"El Paso",1,7.74860382080078e-06
-486,"Houston",1,0.00113677978515625
-487,"Laredo",1,0.00190162658691406
-488,"San Antonio",1,0.000142097473144531
-489,"Rest of TX",1,0.000383377075195312
-491,"Salt Lake City",1,0.000421524047851562
+484,"Dallas",1,0
+485,"El Paso",1,0
+486,"Houston",1,0
+487,"Laredo",1,0
+488,"San Antonio",1,0
+489,"Rest of TX",1,0
+491,"Salt Lake City",1,0
 499,"Rest of UT",1,0
-500,"Vermont",1,4244.28299289942
-511,"Richmond",1,3.00407409667969e-05
-512,"Norfolk",1,8.76784324645996e-05
-513,"Washington (VA)",1,0.000361919403076172
-519,"Rest of VA",1,0.000484466552734375
-531,"Seattle",1,0.00025177001953125
-532,"Portland (WA)",1,0.000172853469848633
-539,"Rest of WA",1,2.38418579101562e-07
-540,"West Virginia",1,9.50098037719727e-05
-551,"Milwaukee",1,0.000212669372558594
-559,"Rest of WI",1,9.72747802734375e-05
-560,"Wyoming",1,2.5629997253418e-06
+500,"Vermont",1,0
+511,"Richmond",1,0
+512,"Norfolk",1,0
+513,"Washington (VA)",1,0
+519,"Rest of VA",1,0
+531,"Seattle",1,0
+532,"Portland (WA)",1,0
+539,"Rest of WA",1,0
+540,"West Virginia",1,0
+551,"Milwaukee",1,0
+559,"Rest of WI",1,0
+560,"Wyoming",1,0
