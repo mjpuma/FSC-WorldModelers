@@ -42,7 +42,7 @@ cut_consumption <- function(food_net, amount = food_net$shortage) {
 realloc_trade_prop_link <- function(food_net, need = food_net$shortage, 
                                     exp_freeze = food_net$R == 0) {
     # Determine available trade volume and proportional change factor
-    Tavail <- rowSums(food_net$E) + colSums(food_net$E[!exp_freeze, ])
+    Tavail <- rowSums(food_net$E) + colSums(food_net$E)
     prop_dT <- ifelse(Tavail == 0, 0, pmin(need / Tavail, 1))
     
     # Apply proportion to all links (except incoming links that froze exports)

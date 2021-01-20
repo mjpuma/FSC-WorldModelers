@@ -1,0 +1,51 @@
+State,Statecode,State Capital,Number of Covid Cases,Number of Deaths,Cases>laborers
+Alabama,AL,Montgomery,85,1,0
+Alaska,AK,Juneau,0,0,0
+Arizona,AZ,Phoenix,0,0,0
+Arkansas,AR,Little Rock,4760,1,1
+California,CA,Sacramento,1612,1,0
+Colorado,CO,Denver,603,14,0
+Connecticut,CT,Hartford,0,0,0
+Delaware,DE,Dover,2,0,0
+Florida,FL,Tallahassee,0,0,0
+Georgia,GA,Atlanta,200,2,0
+Hawaii,HI,Honolulu,0,0,0
+Idaho,ID,Boise,84,0,0
+Illinois,IL,Springfield,1024,6,0
+Indiana,IN,Indianapolis,1298,0,1
+Iowa,IA,Des Moines,4448,13,0
+Kansas,KS,Topeka,2453,10,1
+Kentucky,KY,Frankfort,769,2,0
+Louisiana,LA,Baton Rouge,2,0,0
+Maine,ME,Augusta,0,0,0
+Maryland,MD,Annapolis,208,5,0
+Massachusetts,MA,Boston,0,0,0
+Michigan,MI,Lansing,88,1,0
+Minnesota,MN,St. Paul,1689,2,0
+Mississippi,MS,Jackson,73,0,0
+Missouri,MO,Jefferson City,1309,4,1
+Montana,MT,Helena,0,0,0
+Nebraska,NE,Lincoln,2174,5,1
+Nevada,NV,Carson City,0,0,0
+New Hampshire,NH,Concord,0,0,0
+New Jersey,NJ,Trenton,0,0,0
+New Mexico,NM,Santa Fe,84,0,1
+New York,NY,Albany,0,0,0
+North Carolina,NC,Raleigh,1939,2,0
+North Dakota,ND,Bismarck,0,0,0
+Ohio,OH,Columbus,235,1,0
+Oklahoma,OK,Oklahoma City,641,1,1
+Oregon,OR,Salem,0,0,0
+Pennsylvania,PA,Harrisburg,365,7,0
+Rhode Island,RI,Providence,0,0,0
+South Carolina,SC,Columbia,67,0,0
+South Dakota,SD,Pierre,0,0,0
+Tennessee,TN,Nashville,496,3,0
+Texas,TX,Austin,1518,9,0
+Utah,UT,Salt Lake City,462,1,0
+Vermont,VT,Montpelier,0,0,0
+Virginia,VA,Richmond,259,1,0
+Washington,WA,Olympia,440,3,0
+West Virginia,WV,Charleston,18,0,0
+Wisconsin,WI,Madison,440,2,0
+Wyoming,WY,Cheyenne,0,0,0

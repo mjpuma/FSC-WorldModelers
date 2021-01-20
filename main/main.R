@@ -1,5 +1,5 @@
 ## Main script for the Food Shock Cascade (FSC) Model
-#setwd("~/FSC-WorldModelers/")
+# setwd("~/FSC-WorldModelers/")
 
 source("main/FSC_component_funcs.R")
 source("main/FSC_sim_funcs.R")
@@ -83,6 +83,7 @@ if (i_scenario == 1) {
 faf_list <- read.csv("ancillary/FAF_zoneid.csv")
 faf_list <- faf_list[order(faf_list$faf), ] # Order by faf code
 # 3) Production *fractional declines* list by year by country ====
+
 anomalies <- read.csv(paste0("inputs/faf_", name_crop, "_DeclineFraction_sctg5.csv"))
 
 # Check *fractional declines* to ensure that the max number of 
