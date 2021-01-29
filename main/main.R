@@ -1,8 +1,10 @@
 ## Main script for the Food Shock Cascade (FSC) Model
 setwd("/Users/puma/GitHub_mjpuma/FSC-WorldModelers/")
 
+# Load FSC functions ----
 source("main/FSC_component_funcs.R")
 source("main/FSC_sim_funcs.R")
+
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
 library(data.table)
@@ -67,27 +69,13 @@ for(i in years) {
 if (i_scenario == 1) {
   name_crop <-c('Meat')
   runname <- c('Meat_2017')
-    
 }
-# else if (i_scenario == 2) {
-#   name_crop <-c('Rice')
-#   runname <- c('Rice_Avg20152017')
-# 
-# } else if (i_scenario == 3) {
-#   name_crop <-c('Maize')
-#   runname <- c('Maize_Avg20152017')
-# }
 
-# Step 2: Load FSC functions ----
-
-# Step 3: Load ancillary data ----
-# 1)  Commodity list for bilateral trade
-# commodities <- read.csv("ancillary/cropcommodity_tradelist.csv")
-# 2) Load country list
+# Step 2: Load ancillary data ----
+# 1) Load country list
 faf_list <- read.csv("ancillary/FAF_zoneid.csv")
 faf_list <- faf_list[order(faf_list$faf), ] # Order by faf code
-# 3) Production *fractional declines* list by year by country ====
-
+# 2) Production *fractional declines* list by year by country ====
 anomalies <- read.csv(paste0("inputs/faf_", name_crop, "_DeclineFraction_sctg5.csv"))
 
 # Check *fractional declines* to ensure that the max number of 
@@ -96,7 +84,7 @@ if (num_years>ncol(anomalies)-1){
   stop("Number of simulation years exceeds number of years in production decline input file")
 }
 
-# Step 4: Load production/trade/stocks data ----
+# Step 3: Load production/trade/stocks data ----
 if (measure == "pounds"){
   E0 <- read.csv("inputs_processed/E0.csv", stringsAsFactors = F) #Export Matrix ordered by FAOSTAT country code (increasing)
   colnames(E0) <- gsub("X", "", colnames(E0))
@@ -113,14 +101,9 @@ if (measure == "pounds"){
   P0[is.na(P0)] <- 0
 }
 R0 <- read.csv("inputs_processed/R0.csv", stringsAsFactors = F) #Reserves (a.k.a. Stocks)
-# load("inputs_processed/R0.Rdata")
-# load("inputs_processed/E0.Rdata")
-# load("inputs_processed/P0.Rdata")
-# Step 5: Setup production and shocks; initialize output vectors ----
-# # Assign production vector to P0 ====
-# P0 <- Pkbyc
-# #colnames(P0)[1] <- "iso3"
 
+
+# Step 4: Setup production and shocks; initialize output vectors ----
 # Create 'Shocks' dataframe ====
 Shocks <- merge(faf_list,anomalies,by = 'faf')
 Shocks[is.na(Shocks)] <- 0
@@ -150,7 +133,7 @@ Rout[, 1] <- R0$storage
 ## Create 'InputFSC' dataframe adding initial reserves====
 InputFSC <- data_frame(faf = R0$faf, R0 = R0$storage)
 
-# Step 7: Time loop (annual timestep, updating InputFSC) ----
+# Step 5: Time loop (annual timestep, updating InputFSC) ----
 for (i in 1:length(years)) {
   ## Update progress in time loop
   cat('Timestep', i, 'of', length(years), '\n')
@@ -247,7 +230,7 @@ for (i in 1:length(years)) {
   rm(FracLoss)
 }
 
-# Step 8: Collect, reformat and save output data ----
+# Step 6: Collect, reformat and save output data ----
 # Production
 colnames(Pout)  <- column_names
 rownames(Pout)  <- InputFSC$faf
