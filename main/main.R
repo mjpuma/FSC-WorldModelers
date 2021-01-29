@@ -35,6 +35,10 @@ i_scenario = 1  # meat
 # Specify number of years to run model
 num_years = 1
 
+#Specify the unit of measurement(pounds or value)
+
+measure = "pounds"
+
 # Create year range to run model along with column names for output
 years0 <- 0:num_years # vector includes initial year
 years <- 1:num_years
@@ -93,12 +97,21 @@ if (num_years>ncol(anomalies)-1){
 }
 
 # Step 4: Load production/trade/stocks data ----
-E0 <- read.csv("inputs_processed/E0.csv", stringsAsFactors = F) #Export Matrix ordered by FAOSTAT country code (increasing)
-colnames(E0) <- gsub("X", "", colnames(E0))
-E0[is.na(E0)] <- 0
-E0 <- as.matrix(E0[-1])
-P0 <- read.csv("inputs_processed/P0.csv", stringsAsFactors = F) #Production
-P0[is.na(P0)] <- 0
+if (measure == "pounds"){
+  E0 <- read.csv("inputs_processed/E0.csv", stringsAsFactors = F) #Export Matrix ordered by FAOSTAT country code (increasing)
+  colnames(E0) <- gsub("X", "", colnames(E0))
+  E0[is.na(E0)] <- 0
+  E0 <- as.matrix(E0[-1])
+  P0 <- read.csv("inputs_processed/P0.csv", stringsAsFactors = F) #Production
+  P0[is.na(P0)] <- 0
+}else{
+  E0 <- read.csv("inputs_processed/E0_value.csv", stringsAsFactors = F) #Export Matrix ordered by FAOSTAT country code (increasing)
+  colnames(E0) <- gsub("X", "", colnames(E0))
+  E0[is.na(E0)] <- 0
+  E0 <- as.matrix(E0[-1])
+  P0 <- read.csv("inputs_processed/P0_value.csv", stringsAsFactors = F) #Production
+  P0[is.na(P0)] <- 0
+}
 R0 <- read.csv("inputs_processed/R0.csv", stringsAsFactors = F) #Reserves (a.k.a. Stocks)
 # load("inputs_processed/R0.Rdata")
 # load("inputs_processed/E0.Rdata")
