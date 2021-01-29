@@ -1,5 +1,5 @@
 ## Main script for the Food Shock Cascade (FSC) Model
-# setwd("~/FSC-WorldModelers/")
+setwd("/Users/puma/GitHub_mjpuma/FSC-WorldModelers/")
 
 source("main/FSC_component_funcs.R")
 source("main/FSC_sim_funcs.R")

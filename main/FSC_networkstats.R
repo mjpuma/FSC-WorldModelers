@@ -11,35 +11,17 @@ library(tidyverse)
 library(netrankr)
 
 # RStudio version: Specify arguments  ====
-setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
-
+setwd("/Users/puma/GitHub_mjpuma/FSC-WorldModelers/")
 
 source("main/FSC_network_funcs.R")
 
-#runname <- c('Wheat_Avg20152017')
-#runname <- c('Rice_Avg20152017')
-runname <- c('Maize_Avg20152017')
-
-Ematrix<-readRDS(file = paste0("COVID-19_data/",runname,"ExportStatic.rds"))
-
-unitname <- c('kcal')
-
-#list actoday country
-ACToday_country <- c("Bangladesh","Colombia","Guatemala","Senegal","Vietnam","Ethiopia")
-ACToday_iso3 <- c("BGD","COL","GTM","SEN","VNM","ETH")
-IASC_country <- c("Burundi","Djibouti","Eritrea","Ethiopia","Kenya","Rwanda","Somalia",
-                  "South Sudan","Tanzania","Uganda","Haiti","Mozambique")
-IASC_iso3 <- c("BDI","DJI","ERI","ETH","KEN","RWA","SOM","SSD","TZA","UGA","HTI","MOZ")
+Ematrix<-readRDS(file = paste0("Outputs/","ExportSeries.rds"))
+unitname <- c('lbs')
 
 num_yrs <- 1#dim(Ematrix)[3]
-num_countries <- dim(Ematrix)[2]
+num_faf <- dim(Ematrix)[2]
 
 # Initialize  output vectors ====
-Exports_ACToday <-  array(0, c(length(ACToday_country), num_countries))
-Imports_ACToday <-  array(0, c(num_countries, length(ACToday_country)))
-Exports_IASC    <-  array(0, c(length(IASC_country), num_countries))
-Imports_IASC    <-  array(0, c(num_countries, length(IASC_country)))
-
 #for (i in 1:num_yrs) {
 #   Extract 2D arrays
 i=1
@@ -55,43 +37,12 @@ Gstrength_total <- strength(Gnet)
 Gstrength_out <- strength(Gnet, mode = "out")
 Gstrength_in <- strength(Gnet, mode = "in")
 
-# Subset: Columbia World Project: ACToday
-ACToday_Exports <- G[ACToday_iso3, ]
-ACToday_Imports <- G[, ACToday_iso3]
-ACToday_deg_total <- Gdeg_total[ACToday_iso3]
-ACToday_deg_out <- Gdeg_out[ACToday_iso3]
-ACToday_deg_in <- Gdeg_in[ACToday_iso3]
-
-# Subset: Inter-Agency Standing Committee
-IASC_Exports <- G[IASC_iso3, ]
-IASC_Imports <- G[, IASC_iso3]
-IASC_deg_total <- Gdeg_total[IASC_iso3]
-IASC_deg_out <- Gdeg_out[IASC_iso3]
-IASC_deg_in <- Gdeg_in[IASC_iso3]  
-
 ## Add column names to output files
 column_names<-runname #c('Yr 0', 'Yr 1', 'Yr 2', 'Yr 3', 'Yr 4')
 #colnames(Gdeg_total)  <- column_names
 #colnames(Gdeg_out)  <- column_names
 
 ## Save as CSV
-# Subset countries
-ACToday_Exports_df <- data.frame(ACToday_Exports)
-ACToday_Exports_df <- tibble::rownames_to_column(ACToday_Exports_df, "iso3")
-write.csv(ACToday_Exports_df,paste0("COVID-19_data/", runname[1],"Exports_ACToday_", unitname, ".csv"), row.names = FALSE)
-
-ACToday_Imports_df <- data.frame(ACToday_Imports)
-ACToday_Imports_df <- tibble::rownames_to_column(ACToday_Imports_df, "iso3")
-write.csv(ACToday_Imports_df,paste0("COVID-19_data/", runname[1],"Imports_ACToday_", unitname, ".csv"), row.names = FALSE)
-
-IASC_Exports_df <- data.frame(IASC_Exports)
-IASC_Exports_df <- tibble::rownames_to_column(IASC_Exports_df, "iso3")
-write.csv(IASC_Exports_df,paste0("COVID-19_data/", runname[1],"IASC_Exports_", unitname, ".csv"), row.names = FALSE)
-
-IASC_Imports_df <- data.frame(IASC_Imports)
-IASC_Imports_df <- tibble::rownames_to_column(IASC_Imports_df, "iso3")
-write.csv(IASC_Imports_df,paste0("COVID-19_data/", runname[1],"IASC_Imports_", unitname, ".csv"), row.names = FALSE)
-
 Gdeg_total_df <- data.frame(Gdeg_total)
 Gdeg_total_df <- tibble::rownames_to_column(Gdeg_total_df, "iso3")
 write.csv(Gdeg_total_df,paste0("COVID-19_data/", runname[1],"Gdeg_total_", unitname, ".csv"), row.names = FALSE)
