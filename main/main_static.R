@@ -18,24 +18,41 @@ column_names = c('0', '1')
 column_names2 = c('1')
 
 # Step 2: Specify crop + exogenous trade restriction scenario ----
-#i_scenario = 1 # wheat
-#i_scenario = 2 # rice
-i_scenario = 3 # maize
+i_scenario = 1 # See list below 
 
 # Production *fractional declines* list by year by country ====
 # Read production declines and Select countries for export bans
 #  Index based on iso3 alphabetical ordering
+#  Scenario name and production decline fractions
 if (i_scenario == 1) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/Scenario1_COVID_WheatDeclineFraction_1Year_195countries.csv"))
   
 } else if (i_scenario == 2) {
-  name_crop <-c('Rice')
-  runname <- c('Rice_Avg20152017')
-  
-} else if (i_scenario == 3) {
   name_crop <-c('Maize')
   runname <- c('Maize_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/Scenario2_COVID_MaizeDeclineFraction_1Year_195countries.csv"))
+  
+} else if (i_scenario == 3) {
+  name_crop <-c('Rice')
+  runname <- c('Rice_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/Scenario3_COVID_RiceDeclineFraction_1Year_195countries.csv"))
+  
+} else if (i_scenario == 4) {
+  name_crop <-c('Wheat')
+  runname <- c('Wheat_breadbasket_Year2008')
+  shock_scenario <- read.csv(paste0("inputs/Scenario_Wheat_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+
+} else if (i_scenario == 5) {
+  name_crop <-c('Wheat')
+  runname <- c('Wheat_locust_Year2020')
+  shock_scenario <- read.csv(paste0("inputs/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
+  
+} else if (i_scenario == 6) {
+  name_crop <-c('Wheat')
+  runname <- c('Wheat_locust_Year2020_breadbasket_Year2008')
+  shock_scenario <- read.csv(paste0("inputs/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
 }
 
 # Step 3: Load ancillary data ----
@@ -44,8 +61,7 @@ commodities <- read.csv(paste0("ancillary/", runname, "cropcommodity_tradelist.c
 # ii) Load country list
 country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
-# iii) Production decline fractions
-anomalies <- read.csv(paste0("inputs/Prod", name_crop, "_StaticDeclineFraction_195countries.csv"))
+
 
 # Step 4: Load production/trade/stocks data ----
 load(paste0("inputs_processed/", runname, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
@@ -58,7 +74,7 @@ load(paste0("inputs_processed/", runname, "R0.RData")) #Reserves (a.k.a. Stocks)
 P0 <- Pkbyc
 
 # Create 'Shocks' dataframe ====
-Shocks <- merge(country_list,anomalies,by = 'iso3')
+Shocks <- merge(country_list,shock_scenario,by = 'iso3')
 Shocks[is.na(Shocks)] <- 0
 
 # Order shocks dataframe by FAOSTAT country code (in increasing order) ====
