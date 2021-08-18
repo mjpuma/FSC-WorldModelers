@@ -14,7 +14,7 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Step 1: Input Arguments ---
-#  Command line version: e.g., "rscript main/main.R 0 1 0.5"
+#  Command line : e.g., "rscript main/main.R 0 1 0.5"
 # Parse arguments ====
 args <- commandArgs(trailingOnly = TRUE)
 FSCversion <- c(as.numeric(args[1]))             # PTA or RTA version of the Food Shock Cascade Model
@@ -26,12 +26,12 @@ fractional_reserve_access <- as.numeric(args[3]) # Parameter specifying fraction
 # # Specify working directory
 # setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
 # # Specify model version to run: 0-> PTA; 1-> RTA
-# FSCversion = 1
+# FSCversion = 0
 # # Scenario from the FSC Scenario Library
 # i_scenario = 1
-#  #Specify fraction of actual reserves to use (fractional_reserve_access = rfrac) 
+#  #Specify fraction of actual reserves to use (fractional_reserve_access = rfrac)
 # fractional_reserve_access = 0.5
-# # End Specify arguments  ====
+# # # End Specify arguments  ====
 
 # Step 2: Selection of simulation scenario ----
 #   Production *fractional declines* list by year by country ====
