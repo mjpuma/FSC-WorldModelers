@@ -1,72 +1,182 @@
 ## Main script for the Food Shock Cascade (FSC) Model
 
+# Load FSC functions
+library(dplyr, warn.conflicts = FALSE)
+library(tidyr)
+
+
+# Step 0: Setup ----
+setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
+
+# Default 1 year run for static model
+years <- 1 #Don't Change
+# Create column names for output files
+column_names = c('0', '1')
+column_names2 = c('1')
+
 # Create output directory if needed
 if (dir.exists("outputs") == FALSE) {
   dir.create("outputs")
 }
 
-# Step 0: Load FSC functions ----
-library(dplyr, warn.conflicts = FALSE)
-library(tidyr)
+# Step 1: Specify scenario ----
+i_scenario <- 34 # See list below 
 
-# Step 1: Input Arguments ----
-# RStudio version: Specify arguments  ====
-setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
-years <- 1 # Set year range to run model
-# Create column names for output files
-column_names = c('0', '1')
-column_names2 = c('1')
-
-# Step 2: Specify crop + exogenous trade restriction scenario ----
-i_scenario = 1 # See list below 
-
+# Step 2: Scenario library (read in files) ----
 # Production *fractional declines* list by year by country ====
-# Read production declines and Select countries for export bans
+# Read production declines and export restrictions
+# NOTE: Currently export restrictions are coded in Step 7 
+#       and correspond to the noted files
 #  Index based on iso3 alphabetical ordering
 #  Scenario name and production decline fractions
 if (i_scenario == 1) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_Avg20152017')
+  nameinput <- c('Wheat_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/Scenario1_COVID_WheatDeclineFraction_1Year_195countries.csv"))
   
 } else if (i_scenario == 2) {
   name_crop <-c('Maize')
   runname <- c('Maize_Avg20152017')
+  nameinput <- c('Maize_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/Scenario2_COVID_MaizeDeclineFraction_1Year_195countries.csv"))
   
 } else if (i_scenario == 3) {
   name_crop <-c('Rice')
   runname <- c('Rice_Avg20152017')
+  nameinput <- c('Rice_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/Scenario3_COVID_RiceDeclineFraction_1Year_195countries.csv"))
-  
-} else if (i_scenario == 4) {
+
+# Wheat scenarios (2021) for breadbasket failure and locust declines 
+} else if (i_scenario == 11) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_breadbasket_Year2008')
-  shock_scenario <- read.csv(paste0("inputs/Scenario_Wheat_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+  nameinput <- c('Wheat_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
 
-} else if (i_scenario == 5) {
+} else if (i_scenario == 12) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_locust_Year2020')
-  shock_scenario <- read.csv(paste0("inputs/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
+  nameinput <- c('Wheat_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
+  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
   
-} else if (i_scenario == 6) {
+} else if (i_scenario == 13) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_locust_Year2020_breadbasket_Year2008')
-  shock_scenario <- read.csv(paste0("inputs/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
+  nameinput <- c('Wheat_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
+  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+
+} else if (i_scenario == 14) {
+  name_crop <-c('Wheat')
+  runname <- c('Wheat_ExportRestrictionFraction_Year2008')
+  nameinput <- c('Wheat_Avg20152017')
+  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_195countries.csv"))
+
+} else if (i_scenario == 15) {
+  name_crop <-c('Wheat')
+  runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_25')
+  nameinput <- c('Wheat_Avg20152017')
+  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_25%_195countries.csv"))
+
+} else if (i_scenario == 16) {
+  name_crop <-c('Wheat')
+  runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_50')
+  nameinput <- c('Wheat_Avg20152017')
+  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_50%_195countries.csv"))
+
+# Maize scenarios (2021) for breadbasket failure and locust declines 
+} else if (i_scenario == 21) {
+  name_crop <-c('Maize')
+  runname <- c('Maize_breadbasket_Year2008')
+  nameinput <- c('Maize_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+
+} else if (i_scenario == 22) {
+  name_crop <-c('Maize')
+  runname <- c('Maize_locust_Year2020')
+  nameinput <- c('Maize_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_195countries.csv"))
+  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  
+} else if (i_scenario == 23) {
+  name_crop <-c('Maize')
+  runname <- c('Maize_locust_Year2020_breadbasket_Year2008')
+  nameinput <- c('Maize_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
+  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+
+} else if (i_scenario == 24) {
+  name_crop <-c('Maize')
+  runname <- c('Maize_ExportRestrictionFraction_Year2008')
+  nameinput <- c('Maize_Avg20152017')
+  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_195countries.csv"))
+
+} else if (i_scenario == 25) {
+  name_crop <-c('Maize')
+  runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_25')
+  nameinput <- c('Maize_Avg20152017')
+  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_25%_195countries.csv"))
+
+} else if (i_scenario == 26) {
+  name_crop <-c('Maize')
+  runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_50')
+  nameinput <- c('Maize_Avg20152017')
+  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_50%_195countries.csv"))
+
+# Rice scenarios (2021) for breadbasket failure and locust declines 
+} else if (i_scenario == 31) {
+  name_crop <-c('Rice')
+  runname <- c('Rice_breadbasket_Year2008')
+  nameinput <- c('Rice_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+
+} else if (i_scenario == 32) {
+  name_crop <-c('Rice')
+  runname <- c('Rice_locust_Year2020')
+  nameinput <- c('Rice_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_195countries.csv"))
+  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  
+} else if (i_scenario == 33) {
+  name_crop <-c('Rice')
+  runname <- c('Rice_locust_Year2020_breadbasket_Year2008')
+  nameinput <- c('Rice_Avg20152017')
+  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
+  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+
+} else if (i_scenario == 34) {
+  name_crop <-c('Rice')
+  runname <- c('Rice_ExportRestrictionFraction_Year2008')
+  nameinput <- c('Rice_Avg20152017')
+  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_ExportRestrictionFraction_Year2008_195countries.csv"))
+
 }
+
 
 # Step 3: Load ancillary data ----
 # i) Commodity list for bilateral trade
-commodities <- read.csv(paste0("ancillary/", runname, "cropcommodity_tradelist.csv"))
+commodities <- read.csv(paste0("ancillary/", nameinput, "cropcommodity_tradelist.csv"))
 # ii) Load country list
 country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
 
 
 # Step 4: Load production/trade/stocks data ----
-load(paste0("inputs_processed/", runname, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
-load(paste0("inputs_processed/", runname, "P0.Rdata")) #Production
-load(paste0("inputs_processed/", runname, "R0.RData")) #Reserves (a.k.a. Stocks)
+load(paste0("inputs_processed/", nameinput, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
+load(paste0("inputs_processed/", nameinput, "P0.Rdata")) #Production
+load(paste0("inputs_processed/", nameinput, "R0.RData")) #Reserves (a.k.a. Stocks)
 
 
 # Step 5: Setup production and shocks; initialize output vectors ----
@@ -79,9 +189,17 @@ Shocks[is.na(Shocks)] <- 0
 
 # Order shocks dataframe by FAOSTAT country code (in increasing order) ====
 P <- P0
+Prod <- as.numeric(unlist(P0$P0))
 Shocks <- merge(Shocks, P, by = "iso3")
 Shocks <- Shocks[order(Shocks$iso3), ]
-Prod <- as.numeric(unlist(P0$P0))
+
+# # Create Export Restriction dataframe ====
+# ExportRestrict <- merge(country_list,export_scenario,by = 'iso3')
+# ExportRestrict[is.na(ExportRestrict)] <- 0
+
+# # Order ExportRestrict dataframe by FAOSTAT country code (in increasing order) ====
+# ExportRestrict <- merge(ExportRestrict, P, by = "iso3")
+# ExportRestrict <- ExportRestrict[order(ExportRestrict$iso3), ]
 
 # Initialize  output vectors ====
 Pout <-  array(0, c(nrow(country_list), length(years) + 1))
@@ -147,7 +265,8 @@ trade_dat$C1 <- trade_dat$P + Shocks$dP + colSums(trade_dat$E) - rowSums(trade_d
 ImportsInitial<-colSums(trade_dat$E)
 ExportsInitial<-rowSums(trade_dat$E)
 
-# Impose export restrictions for COVID-19 scenario
+# Step 7:
+# Specify and impose export restrictions for COVID-19 scenario ----
 if (i_scenario == 1) {
   # Wheat
   i_Russia = which(row.names(E0)=='RUS')   
@@ -195,8 +314,562 @@ if (i_scenario == 1) {
   E0[i_Argentina,]<-0
   E0[i_Brazil,]<-0
   E0[i_Ukraine,]<-0
+
+# Wheat scenarios (2021) for breadbasket failure and locust declines ----
+} else if (i_scenario == 14) {
+  # export_scenario: Scenario_Wheat_ExportRestrictionFraction_Year2008_195countries.csv
+     # ARG	1
+     i_restrict = which(row.names(E0)=='ARG')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     #GIN	1
+     i_restrict = which(row.names(E0)=='GIN')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     #IND	1
+     i_restrict = which(row.names(E0)=='IND')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # PAK	1
+     i_restrict = which(row.names(E0)=='PAK')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+     
+     # ETH	1
+     i_restrict = which(row.names(E0)=='PAK')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+     
+     # SYR	0.92
+     i_restrict = which(row.names(E0)=='SYR')
+     reduce_factor <- 0.92
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+     
+     # NPL	0.33
+     i_restrict = which(row.names(E0)=='NPL')
+     reduce_factor <- 0.33
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # KAZ	0.17
+     i_restrict = which(row.names(E0)=='KAZ')
+     reduce_factor <- 0.17
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # BOL	0.13
+     i_restrict = which(row.names(E0)=='BOL')
+     reduce_factor <- 0.13
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     } else if (i_scenario == 15) {
+  # export_scenario: Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_25%_195countries.csv
+     # RUS 0.25
+     i_restrict = which(row.names(E0)=='RUS')
+     reduce_factor <- 0.25
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # ARG	1
+     i_restrict = which(row.names(E0)=='ARG')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     #GIN	1
+     i_restrict = which(row.names(E0)=='GIN')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     #IND	1
+     i_restrict = which(row.names(E0)=='IND')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # PAK	1
+     i_restrict = which(row.names(E0)=='PAK')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+     
+     # ETH	1
+     i_restrict = which(row.names(E0)=='PAK')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+     
+     # SYR	0.92
+     i_restrict = which(row.names(E0)=='SYR')
+     reduce_factor <- 0.92
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+     
+     # NPL	0.33
+     i_restrict = which(row.names(E0)=='NPL')
+     reduce_factor <- 0.33
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # KAZ	0.17
+     i_restrict = which(row.names(E0)=='KAZ')
+     reduce_factor <- 0.17
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # BOL	0.13
+     i_restrict = which(row.names(E0)=='BOL')
+     reduce_factor <- 0.13
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     } else if (i_scenario == 16) {
+  # export_scenario: Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_50%_195countries.csv
+     # RUS 0.5
+     i_restrict = which(row.names(E0)=='RUS')
+     reduce_factor <- 0.5
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # ARG	1
+     i_restrict = which(row.names(E0)=='ARG')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     #GIN	1
+     i_restrict = which(row.names(E0)=='GIN')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     #IND	1
+     i_restrict = which(row.names(E0)=='IND')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # PAK	1
+     i_restrict = which(row.names(E0)=='PAK')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+     
+     # ETH	1
+     i_restrict = which(row.names(E0)=='PAK')
+     reduce_factor <- 1
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+     
+     # SYR	0.92
+     i_restrict = which(row.names(E0)=='SYR')
+     reduce_factor <- 0.92
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+     
+     # NPL	0.33
+     i_restrict = which(row.names(E0)=='NPL')
+     reduce_factor <- 0.33
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # KAZ	0.17
+     i_restrict = which(row.names(E0)=='KAZ')
+     reduce_factor <- 0.17
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+     # BOL	0.13
+     i_restrict = which(row.names(E0)=='BOL')
+     reduce_factor <- 0.13
+     #   Add *restricted* exports to reserves
+     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+     #  Impose export restrictions by reducing exports
+     E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+
+# Maize scenarios (2021) for breadbasket failure and locust declines
+  } else if (i_scenario == 24) {
+    # export_scenario: Scenario_Maize_ExportRestrictionFraction_Year2008_195countries.csv
+    # KEN	1
+    i_restrict = which(row.names(E0)=='KEN')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # ETH	1
+    i_restrict = which(row.names(E0)=='ETH')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # ZMB	1
+     i_restrict = which(row.names(E0)=='ZMB')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]   
+    
+    # GIN	0.5
+    i_restrict = which(row.names(E0)=='GIN')
+    reduce_factor <- 0.5
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]    
+    
+    # CHN	0.25
+    i_restrict = which(row.names(E0)=='CHN')
+    reduce_factor <- 0.25
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]    
+    
+    # NPL	0.08
+    i_restrict = which(row.names(E0)=='NPL')
+    reduce_factor <- 0.08
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+  } else if (i_scenario == 25) {
+  # export_scenario: Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_25%_195countries.csv
+    i_restrict = which(row.names(E0)=='ARG')
+    reduce_factor <- 0.25
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # Export_scenario: Scenario_Maize_ExportRestrictionFraction_Year2008_195countries.csv
+    # KEN	1
+    i_restrict = which(row.names(E0)=='KEN')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # ETH	1
+    i_restrict = which(row.names(E0)=='ETH')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # ZMB	1
+     i_restrict = which(row.names(E0)=='ZMB')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]   
+    
+    # GIN	0.5
+    i_restrict = which(row.names(E0)=='GIN')
+    reduce_factor <- 0.5
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]    
+    
+    # CHN	0.25
+    i_restrict = which(row.names(E0)=='CHN')
+    reduce_factor <- 0.25
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]    
+    
+    # NPL	0.08
+    i_restrict = which(row.names(E0)=='NPL')
+    reduce_factor <- 0.08
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+  } else if (i_scenario == 26) {
+  # export_scenario: Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_50%_195countries.csv
+    i_restrict = which(row.names(E0)=='ARG')
+    reduce_factor <- 0.50
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # Export_scenario: Scenario_Maize_ExportRestrictionFraction_Year2008_195countries.csv
+    # KEN	1
+    i_restrict = which(row.names(E0)=='KEN')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # ETH	1
+    i_restrict = which(row.names(E0)=='ETH')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # ZMB	1
+     i_restrict = which(row.names(E0)=='ZMB')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]   
+    
+    # GIN	0.5
+    i_restrict = which(row.names(E0)=='GIN')
+    reduce_factor <- 0.5
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]    
+    
+    # CHN	0.25
+    i_restrict = which(row.names(E0)=='CHN')
+    reduce_factor <- 0.25
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]    
+    
+    # NPL	0.08
+    i_restrict = which(row.names(E0)=='NPL')
+    reduce_factor <- 0.08
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+} else if (i_scenario == 34) {
+  # export_scenario: Scenario_Rice_ExportRestrictionFraction_Year2008_195countries.csv
+    # CHN	1
+    i_restrict = which(row.names(E0)=='CHN')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # ECU	1
+    i_restrict = which(row.names(E0)=='ECU')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # IDN	1
+    i_restrict = which(row.names(E0)=='IDN')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # VNM	1
+        i_restrict = which(row.names(E0)=='VNM')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # ETH	1
+    i_restrict = which(row.names(E0)=='ETH')
+    reduce_factor <- 1
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # BRA	0.83
+        i_restrict = which(row.names(E0)=='BRA')
+    reduce_factor <- 0.83
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # IND	0.83
+        i_restrict = which(row.names(E0)=='IND')
+    reduce_factor <- 0.83
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # KHM	0.83
+    i_restrict = which(row.names(E0)=='KHM')
+    reduce_factor <- 0.83
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # ARG	0.75
+    i_restrict = which(row.names(E0)=='ARG')
+    reduce_factor <- 0.75
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # GIN	0.75
+    i_restrict = which(row.names(E0)=='GIN')
+    reduce_factor <- 0.75
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+
+    # TZA	0.67
+    i_restrict = which(row.names(E0)=='TZA')
+    reduce_factor <- 0.67
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # THA	0.67
+    i_restrict = which(row.names(E0)=='THA')
+    reduce_factor <- 0.67
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # MDG	0.63
+    i_restrict = which(row.names(E0)=='MDG')
+    reduce_factor <- 0.63
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # MMR	0.5
+    i_restrict = which(row.names(E0)=='MMR')
+    reduce_factor <- 0.5
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # EGY	0.5
+    i_restrict = which(row.names(E0)=='EGY')
+    reduce_factor <- 0.5
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # NPL	0.5
+    i_restrict = which(row.names(E0)=='NPL')
+    reduce_factor <- 0.5
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # PAK	0.5
+    i_restrict = which(row.names(E0)=='PAK')
+    reduce_factor <- 0.5
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
+    
+    # BGD	0.17
+    i_restrict = which(row.names(E0)=='BGD')
+    reduce_factor <- 0.17
+    #   Add *restricted* exports to reserves
+    Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
+    #  Impose export restrictions by reducing exports
+    E0[i_restrict,]<- reduce_factor*E0[i_restrict,]
 }
 
+# Step 8: Update food balance variables ----
 #  Update state variables for trade_dat after trade restrictions
 trade_dat$R <- Rcurrent
 trade_dat$E <- E0
@@ -223,7 +896,7 @@ C2_C0out[, i] <- as.numeric(unlist(results_FSCstatic$C2)) / C0_initial
 #     change in reserves relative to initial consumption
 #dR_C0out[, i] <- results_FSC$dR / C0_initial
   
-# Step 7: Collect, reformat and save output data ----
+# Step 9: Collect, reformat and save output data ----
 # Production
 colnames(Pout)  <- column_names
 rownames(Pout)  <- InputFSC$iso3
