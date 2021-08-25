@@ -55,7 +55,7 @@ For the static version, you can run a  simulation with the following command:
 ```
 rscript main/main_static.R 1
 ```
-The number (integer) following the call to the R script indicates the simulation scenario from the Scenarios Library (see below). In the exmaple above, "1" corresponds to a scenario for a decline in wheat production due to hypothetical COVID-19 and locust disruptions.
+The number (integer) following the call to the R script indicates the simulation scenario from the Scenarios Library (see below). In the example above, "1" corresponds to a scenario for a decline in wheat production due to hypothetical COVID-19 and locust disruptions.
 
 For the dynamic versions, you can run simulation with the following command:
 ```
