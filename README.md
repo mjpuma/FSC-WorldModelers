@@ -53,8 +53,10 @@ The family of FSC models includes: 1) a static version without trade reallocatio
 
 For the static version, you can run a  simulation with the following command:
 ```
-rscript main/main_static.R
+rscript main/main_static.R 1
 ```
+The number (integer) following the call to the R script indicates the simulation scenario from the Scenarios Library (see below). In the exmaple above, "1" corresponds to a scenario for a decline in wheat production due to hypothetical COVID-19 and locust disruptions.
+
 For the dynamic versions, you can run simulation with the following command:
 ```
 rscript main/main.R 0 1 0.5
@@ -143,7 +145,7 @@ Functions for the FSC model
 We include scenarios separately for the static FSC model (FSC-static) and the dynamic FSC model (FSC-dynamic).  Listed below are the scenarios currently included for each.
 
 
-### Scenarios for the dynamic FSC model: FSC-dynamic
+### COVID-19 scenarios for the dynamic FSC model
 #### Scenario 1:  COVID-19 + locust disruption to wheat
 A scenario for a hypothetical COVID-19 + locust disruption to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  
 
@@ -189,140 +191,158 @@ The production decline fractions are:
     India	0.0192
     Viet Nam	0.0012
 ```
-  
+### Multi-year scenario for a major US production disruption
 #### Scenario 4:  US Dust Bowl disruption to wheat
 A scenario for a hypothetical US Dust Bowl analogue event to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a four-year simulation.  The production decline fractions are: 
 
     USA: 0.33	0.36	0.24	0.24 (for years 1 to 4, respectively)
     
  
-### Scenarios for the static FSC model: FSC-static
-#### Scenario 1: 
-  name_crop <-c('Wheat')
-  runname <- c('Wheat_Avg20152017')
-  nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/Scenario1_COVID_WheatDeclineFraction_1Year_195countries.csv"))
+### COVID-19 scenarios for the static FSC model
+#### Scenario 1: COVID-19 + locust disruption to wheat
+A scenario for a hypothetical COVID-19 + locust disruption to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  
+
+The production decline fractions are: 
+```
+    Kenya:	0.4916
+    Saudi Arabia:	0.4483
+    Yemen:	0.2335
+    Ukraine:	0.205
+    Kazakhstan:	0.1818
+    Iran:	0.1024
+    Pakistan:	0.0976
+    Ethiopia:	0.0874
+    Russia:	0.0768
+```
+
+#### Scenario 2:  COVID-19 + locust disruption to maize
+A scenario for a hypothetical COVID-19 + locust disruption to the global maize trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  
+
+The production decline fractions are:
+```
+    Saudi Arabia	0.5281
+    Somalia	 	0.4844
+    Iran	0.2975
+    Yemen	0.2518
+    Kenya	0.1521
+    Brazil	0.1328
+    Ethiopia	0.1301
+    Argentina	0.119
+    Ukraine	0.0878
+    Pakistan	0.0717
+```
   
-#### Scenario 2: 
-  name_crop <-c('Maize')
-  runname <- c('Maize_Avg20152017')
-  nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/Scenario2_COVID_MaizeDeclineFraction_1Year_195countries.csv"))
-  
-#### Scenario 3: 
-  name_crop <-c('Rice')
-  runname <- c('Rice_Avg20152017')
-  nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/Scenario3_COVID_RiceDeclineFraction_1Year_195countries.csv"))
+#### Scenario 3:  COVID-19 + locust disruption to rice
+A scenario for a hypothetical COVID-19 + locust disruption to the global rice trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.  
+
+The production decline fractions are:
+```
+    Kenya	0.3425
+    Pakistan	0.197
+    Iran	0.1883
+    Thailand	0.021
+    India	0.0192
+    Viet Nam	0.0012
+```
+
+### COVID-19 scenarios for the static FSC model
+The set of scenarios below were developed for three main staple crops -- wheat, rice and maize -- and focus on a combination of:
+* Production anomalies in 2020 due to the locust upsurge, based on USDA country level data
+* All export restrictions in 2007-2008 based on reported export bans during this time period and include production anomalies in the top 10 producers for the same years, based on USDA country level production.
 
 #### Scenario 11: 
-  name_crop <-c('Wheat')
+A scenario for a hypothetical wheat disruption to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.
   runname <- c('Wheat_breadbasket_Year2008')
   nameinput <- c('Wheat_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_breadbasket_Year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No export restrictions.
 
 #### Scenario 12: 
-  name_crop <-c('Wheat')
   runname <- c('Wheat_locust_Year2020')
   nameinput <- c('Wheat_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No export restrictions.
   
 #### Scenario 13: 
-  name_crop <-c('Wheat')
   runname <- c('Wheat_locust_Year2020_breadbasket_Year2008')
   nameinput <- c('Wheat_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No export restrictions.
 
 #### Scenario 14: 
-  name_crop <-c('Wheat')
   runname <- c('Wheat_ExportRestrictionFraction_Year2008')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No production declines.
   #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_195countries.csv"))
 
 #### Scenario 15: 
-  name_crop <-c('Wheat')
   runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_25')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No production declines.
   #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_25%_195countries.csv"))
 
 #### Scenario 16: 
-  name_crop <-c('Wheat')
   runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_50')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No production declines.
   #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_50%_195countries.csv"))
 
 #### Scenario 21:
-  name_crop <-c('Maize')
   runname <- c('Maize_breadbasket_Year2008')
   nameinput <- c('Maize_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_breadbasket_Year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No export restrictions.
 
 #### Scenario 22:
-  name_crop <-c('Maize')
   runname <- c('Maize_locust_Year2020')
   nameinput <- c('Maize_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No export restrictions.
   
 #### Scenario 23:
-  name_crop <-c('Maize')
   runname <- c('Maize_locust_Year2020_breadbasket_Year2008')
   nameinput <- c('Maize_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No export restrictions.
 
 #### Scenario 24:
-  name_crop <-c('Maize')
   runname <- c('Maize_ExportRestrictionFraction_Year2008')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No production declines.
   #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_195countries.csv"))
 
 #### Scenario 25:
-  name_crop <-c('Maize')
   runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_25')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No production declines.
   #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_25%_195countries.csv"))
 
 #### Scenario 26:
-  name_crop <-c('Maize')
   runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_50')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No production declines.
   #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_50%_195countries.csv"))
 
 #### Scenario 31:
-  name_crop <-c('Rice')
   runname <- c('Rice_breadbasket_Year2008')
   nameinput <- c('Rice_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_breadbasket_Year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No export restrictions.
 
 #### Scenario 32:
-  name_crop <-c('Rice')
   runname <- c('Rice_locust_Year2020')
   nameinput <- c('Rice_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No export restrictions.
   
 #### Scenario 33:
-  name_crop <-c('Rice')
   runname <- c('Rice_locust_Year2020_breadbasket_Year2008')
   nameinput <- c('Rice_Avg20152017')
   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No export restrictions.
 
 #### Scenario 34:
-  name_crop <-c('Rice')
   runname <- c('Rice_ExportRestrictionFraction_Year2008')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  No production declines.
   #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_ExportRestrictionFraction_Year2008_195countries.csv"))
