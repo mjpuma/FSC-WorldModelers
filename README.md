@@ -252,97 +252,97 @@ The set of scenarios below were developed for three main staple crops -- wheat, 
 
 #### Scenario 11: 
 A scenario for a hypothetical wheat disruption to the global wheat trade network (baseline: 2015 to 2017) for the year 2020.  This is a one-year simulation.
-  runname <- c('Wheat_breadbasket_Year2008')
-  nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_breadbasket_Year2008_195countries.csv"))
-  No export restrictions.
+* runname <- c('Wheat_breadbasket_Year2008')
+* nameinput <- c('Wheat_Avg20152017')
+* shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+* No export restrictions.
 
 #### Scenario 12: 
-  runname <- c('Wheat_locust_Year2020')
-  nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
-  No export restrictions.
+* runname <- c('Wheat_locust_Year2020')
+* nameinput <- c('Wheat_Avg20152017')
+* shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
+* No export restrictions.
   
 #### Scenario 13: 
-  runname <- c('Wheat_locust_Year2020_breadbasket_Year2008')
-  nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
-  No export restrictions.
+* runname <- c('Wheat_locust_Year2020_breadbasket_Year2008')
+* nameinput <- c('Wheat_Avg20152017')
+* shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
+* No export restrictions.
 
 #### Scenario 14: 
-  runname <- c('Wheat_ExportRestrictionFraction_Year2008')
-  nameinput <- c('Wheat_Avg20152017')
-  No production declines.
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_195countries.csv"))
+* runname <- c('Wheat_ExportRestrictionFraction_Year2008')
+* nameinput <- c('Wheat_Avg20152017')
+* No production declines.
+* export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_195countries.csv"))
 
 #### Scenario 15: 
-  runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_25')
-  nameinput <- c('Wheat_Avg20152017')
-  No production declines.
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_25%_195countries.csv"))
+* runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_25')
+* nameinput <- c('Wheat_Avg20152017')
+* No production declines.
+* export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_25%_195countries.csv"))
 
 #### Scenario 16: 
-  runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_50')
-  nameinput <- c('Wheat_Avg20152017')
-  No production declines.
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_50%_195countries.csv"))
+* runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_50')
+* nameinput <- c('Wheat_Avg20152017')
+* No production declines.
+* export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_50%_195countries.csv"))
 
 #### Scenario 21:
-  runname <- c('Maize_breadbasket_Year2008')
-  nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_breadbasket_Year2008_195countries.csv"))
-  No export restrictions.
+* runname <- c('Maize_breadbasket_Year2008')
+* nameinput <- c('Maize_Avg20152017')
+* shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+* No export restrictions.
 
 #### Scenario 22:
-  runname <- c('Maize_locust_Year2020')
-  nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_195countries.csv"))
-  No export restrictions.
+* runname <- c('Maize_locust_Year2020')
+* nameinput <- c('Maize_Avg20152017')
+* shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_195countries.csv"))
+* No export restrictions.
   
 #### Scenario 23:
-  runname <- c('Maize_locust_Year2020_breadbasket_Year2008')
-  nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
-  No export restrictions.
+* runname <- c('Maize_locust_Year2020_breadbasket_Year2008')
+* nameinput <- c('Maize_Avg20152017')
+* shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
+* No export restrictions.
 
 #### Scenario 24:
-  runname <- c('Maize_ExportRestrictionFraction_Year2008')
-  nameinput <- c('Maize_Avg20152017')
-  No production declines.
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_195countries.csv"))
+* runname <- c('Maize_ExportRestrictionFraction_Year2008')
+* nameinput <- c('Maize_Avg20152017')
+* No production declines.
+* export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_195countries.csv"))
 
 #### Scenario 25:
-  runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_25')
-  nameinput <- c('Maize_Avg20152017')
-  No production declines.
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_25%_195countries.csv"))
+* runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_25')
+* nameinput <- c('Maize_Avg20152017')
+* No production declines.
+* export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_25%_195countries.csv"))
 
 #### Scenario 26:
-  runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_50')
-  nameinput <- c('Maize_Avg20152017')
-  No production declines.
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_50%_195countries.csv"))
+* runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_50')
+* nameinput <- c('Maize_Avg20152017')
+* No production declines.
+* export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_50%_195countries.csv"))
 
 #### Scenario 31:
-  runname <- c('Rice_breadbasket_Year2008')
-  nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_breadbasket_Year2008_195countries.csv"))
-  No export restrictions.
+* runname <- c('Rice_breadbasket_Year2008')
+* nameinput <- c('Rice_Avg20152017')
+* shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+* No export restrictions.
 
 #### Scenario 32:
-  runname <- c('Rice_locust_Year2020')
-  nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_195countries.csv"))
-  No export restrictions.
+* runname <- c('Rice_locust_Year2020')
+* nameinput <- c('Rice_Avg20152017')
+* shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_195countries.csv"))
+* No export restrictions.
   
 #### Scenario 33:
-  runname <- c('Rice_locust_Year2020_breadbasket_Year2008')
-  nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
-  No export restrictions.
+* runname <- c('Rice_locust_Year2020_breadbasket_Year2008')
+* nameinput <- c('Rice_Avg20152017')
+* shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_breadbasket_year2008_195countries.csv"))
+* No export restrictions.
 
 #### Scenario 34:
-  runname <- c('Rice_ExportRestrictionFraction_Year2008')
-  nameinput <- c('Rice_Avg20152017')
-  No production declines.
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_ExportRestrictionFraction_Year2008_195countries.csv"))
+* runname <- c('Rice_ExportRestrictionFraction_Year2008')
+* nameinput <- c('Rice_Avg20152017')
+* No production declines.
+* export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_ExportRestrictionFraction_Year2008_195countries.csv"))
