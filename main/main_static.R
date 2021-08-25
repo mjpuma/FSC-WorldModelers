@@ -4,10 +4,7 @@
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr)
 
-
 # Step 0: Setup ----
-setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
-
 # Default 1 year run for static model
 years <- 1 #Don't Change
 # Create column names for output files
@@ -20,7 +17,16 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Step 1: Specify scenario ----
-i_scenario <- 34 # See list below 
+#  Command line : e.g., "rscript main/main.R 0 1 0.5"
+# Parse arguments ====
+args <- commandArgs(trailingOnly = TRUE)
+i_scenario <- c(as.numeric(args[1]))             # Scenario from the FSC Scenario Library
+# #  RStudio or similar integrated development environment (IDE)
+# #  Specify arguments  ====
+# # Specify working directory
+# i_scenario <- 34 # See list below 
+# setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
+
 
 # Step 2: Scenario library (read in files) ----
 # Production *fractional declines* list by year by country ====
@@ -961,18 +967,18 @@ C2_C0out_df <- gather(C2_C0out_df, Year, Value, -iso3, -Country.x)
 C2_C0out_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", C2_C0out_df$Year))
 
 ## Save as CSV
-write.csv(Pout_df, paste0("outputs/data_network/",runname,"ProductionStatic.csv"), row.names = FALSE)
-write.csv(Rout_df, paste0("outputs/data_network/",runname,"ReserveStatic.csv"), row.names = FALSE)
-write.csv(shortageout_df, paste0("outputs/data_network/",runname,"ShortageStatic.csv"), row.names = FALSE)
-write.csv(C1_C0out_df, paste0("outputs/data_network/",runname,"C1C0Static.csv"), row.names = FALSE)
-write.csv(C2_C0out_df, paste0("outputs/data_network/",runname,"C2C0Static.csv"), row.names = FALSE)
-write.csv(Eout, paste0("outputs/data_network/",runname, "ExportStatic.csv"), row.names = TRUE)
+write.csv(Pout_df, paste0("outputs/",runname,"ProductionStatic.csv"), row.names = FALSE)
+write.csv(Rout_df, paste0("outputs/",runname,"ReserveStatic.csv"), row.names = FALSE)
+write.csv(shortageout_df, paste0("outputs/",runname,"ShortageStatic.csv"), row.names = FALSE)
+write.csv(C1_C0out_df, paste0("outputs/",runname,"C1C0Static.csv"), row.names = FALSE)
+write.csv(C2_C0out_df, paste0("outputs/",runname,"C2C0Static.csv"), row.names = FALSE)
+write.csv(Eout, paste0("outputs/",runname, "ExportStatic.csv"), row.names = TRUE)
 
 ## Save lists of initial and final imports and outputs by country
-write.csv(ExportsFinal, paste0("outputs/data_network/",runname, "ExportsFinal.csv"), row.names = FALSE)
-write.csv(ExportsInitial, paste0("outputs/data_network/",runname, "ExportsInitial.csv"), row.names = FALSE)
-write.csv(ImportsFinal, paste0("outputs/data_network/",runname, "ImportsFinal.csv"), row.names = FALSE)
-write.csv(ImportsInitial, paste0("outputs/data_network/",runname, "ImportsInitial.csv"), row.names = FALSE)
+write.csv(ExportsFinal, paste0("outputs/",runname, "ExportsFinal.csv"), row.names = FALSE)
+write.csv(ExportsInitial, paste0("outputs/",runname, "ExportsInitial.csv"), row.names = FALSE)
+write.csv(ImportsFinal, paste0("outputs/",runname, "ImportsFinal.csv"), row.names = FALSE)
+write.csv(ImportsInitial, paste0("outputs/",runname, "ImportsInitial.csv"), row.names = FALSE)
 
 # Save Exports as R data file
-saveRDS(Eout, file = paste0("outputs/data_network/", runname,"ExportStatic.rds"))
+saveRDS(Eout, file = paste0("outputs/", runname,"ExportStatic.rds"))
