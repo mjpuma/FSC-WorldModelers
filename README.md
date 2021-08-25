@@ -63,13 +63,13 @@ The first number (integer) following the R script name indicates the dynamic mod
 * 0 -> Run Proportional Trade Allocation (PTA) version; 
 * 1 -> Run Reserves-based Trade Allocation (RTA) version
 
-The second number (integer) indicates the simulation scenario from the Scenarios Library (see below), while the final number 
+The second number (integer) indicates the simulation scenario from the Scenarios Library (see below). 
+
+The final number (decimal, 0 to 1) specifies the faction of reserves that countries are will to use to meet demand.
 * `fractional_reserve_access`:   Parameter specifying fraction [0 to 1] of "accessible" existing reserves 
 
-
-In this case, we have chosen the following parameters:
-
-* `FSCversion`: 0 -> PTA version of the FSC model
+In the example above, we have chosen the following parameters:
+* `FSCversion`: 0 -> PTA version 
 * `i_scenario`: 1 -> A scenario for a decline in wheat production due to hypothetical COVID-19 and locust disruptions.
 * `fractional_reserve_access`: 0.5 (i.e., half of each nation's reserves are accessible to buffer shock)
 
