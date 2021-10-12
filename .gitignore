@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+/inputs/*.csv
+/inputs/*.zip
+/outputs/*.csv
+/outputs/*.rds
