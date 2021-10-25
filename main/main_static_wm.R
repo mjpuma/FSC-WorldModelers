@@ -19,7 +19,6 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Step 1: Specify scenario ----
-#  Command line : e.g., "rscript main/main.R 0 1 0.5"
 # Parse arguments ====
 args <- commandArgs(trailingOnly = TRUE)
 working_directory <- c(args[1])             # Scenario from the FSC Scenario Library
@@ -30,14 +29,7 @@ restriction_intensity <- c(as.numeric(args[4]))             # Scenario from the 
 
 anomaly_factor_string <- gsub("\\.","p",format(round(anomaly_factor, 2), nsmall = 2))
 restriction_intensity_string <- gsub("\\.","p",format(round(restriction_intensity, 2), nsmall = 2))
-#~ print(a)
 
-
-# #  RStudio or similar integrated development environment (IDE)
-# #  Specify arguments  ====
-# # Specify working directory
-# i_scenario <- 34 # See list below 
-# setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
 
 
 # Step 2: Scenario library (read in files) ----
@@ -57,8 +49,6 @@ shock_scenario <- read.csv(paste0(working_directory,'inputs/2021_C2P2_scenarios/
 commodities <- read.csv(paste0(working_directory,"ancillary/", nameinput, "cropcommodity_tradelist.csv"))
 # ii) Load country list
 country_list <- read.csv(paste0(working_directory,"ancillary/country_list195_2012to2016.csv"))
-#~ country_list <- country_list[order(country_list$iso3), ] # Order by iso3 code
-#~ country_list <- country_list[country_list$iso3, ] # Order by iso3 code
 
 # Step 4: Load production/trade/stocks data ----
 load(paste0(working_directory,"inputs_processed/", nameinput, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
@@ -73,7 +63,6 @@ load(paste0(working_directory,"inputs_processed/", nameinput, "R0.RData")) #Rese
 P0 <- Pkbyc
 # Create 'Shocks' dataframe ====
 Shocks <- plyr::join(country_list,shock_scenario, by = 'iso3')
-#~ Shocks <- merge(country_list,shock_scenario,by = 'iso3')
 
 Shocks[is.na(Shocks)] <- 0
 
@@ -86,14 +75,6 @@ P <- P0
 Prod <- as.numeric(unlist(P0$P0))
 Shocks <- plyr::join(Shocks, P, by = 'iso3')
 
-
-# # Create Export Restriction dataframe ====
-# ExportRestrict <- merge(country_list,export_scenario,by = 'iso3')
-# ExportRestrict[is.na(ExportRestrict)] <- 0
-
-# # Order ExportRestrict dataframe by FAOSTAT country code (in increasing order) ====
-# ExportRestrict <- merge(ExportRestrict, P, by = "iso3")
-# ExportRestrict <- ExportRestrict[order(ExportRestrict$iso3), ]
 
 # Initialize  output vectors ====
 Pout <-  array(0, c(nrow(country_list), length(years) + 1))
@@ -108,7 +89,6 @@ C0out <- array(0, c(nrow(country_list), length(years)))
 dR_C0out <- array(0, c(nrow(country_list), length(years)))
 
 
-# Output format as Kilian wants
 P_initial_out <-  array(0, c(nrow(country_list), length(years)))
 P_final_out <-  array(0, c(nrow(country_list), length(years)))
 R_initial_out <-  array(0, c(nrow(country_list), length(years)))
@@ -120,18 +100,16 @@ I_initial_out <-  array(0, c(nrow(country_list), length(years)))
 I_final_out <-  array(0, c(nrow(country_list), length(years)))
 
 ## Add initial conditions to output arrays
-#~ E0 <- E0_avg
 Eout[, , 1] <- E0
 Pout[, 1] <- Prod
 Rout[, 1] <- R0
 
-# Kilians Output Format
 P_initial_out[, 1] <- Prod
 R_initial_out[, 1] <- R0
 
 
 ## Create 'InputFSC' dataframe adding initial reserves====
-#~ InputFSC <- data_frame(iso3 = names(R0), R0 = R0)
+
 InputFSC <- tibble(iso3 = names(R0), R0 = R0)
 
 
@@ -140,18 +118,15 @@ InputFSC <- tibble(iso3 = names(R0), R0 = R0)
 #   Fractional gains and losses in production
 #   Note: Initial production, P0, is fixed but Shocks vary in time
 FracGain <- Shocks$year_1
-#~ FracGain[FracGain > 0] <- 0
 FracGain <- -FracGain      # adjust sign (fractional *declines* read in)
 
 FracLoss <- Shocks[4]
-#~ FracLoss[FracLoss < 0] <- 0
 FracLoss <- -FracLoss      # adjust sign (fractional *declines* read in)
 
 # Create vector for NEGATIVE shock anomalies ====
 dP <-  FracLoss * Shocks$P0 
 Shocks$dP <- dP
 # Set Reserves and add POSTIVE anomalies to reserves ====
-#~ InputFSC <- merge(Shocks,InputFSC, by = 'iso3', all.x = TRUE, all.y = FALSE)
 InputFSC <- plyr::join(Shocks,InputFSC, by = 'iso3')
 
 
@@ -159,7 +134,6 @@ InputFSC <- plyr::join(Shocks,InputFSC, by = 'iso3')
 
 # Add positive anomalies to reserves ====
 # Add positive anomalies to reserves ====
-#~ InputFSC$Rcurrent <- InputFSC$R0  + (InputFSC$P0 * FracGain)
 InputFSC$Rcurrent <- InputFSC$R0  
 
 
@@ -194,7 +168,6 @@ E_initial_out[,1]<-rowSums(trade_dat$E)
 # Specify and impose export restrictions     
 if (crop == 'wheat') {
   # export_scenario: Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_25%_195countries.csv
-     # RUS 0.25
      i_restrict = which(country_list[,2] =='RUS')
      reduce_factor <- restriction_intensity * 0.5
      #   Add *restricted* exports to reserves
@@ -202,7 +175,6 @@ if (crop == 'wheat') {
      #  Impose export restrictions by reducing exports
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
-     # ARG	1
      i_restrict = which(country_list[,2] =='ARG')
      reduce_factor <- restriction_intensity * 12./12.
      #   Add *restricted* exports to reserves
@@ -210,7 +182,6 @@ if (crop == 'wheat') {
      #  Impose export restrictions by reducing exports
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
-     # BOL	0.13
      i_restrict = which(country_list[,2] =='BOL')
      reduce_factor <- restriction_intensity * 1.5/12.
      #   Add *restricted* exports to reserves
@@ -218,7 +189,6 @@ if (crop == 'wheat') {
      #  Impose export restrictions by reducing exports
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
-     # ETH	1
      i_restrict = which(country_list[,2] =='ETH')
      reduce_factor <- restriction_intensity * 12./12.
      #   Add *restricted* exports to reserves
@@ -227,7 +197,6 @@ if (crop == 'wheat') {
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
      
      
-     #IND	1
      i_restrict = which(country_list[,2] =='IND')
      reduce_factor <- restriction_intensity * 12./12.
      #   Add *restricted* exports to reserves
@@ -236,7 +205,6 @@ if (crop == 'wheat') {
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
      
 
-     # KAZ	0.17
      i_restrict = which(country_list[,2] =='KAZ')
      reduce_factor <- restriction_intensity * 2./12.
      #   Add *restricted* exports to reserves
@@ -244,7 +212,6 @@ if (crop == 'wheat') {
      #  Impose export restrictions by reducing exports
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
      
-     # NPL	0.33
      i_restrict = which(country_list[,2] =='NPL')
      reduce_factor <- restriction_intensity * 4./12.
      #   Add *restricted* exports to reserves
@@ -252,7 +219,6 @@ if (crop == 'wheat') {
      #  Impose export restrictions by reducing exports
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
      
-     # PAK	1
      i_restrict = which(country_list[,2] =='PAK')
      reduce_factor <- restriction_intensity * 12./12.
      #   Add *restricted* exports to reserves
@@ -260,7 +226,6 @@ if (crop == 'wheat') {
      #  Impose export restrictions by reducing exports
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
      
-     # SRB
      i_restrict = which(country_list[,2] =='SRB')
      reduce_factor <- restriction_intensity * 0./12.
      #   Add *restricted* exports to reserves
@@ -269,7 +234,6 @@ if (crop == 'wheat') {
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
      
-     # SYR	0.92
      i_restrict = which(country_list[,2] =='SYR')
      reduce_factor <- restriction_intensity * 11./12.
      #   Add *restricted* exports to reserves
@@ -277,7 +241,6 @@ if (crop == 'wheat') {
      #  Impose export restrictions by reducing exports
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
      
-     # UKR
      i_restrict = which(country_list[,2] =='UKR')
      reduce_factor <- restriction_intensity * 0./12.
      #   Add *restricted* exports to reserves
@@ -285,7 +248,6 @@ if (crop == 'wheat') {
      #  Impose export restrictions by reducing exports
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
      
-     #GIN	1
      i_restrict = which(country_list[,2] =='GIN')
      reduce_factor <- restriction_intensity * 12./12.
      #   Add *restricted* exports to reserves
@@ -304,7 +266,6 @@ if (crop == 'wheat') {
 
     # Export_scenario: Scenario_Maize_ExportRestrictionFraction_Year2008_195countries.csv
     
-    # CHN	0.25
     i_restrict = which(country_list[,2] =='CHN')
     reduce_factor <- restriction_intensity * 9./12.
     #   Add *restricted* exports to reserves
@@ -312,7 +273,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]    
         
-    # ETH	1
     i_restrict = which(country_list[,2] =='ETH')
     reduce_factor <- restriction_intensity * 8./12.
     #   Add *restricted* exports to reserves
@@ -320,7 +280,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # GIN	0.5
     i_restrict = which(country_list[,2] =='GIN')
     reduce_factor <- restriction_intensity * 6./12.
     #   Add *restricted* exports to reserves
@@ -328,7 +287,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]   
 
-    # IND
     i_restrict = which(country_list[,2] =='IND')
     reduce_factor <- restriction_intensity * 3./12.
     #   Add *restricted* exports to reserves
@@ -336,7 +294,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]  
     
-    # KEN	1
     i_restrict = which(country_list[,2] =='KEN')
     reduce_factor <- restriction_intensity * 0./12.
     #   Add *restricted* exports to reserves
@@ -344,7 +301,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # NPL	0.08
     i_restrict = which(country_list[,2] =='NPL')
     reduce_factor <- restriction_intensity * 5./12.
     #   Add *restricted* exports to reserves
@@ -352,7 +308,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
-    # SRB
     i_restrict = which(country_list[,2] =='SRB')
     reduce_factor <- restriction_intensity * 10.5/12.
     #   Add *restricted* exports to reserves
@@ -360,7 +315,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # UKR
      i_restrict = which(country_list[,2] =='UKR')
     reduce_factor <- restriction_intensity * 6./12.
     #   Add *restricted* exports to reserves
@@ -368,7 +322,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]   
     
-    # ZMB	1
      i_restrict = which(country_list[,2] =='ZMB')
     reduce_factor <- restriction_intensity * 7./12.
     #   Add *restricted* exports to reserves
@@ -379,7 +332,6 @@ if (crop == 'wheat') {
 } else if (crop == 'rice') {
   # export_scenario: Scenario_Rice_ExportRestrictionFraction_Year2008_195countries.csv
     
-    # ARG	0.75
     i_restrict = which(country_list[,2] =='ARG')
     reduce_factor <- restriction_intensity * 9./12.
     #   Add *restricted* exports to reserves
@@ -388,7 +340,6 @@ if (crop == 'wheat') {
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
     
-    # BGD	0.17
     i_restrict = which(country_list[,2] =='BGD')
     reduce_factor <- restriction_intensity * 2./12.
     #   Add *restricted* exports to reserves
@@ -397,7 +348,6 @@ if (crop == 'wheat') {
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
     
-    # BRA	0.83
         i_restrict = which(country_list[,2] =='BRA')
     reduce_factor <- restriction_intensity * 8./12.
     #   Add *restricted* exports to reserves
@@ -405,7 +355,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
-    # KHM	0.83
     i_restrict = which(country_list[,2] =='KHM')
     reduce_factor <- restriction_intensity * 10./12.
     #   Add *restricted* exports to reserves
@@ -413,7 +362,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # CHN	1
     i_restrict = which(country_list[,2] =='CHN')
     reduce_factor <- restriction_intensity * 12./12.
     #   Add *restricted* exports to reserves
@@ -421,7 +369,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # ECU	1
     i_restrict = which(country_list[,2] =='ECU')
     reduce_factor <- restriction_intensity * 12./12.
     #   Add *restricted* exports to reserves
@@ -429,7 +376,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # EGY	0.5
     i_restrict = which(country_list[,2] =='EGY')
     reduce_factor <- restriction_intensity * 6./12.
     #   Add *restricted* exports to reserves
@@ -437,7 +383,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
-    # ETH	1
     i_restrict = which(country_list[,2] =='ETH')
     reduce_factor <- restriction_intensity * 12./12.
     #   Add *restricted* exports to reserves
@@ -445,7 +390,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # IND	0.83
         i_restrict = which(country_list[,2] =='IND')
     reduce_factor <- restriction_intensity * 10./12.
     #   Add *restricted* exports to reserves
@@ -453,7 +397,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # IDN	1
     i_restrict = which(country_list[,2] =='IDN')
     reduce_factor <- restriction_intensity * 12./12.
     #   Add *restricted* exports to reserves
@@ -462,7 +405,6 @@ if (crop == 'wheat') {
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
     
-    # MDG	0.63
     i_restrict = which(country_list[,2] =='MDG')
     reduce_factor <- restriction_intensity * 7.5/12.
     #   Add *restricted* exports to reserves
@@ -471,7 +413,6 @@ if (crop == 'wheat') {
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
     
-    # MMR	0.5
     i_restrict = which(country_list[,2] =='MMR')
     reduce_factor <- restriction_intensity * 6./12.
     #   Add *restricted* exports to reserves
@@ -480,7 +421,6 @@ if (crop == 'wheat') {
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
     
-    # NPL	0.5
     i_restrict = which(country_list[,2] =='NPL')
     reduce_factor <- restriction_intensity * 6./12.
     #   Add *restricted* exports to reserves
@@ -488,7 +428,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # PAK	0.5
     i_restrict = which(country_list[,2] =='PAK')
     reduce_factor <- restriction_intensity * 6./12.
     #   Add *restricted* exports to reserves
@@ -497,8 +436,6 @@ if (crop == 'wheat') {
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
 
-
-    # TZA	0.67
     i_restrict = which(country_list[,2] =='TZA')
     reduce_factor <- restriction_intensity * 8./12.
     #   Add *restricted* exports to reserves
@@ -506,7 +443,6 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # THA	0.67
     i_restrict = which(country_list[,2] =='THA')
     reduce_factor <- restriction_intensity * 8./12.
     #   Add *restricted* exports to reserves
@@ -514,8 +450,7 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-    # VNM	1
-        i_restrict = which(country_list[,2] =='VNM')
+    i_restrict = which(country_list[,2] =='VNM')
     reduce_factor <- restriction_intensity * 12./12.
     #   Add *restricted* exports to reserves
     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
@@ -523,7 +458,6 @@ if (crop == 'wheat') {
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
 
 
-    # GIN	0.75
     i_restrict = which(country_list[,2] =='GIN')
     reduce_factor <- restriction_intensity * 9./12.
     #   Add *restricted* exports to reserves
@@ -558,7 +492,6 @@ Cout[, i+1]    <- as.numeric(unlist(results_FSCstatic$C1))
 shortageout[, i] <- as.numeric(unlist(results_FSCstatic$shortage))
 
 
-# Kilians Output Format
 P_final_out[, i]    <- as.numeric(unlist(results_FSCstatic$P))
 R_final_out[, i]    <- as.numeric(unlist(results_FSCstatic$R))
 
@@ -591,7 +524,6 @@ Pout_df <- gather(Pout_df, Year, Value, -iso3, -Country)
 Pout_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", Pout_df$Year))
 
 
-# Kilian 
 
 colnames(P_final_out)  <- column_names2
 
@@ -599,7 +531,6 @@ rownames(P_final_out)  <- InputFSC$iso3
 P_final_out_df <- data.frame(P_final_out)
 
 P_final_out_df <- tibble::rownames_to_column(P_final_out_df, "iso3")
-#~ P_final_out_df <- merge(InputFSC[, c("iso3", "Country.x")], P_final_out_df, by = "iso3")
 P_final_out_df <- merge(InputFSC[, c("iso3", "Country")], P_final_out_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
 P_final_out_df <- gather(P_final_out_df, Year, Value, -iso3, -Country)
@@ -688,7 +619,6 @@ Rout_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", Rout_df$Year))
 
 
 
-# Kilian 
 
 colnames(R_final_out)  <- column_names2
 rownames(R_final_out)  <- InputFSC$iso3
@@ -776,20 +706,9 @@ write.csv(E_initial_out_df, paste0(working_directory,"outputs/",runname,"export_
 write.csv(E_final_out_df, paste0(working_directory,"outputs/",runname,"export_final.csv"), row.names = FALSE)
 write.csv(I_initial_out_df, paste0(working_directory,"outputs/",runname,"import_initial.csv"), row.names = FALSE)
 write.csv(I_final_out_df, paste0(working_directory,"outputs/",runname,"import_final.csv"), row.names = FALSE)
-#~ write.csv(Pout_df, paste0("outputs/",runname,"ProductionStatic.csv"), row.names = FALSE)
-#~ write.csv(Rout_df, paste0("outputs/",runname,"ReserveStatic.csv"), row.names = FALSE)
-#~ write.csv(shortageout_df, paste0("outputs/",runname,"ShortageStatic.csv"), row.names = FALSE)
-#~ write.csv(C1_C0out_df, paste0("outputs/",runname,"C1C0Static.csv"), row.names = FALSE)
-#~ write.csv(C2_C0out_df, paste0("outputs/",runname,"C2C0Static.csv"), row.names = FALSE)
+
 write.csv(C2out_df, paste0(working_directory,"outputs/",runname,"supply_final.csv"), row.names = FALSE)
 write.csv(C0out_df, paste0(working_directory,"outputs/",runname,"supply_initial.csv"), row.names = FALSE)
-#~ write.csv(Eout, paste0("outputs/",runname, "ExportStatic.csv"), row.names = TRUE)
-
-## Save lists of initial and final imports and outputs by country
-#~ write.csv(ExportsFinal, paste0("outputs/",runname, "ExportsFinal.csv"), row.names = FALSE)
-#~ write.csv(ExportsInitial, paste0("outputs/",runname, "ExportsInitial.csv"), row.names = FALSE)
-#~ write.csv(ImportsFinal, paste0("outputs/",runname, "ImportsFinal.csv"), row.names = FALSE)
-#~ write.csv(ImportsInitial, paste0("outputs/",runname, "ImportsInitial.csv"), row.names = FALSE)
 
 # Save Exports as R data file
 saveRDS(Eout, file = paste0(working_directory,"outputs/", runname,"ExportStatic.rds"))
