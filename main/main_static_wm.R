@@ -30,7 +30,6 @@ restriction_intensity <- c(as.numeric(args[4]))             # Scenario from the 
 
 anomaly_factor_string <- gsub("\\.","p",format(round(anomaly_factor, 2), nsmall = 2))
 restriction_intensity_string <- gsub("\\.","p",format(round(restriction_intensity, 2), nsmall = 2))
-print(anomaly_factor_string)
 #~ print(a)
 
 
@@ -73,7 +72,7 @@ load(paste0(working_directory,"inputs_processed/", nameinput, "R0.RData")) #Rese
 # Assign production vector to P0 ====
 P0 <- Pkbyc
 # Create 'Shocks' dataframe ====
-Shocks <- plyr::join(country_list,shock_scenario)
+Shocks <- plyr::join(country_list,shock_scenario, by = 'iso3')
 #~ Shocks <- merge(country_list,shock_scenario,by = 'iso3')
 
 Shocks[is.na(Shocks)] <- 0
@@ -85,7 +84,7 @@ Shocks$year_1 <- anomaly_factor * Shocks$year_1
 
 P <- P0
 Prod <- as.numeric(unlist(P0$P0))
-Shocks <- plyr::join(Shocks, P)
+Shocks <- plyr::join(Shocks, P, by = 'iso3')
 
 
 # # Create Export Restriction dataframe ====
@@ -132,7 +131,8 @@ R_initial_out[, 1] <- R0
 
 
 ## Create 'InputFSC' dataframe adding initial reserves====
-InputFSC <- data_frame(iso3 = names(R0), R0 = R0)
+#~ InputFSC <- data_frame(iso3 = names(R0), R0 = R0)
+InputFSC <- tibble(iso3 = names(R0), R0 = R0)
 
 
 # Step 6:
