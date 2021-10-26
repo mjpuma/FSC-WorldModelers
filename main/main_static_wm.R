@@ -1,9 +1,9 @@
 ## Main script for the Food Shock Cascade (FSC) Model
-#~ install.packages("dplyr")
-#~ install.packages("tidyr")
+install.packages("dplyr")whe
+install.packages("tidyr")
 # Load FSC functions
-library("dplyr", warn.conflicts = FALSE)
-library("tidyr", warn.conflicts = FALSE)
+library(dplyr, warn.conflicts = FALSE)
+library(tidyr, warn.conflicts = FALSE)
 library(stringr)
 
 # Step 0: Setup ----
