@@ -1,8 +1,12 @@
 ## Main script for the Food Shock Cascade (FSC) Model
+#~ install.packages("plyr")
+#~ install.packages("tidyr")
+#~ install.packages("stringr")
 
-# Load FSC functions
+# Load required packages
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr, warn.conflicts = FALSE)
+library("stringr")
 
 # Step 0: Setup ----
 # Default 1 year run for static model
@@ -18,16 +22,15 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Step 1: Specify scenario ----
-#  Command line : e.g., "rscript main/main.R 0 1 0.5"
+#  Command line : e.g., "rscript main/main.R 1 "
 # Parse arguments ====
-args <- commandArgs(trailingOnly = TRUE)
-i_scenario <- c(as.numeric(args[1]))             # Scenario from the FSC Scenario Library
+# args <- commandArgs(trailingOnly = TRUE)
+# i_scenario <- c(as.numeric(args[1]))             # Scenario from the FSC Scenario Library
 # #  RStudio or similar integrated development environment (IDE)
 # #  Specify arguments  ====
 # # Specify working directory
-# i_scenario <- 34 # See list below 
-# setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
-
+i_scenario <- 11 # See list below 
+working_directory <- "~/GitHub_mjpuma/FSC-WorldModelers/"
 
 # Step 2: Scenario library (read in files) ----
 # Production *fractional declines* list by year by country ====
@@ -40,330 +43,280 @@ if (i_scenario == 1) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_Avg20152017')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/Scenario1_COVID_WheatDeclineFraction_1Year_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/Scenario1_COVID_WheatDeclineFraction_1Year_195countries.csv"))
   
 } else if (i_scenario == 2) {
   name_crop <-c('Maize')
   runname <- c('Maize_Avg20152017')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/Scenario2_COVID_MaizeDeclineFraction_1Year_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/Scenario2_COVID_MaizeDeclineFraction_1Year_195countries.csv"))
   
 } else if (i_scenario == 3) {
   name_crop <-c('Rice')
   runname <- c('Rice_Avg20152017')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/Scenario3_COVID_RiceDeclineFraction_1Year_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/Scenario3_COVID_RiceDeclineFraction_1Year_195countries.csv"))
 
 # Wheat scenarios (2021) for breadbasket failure and locust declines 
 } else if (i_scenario == 11) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_breadbasket_Year2008')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_breadbasket_Year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+ 
 } else if (i_scenario == 12) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_locust_Year2020')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
   
 } else if (i_scenario == 13) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_locust_Year2020_breadbasket_Year2008')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
+ 
 } else if (i_scenario == 14) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_ExportRestrictionFraction_Year2008')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_195countries.csv"))
-
+  shock_scenario<- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+ 
 } else if (i_scenario == 15) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_25')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_25%_195countries.csv"))
-
+  shock_scenario<- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+ 
 } else if (i_scenario == 16) {
   name_crop <-c('Wheat')
   runname <- c('Wheat_ExportRestrictionFraction_Year2008with_RUS_50')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_50%_195countries.csv"))
+  shock_scenario<- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
 
 # Maize scenarios (2021) for breadbasket failure and locust declines 
 } else if (i_scenario == 21) {
   name_crop <-c('Maize')
   runname <- c('Maize_breadbasket_Year2008')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_breadbasket_Year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_breadbasket_Year2008_195countries.csv"))
+ 
 } else if (i_scenario == 22) {
   name_crop <-c('Maize')
   runname <- c('Maize_locust_Year2020')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_195countries.csv"))
   
 } else if (i_scenario == 23) {
   name_crop <-c('Maize')
   runname <- c('Maize_locust_Year2020_breadbasket_Year2008')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
+ 
 } else if (i_scenario == 24) {
   name_crop <-c('Maize')
   runname <- c('Maize_ExportRestrictionFraction_Year2008')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_195countries.csv"))
+  shock_scenario<- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
 
 } else if (i_scenario == 25) {
   name_crop <-c('Maize')
   runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_25')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_25%_195countries.csv"))
+  shock_scenario<- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
 
 } else if (i_scenario == 26) {
   name_crop <-c('Maize')
   runname <- c('Maize_ExportRestrictionFraction_Year2008with_ARG_50')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_50%_195countries.csv"))
+  shock_scenario<- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
 
 # Rice scenarios (2021) for breadbasket failure and locust declines 
 } else if (i_scenario == 31) {
   name_crop <-c('Rice')
   runname <- c('Rice_breadbasket_Year2008')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_breadbasket_Year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_breadbasket_Year2008_195countries.csv"))
 
 } else if (i_scenario == 32) {
   name_crop <-c('Rice')
   runname <- c('Rice_locust_Year2020')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_195countries.csv"))
   
 } else if (i_scenario == 33) {
   name_crop <-c('Rice')
   runname <- c('Rice_locust_Year2020_breadbasket_Year2008')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
 
 } else if (i_scenario == 34) {
   name_crop <-c('Rice')
   runname <- c('Rice_ExportRestrictionFraction_Year2008')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  #export_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_ExportRestrictionFraction_Year2008_195countries.csv"))
+  shock_scenario<- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
 
 } else if (i_scenario == 39) {
   name_crop <-c('Wheat')
   runname <- c('baseline')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-#~   shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/helper.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+
 } else if (i_scenario == 40) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_2021')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_195countries.csv"))
+   
 } else if (i_scenario == 41) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_2022')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_195countries.csv"))  
 
 } else if (i_scenario == 42) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_breadbasket_2021')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
+ 
 } else if (i_scenario == 43) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_breadbasket_2022')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))  
+
 } else if (i_scenario == 44) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_breadbasket_export_2021')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
+ 
 } else if (i_scenario == 45) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_breadbasket_export_2022')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
   
 } else if (i_scenario == 46) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_breadbasket_export_rus25_2021')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
 
 } else if (i_scenario == 47) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_breadbasket_export_rus25_2022')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
   
 } else if (i_scenario == 48) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_breadbasket_export_rus50_2021')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
 
 } else if (i_scenario == 49) {
   name_crop <-c('Wheat')
   runname <- c('wheat_locust_breadbasket_export_rus50_2022')
   nameinput <- c('Wheat_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  
-  
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Wheat_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
   
 } else if (i_scenario == 50) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_2021')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_195countries.csv"))
+   
 } else if (i_scenario == 51) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_2022')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_195countries.csv"))
 
 } else if (i_scenario == 52) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_breadbasket_2021')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
 
 } else if (i_scenario == 53) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_breadbasket_2022')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
   
 } else if (i_scenario == 54) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_breadbasket_export_2021')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
 
 } else if (i_scenario == 55) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_breadbasket_export_2022')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
   
 } else if (i_scenario == 56) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_breadbasket_export_arg25_2021')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
 
 } else if (i_scenario == 57) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_breadbasket_export_arg25_2022')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
   
 } else if (i_scenario == 58) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_breadbasket_export_arg50_2021')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
 
 } else if (i_scenario == 59) {
   name_crop <-c('Maize')
   runname <- c('corn_locust_breadbasket_export_arg50_2022')
   nameinput <- c('Maize_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  
-  
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Maize_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
+   
 } else if (i_scenario == 60) {
   name_crop <-c('Rice')
   runname <- c('rice_locust_2021')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_195countries.csv"))
   
 } else if (i_scenario == 61) {
   name_crop <-c('Rice')
   runname <- c('rice_locust_2022')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2021_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
-  
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2021_195countries.csv"))
 
 } else if (i_scenario == 62) {
   name_crop <-c('Rice')
   runname <- c('rice_locust_breadbasket_2021')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
 
 } else if (i_scenario == 63) {
   name_crop <-c('Rice')
   runname <- c('rice_locust_breadbasket_2022')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
   
 } else if (i_scenario == 64) {
   name_crop <-c('Rice')
   runname <- c('rice_locust_breadbasket_export_2021')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2020_breadbasket_year2007_195countries.csv"))
 
 } else if (i_scenario == 65) {
   name_crop <-c('Rice')
   runname <- c('rice_locust_breadbasket_export_2022')
   nameinput <- c('Rice_Avg20152017')
-  shock_scenario <- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
-  #export_scenario<- read.csv(paste0("inputs/2021_C2P2_scenarios/Scenario_NoChange_195countries.csv"))
+  shock_scenario <- read.csv(paste0(working_directory,"inputs/2021_C2P2_scenarios/Scenario_Rice_DeclineFraction_locust_Year2021_breadbasket_year2008_195countries.csv"))
 }
 
 
@@ -379,8 +332,6 @@ country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 load(paste0("inputs_processed/", nameinput, "E0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
 load(paste0("inputs_processed/", nameinput, "P0.Rdata")) #Production
 load(paste0("inputs_processed/", nameinput, "R0.RData")) #Reserves (a.k.a. Stocks)
-
-
 
 
 # Step 5: Setup production and shocks; initialize output vectors ----
@@ -2612,7 +2563,6 @@ P_initial_out_df <- gather(P_initial_out_df, Year, Value, -iso3, -Country)
 P_initial_out_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", P_initial_out_df$Year))
 
 # Exports
-
 colnames(E_final_out)  <- column_names2
 rownames(E_final_out)  <- InputFSC$iso3
 E_final_out_df <- data.frame(E_final_out)
@@ -2759,29 +2709,18 @@ C0out_df <- gather(C0out_df, Year, Value, -iso3, -Country)
 C0out_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", C0out_df$Year))
 
 ## Save as CSV
-write.csv(P_initial_out_df, paste0("outputs/",runname,"production_initial.csv"), row.names = FALSE)
-write.csv(P_final_out_df, paste0("outputs/",runname,"production_final.csv"), row.names = FALSE)
-write.csv(R_initial_out_df, paste0("outputs/",runname,"reserve_initial.csv"), row.names = FALSE)
-write.csv(R_final_out_df, paste0("outputs/",runname,"reserve_final.csv"), row.names = FALSE)
+write.csv(P_initial_out_df, paste0(working_directory,"outputs/",runname,"production_initial.csv"), row.names = FALSE)
+write.csv(P_final_out_df, paste0(working_directory,"outputs/",runname,"production_final.csv"), row.names = FALSE)
+write.csv(R_initial_out_df, paste0(working_directory,"outputs/",runname,"reserve_initial.csv"), row.names = FALSE)
+write.csv(R_final_out_df, paste0(working_directory,"outputs/",runname,"reserve_final.csv"), row.names = FALSE)
 
-write.csv(E_initial_out_df, paste0("outputs/",runname,"export_initial.csv"), row.names = FALSE)
-write.csv(E_final_out_df, paste0("outputs/",runname,"export_final.csv"), row.names = FALSE)
-write.csv(I_initial_out_df, paste0("outputs/",runname,"import_initial.csv"), row.names = FALSE)
-write.csv(I_final_out_df, paste0("outputs/",runname,"import_final.csv"), row.names = FALSE)
-#~ write.csv(Pout_df, paste0("outputs/",runname,"ProductionStatic.csv"), row.names = FALSE)
-#~ write.csv(Rout_df, paste0("outputs/",runname,"ReserveStatic.csv"), row.names = FALSE)
-#~ write.csv(shortageout_df, paste0("outputs/",runname,"ShortageStatic.csv"), row.names = FALSE)
-#~ write.csv(C1_C0out_df, paste0("outputs/",runname,"C1C0Static.csv"), row.names = FALSE)
-#~ write.csv(C2_C0out_df, paste0("outputs/",runname,"C2C0Static.csv"), row.names = FALSE)
-write.csv(C2out_df, paste0("outputs/",runname,"supply_final.csv"), row.names = FALSE)
-write.csv(C0out_df, paste0("outputs/",runname,"supply_initial.csv"), row.names = FALSE)
-#~ write.csv(Eout, paste0("outputs/",runname, "ExportStatic.csv"), row.names = TRUE)
+write.csv(E_initial_out_df, paste0(working_directory,"outputs/",runname,"export_initial.csv"), row.names = FALSE)
+write.csv(E_final_out_df, paste0(working_directory,"outputs/",runname,"export_final.csv"), row.names = FALSE)
+write.csv(I_initial_out_df, paste0(working_directory,"outputs/",runname,"import_initial.csv"), row.names = FALSE)
+write.csv(I_final_out_df, paste0(working_directory,"outputs/",runname,"import_final.csv"), row.names = FALSE)
 
-## Save lists of initial and final imports and outputs by country
-#~ write.csv(ExportsFinal, paste0("outputs/",runname, "ExportsFinal.csv"), row.names = FALSE)
-#~ write.csv(ExportsInitial, paste0("outputs/",runname, "ExportsInitial.csv"), row.names = FALSE)
-#~ write.csv(ImportsFinal, paste0("outputs/",runname, "ImportsFinal.csv"), row.names = FALSE)
-#~ write.csv(ImportsInitial, paste0("outputs/",runname, "ImportsInitial.csv"), row.names = FALSE)
+write.csv(C2out_df, paste0(working_directory,"outputs/",runname,"supply_final.csv"), row.names = FALSE)
+write.csv(C0out_df, paste0(working_directory,"outputs/",runname,"supply_initial.csv"), row.names = FALSE)
 
 # Save Exports as R data file
-saveRDS(Eout, file = paste0("outputs/", runname,"ExportStatic.rds"))
+saveRDS(Eout, file = paste0(working_directory,"outputs/", runname,"ExportStatic.rds"))
