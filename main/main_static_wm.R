@@ -23,10 +23,10 @@ if (dir.exists("outputs") == FALSE) {
 # Step 1: Specify scenario ----
 # Parse arguments ====
 args <- commandArgs(trailingOnly = TRUE)
-working_directory <- c(args[1])             # Scenario from the FSC Scenario Library
-crop <- c(args[2])             # Scenario from the FSC Scenario Library
-anomaly_factor <- c(as.numeric(args[3]))             # Scenario from the FSC Scenario Library
-restriction_intensity <- c(as.numeric(args[4]))             # Scenario from the FSC Scenario Library
+working_directory <- c(args[1])                 # Directory
+crop <- c(args[2])                              # Crop commodity group
+anomaly_factor <- c(as.numeric(args[3]))        # Anomaly factor
+restriction_intensity <- c(as.numeric(args[4])) # Restriction intensity
 
 
 anomaly_factor_string <- gsub("\\.","p",format(round(anomaly_factor, 2), nsmall = 2))

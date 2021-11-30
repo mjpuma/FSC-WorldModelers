@@ -15,6 +15,7 @@ install.packages("ggraph", repos = repo)
 install.packages("tidyverse", repos = repo)
 install.packages("netrankr", repos = repo)
 install.packages("tnet", repos = repo)
+install.packages("stringr")
 
 cat("Setup completed!")
 
