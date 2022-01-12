@@ -17,7 +17,7 @@ cd FSC-WorldModelers
 ```
 cd inputs
 wget 'http://fenixservices.fao.org/faostat/static/bulkdownloads/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).zip'
-wget 'http://fenixservices.fao.org/faostat/static/bulkdownloads/Production_Crops_E_All_Data_(Normalized).zip'
+wget 'http://fenixservices.fao.org/faostat/static/bulkdownloads/Production_Crops_Livestock_E_All_Data_(Normalized).zip'
 wget 'https://apps.fas.usda.gov/psdonline/downloads/psd_grains_pulses_csv.zip'
 
 unzip 'Trade_DetailedTradeMatrix_E_All_Data_(Normalized).zip'
