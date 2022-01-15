@@ -32,16 +32,15 @@ if (dir.exists("outputs") == FALSE) {
 # Step 1: Specify scenario ----
 #  Command line: Rscript main/main.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "wheat" 0.2 0.2
 # Parse arguments ====
-#args <- commandArgs(trailingOnly = TRUE)
+args <- commandArgs(trailingOnly = TRUE)
 #working_directory <- c(args[1])                 # Directory
 #crop <- c(args[2])                              # Crop commodity group
 #anomaly_factor <- c(as.numeric(args[3]))        # Anomaly factor
 #restriction_intensity <- c(as.numeric(args[4])) # Restriction intensity
 
-# #  RStudio or similar integrated development environment (IDE)
-#  Specify arguments  ====
+#  Specify arguments in similar integrated development environment (IDE) ====
 working_directory <- "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/"  # Directory
-crop <- "rice"                              # Crop commodity group
+crop <- "wheat"                              # Crop commodity group
 anomaly_factor <- 0.2                          # Anomaly factor
 restriction_intensity <- 0.2                    # Restriction intensity
 
@@ -164,7 +163,7 @@ E_initial_out[,1]<-rowSums(trade_dat$E)
 
 # Step 7:
 # Specify and impose export restrictions     
-if (crop == 'wheat') {
+if (crop == "wheat") {
   # export_scenario: Scenario_Wheat_ExportRestrictionFraction_Year2008_with_RUS_25%_195countries.csv
      i_restrict = which(country_list[,2] =='RUS')
      reduce_factor <- restriction_intensity * 0.5
@@ -252,7 +251,7 @@ if (crop == 'wheat') {
      #  Impose export restrictions by reducing exports
      E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,] 
      
-} else if (crop == 'corn') {
+} else if (crop == "corn") {
   # export_scenario: Scenario_Maize_ExportRestrictionFraction_Year2008_with_ARG_25%_195countries.csv
     i_restrict = which(country_list[,2] =='ARG')
     reduce_factor <- restriction_intensity * 0.5
@@ -326,7 +325,7 @@ if (crop == 'wheat') {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]   
 
-} else if (crop == 'rice') {
+} else if (crop == "rice") {
   # export_scenario: Scenario_Rice_ExportRestrictionFraction_Year2008_195countries.csv
     
     i_restrict = which(country_list[,2] =='ARG')

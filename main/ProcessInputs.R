@@ -11,12 +11,15 @@ library(tidyr)
 library(dplyr)
 library(reshape2)
 library(stringr)
+
+# rscript main/ProcessInputs.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "Wheat_Avg20152017"
 args <- commandArgs(trailingOnly = TRUE)
-nameinput <- c(args[1])       
+working_directory <- c(args[1])                 # Directory
+nameinput <- c(args[2])
 print(nameinput)
 #~ nameinput <- c('Rice_Avg20152017')      
-topdir <- getwd()
-setwd("/home/kikula/Documents/research/C2P2/fsc/FSC-WorldModelers/")
+#topdir <- getwd()
+setwd(working_directory)
 
 # Set year range for production, trade, and reserves data ---------------------------------
 yr_range <- 2015:2017
@@ -36,11 +39,11 @@ commodities_reserves<-read.csv(paste0("ancillary/", nameinput, "cropcommodity_re
 
 # PART 1: Trade (Detailed trade matrix pre-downloaded trade from FAOSTAT)  --------------
 
-# Step 1: Download detailed trade matrix from FAO  ====
-#~ trade_dat <- read.csv("inputs/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv",
-#~                       stringsAsFactors = FALSE)
-trade_dat <- read.csv("inputs/trade_matrix_normalized.csv",
-                      stringsAsFactors = FALSE)
+# Step 1: Download detailed trade matrix from FAO  ====1
+trade_dat <- read.csv("inputs/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv", stringsAsFactors = FALSE)
+# Killian
+#trade_dat <- read.csv("inputs/trade_matrix_normalized.csv",
+#                      stringsAsFactors = FALSE)
 
 # Step 2: Filter using "dplyr" filter function: 1) by year and 2) by "cropcommodity_list"  ====
 trade_dat <- select(trade_dat, reporter = Reporter.Country.Code, 
@@ -91,8 +94,8 @@ write.csv(Tkbyc, paste0("inputs_processed/", nameinput, "E0.csv"))
 ## QC: production-crops domain, 5510: production in tonnes
 
 # Step 1: Download and import production data from FAOSTAT ==== 
-#~ prod_dat<-read.csv("inputs/Production_Crops_Livestock_E_All_Data_(Normalized).csv")
-prod_dat<-read.csv("inputs/production_normalized.csv")
+prod_dat<-read.csv("inputs/Production_Crops_Livestock_E_All_Data_(Normalized).csv")
+#prod_dat<-read.csv("inputs/production_normalized.csv")
 
 # Step 2: Format imported data ====
 yr_range = 2015:2017

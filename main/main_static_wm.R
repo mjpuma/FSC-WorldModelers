@@ -1,4 +1,5 @@
 ## Main script for the Food Shock Cascade (FSC) Model
+# Version for presenting with TWIST model in Dojo-CauseMos
 #~ install.packages("plyr")
 #~ install.packages("tidyr")
 #~ install.packages("stringr")
