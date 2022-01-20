@@ -30,19 +30,19 @@ if (dir.exists("outputs") == FALSE) {
 }
 
 # Step 1: Specify scenario ----
-#  Command line: Rscript main/main.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "wheat" 0.2 0.2
+#  Command line: Rscript main/main_static.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "wheat" 0.2 0.2
 # Parse arguments ====
 args <- commandArgs(trailingOnly = TRUE)
-#working_directory <- c(args[1])                 # Directory
-#crop <- c(args[2])                              # Crop commodity group
-#anomaly_factor <- c(as.numeric(args[3]))        # Anomaly factor
-#restriction_intensity <- c(as.numeric(args[4])) # Restriction intensity
+working_directory <- c(args[1])                 # Directory
+crop <- c(args[2])                              # Crop commodity group
+anomaly_factor <- c(as.numeric(args[3]))        # Anomaly factor
+restriction_intensity <- c(as.numeric(args[4])) # Restriction intensity
 
 #  Specify arguments in similar integrated development environment (IDE) ====
-working_directory <- "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/"  # Directory
-crop <- "wheat"                              # Crop commodity group
-anomaly_factor <- 0.2                          # Anomaly factor
-restriction_intensity <- 0.2                    # Restriction intensity
+# working_directory <- "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/"  # Directory
+# crop <- "wheat"                              # Crop commodity group
+# anomaly_factor <- 0.2                          # Anomaly factor
+# restriction_intensity <- 0.2                    # Restriction intensity
 
 anomaly_factor_string <- gsub("\\.","p",format(round(anomaly_factor, 2), nsmall = 2))
 restriction_intensity_string <- gsub("\\.","p",format(round(restriction_intensity, 2), nsmall = 2))
