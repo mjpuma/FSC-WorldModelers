@@ -18,7 +18,7 @@ working_directory <- c(args[1])                 # Directory
 nameinput <- c(args[2])
 print(nameinput)
 #~ nameinput <- c('Rice_Avg20152017')      
-#topdir <- getwd()
+#topdir <- getwd(
 setwd(working_directory)
 
 # Set year range for production, trade, and reserves data ---------------------------------

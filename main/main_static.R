@@ -21,8 +21,8 @@ years <- 1 #Don't Change
 baseyear <- 2020
 # Create column names for output files
 column_names = c('0', '1')
-column_names2 = c('1')
 column_names1 = c('0')
+column_names2 = c('1')
 
 # Create output directory if needed
 if (dir.exists("outputs") == FALSE) {
@@ -91,19 +91,23 @@ Pout <-  array(0, c(nrow(country_list), length(years) + 1))
 Rout <-  array(0, c(nrow(country_list), length(years) + 1))
 Eout <-  array(0, c(nrow(country_list), nrow(country_list), length(years) + 1))
 
-ImpairedSupply <- array(0, c(nrow(country_list), length(years)))
-ImpairedSupplyToReserves <- array(0, c(nrow(country_list), length(years)))
-
-
 P_initial_out <-  array(0, c(nrow(country_list), length(years)))
 P_final_out <-  array(0, c(nrow(country_list), length(years)))
+
 R_initial_out <-  array(0, c(nrow(country_list), length(years)))
 R_final_out <-  array(0, c(nrow(country_list), length(years)))
 
 E_initial_out <-  array(0, c(nrow(country_list), length(years)))
 E_final_out <-  array(0, c(nrow(country_list), length(years)))
+
 I_initial_out <-  array(0, c(nrow(country_list), length(years)))
 I_final_out <-  array(0, c(nrow(country_list), length(years)))
+
+ImpairedSupply_initial <- array(0, c(nrow(country_list), length(years)))
+ImpairedSupply <- array(0, c(nrow(country_list), length(years)))
+
+ImpairedSupplyToReserves_initial <- array(0, c(nrow(country_list), length(years)))
+ImpairedSupplyToReserves <- array(0, c(nrow(country_list), length(years)))
 
 ## Add initial conditions to output arrays
 Eout[, , 1] <- E0
@@ -486,9 +490,13 @@ P_final_out[, i]    <- as.numeric(unlist(results_FSCstatic$P))
 R_final_out[, i]    <- as.numeric(unlist(results_FSCstatic$R))
 
 
-# Impaired supply (= perturbed supply - baseline supply)
-ImpairedSupply[, i] <-  as.numeric(unlist(results_FSCstatic$C1)) - Supply_baseline 
+# Impaired supply (= baseline supply - perturbed supply)
+PerturbedSupply<- as.numeric(unlist(results_FSCstatic$C1))
+ImpairedSupply[, i] <-  Supply_baseline - PerturbedSupply
+
 ImpairedSupplyToReserves[,i] <- ImpairedSupply / R_initial_out
+ImpairedSupplyToReserves[,i][ImpairedSupplyToReserves[,i] == Inf] <- NA 
+ImpairedSupplyToReserves[,i][ImpairedSupplyToReserves[,i] == -Inf] <- NA
 
 
 # Step 9: Compute network statistics
@@ -760,7 +768,18 @@ R_all$Year <- as.numeric(gsub("[a-zA-Z ]", "", R_all$Year))
 
 # Impaired supply is calculated as the difference between the supply in an unperturbed baseline scenario 
 # and the perturbed scenario. It describes the supply gap a country has to close by either tapping into its 
-# reserve, placing additional orders at the world market or reducing consumption. 
+# reserve, placing additional orders at the world market or reducing consumption.
+colnames(ImpairedSupply_initial)  <- column_names1
+rownames(ImpairedSupply_initial)  <- InputFSC$iso3
+ImpairedSupply_initial_df <- data.frame(ImpairedSupply_initial)
+ImpairedSupply_initial_df <- tibble::rownames_to_column(ImpairedSupply_initial_df, "iso3")
+ImpairedSupply_initial_df <-
+  merge(InputFSC[, c("iso3", "Country")], ImpairedSupply_initial_df, by = "iso3")
+# combine the year columns into a single column with separate rows for each year; assign to new vector
+ImpairedSupply_initial_df <- gather(ImpairedSupply_initial_df, Year, Value, -iso3, -Country)
+# remove preceeding X character for Year column and convert to numeric
+ImpairedSupply_initial_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", ImpairedSupply_initial_df$Year))
+
 colnames(ImpairedSupply)  <- column_names2
 rownames(ImpairedSupply)  <- InputFSC$iso3
 ImpairedSupply_df <- data.frame(ImpairedSupply)
@@ -769,11 +788,27 @@ ImpairedSupply_df <-
   merge(InputFSC[, c("iso3", "Country")], ImpairedSupply_df, by = "iso3")
 # combine the year columns into a single column with separate rows for each year; assign to new vector
 ImpairedSupply_df <- gather(ImpairedSupply_df, Year, Value, -iso3, -Country)
-# remove preceeding X character for Year column aand convert to numeric
+# remove preceeding X character for Year column and convert to numeric
 ImpairedSupply_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", ImpairedSupply_df$Year))
+
+# Put values (for all time points) into a single column with a corresponding time column
+ImpairedSupply_all<- bind_rows(ImpairedSupply_initial_df,ImpairedSupply_df) 
+names(ImpairedSupply_all)[names(ImpairedSupply_all)=="Value"] <- "Impaired Supply"
+ImpairedSupply_all$Year <- as.numeric(gsub("[a-zA-Z ]", "", ImpairedSupply_all$Year))
 
 # The ratio of impaired supply and reserves additionally therefore provides a proxy on how dependent a country 
 # is on foreign supplies to mitigate the shortage. 
+colnames(ImpairedSupplyToReserves_initial)  <- column_names1
+rownames(ImpairedSupplyToReserves_initial)  <- InputFSC$iso3
+ImpairedSupplyToReserves_initial_df <- data.frame(ImpairedSupplyToReserves_initial)
+ImpairedSupplyToReserves_initial_df <- tibble::rownames_to_column(ImpairedSupplyToReserves_initial_df, "iso3")
+ImpairedSupplyToReserves_initial_df <-
+  merge(InputFSC[, c("iso3", "Country")], ImpairedSupplyToReserves_initial_df, by = "iso3")
+# combine the year columns into a single column with separate rows for each year; assign to new vector
+ImpairedSupplyToReserves_initial_df <- gather(ImpairedSupplyToReserves_initial_df, Year, Value, -iso3, -Country)
+# remove preceeding X character for Year column and convert to numeric
+ImpairedSupplyToReserves_initial_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", ImpairedSupplyToReserves_initial_df$Year))
+
 colnames(ImpairedSupplyToReserves)  <- column_names2
 rownames(ImpairedSupplyToReserves)  <- InputFSC$iso3
 ImpairedSupplyToReserves_df <- data.frame(ImpairedSupplyToReserves)
@@ -785,12 +820,18 @@ ImpairedSupplyToReserves_df <- gather(ImpairedSupplyToReserves_df, Year, Value, 
 # remove preceeding X character for Year column and convert to numeric
 ImpairedSupplyToReserves_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", ImpairedSupplyToReserves_df$Year))
 
+# Put values (for all time points) into a single column with a corresponding time column
+ImpairedSupplyToReserves_all<- bind_rows(ImpairedSupplyToReserves_initial_df,ImpairedSupplyToReserves_df) 
+names(ImpairedSupplyToReserves_all)[names(ImpairedSupplyToReserves_all)=="Value"] <- "Ratio of Impaired Supply To Reserves"
+ImpairedSupplyToReserves_all$Year <- as.numeric(gsub("[a-zA-Z ]", "", ImpairedSupplyToReserves_all$Year))
 
 ## Combine output into single file
 outputFSC <- P_all
 outputFSC <- bind_cols(outputFSC,I_all[, c("Imports"),drop=FALSE])
 outputFSC <- bind_cols(outputFSC,E_all[, c("Exports"),drop=FALSE])
 outputFSC <- bind_cols(outputFSC,R_all[, c("Reserves"),drop=FALSE])
+outputFSC <- bind_cols(outputFSC,ImpairedSupply_all[, c("Impaired Supply"),drop=FALSE])
+outputFSC <- bind_cols(outputFSC,ImpairedSupplyToReserves_all[, c("Ratio of Impaired Supply To Reserves"),drop=FALSE])
 
 outputFSC <- bind_cols(outputFSC,Gdeg_total_all[, c("Gdeg_total"),drop=FALSE])
 outputFSC <- bind_cols(outputFSC,Gdeg_out_all[, c("Gdeg_out"),drop=FALSE])
@@ -804,5 +845,5 @@ outputFSC <- bind_cols(outputFSC,hs_all[, c("hs"),drop=FALSE])
 ## Save as CSV
 # output for Dojo
 write.csv(outputFSC, paste0(working_directory,"outputs/","outputFSC.csv"), row.names = FALSE)
-write.csv(ImpairedSupply_df, paste0(working_directory,"outputs/","ImpairedSupply.csv"), row.names = FALSE)
-write.csv(ImpairedSupplyToReserves_df, paste0(working_directory,"outputs/","ImpairedSupplyToReserves.csv"), row.names = FALSE)
+#write.csv(ImpairedSupply_df, paste0(working_directory,"outputs/","ImpairedSupply.csv"), row.names = FALSE)
+#write.csv(ImpairedSupplyToReserves_df, paste0(working_directory,"outputs/","ImpairedSupplyToReserves.csv"), row.names = FALSE)
