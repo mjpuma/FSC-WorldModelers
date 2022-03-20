@@ -22,6 +22,7 @@ install.packages("tidyverse", warn.conflicts = FALSE)
 install.packages("viridis", warn.conflicts = FALSE)
 install.packages("sf", warn.conflicts = FALSE)
 install.packages("cowplot", warn.conflicts = FALSE)
+install.packages("maps", warn.conflicts = FALSE)
 
 
 cat("Setup completed!")
