@@ -59,7 +59,7 @@ restriction_intensity_string <- gsub("\\.","p",format(round(restriction_intensit
 # Production *fractional declines* list by year by country ====
 
 name_scenario <-str_to_sentence(scenario)
-nameinput <- 'wheat_Avg20192020'
+nameinput <- 'Wheat_Avg20192020'
 runname <- paste0(scenario,'_pa-',anomaly_factor_string,'_er-',restriction_intensity_string)
 shock_scenario <- read.csv(paste0(working_directory,'inputs/UKRRUS_wheat_total_production_decline.csv'))
 
