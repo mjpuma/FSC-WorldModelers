@@ -53,9 +53,8 @@ restriction_intensity_string <- gsub("\\.","p",format(round(restriction_intensit
 name_crop <-str_to_sentence(crop)
 nameinput <- paste0(name_crop,'_Avg20152017')
 runname <- paste0(crop,'_pa-',anomaly_factor_string,'_er-',restriction_intensity_string)
-nameinput <- paste0(name_crop,'_Avg20152017')
-shock_scenario <- read.csv(paste0(working_directory,'inputs/2021_C2P2_scenarios/Scenario_',crop,'_total_production_decline.csv'))
-
+#shock_scenario <- read.csv(paste0(working_directory,'inputs/2021_C2P2_scenarios/Scenario_',crop,'_total_production_decline.csv'))
+shock_scenario <- read.csv(paste0(working_directory,'inputs/Afghanistan_',crop,'_total_production_decline.csv'))
 
 # Step 3: Load ancillary data ----
 # i) Commodity list for bilateral trade
@@ -155,9 +154,6 @@ trade_dat$C <- trade_dat$P + colSums(trade_dat$E) - rowSums(trade_dat$E)
 
 # BASELINE SUPPLY
 Supply_baseline <- trade_dat$C
-
-# Domestic Supply after production declines
-trade_dat$C1 <- trade_dat$P + Shocks$dP + colSums(trade_dat$E) - rowSums(trade_dat$E)
 
 ImportsInitial<-colSums(trade_dat$E)
 ExportsInitial<-rowSums(trade_dat$E)
@@ -390,7 +386,7 @@ if (crop == "wheat") {
     #  Impose export restrictions by reducing exports
     E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
     
-        i_restrict = which(country_list[,2] =='IND')
+    i_restrict = which(country_list[,2] =='IND')
     reduce_factor <- restriction_intensity * 10./12.
     #   Add *restricted* exports to reserves
     Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
@@ -472,6 +468,9 @@ if (crop == "wheat") {
 trade_dat$R <- Rcurrent
 trade_dat$E <- E0
 
+# Domestic Supply after production declines
+trade_dat$C1 <- trade_dat$P + Shocks$dP + colSums(trade_dat$E) - rowSums(trade_dat$E)
+
 ImportsFinal<-colSums(trade_dat$E)
 ExportsFinal<-rowSums(trade_dat$E)
 
@@ -479,7 +478,7 @@ I_final_out[,1]<-colSums(trade_dat$E)
 E_final_out[,1]<-rowSums(trade_dat$E)
 
 #Update results
-results_FSCstatic <- list(P = trade_dat$P + Shocks$dP, R = Rcurrent, C1=trade_dat$C1,E=E0)
+results_FSCstatic <- list(P = trade_dat$P + Shocks$dP, R = Rcurrent, C1=trade_dat$C1,E=trade_dat$E)
 # Store outputs of interest from simulations ====
 #   Output: 1D arrays
 i=1

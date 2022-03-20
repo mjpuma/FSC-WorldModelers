@@ -12,17 +12,17 @@ library(dplyr)
 library(reshape2)
 library(stringr)
 
-# rscript main/ProcessInputs.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "Wheat_Avg20152017"
+# rscript main/ProcessInputs.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "Wheat_Avg20192020"
 args <- commandArgs(trailingOnly = TRUE)
 working_directory <- c(args[1])                 # Directory
 nameinput <- c(args[2])
 print(nameinput)
 #~ nameinput <- c('Rice_Avg20152017')      
-#topdir <- getwd(
+#topdir <- getwd()
 setwd(working_directory)
 
 # Set year range for production, trade, and reserves data ---------------------------------
-yr_range <- 2015:2017
+yr_range <- 2019:2020
 
 # Load ancillary data  ---------------------------------
 # 1) Load country list valid for simulation years

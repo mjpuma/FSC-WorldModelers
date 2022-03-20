@@ -15,7 +15,14 @@ install.packages("ggraph", repos = repo)
 install.packages("tidyverse", repos = repo)
 install.packages("netrankr", repos = repo)
 install.packages("tnet", repos = repo)
-install.packages("stringr")
+install.packages("stringr", warn.conflicts = FALSE)
+install.packages("countrycode", warn.conflicts = FALSE)
+install.packages("ggplot2", warn.conflicts = FALSE)
+install.packages("tidyverse", warn.conflicts = FALSE)
+install.packages("viridis", warn.conflicts = FALSE)
+install.packages("sf", warn.conflicts = FALSE)
+install.packages("cowplot", warn.conflicts = FALSE)
+
 
 cat("Setup completed!")
 
