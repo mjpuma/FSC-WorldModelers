@@ -14,7 +14,7 @@ library(tidyr, warn.conflicts = FALSE)
 library(igraph, warn.conflicts = FALSE)
 library(ggraph, warn.conflicts = FALSE)
 library(tidyverse, warn.conflicts = FALSE)
-library(netrankr, warn.conflicts = FALSE)
+#library(netrankr, warn.conflicts = FALSE)
 library(countrycode, warn.conflicts = FALSE)
 library(ggplot2, warn.conflicts = FALSE)
 library(tidyverse, warn.conflicts = FALSE)
@@ -35,6 +35,11 @@ column_names2 = c('1')
 # Create output directory if needed
 if (dir.exists("outputs") == FALSE) {
   dir.create("outputs")
+}
+
+# Create output directory if needed
+if (dir.exists("media") == FALSE) {
+  dir.create("media")
 }
 
 # Step 1: Specify scenario ----
@@ -677,8 +682,6 @@ outputFSC <- bind_cols(outputFSC,hs_all[, c("hs"),drop=FALSE])
 ## Save as CSV
 # output for Dojo
 write.csv(outputFSC, paste0(working_directory,"outputs/","outputFSC.csv"), row.names = FALSE)
-#write.csv(ImpairedSupply_df, paste0(working_directory,"outputs/","ImpairedSupply.csv"), row.names = FALSE)
-#write.csv(ImpairedSupplyToReserves_df, paste0(working_directory,"outputs/","ImpairedSupplyToReserves.csv"), row.names = FALSE)
 
 ### PLOTS  
 
@@ -723,7 +726,7 @@ gblacksea <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = grou
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Production_initial.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Production_initial.png"), width = 15, height =  5)
 
 
 # Production After Disruption
@@ -749,7 +752,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Production_final.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Production_final.png"), width = 15, height =  5)
 
 # Imports Before Disruption
 gworld2 <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = group)) +
@@ -774,7 +777,7 @@ gblacksea <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = grou
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Imports_initial.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Imports_initial.png"), width = 15, height =  5)
 
 
 # Imports After Disruption
@@ -800,7 +803,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Imports_final.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Imports_final.png"), width = 15, height =  5)
 
 # Exports Before Disruption
 gworld2 <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = group)) +
@@ -825,7 +828,7 @@ gblacksea <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = grou
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Exports_initial.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Exports_initial.png"), width = 15, height =  5)
 
 # Exports After Disruption
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
@@ -850,7 +853,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Exports_final.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Exports_final.png"), width = 15, height =  5)
 
 # Impaired Supply
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
@@ -875,7 +878,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "ImpairedSupply.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "ImpairedSupply.png"), width = 15, height =  5)
 
 # Ratio of Impaired Supply To Reserves
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
@@ -900,7 +903,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "RatioofImpairedSupplytoReserves.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "RatioofImpairedSupplytoReserves.png"), width = 15, height =  5)
 
 # Ratio of Impaired to Baseline Supply
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
@@ -925,7 +928,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "RatioofImpairedtoBaselineSupply.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "RatioofImpairedtoBaselineSupply.png"), width = 15, height =  5)
 
 
 # Number of Export Partners Before Disruption
@@ -951,7 +954,7 @@ gblacksea <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = grou
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Gdeg_out_initial.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Gdeg_out_initial.png"), width = 15, height =  5)
 
 # Exports After Disruption
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
@@ -976,7 +979,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Gdeg_out_final.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Gdeg_out_final.png"), width = 15, height =  5)
 
 # Number of Import Partners Before Disruption
 gworld2 <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = group)) +
@@ -1001,7 +1004,7 @@ gblacksea <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = grou
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Gdegin_initial.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Gdegin_initial.png"), width = 15, height =  5)
 
 # Exports After Disruption
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
@@ -1026,7 +1029,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Gdeg_in_final.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Gdeg_in_final.png"), width = 15, height =  5)
 
 
 # Number of Import Partners Before Disruption
@@ -1052,7 +1055,7 @@ gblacksea <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = grou
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Gdegin_initial.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Gdegin_initial.png"), width = 15, height =  5)
 
 # Number of Import Partners After Disruption
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
@@ -1077,7 +1080,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Gdeg_in_final.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Gdeg_in_final.png"), width = 15, height =  5)
 
 # Betweenness Centrality Before Disruption
 gworld2 <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = group)) +
@@ -1102,7 +1105,7 @@ gblacksea <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = grou
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Gbtw_initial.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Gbtw_initial.png"), width = 15, height =  5)
 
 # Betweenness Centrality After Disruption
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
@@ -1127,7 +1130,7 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Gbtw_final.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Gbtw_final.png"), width = 15, height =  5)
 
 # Eigenvector Centrality Before Disruption
 gworld2 <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = group)) +
@@ -1152,7 +1155,7 @@ gblacksea <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = grou
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Geigencentral_initial.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Geigencentral_initial.png"), width = 15, height =  5)
 
 # Eigenvector Centrality After Disruption
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
@@ -1177,4 +1180,4 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
      panel.border = element_rect(fill = NA))
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
-ggsave(paste0(working_directory, "outputs/", "Geigencentral_final.png"), width = 15, height =  5)
+ggsave(paste0(working_directory, "media/", "Geigencentral_final.png"), width = 15, height =  5)
