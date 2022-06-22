@@ -43,7 +43,7 @@ if (dir.exists("media") == FALSE) {
 }
 
 # Step 1: Specify scenario ----
-#  Command line: Rscript main/main_static.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "Stalemate" 1 1
+#  Command line: Rscript main/main_static_UKR.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "Stalemate" 1 1
 # Parse arguments ====
 args <- commandArgs(trailingOnly = TRUE)
 working_directory <- c(args[1])                 # Directory
@@ -179,9 +179,13 @@ I_initial_out[,1]<-colSums(trade_dat$E)
 E_initial_out[,1]<-rowSums(trade_dat$E)
 
 # Step 7:
-if (scenario == "Quick_Peace") {
+
+
+if (scenario == "QuickPeace") {
+   print(paste("Running scenario ",scenario))
    # No export restrictions
 } else if (scenario == "Stalemate") {
+   print(paste("Running scenario ",scenario))
    # Export restrictions: Ukraine, Russia (adjustable magnitude)
    # Specify and impose export restrictions
    i_restrict = which(country_list[,2] =='RUS')
@@ -199,7 +203,8 @@ if (scenario == "Quick_Peace") {
    #  Impose export restrictions by reducing exports
    E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
 
-} else if (scenario == "Ongoing_war") {
+} else if (scenario == "OngoingWar") {
+   print(paste("Running scenario ",scenario))
    # Export restrictions: Ukraine, Russia, Argentina, Kazakhstan, Hungary,
    #  China, Bulgaria, India (adjustable magnitude)
    # Specify and impose export restrictions
@@ -267,6 +272,7 @@ if (scenario == "Quick_Peace") {
    E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
 
 }
+
 
 # Step 8: Update food balance variables ----
 #  Update state variables for trade_dat after trade restrictions
@@ -854,6 +860,56 @@ gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)
 
 plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
 ggsave(paste0(working_directory, "media/", "Exports_final.png"), width = 15, height =  5)
+
+# Reserves Before Disruption
+gworld2 <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = group)) +
+    borders("world", colour = "grey50", xlim = c(-180,180), ylim = c(-60,90), size = .2) +
+    geom_polygon(aes(fill = Reserves)) +
+    coord_equal(expand = FALSE) +
+    geom_rect(xmin = 20, xmax = 50, ymin = 25, ymax = 55, fill = NA, colour = "black", size = 1) +
+    scale_fill_viridis_c(option = "plasma", trans = "sqrt", na.value="grey") +
+    xlab("Longitude") + ylab("Latitude") +
+    ggtitle("Reserves Before Disruption (in kilocalories)") +
+    theme(panel.background = element_rect(fill = "azure"),
+     panel.border = element_rect(fill = NA))
+
+gblacksea <- ggplot(data = mapdata_initial, aes( x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = Reserves)) +
+  annotate(geom = "text", x = 34, y = 43, label = "Black Sea", 
+     fontface = "italic", color = "grey22", size = 6) +
+  coord_sf(xlim = c(20, 50), ylim = c(25, 55), expand = FALSE) +
+  scale_fill_viridis_c(option = "plasma", trans = "sqrt",na.value="white") +
+  theme(legend.position = "none", axis.title.x = element_blank(), 
+     axis.title.y = element_blank(), panel.background = element_rect(fill = "azure"), 
+     panel.border = element_rect(fill = NA))
+
+plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
+ggsave(paste0(working_directory, "media/", "Reserves_initial.png"), width = 15, height =  5)
+
+# Reserves After Disruption
+gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
+    borders("world", colour = "grey50", xlim = c(-180,180), ylim = c(-60,90), size = .2) +
+    geom_polygon(aes(fill = Reserves)) +
+    coord_equal(expand = FALSE) +
+    geom_rect(xmin = 20, xmax = 50, ymin = 25, ymax = 55, fill = NA, colour = "black", size = 1) +
+    scale_fill_viridis_c(option = "plasma", trans = "sqrt", na.value="grey") +
+    xlab("Longitude") + ylab("Latitude") +
+    ggtitle("Reserves After Disruption (in kilocalories)") +
+    theme(panel.background = element_rect(fill = "azure"),
+     panel.border = element_rect(fill = NA))
+
+gblacksea <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = Reserves)) +
+  annotate(geom = "text", x = 34, y = 43, label = "Black Sea", 
+     fontface = "italic", color = "grey22", size = 6) +
+  coord_sf(xlim = c(20, 50), ylim = c(25, 55), expand = FALSE) +
+  scale_fill_viridis_c(option = "plasma", trans = "sqrt",na.value="white") +
+  theme(legend.position = "none", axis.title.x = element_blank(), 
+     axis.title.y = element_blank(), panel.background = element_rect(fill = "azure"), 
+     panel.border = element_rect(fill = NA))
+
+plot_grid(gworld2, gblacksea, nrow = 1, rel_widths = c(2.505, 1))
+ggsave(paste0(working_directory, "media/", "Reserves_final.png"), width = 15, height =  5)
 
 # Impaired Supply
 gworld2 <- ggplot(data = mapdata_final, aes( x = long, y = lat, group = group)) +
