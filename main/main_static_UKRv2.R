@@ -1,5 +1,5 @@
 ## Main script for the Static Food Shock Cascade (FSC) Model
-# Computes impaired supply for scenraios of production anomalies and trade intervensions
+# Computes impaired supply for scenarios of production anomalies and trade intervensions
 # Output includes network statistics based on on export matrix ----
 #    https://www.r-bloggers.com/network-centrality-in-r-an-introduction/
 #    https://kateto.net/networks-r-igraph
@@ -43,7 +43,7 @@ if (dir.exists("media") == FALSE) {
 }
 
 # Step 1: Specify scenario ----
-#  Command line: Rscript main/main_static_UKR.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "Stalemate" 1 1
+#  Command line: Rscript main/main_static_UKRv2.R "/Users/puma/GitHub_mjpuma/FSC-WorldModelers/" "Stalemate" 0.5 0.33
 # Parse arguments ====
 args <- commandArgs(trailingOnly = TRUE)
 working_directory <- c(args[1])                 # Directory
@@ -62,11 +62,25 @@ restriction_intensity_string <- gsub("\\.","p",format(round(restriction_intensit
 
 # Step 2: Scenario library (read in files) ----
 # Production *fractional declines* list by year by country ====
-
 name_scenario <-str_to_sentence(scenario)
 nameinput <- 'Wheat_Avg20192020'
 runname <- paste0(scenario,'_pa-',anomaly_factor_string,'_er-',restriction_intensity_string)
-shock_scenario <- read.csv(paste0(working_directory,'inputs/UKRRUS_wheat_total_production_decline.csv'))
+
+if (scenario == "Stalemate") {
+   print(paste("Running scenario ",scenario))
+   # Nature Food paper: Production anomaly Ukraine, -36%
+   shock_scenario <- read.csv(paste0(working_directory,'inputs/UKR_wheat_total_production_decline.csv'))
+
+} else if (scenario == "PersistentWar") {
+   # Nature Food paper: Production anomaly Ukraine, -50%
+   print(paste("Running scenario ",scenario))
+   shock_scenario <- read.csv(paste0(working_directory,'inputs/UKR_wheat_total_production_decline.csv'))
+
+} else if (scenario == "InternationalAgitation") {
+   print(paste("Running scenario ",scenario))
+   # Nature Food paper: Production anomaly Ukraine, -36%
+   shock_scenario <- read.csv(paste0(working_directory,'inputs/UKR_wheat_total_production_decline.csv'))
+}
 
 # Step 3: Load ancillary data ----
 # i) Commodity list for bilateral trade
@@ -178,89 +192,28 @@ I_initial_out[,1]<-colSums(trade_dat$E)
 E_initial_out[,1]<-rowSums(trade_dat$E)
 
 # Step 7:
-if (scenario == "QuickPeace") {
+if (scenario == "Stalemate") {
    print(paste("Running scenario ",scenario))
-   # No export restrictions
-} else if (scenario == "Stalemate") {
-   print(paste("Running scenario ",scenario))
-   # Export restrictions: Ukraine, Russia (adjustable magnitude)
-   # Specify and impose export restrictions
-   i_restrict = which(country_list[,2] =='RUS')
-   reduce_factor <- restriction_intensity
-   #   Add *restricted* exports to reserves
-   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
-   #  Impose export restrictions by reducing exports
-   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
-
-   # Specify and impose export restrictions
-   i_restrict = which(country_list[,2] =='UKR')
-   reduce_factor <- restriction_intensity
-   #   Add *restricted* exports to reserves
-   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
-   #  Impose export restrictions by reducing exports
-   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
-
-} else if (scenario == "OngoingWar") {
-   print(paste("Running scenario ",scenario))
-   # Export restrictions: Ukraine, Russia, Argentina, Kazakhstan, Hungary,
-   #  China, Bulgaria, India (adjustable magnitude)
-   # Specify and impose export restrictions
-   i_restrict = which(country_list[,2] =='RUS')
-   reduce_factor <- restriction_intensity
-   #   Add *restricted* exports to reserves
-   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
-   #  Impose export restrictions by reducing exports
-   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
-
-   # Specify and impose export restrictions
-   i_restrict = which(country_list[,2] =='UKR')
-   reduce_factor <- restriction_intensity
-   #   Add *restricted* exports to reserves
-   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
-   #  Impose export restrictions by reducing exports
-   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
-
-   # Specify and impose export restrictions
-   i_restrict = which(country_list[,2] =='ARG')
-   reduce_factor <- restriction_intensity
-   #   Add *restricted* exports to reserves
-   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
-   #  Impose export restrictions by reducing exports
-   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
-
-   # Specify and impose export restrictions
-   i_restrict = which(country_list[,2] =='KAZ')
-   reduce_factor <- restriction_intensity
-   #   Add *restricted* exports to reserves
-   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
-   #  Impose export restrictions by reducing exports
-   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
-
-   # Specify and impose export restrictions
-   i_restrict = which(country_list[,2] =='HUN')
-   reduce_factor <- restriction_intensity
-   #   Add *restricted* exports to reserves
-   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
-   #  Impose export restrictions by reducing exports
-   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
-
-   # Specify and impose export restrictions
-   i_restrict = which(country_list[,2] =='CHN')
-   reduce_factor <- restriction_intensity
-   #   Add *restricted* exports to reserves
-   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
-   #  Impose export restrictions by reducing exports
-   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
-
-   # Specify and impose export restrictions
-   i_restrict = which(country_list[,2] =='BGR')
-   reduce_factor <- restriction_intensity
-   #   Add *restricted* exports to reserves
-   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
-   #  Impose export restrictions by reducing exports
-   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+   # Export restrictions in four countries: Ukraine, Afghanistan, India, Serbia (adjustablle but equal)
+   # Nature Food paper: Ukraine (33%); Afghanistan, India, Serbia (all 50%)
    
-   # Specify and impose export restrictions
+   # Ukraine
+   i_restrict = which(country_list[,2] =='UKR')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Afghanistan
+   i_restrict = which(country_list[,2] =='AFG')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # India
    i_restrict = which(country_list[,2] =='IND')
    reduce_factor <- restriction_intensity
    #   Add *restricted* exports to reserves
@@ -268,6 +221,187 @@ if (scenario == "QuickPeace") {
    #  Impose export restrictions by reducing exports
    E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
 
+   # Serbia
+   i_restrict = which(country_list[,2] =='SRB')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+} else if (scenario == "PersistentWar") {
+   # Export restrictions in 5 countries: Ukraine, Russia, Afghanistan, India, Serbia (adjustablle but equal)
+   # Nature Food paper: Ukraine (50%); Russia (25%); Afghanistan, India, Serbia (all 50%)
+   # Ukraine
+   i_restrict = which(country_list[,2] =='UKR')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Russia
+   i_restrict = which(country_list[,2] =='RUS')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Afghanistan
+   i_restrict = which(country_list[,2] =='AFG')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # India
+   i_restrict = which(country_list[,2] =='IND')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Serbia
+   i_restrict = which(country_list[,2] =='SRB')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+} else if (scenario == "InternationalAgitation") {
+   print(paste("Running scenario ",scenario))
+   # Export restrictions in 15 countries: Ukraine, Russia, Afghanistan, India, Serbia plus
+   # Argentina, Bolivia, China, Ethiopia, Guinea, Kazakhstan, 
+   # Nepal, Pakistan, Syria, Tanzania (adjustable but equal)
+   # Nature Food paper: 1) Ukraine (33%); Russia (25%); 
+   #  2) Afghanistan, India, Serbia (75%)
+   # Countries that imposed trade restrictions in previous crises:
+   #  3) Argentina, Bolivia, China, Ethiopia, Guinea, Kazakhstan, 
+   #  Nepal, Pakistan, Syria, Tanzania
+   
+   # Ukraine
+   i_restrict = which(country_list[,2] =='UKR')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Russia
+   i_restrict = which(country_list[,2] =='RUS')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Afghanistan
+   i_restrict = which(country_list[,2] =='AFG')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # India
+   i_restrict = which(country_list[,2] =='IND')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Serbia
+   i_restrict = which(country_list[,2] =='SRB')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Argentina
+   i_restrict = which(country_list[,2] =='ARG')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Bolivia
+   i_restrict = which(country_list[,2] =='BOL')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # China
+   i_restrict = which(country_list[,2] =='CHN')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Ethiopia
+   i_restrict = which(country_list[,2] =='ETH')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Guinea
+   i_restrict = which(country_list[,2] =='GIN')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Kazakhstan
+   i_restrict = which(country_list[,2] =='KAZ')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Nepal
+   i_restrict = which(country_list[,2] =='NPL')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Pakistan
+   i_restrict = which(country_list[,2] =='PAK')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Syria
+   i_restrict = which(country_list[,2] =='SYR')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
+
+   # Tanzania
+   i_restrict = which(country_list[,2] =='TZA')
+   reduce_factor <- restriction_intensity
+   #   Add *restricted* exports to reserves
+   Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict, ])
+   #  Impose export restrictions by reducing exports
+   E0[i_restrict, ] <- (1. - reduce_factor) * E0[i_restrict, ]
 }
 
 
