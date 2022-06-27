@@ -26,7 +26,7 @@ library(cowplot, warn.conflicts = FALSE)
 # Step 0: Setup ----
 # Default 1 year run for static model
 years <- 1 #Don't Change
-baseyear <- 2020
+baseyear <- 2022
 # Create column names for output files
 column_names = c('0', '1')
 column_names1 = c('0')
