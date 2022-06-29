@@ -1,5 +1,5 @@
 ## Main script for the Static Food Shock Cascade (FSC) Model
-# Computes impaired supply for scenraios of production anomalies and trade intervensions
+# Computes impaired supply for scenarios of production anomalies and trade intervensions
 # Output includes network statistics based on on export matrix ----
 #    https://www.r-bloggers.com/network-centrality-in-r-an-introduction/
 #    https://kateto.net/networks-r-igraph
@@ -62,7 +62,6 @@ restriction_intensity_string <- gsub("\\.","p",format(round(restriction_intensit
 
 # Step 2: Scenario library (read in files) ----
 # Production *fractional declines* list by year by country ====
-
 name_scenario <-str_to_sentence(scenario)
 nameinput <- 'Wheat_Avg20192020'
 runname <- paste0(scenario,'_pa-',anomaly_factor_string,'_er-',restriction_intensity_string)
