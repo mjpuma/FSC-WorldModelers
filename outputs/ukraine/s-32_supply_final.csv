@@ -1,0 +1,197 @@
+"iso3","Country","Year","Value"
+"AFG","Afghanistan",1,22081370300000
+"AGO","Angola",1,3151932955000
+"ALB","Albania",1,1788289860000
+"ANT","Netherlands Antilles",1,0
+"ARB","Aruba",1,0
+"ARE","United Arab Emirates",1,4086273705000
+"ARG","Argentina",1,28400117130000
+"ARM","Armenia",1,1653592765000
+"ATG","Antigua and Barbuda",1,12231920000
+"AUS","Australia",1,22487950640000
+"AUT","Austria",1,6670717330000
+"AZE","Azerbaijan",1,11610255810000
+"BDI","Burundi",1,123565175000
+"BEL","Belgium",1,12904104610000
+"BEN","Benin",1,893060665000
+"BFA","Burkina Faso",1,885839515000
+"BGD","Bangladesh",1,21022549580000
+"BGR","Bulgaria",1,4860042340000
+"BHR","Bahrain",1,386577605000
+"BHS","Bahamas",1,51546815000
+"BIH","Bosnia and Herzegovina",1,2158002170000
+"BLR","Belarus",1,9471649645000
+"BLZ","Belize",1,72142960000
+"BMU","Bermuda",1,0
+"BOL","Bolivia (Plurinational State of)",1,2471803850000
+"BRA","Brazil",1,39621408935000
+"BRB","Barbados",1,79620875000
+"BRN","Brunei Darussalam",1,59351655000
+"BTN","Bhutan",1,29320460000
+"BWA","Botswana",1,121663515000
+"CAF","Central African Republic",1,4026925000
+"CAN","Canada",1,31240280770000
+"CHE","Switzerland",1,3859501940000
+"CHL","Chile",1,8626410230000
+"CHN","China (mainland)",1,470071877605000
+"CIV","Cote dIvoire",1,2139360955000
+"CMR","Cameroon",1,2842810015000
+"COD","Democratic Republic of the Congo",1,1426919710000
+"COG","Congo",1,815270440000
+"COK","Cook Islands",1,3646970000
+"COL","Colombia",1,6479205930000
+"COM","Comoros",1,66342805000
+"CPV","Cape Verde",1,75057700000
+"CRI","Costa Rica",1,757008645000
+"CUB","Cuba",1,2408709770000
+"CYP","Cyprus",1,554887710000
+"CZE","Czech Republic",1,9504712665000
+"DEU","Germany",1,60892218450000
+"DJI","Djibouti",1,690662105000
+"DMA","Dominica",1,6200225000
+"DNK","Denmark",1,13073336220000
+"DOM","Dominican Republic",1,2136848450000
+"DZA","Algeria",1,34622544760000
+"ECU","Ecuador",1,4069895515000
+"EGY","Egypt",1,67720595215000
+"ERI","Eritrea",1,672301350000
+"ESP","Spain",1,33908461745000
+"EST","Estonia",1,672216510000
+"ETH","Ethiopia",1,20680657995000
+"FIN","Finland",1,2961898490000
+"FJI","Fiji",1,497841505000
+"FRA","France",1,54909459540000
+"FRO","Faroe Islands",1,56507355000
+"GAB","Gabon",1,397109520000
+"GBR","United Kingdom",1,49146209015000
+"GEO","Georgia",1,2417887740000
+"GHA","Ghana",1,2858898105000
+"GIN","Guinea",1,1319273060000
+"GMB","Gambia",1,354910365000
+"GNB","Guinea-Bissau",1,114045910000
+"GNQ","Equatorial Guinea",1,109274500000
+"GRC","Greece",1,5828961555000
+"GRD","Grenada",1,27839700000
+"GRL","Greenland",1,0
+"GTM","Guatemala",1,2307970515000
+"GUY","Guyana",1,158971860000
+"HKG","Hong Kong SAR, China",1,829752395000
+"HND","Honduras",1,1136049240000
+"HRV","Croatia",1,1921119100000
+"HTI","Haiti",1,995791230000
+"HUN","Hungary",1,8736549485000
+"IDN","Indonesia",1,32480711405000
+"IND","India",1,349267773355000
+"IRL","Ireland",1,3861817945000
+"IRN","Iran (Islamic Republic of)",1,53240661785000
+"IRQ","Iraq",1,24449379340000
+"ISL","Iceland",1,166949025000
+"ISR","Israel",1,6235447980000
+"ITA","Italy",1,37590043050000
+"JAM","Jamaica",1,644541275000
+"JOR","Jordan",1,3518675320000
+"JPN","Japan",1,21887589275000
+"KAZ","Kazakhstan",1,20936326630000
+"KEN","Kenya",1,8158114075000
+"KGZ","Kyrgyzstan",1,2986725385000
+"KHM","Cambodia",1,61111855000
+"KIR","Kiribati",1,12383895000
+"KNA","Saint Kitts and Nevis",1,4684585000
+"KOR","Republic of Korea",1,12413938340000
+"KWT","Kuwait",1,1648149725000
+"LAO","Lao People's Democratic Republic",1,72934295000
+"LBN","Lebanon",1,4585208165000
+"LBR","Liberia",1,158062935000
+"LBY","Libya",1,3705838300000
+"LCA","Saint Lucia",1,38434170000
+"LKA","Sri Lanka",1,3450805190000
+"LSO","Lesotho",1,210362465000
+"LTU","Lithuania",1,3741873300000
+"LUX","Luxembourg",1,334515555000
+"LVA","Latvia",1,2132182235000
+"MAC","Macao SAR, China",1,93697555000
+"MAR","Morocco",1,26964687650000
+"MDA","Republic of Moldova",1,1882966565000
+"MDG","Madagascar",1,542602130000
+"MDV","Maldives",1,102979590000
+"MEX","Mexico",1,21703869620000
+"MKD","The former Yugoslav Republic of Macedonia",1,1312956005000
+"MLI","Mali",1,1366471880000
+"MLT","Malta",1,170094045000
+"MMR","Myanmar",1,1988759575000
+"MNE","Montenegro",1,302109860000
+"MNG","Mongolia",1,1753858115000
+"MOZ","Mozambique",1,2695443900000
+"MRT","Mauritania",1,2129790085000
+"MUS","Mauritius",1,466049610000
+"MWI","Malawi",1,350790350000
+"MYS","Malaysia",1,4633798085000
+"NAM","Namibia",1,410797170000
+"NCL","New Caledonia",1,117006070000
+"NER","Niger",1,489826880000
+"NGA","Nigeria",1,17873358785000
+"NIC","Nicaragua",1,657755650000
+"NLD","Netherlands",1,18063786410000
+"NOR","Norway",1,2841805810000
+"NPL","Nepal",1,7793593910000
+"NZL","New Zealand",1,2871775975000
+"OMN","Oman",1,2374892365000
+"PAK","Pakistan",1,87603183820000
+"PAN","Panama",1,656021405000
+"PER","Peru",1,7269312220000
+"PHL","Philippines",1,22929358415000
+"PNG","Papua New Guinea",1,973433675000
+"POL","Poland",1,28372987550000
+"PRK","Democratic People's Republic of Korea",1,1033953275000
+"PRT","Portugal",1,4320319165000
+"PRY","Paraguay",1,3332797035000
+"PSE","Occupied Palestinian Territory",1,450017045000
+"PYF","French Polynesia",1,75296920000
+"QAT","Qatar",1,828881370000
+"ROU","Romania",1,15624988200000
+"RUS","Russian Federation",1,151994756500000
+"RWA","Rwanda",1,272348570000
+"SAU","Saudi Arabia",1,12719581430000
+"SDN","Sudan",1,10166719075000
+"SEN","Senegal",1,2200880160000
+"SGP","Singapore",1,1395262345000
+"SLB","Solomon Islands",1,61767445000
+"SLE","Sierra Leone",1,209805645000
+"SLV","El Salvador",1,653688610000
+"SOM","Somalia",1,1719209475000
+"SRB","Serbia",1,7459588525000
+"SSD","South Sudan",1,173744915000
+"STP","Sao Tome and Principe",1,39112945000
+"SUR","Suriname",1,106610465000
+"SVK","Slovakia",1,3417784400000
+"SVN","Slovenia",1,714860660000
+"SWE","Sweden",1,9184408790000
+"SWZ","Swaziland",1,79907420000
+"SYC","Seychelles",1,23581085000
+"SYR","Syrian Arab Republic",1,11660794660000
+"TCD","Chad",1,121176100000
+"TGO","Togo",1,712288530000
+"THA","Thailand",1,10225349990000
+"TJK","Tajikistan",1,6642332360000
+"TKM","Turkmenistan",1,5396066635000
+"TLS","Timor-Leste",1,76778955000
+"TON","Tonga",1,17828445000
+"TTO","Trinidad and Tobago",1,408949185000
+"TUN","Tunisia",1,10446985295000
+"TUR","Turkey",1,83411443315000
+"TUV","Tuvalu",1,1.054e+09
+"TWN","Taiwan",1,4442346255000
+"TZA","United Republic of Tanzania",1,3503359820000
+"UGA","Uganda",1,1681873995000
+"UKR","Ukraine",1,34847074570000
+"URY","Uruguay",1,1982298270000
+"USA","United States of America",1,93006010400000
+"UZB","Uzbekistan",1,30445230495000
+"VCT","Saint Vincent and the Grenadines",1,59230360000
+"VEN","Venezuela (Bolivarian Republic of)",1,2799622590000
+"VNM","Viet Nam",1,9746428520000
+"VUT","Vanuatu",1,25065340000
+"YEM","Yemen",1,12549006370000
+"ZAF","South Africa",1,12313279800000
+"ZMB","Zambia",1,655869755000
+"ZWE","Zimbabwe",1,808159480000
