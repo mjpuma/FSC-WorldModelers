@@ -1,8 +1,5 @@
 Flag,Description
-*,Unofficial figure
-<blank>,Official data
-A,Aggregate; may include official; semi-official; estimated or calculated data
-F,FAO estimate
-Im,FAO data based on imputation methodology
-M,Data not available
-R,Estimated data using trading partners database
+A,Official figure
+E,Estimated value
+I,Imputed value
+T,Unofficial figure
