@@ -29,7 +29,10 @@ if (dir.exists("outputs") == FALSE) {
 # Step 1: Specify scenario ----
 # Parse arguments ====
 args <- commandArgs(trailingOnly = TRUE)
-working_directory <- c('/home/kikula/Documents/research/C2P2/fsc/FSC-WorldModelers/')             # Scenario from the FSC Scenario Library
+input_directory <- c('/home/kikuhla/data/input/fsc/')             # Scenario from the FSC Scenario Library
+scenario_directory <- c('/home/kikuhla/data/input/ukraine/forcing/fsc/')             # Scenario from the FSC Scenario Library
+#~ scenario_directory <- c('/home/kikuhla/data/input/ukraine/forcing/fsc/sensitivity_analysis/')             # Scenario from the FSC Scenario Library
+output_directory <- c('/home/kikuhla/data/output/ukraine/storyline/fsc/')             # Scenario from the FSC Scenario Library
 scenario <- c(args[1])             # Scenario from the FSC Scenario Library
 
 
@@ -39,7 +42,8 @@ scenario <- c(args[1])             # Scenario from the FSC Scenario Library
 # Step 2: Scenario library (read in files) ----
 # Production *fractional declines* list by year by country ====
 
-runname <- paste0('s-',scenario)
+runname <- paste0('fsc_',scenario)
+print(runname)
 #~ tryCatch(shock_scenario <- read.csv(paste0(working_directory,'inputs/ukraine/wheat_total_production_decline_',scenario,'.csv')),
 #~  error = function(e){
 #~      shock_scenario <- read.csv(paste0(working_directory,'inputs/ukraine/wheat_total_production_decline_0.csv'))})
@@ -53,24 +57,24 @@ runname <- paste0('s-',scenario)
 
 # Step 3: Load ancillary data ----
 # i) Commodity list for bilateral trade
-commodities <- read.csv(paste0(working_directory,"ancillary/Wheat_Avg20152017cropcommodity_tradelist.csv"))
+commodities <- read.csv(paste0(input_directory,"ancillary/Wheat_cropcommodity_tradelist.csv"))
 # ii) Load country list
-country_list <- read.csv(paste0(working_directory,"ancillary/country_list195_2012to2016.csv"))
+country_list <- read.csv(paste0(input_directory,"ancillary/country_list195_2012to2016.csv"))
 
 # Step 4: Load production/trade/stocks data ----
-load(paste0(working_directory,"inputs_processed/Wheat_Avg20192020_KKE0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
-load(paste0(working_directory,"inputs_processed/Wheat_Avg20192020_KKP0.Rdata")) #Production
-load(paste0(working_directory,"inputs_processed/Wheat_Avg20192020_KKR0.RData")) #Reserves (a.k.a. Stocks)
+load(paste0(input_directory,"processed/WheatE0.RData")) #Export Matrix ordered by FAOSTAT country code (increasing)
+load(paste0(input_directory,"processed/WheatP0.Rdata")) #Production
+load(paste0(input_directory,"processed/WheatR0.RData")) #Reserves (a.k.a. Stocks)
 
 
 
 
 
-if(!file.exists(paste0(working_directory,'inputs/ukraine/wheat_total_production_decline_',scenario,'.csv'))){
-    print("Production: error")
+if(!file.exists(paste0(scenario_directory,'wheat_total_production_decline_',scenario,'.csv'))){
+    print(paste0("ERROR: Productionfile: ",paste0(scenario_directory,'wheat_total_production_decline_',scenario,'.csv')))
     quit()
 } else {
-    shock_scenario <- read.csv(paste0(working_directory,'inputs/ukraine/wheat_total_production_decline_',scenario,'.csv'))
+    shock_scenario <- read.csv(paste0(scenario_directory,'wheat_total_production_decline_',scenario,'.csv'))
 }
 
 # Step 5: Setup production and shocks; initialize output vectors ----
@@ -82,7 +86,7 @@ Shocks <- plyr::join(country_list,shock_scenario, by = 'iso3')
 Shocks[is.na(Shocks)] <- 0
 
 
-Shocks$year_1 <- Shocks$year_1
+Shocks$anomaly <- Shocks$anomaly
 
 
 
@@ -135,15 +139,20 @@ InputFSC <- tibble(iso3 = names(R0), R0 = R0)
 # Separate NEGATIVE and POSITIVE shock anomalies ====
 #   Fractional gains and losses in production
 #   Note: Initial production, P0, is fixed but Shocks vary in time
-FracGain <- Shocks$year_1
-FracGain <- -FracGain      # adjust sign (fractional *declines* read in)
+FracGain <- Shocks$anomaly
+#~ FracGain <- FracGain      # adjust sign (fractional *declines* read in)
 
-FracLoss <- Shocks[4]
-FracLoss <- -FracLoss      # adjust sign (fractional *declines* read in)
+#~ print(FracGain)
+#~ FracLoss <- Shocks[4]
+FracLoss <- Shocks$anomaly
+#~ FracLoss <- -FracLoss      # adjust sign (fractional *declines* read in)
+#~ FracLoss <- FracLoss      # adjust sign (fractional *declines* read in)
+
 
 # Create vector for NEGATIVE shock anomalies ====
 dP <-  FracLoss * Shocks$P0 
 Shocks$dP <- dP
+
 # Set Reserves and add POSTIVE anomalies to reserves ====
 InputFSC <- plyr::join(Shocks,InputFSC, by = 'iso3')
 
@@ -188,16 +197,18 @@ E_initial_out[,1]<-rowSums(trade_dat$E)
 
 
 
-if(!file.exists(paste0(working_directory,'inputs/ukraine/wheat_export_restriction_',scenario,'.csv'))){
-    print("Export: error")
+if(!file.exists(paste0(scenario_directory,'wheat_export_restriction_',scenario,'.csv'))){
+#~     print("Export: error")
+    print(paste0("ERROR: Exportfile: ",paste0(scenario_directory,'wheat_export_restriction_',scenario,'.csv')))
+
     quit()
 } else {
-    restriction_scenario <- read.csv(paste0(working_directory,'inputs/ukraine/wheat_export_restriction_',scenario,'.csv'))
+    restriction_scenario <- read.csv(paste0(scenario_directory,'wheat_export_restriction_',scenario,'.csv'))
     Restriction <- plyr::join(country_list,restriction_scenario, by = 'iso3')
     Restriction[is.na(Restriction)] <- 0
     for (ii in Restriction$iso3) {
         i_restrict = which(Restriction$iso3 ==ii)
-        reduce_factor <- c(Restriction$year_1[i_restrict])
+        reduce_factor <- c(Restriction$anomaly[i_restrict])
         Rcurrent[i_restrict] = Rcurrent[i_restrict] + reduce_factor*sum(E0[i_restrict,])
         #  Impose export restrictions by reducing exports
         E0[i_restrict,]<- (1. - reduce_factor)*E0[i_restrict,]
@@ -438,18 +449,18 @@ C0out_df <- gather(C0out_df, Year, Value, -iso3, -Country)
 C0out_df$Year <- as.numeric(gsub("[a-zA-Z ]", "", C0out_df$Year))
 
 ## Save as CSV
-write.csv(P_initial_out_df, paste0(working_directory,"outputs/ukraine/",runname,"_production_initial.csv"), row.names = FALSE)
-write.csv(P_final_out_df, paste0(working_directory,"outputs/ukraine/",runname,"_production_final.csv"), row.names = FALSE)
-write.csv(R_initial_out_df, paste0(working_directory,"outputs/ukraine/",runname,"_reserve_initial.csv"), row.names = FALSE)
-write.csv(R_final_out_df, paste0(working_directory,"outputs/ukraine/",runname,"_reserve_final.csv"), row.names = FALSE)
+write.csv(P_initial_out_df, paste0(output_directory,runname,"_production_initial.csv"), row.names = FALSE)
+write.csv(P_final_out_df, paste0(output_directory,runname,"_production_final.csv"), row.names = FALSE)
+write.csv(R_initial_out_df, paste0(output_directory,runname,"_reserve_initial.csv"), row.names = FALSE)
+write.csv(R_final_out_df, paste0(output_directory,runname,"_reserve_final.csv"), row.names = FALSE)
 
-write.csv(E_initial_out_df, paste0(working_directory,"outputs/ukraine/",runname,"_export_initial.csv"), row.names = FALSE)
-write.csv(E_final_out_df, paste0(working_directory,"outputs/ukraine/",runname,"_export_final.csv"), row.names = FALSE)
-write.csv(I_initial_out_df, paste0(working_directory,"outputs/ukraine/",runname,"_import_initial.csv"), row.names = FALSE)
-write.csv(I_final_out_df, paste0(working_directory,"outputs/ukraine/",runname,"_import_final.csv"), row.names = FALSE)
+write.csv(E_initial_out_df, paste0(output_directory,runname,"_export_initial.csv"), row.names = FALSE)
+write.csv(E_final_out_df, paste0(output_directory,runname,"_export_final.csv"), row.names = FALSE)
+write.csv(I_initial_out_df, paste0(output_directory,runname,"_import_initial.csv"), row.names = FALSE)
+write.csv(I_final_out_df, paste0(output_directory,runname,"_import_final.csv"), row.names = FALSE)
 
-write.csv(C2out_df, paste0(working_directory,"outputs/ukraine/",runname,"_supply_final.csv"), row.names = FALSE)
-write.csv(C0out_df, paste0(working_directory,"outputs/ukraine/",runname,"_supply_initial.csv"), row.names = FALSE)
+write.csv(C2out_df, paste0(output_directory,runname,"_supply_final.csv"), row.names = FALSE)
+write.csv(C0out_df, paste0(output_directory,runname,"_supply_initial.csv"), row.names = FALSE)
 
 # Save Exports as R data file
-saveRDS(Eout, file = paste0(working_directory,"outputs/ukraine/", runname,"_ExportStatic.rds"))
+saveRDS(Eout, file = paste0(output_directory,runname,"_ExportStatic.rds"))

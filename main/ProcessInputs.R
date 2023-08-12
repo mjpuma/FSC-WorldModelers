@@ -16,31 +16,38 @@ nameinput <- c(args[1])
 print(nameinput)
 #~ nameinput <- c('Rice_Avg20152017')      
 topdir <- getwd()
-setwd("/home/kikula/Documents/research/C2P2/fsc/FSC-WorldModelers/")
+setwd("/home/kikuhla/data/input/fsc/")
 
 # Set year range for production, trade, and reserves data ---------------------------------
 #~ yr_range <- 2015:2017
-yr_range <- 2019:2020
+yr_range <- 2018:2021
 
 # Load ancillary data  ---------------------------------
 # 1) Load country list valid for simulation years
 country_list <- read.csv("ancillary/country_list195_2012to2016.csv")
 # 2)  Commodity list for bilateral trade 
-#~ commodities<-read.csv("ancillary/cropcommodity_tradelist.csv")
-commodities<-read.csv(paste0("ancillary/", nameinput, "cropcommodity_tradelist.csv"))
+
+if (is.na(nameinput)) {
+    commodities<-read.csv("ancillary/cropcommodity_tradelist.csv")
+    commodities_prod<-read.csv("ancillary/cropcommodity_prodlist.csv")
+    commodities_reserves<-read.csv("ancillary/cropcommodity_reserveslist.csv")
+} else {
+    commodities<-read.csv(paste0("ancillary/", nameinput, "_cropcommodity_tradelist.csv"))
+    commodities_prod<-read.csv(paste0("ancillary/", nameinput, "_cropcommodity_prodlist.csv"))
+    commodities_reserves<-read.csv(paste0("ancillary/", nameinput, "_cropcommodity_reserveslist.csv"))
+}
 # 3)  Commodity list for production
 #~ commodities_prod<-read.csv("ancillary/cropcommodity_prodlist.csv")
-commodities_prod<-read.csv(paste0("ancillary/", nameinput, "cropcommodity_prodlist.csv"))
+#~ commodities_prod<-read.csv(paste0("ancillary/", nameinput, "cropcommodity_prodlist.csv"))
 # 4)  Commodity list for reserves
-#~ commodities_reserves<-read.csv("ancillary/cropcommodity_reserveslist.csv")
-commodities_reserves<-read.csv(paste0("ancillary/", nameinput, "cropcommodity_reserveslist.csv"))
+#~ commodities_reserves<-read.csv(paste0("ancillary/", nameinput, "cropcommodity_reserveslist.csv"))
 
 # PART 1: Trade (Detailed trade matrix pre-downloaded trade from FAOSTAT)  --------------
 
 # Step 1: Download detailed trade matrix from FAO  ====
-trade_dat <- read.csv("inputs/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv",
+trade_dat <- read.csv("raw/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv",
                       stringsAsFactors = FALSE)
-#~ trade_dat <- read.csv("inputs/trade_matrix_normalized.csv",
+#~ trade_dat <- read.csv("raw/trade_matrix_normalized.csv",
 #~                       stringsAsFactors = FALSE)
 
 # Step 2: Filter using "dplyr" filter function: 1) by year and 2) by "cropcommodity_list"  ====
@@ -76,46 +83,47 @@ exp_mat <- exp_mat[, match(country_list$FAOST_CODE, dimnames(exp_mat)[[2]]), ]
 exp_mat[is.na(exp_mat)] <- 0
 dimnames(exp_mat) <- list(country_list$FAOST_CODE, country_list$FAOST_CODE, yr_range)
 E0 <- apply(exp_mat[, , 1:length(yr_range)], 1:2, mean) ###Remove before commit (assumes fixed length 1:5)
-print(E0)
+#~ print(E0)
 # Step 7: Save bilateral export matrix ordered by FAOSTAT country code ====
 #         FAOSTAT country code are in increasing order
 #~ save(E0, file="inputs_processed/E0.RData")
-save(E0, file=paste0("inputs_processed/", nameinput, "E0.RData"))
+save(E0, file=paste0("processed/", nameinput, "E0.RData"))
 
 # Export matrices with country names
 Tkbyc<-as.data.frame(E0, row.names = country_list$Country, col.names = dimnames(E0)[[2]] )
 #~ write.csv(Tkbyc, "inputs_processed/E0.csv")
-write.csv(Tkbyc, paste0("inputs_processed/", nameinput, "E0.csv"))
+write.csv(Tkbyc, paste0("processed/", nameinput, "E0.csv"))
 
 
 ## PART 2 : Get production data from FAOSTAT  ----
 ## QC: production-crops domain, 5510: production in tonnes
 
 # Step 1: Download and import production data from FAOSTAT ==== 
-prod_dat<-read.csv("inputs/Production_Crops_Livestock_E_All_Data_(Normalized).csv")
+prod_dat<-read.csv("raw/Production_Crops_Livestock_E_All_Data_(Normalized).csv")
 #~ prod_dat<-read.csv("inputs/production_normalized.csv")
-
+#~ print("prod_dat0")
+#~ print(prod_dat)
 # Step 2: Format imported data ====
 #~ yr_range = 2015:2017
-yr_range = 2019:2020
+yr_range = 2018:2021
 # Rename to match functions code
 prod_dat$FAO<-prod_dat$Area.Code
 prod_dat$itemCode<-prod_dat$Item.Code
 prod_dat$FAOST_CODE<-prod_dat$Area.Code
 prod_dat$name<-prod_dat$Item
-
+#~ print("prod_dat1")
+#~ print(prod_dat)
 # Keep only relevant columns
 prod_dat <- prod_dat[, c("FAOST_CODE", "Year", "Value", "itemCode","Element", "name")]
-
+#~ print("prod_dat1.5")
+#~ print(prod_dat)
 # Step 3: Filter data by year and commodity ====
 prod_dat<-prod_dat  %>%
   dplyr::filter(Year %in% yr_range) %>%
   dplyr::filter(itemCode %in% commodities_prod$cropid) %>%
   dplyr::filter(Element %in% commodities_prod$element)
 
-print(commodities_prod$cropid)
-
-
+#~ print(commodities_prod$cropid)
 
 # Step 4: Convert units and sum across commodities ====
 #         Add kcal conversion factor,
@@ -129,13 +137,14 @@ prod_agg <- inner_join(prod_dat, commodities, by = c("itemCode" = "cropid")) %>%
 #~ print(prod_agg)
 
 # Step 5: Reshape data into country x year matrix ----
+
 prod_mat <- spread(prod_agg, key = Year, value = pkcal, fill = 0)
 prod_mat <- prod_mat[match(country_list$FAOST_CODE, prod_mat$FAOST_CODE), ] #expand to include all countries
 prod_mat <- as.matrix(prod_mat[, -1]) #remove country code column
 prod_mat[is.na(prod_mat)] <- 0 #replace NAs with 0
 
 # Step 6: Average for time period and put in  dataframe ----
-print(prod_mat[, 1:length(yr_range)])
+#~ print(prod_mat[, 1:length(yr_range)])
 P0 <- rowMeans(prod_mat[, 1:length(yr_range)])
 #~ print(length(yr_range))
 colnames(prod_mat) <- NULL
@@ -147,9 +156,9 @@ colnames(Pkbyc)[1] <- "iso3"
 #~ write.csv(Pkbyc,"inputs_processed/Production.csv", row.names=FALSE)
 #~ save(Pkbyc, file= "inputs_processed/P0.Rdata")
 #~ save(P0, E0, file="inputs_processed/P0E0.RData")
-write.csv(Pkbyc,paste0("inputs_processed/", nameinput, "Production.csv"), row.names=FALSE)
-save(Pkbyc, file= paste0("inputs_processed/", nameinput, "P0.Rdata"))
-save(P0, E0, file=paste0("inputs_processed/", nameinput, "P0E0.RData"))
+write.csv(Pkbyc,paste0("processed/", nameinput, "Production.csv"), row.names=FALSE)
+save(Pkbyc, file= paste0("processed/", nameinput, "P0.Rdata"))
+save(P0, E0, file=paste0("processed/", nameinput, "P0E0.RData"))
 
 # Clear unneeded files
 rm(prod_dat, prod_agg)
@@ -160,9 +169,9 @@ rm(prod_dat, prod_agg)
 #         Download the file USDA-PSD data pulses grains
 #~ yr_range = 2017:2019 # NOTE: length must match number of years for production
 #~ yr_range = 2017:2019 # NOTE: length must match number of years for production
-yr_range = 2019:2020 # NOTE: length must match number of years for production
+yr_range = 2018:2021 # NOTE: length must match number of years for production
 # Step 1: Load data ----
-psd <- read.csv("inputs/psd_grains_pulses.csv")
+psd <- read.csv("raw/psd_grains_pulses.csv")
 
 # Step 2: Extract year-end stocks for specified year range ---- 
 #         Units: 1000 metric tons
@@ -291,18 +300,18 @@ Rkbyc_all[is.na(Rkbyc_all)] <- 0
 rownames(Rkbyc_all)<-country_list$Country
 dimnames(Rkbyc_all)<-NULL
 #~ saveRDS(Rkbyc_all, file = "inputs_processed/cereals_stocks.RData")
-saveRDS(Rkbyc_all, file = paste0("inputs_processed/", nameinput, "cereals_stocks.RData"))
+saveRDS(Rkbyc_all, file = paste0("processed/", nameinput, "cereals_stocks.RData"))
 
 # Take average years and save as R0 ====
 dimnames(Rkbyc_all) <- list(country_list$iso3, yr_range)
 R0 <- rowMeans(Rkbyc_all[, eu_yrs])
 R0<-R0[!is.na(names(R0))]
 #~ save(R0, file = "inputs_processed/R0.RData")
-save(R0, file = paste0("inputs_processed/", nameinput, "R0.RData"))
+save(R0, file = paste0("processed/", nameinput, "R0.RData"))
 
 Rkbyc<-data_frame(iso3=names(R0), R0=R0)
 #~ write.csv(Rkbyc,"inputs_processed/Reserves.csv", row.names=FALSE)
-write.csv(Rkbyc,paste0("inputs_processed/", nameinput, "Reserves.csv"), row.names=FALSE)
+write.csv(Rkbyc,paste0("processed/", nameinput, "Reserves.csv"), row.names=FALSE)
 
 ### clear environment
 #rm(list=ls()) 
