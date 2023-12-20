@@ -30,8 +30,8 @@ if (dir.exists("outputs") == FALSE) {
 # Parse arguments ====
 args <- commandArgs(trailingOnly = TRUE)
 input_directory <- c('/home/kikuhla/data/input/fsc/')             # Scenario from the FSC Scenario Library
-scenario_directory <- c('/home/kikuhla/data/input/ukraine/forcing/fsc/')             # Scenario from the FSC Scenario Library
-#~ scenario_directory <- c('/home/kikuhla/data/input/ukraine/forcing/fsc/sensitivity_analysis/')             # Scenario from the FSC Scenario Library
+#~ scenario_directory <- c('/home/kikuhla/data/input/ukraine/forcing/fsc/')             # Scenario from the FSC Scenario Library
+scenario_directory <- c('/home/kikuhla/data/input/ukraine/forcing/fsc/sensitivity_analysis/')             # Scenario from the FSC Scenario Library
 output_directory <- c('/home/kikuhla/data/output/ukraine/storyline/fsc/')             # Scenario from the FSC Scenario Library
 scenario <- c(args[1])             # Scenario from the FSC Scenario Library
 
