@@ -1,6 +1,5 @@
-
 <p align="center">
-  <img src="assets/FSC_logo.png" width="400" alt="Food Shock Cascade (FSC) model logo">
+  <img src="clean_vector_logo_on_white_background_a_circular.png" width="400" alt="Food Shock Cascade (FSC) model logo">
 </p>
 
 # Food Shock Cascade
