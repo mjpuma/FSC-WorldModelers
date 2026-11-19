@@ -78,7 +78,9 @@ sim_cascade_PTA <-
         food_net$trade_freeze <- flag
     }
 
-    for (k in 1:kmax) {
+    k <- 0L
+    converged <- FALSE
+    for (k in seq_len(kmax)) {
       if (verbose) cat("iteration", k, "of", kmax, "\n")
       new_food_net <- food_net %>%
         draw_reserves() %>%
@@ -95,12 +97,16 @@ sim_cascade_PTA <-
       new_food_net <- realloc_trade_prop_link(new_food_net, exp_freeze = freeze)
       if (isTRUE(all.equal.numeric(food_net$E, new_food_net$E, check.attributes = TRUE))) {
         food_net <- new_food_net
+        converged <- TRUE
         break
       } else if (k == kmax) {
         warning("No equilibrium reached after maximum number of iterations", call. = FALSE)
       }
       food_net <- new_food_net
     }
+    # Diagnostic only. The trade update above is unchanged.
+    food_net$cascade_iterations <- as.integer(k)
+    food_net$cascade_converged <- converged
     enforce_nonnegative_domestic(food_net)
   }
 
@@ -131,7 +137,9 @@ sim_cascade_RTA <-
         food_net$trade_freeze <- flag
     }
 
-    for (k in 1:kmax) {
+    k <- 0L
+    converged <- FALSE
+    for (k in seq_len(kmax)) {
       if (verbose) cat("iteration", k, "of", kmax, "\n")
       new_food_net <- food_net %>%
         draw_reserves() %>%
@@ -148,11 +156,15 @@ sim_cascade_RTA <-
       new_food_net <- increase_imp_prop_resv(new_food_net, avail = offer)
       if (isTRUE(all.equal(food_net$E, new_food_net$E))) {
         food_net <- new_food_net
+        converged <- TRUE
         break
       } else if (k == kmax) {
         warning("No equilibrium reached after maximum number of iterations", call. = FALSE)
       }
       food_net <- new_food_net
     }
+    # Diagnostic only. The trade update above is unchanged.
+    food_net$cascade_iterations <- as.integer(k)
+    food_net$cascade_converged <- converged
     enforce_nonnegative_domestic(food_net)
   }

@@ -302,6 +302,26 @@ The world total does not change when trade is allowed to reroute. The world tota
 
 These percentages are shares of that commodity's use. They are not shares of calories or of a household diet.
 
+### Which allocation rule for a flood run
+
+`main/run_allocation_comparison.R` runs the same 2018 to 2021 mean network under three existing settings. It does not add a new trade rule.
+
+| Name in the output | Code | Role |
+|---|---|---|
+| `modified_pta` | `sim_cascade_PTA`, `freeze_empty_reserves = FALSE` | Primary setting for a flood run. Other exporters can still move grain on existing links when usable reserves are zero. An explicit ban stays closed. |
+| `published_pta` | `sim_cascade_PTA`, `freeze_empty_reserves = TRUE` | The published reference. At alpha 0 every exporter is frozen. `main.R` still uses this. |
+| `rta` | `sim_cascade_RTA`, `rexp = 0.2` | Reserves-offer sensitivity. Extra exports come only from remaining reserves, and only one fifth of those reserves is offered on each pass. At alpha 0 that offer is zero, so the result matches published PTA. |
+
+The grid is every placeholder flood, four values of alpha (0, 0.25, 0.5, 1), and two policies: the production shock alone, and that shock plus the reactive ban in the shock file. The production shock alone is the flood experiment. The ban is a sensitivity. The same script also repeats the wheat and rice export-ban grid under all three rules. `benchmark_results.csv` is left as the published PTA record.
+
+On the placeholders, with reserves closed, the world consumption loss is the same under all three rules. The shocked country's share of that loss is not. Modified PTA keeps that share between 1.8 and 9.9 percent. Published PTA keeps it near 1 percent for a large exporter and much higher for a smaller one. Domestic use still takes only 1 percent of the remaining shortage on each pass, so the loss still leaves mostly through trade. That step was not changed.
+
+Modified PTA often reaches the 50-iteration cap when alpha is 0. The world total is stable if the same case is allowed to run longer. Country totals can still shift, so a partner ranking from a capped run is approximate. The cap was not raised. Mass-balance notes, including the constant maize residual and the EU-28 wheat gap under the published rule, are in `outputs/yawei_benchmarks/ALLOCATION_COMPARISON.md`.
+
+```
+Rscript main/run_allocation_comparison.R
+```
+
 ### Checks on the flood package
 
 On the files as built: production has 195 countries in every year from 2002 to 2024, no duplicate country-years, and no negative tonnes. Rice production uses the single factor 0.67. Trade files have no self-trade and no negative flows. 2024 production in the package is 798 Mt of wheat, 1,215 Mt of maize, 398 Mt of soybean, and 549 Mt of milled rice. About a quarter of wheat stock rows have no USDA beginning stock. They are flagged, not filled with a silent zero.
@@ -310,6 +330,7 @@ Wheat and rice ban runs close the world balance within 1 kt: the fall in use equ
 
 ```
 Rscript tests/test_fsc_safety.R
+Rscript tests/test_allocation_specs.R
 Rscript tests/test_rice_price_step.R
 Rscript tests/test_process_inputs.R
 ```
@@ -351,6 +372,7 @@ Network summaries at the start and the end of the run:
 | `main/fetch_faostat_bulk.py` | Downloads FAOSTAT production and trade through at least 2024. |
 | `main/export_riken_inputs.py` | Writes the metric-ton package for 2002 to 2024. |
 | `main/run_yawei_benchmarks.R` | Export-ban and placeholder-flood grid. Writes `outputs/yawei_benchmarks/`. |
+| `main/run_allocation_comparison.R` | Same baseline under modified PTA, published PTA, and RTA. |
 | `main/export_figure_cases.R` | Country and edge results for the figures. |
 | `main/plot_report_figures.py` | Maps and charts, and `outputs/yawei_benchmarks/REPORT.md`. |
 | `R/rice_price_step.R` | Uncalibrated rice price index. Not used in the figures. |
