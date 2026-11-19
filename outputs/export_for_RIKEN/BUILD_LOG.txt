@@ -1,0 +1,22 @@
+Countries in the lookup: 195
+Re-export netting: True
+Production units: t
+Production rows after item filter: 15041
+Split FAO 206 (Sudan (former)) for maize through 2011: 276=0.1992, 277=0.8008
+Split FAO 206 (Sudan (former)) for rice_milled through 2011: 276=1.0000, 277=0.0000
+Split FAO 206 (Sudan (former)) for wheat through 2011: 276=1.0000, 277=0.0000
+Split FAO 186 (Serbia and Montenegro) for maize through 2005: 272=0.9993, 273=0.0007
+Split FAO 186 (Serbia and Montenegro) for soybean through 2005: 272=1.0000, 273=0.0000
+Split FAO 186 (Serbia and Montenegro) for wheat through 2005: 272=0.9993, 273=0.0007
+Trade edges before country crosswalk: 273764
+Trade tonnes dropped on FAO aggregate areas: 0.000
+Trade tonnes dropped because a reporter or partner is outside the FSC list: 32488902.765
+Self-trade tonnes dropped: 394005.296
+Re-export netting is on for HKG, ARE, SGP, NLD, ITA.
+Re-export tonnes recorded: 172155320.579
+PSD names with no ISO3 match: Angola, Reunion
+PSD country-attribute rows: 48575
+Split PSD Serbia and Montenegro for maize: 272=0.9993, 273=0.0007
+Split PSD Serbia and Montenegro for soybean: 272=1.0000, 273=0.0000
+Split PSD Serbia and Montenegro for wheat: 272=0.9993, 273=0.0007
+Reserve rows filled with the median stock-to-use proxy: 4878

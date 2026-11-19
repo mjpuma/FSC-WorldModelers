@@ -19,7 +19,7 @@ if (dir.exists("outputs") == FALSE) {
 args <- commandArgs(trailingOnly = TRUE)
 FSCversion <- c(as.numeric(args[1]))             # PTA or RTA version of the Food Shock Cascade Model
 i_scenario <- c(as.numeric(args[2]))             # Scenario from the FSC Scenario Library
-fractional_reserve_access <- as.numeric(args[3]) # Parameter specifying fraction of "accessible" existing reserves
+fractional_reserve_access <- clamp_alpha(args[3]) # Accessible share of existing reserves (alpha)
 
 # #  RStudio or similar integrated development environment (IDE)
 # #  Specify arguments  ====
@@ -70,16 +70,8 @@ if (i_scenario == 1) {
 years0 <- 0:num_years # vector includes initial year
 years <- 1:num_years
 
-# Format column names
-column_names <- 0
-for(i in 1:num_years+1) {
-  column_names[i] <- toString(years0[i])
-}
-
-column_names2 <- 0
-for(i in years) {
-  column_names2[i] <- toString(years[i])
-}
+column_names <- as.character(years0)
+column_names2 <- as.character(years)
 
 #Production decline fractions (positive values=> decline; negative values => increase)
 anomalies <- read.csv(paste0("inputs/", shock_scenario, ".csv"))
@@ -104,7 +96,12 @@ load(paste0("inputs_processed/", baseline_name, "P0.Rdata")) #Production
 load(paste0("inputs_processed/", baseline_name, "R0.RData")) #Reserves (a.k.a. Stocks)
 
 # Step 5: Setup production and shocks; initialize output vectors ----
-# Assign production vector to P0 ====
+# Production, trade, and reserves must share the iso3-sorted country order.
+iso_order <- as.character(country_list$iso3)
+if (!setequal(as.character(Pkbyc$iso3), iso_order)) {
+  stop("Production iso3 codes do not match the country list")
+}
+Pkbyc <- Pkbyc[match(iso_order, as.character(Pkbyc$iso3)), ]
 P0 <- Pkbyc
 
 # Create 'Shocks' dataframe ====
@@ -115,7 +112,15 @@ Shocks[is.na(Shocks)] <- 0
 P <- P0
 Shocks <- merge(Shocks, P, by = "iso3")
 Shocks <- Shocks[order(Shocks$iso3), ]
+year_cols <- grep("^year_", names(Shocks), value = TRUE)
+if (length(year_cols) < num_years) {
+  stop("Shock file has fewer year_* columns than the scenario requests")
+}
+for (col in year_cols) {
+  Shocks[[col]] <- clamp_shock_fraction(Shocks[[col]], Shocks$iso3, col)
+}
 Prod <- as.numeric(unlist(P0$P0))
+names(Prod) <- iso_order
 
 # Initialize  output vectors ====
 Pout <-  array(0, c(nrow(country_list), length(years) + 1))
@@ -130,6 +135,14 @@ dR_C0out <- array(0, c(nrow(country_list), length(years)))
 
 ## Add initial conditions to output arrays
 E0 <- E0_avg
+if (!identical(rownames(E0), iso_order) || !identical(colnames(E0), iso_order)) {
+  stop("Export matrix dimnames are not the iso3-sorted country list")
+}
+assert_no_self_loops(E0)
+if (!setequal(names(R0), iso_order)) {
+  stop("Reserve names do not match the country list")
+}
+R0 <- R0[iso_order]
 Eout[, , 1] <- E0
 Pout[, 1] <- Prod
 Rout[, 1] <- R0
@@ -142,41 +155,32 @@ for (i in 1:length(years)) {
   ## Update progress in time loop
   cat('Timestep', i, 'of', length(years), '\n')
   
-  # Separate NEGATIVE and POSITIVE shock anomalies ====
-  #   Fractional gains and losses in production
-  #   Note: Initial production, P0, is fixed but Shocks vary in time
-  FracGain <- Shocks[i + 3]
-  FracGain[FracGain > 0] <- 0
-  FracGain <- -FracGain      # adjust sign (fractional *declines* read in)
-  
-  FracLoss <- Shocks[i + 3]
-  FracLoss[FracLoss < 0] <- 0
-  FracLoss <- -FracLoss      # adjust sign (fractional *declines* read in)
-  
-  # Create vector for NEGATIVE shock anomalies ====
-  dP <-  FracLoss * Shocks$P0 
+  # Scenario files store declines as positive fractions and gains as negative.
+  # Fractions were clamped to [-1, 1] when the shock file was read.
+  shock_frac <- Shocks[[paste0("year_", i)]]
+  FracGain <- pmax(-shock_frac, 0)
+  FracLoss <- pmax(shock_frac, 0)
+  dP <- -FracLoss * Shocks$P0
+  names(dP) <- Shocks$iso3
   Shocks$dP <- dP
-  
-  # Set Reserves and add POSTIVE anomalies to reserves ====
+
+  # Reserves carry forward. Production gains are added to stocks, not to dP.
   if (i == 1) {
-    ## First timestep: add Shocks into InputFSC dataframe
-    InputFSC <- merge(Shocks,InputFSC, by = 'iso3', all.x = TRUE, all.y = FALSE)
+    InputFSC <- merge(Shocks, InputFSC, by = "iso3", all.x = TRUE, all.y = FALSE)
     InputFSC <- InputFSC[order(InputFSC$iso3), ]
-    
-    # Add positive anomalies to reserves ====
-    InputFSC$Rcurrent <- InputFSC$R0  + (InputFSC$P0 * FracGain)
-    Rcurrent <- as.numeric(unlist(InputFSC$Rcurrent))
-    
+    InputFSC$Rcurrent <- pmax(0, InputFSC$R0 + InputFSC$P0 * FracGain)
+    Rcurrent <- as.numeric(InputFSC$Rcurrent)
   } else {
-    # Update reserve levels: use ending levels from previous timestep and add production gains
-    Rcurrent <- Rcurrent + results_FSC$dR  + InputFSC$P0 * FracGain
-    Rcurrent <- as.numeric(unlist(Rcurrent))
+    Rcurrent <- pmax(0, as.numeric(Rcurrent) + as.numeric(results_FSC$dR) +
+                       as.numeric(InputFSC$P0) * as.numeric(FracGain))
   }
   
   # Update state variables for trade_dat ====
   if (i == 1) {
     # Assign production, reserves, and export matrix
     trade_dat <- list(P = Prod, R = Rcurrent, E = E0)
+    names(trade_dat$P) <- iso_order
+    names(trade_dat$R) <- iso_order
     # Number of countries
     trade_dat$nc <- length(trade_dat$P)
     # Change in reserves; set initially to zero
@@ -195,6 +199,8 @@ for (i in 1:length(years)) {
     # Assign production, reserves *from previous timestep*, and export matrix
     #   i.e. update only reserves; leave consumption & trade at initial levels
     trade_dat <- list(P = Prod, R = Rcurrent, E = E0)
+    names(trade_dat$P) <- iso_order
+    names(trade_dat$R) <- iso_order
     # Number of countries
     trade_dat$nc <- length(trade_dat$P)
     # Change in reserves
@@ -218,13 +224,13 @@ for (i in 1:length(years)) {
   # Store outputs of interest from simulations ====
   #   Output: 1D arrays
   Pout[, i + 1]    <- results_FSC$P
-  Rout[, i + 1]    <- Rcurrent + results_FSC$dR
+  Rout[, i + 1]    <- pmax(0, Rcurrent + results_FSC$dR)
   Cout[, i + 1]    <- results_FSC$C
   shortageout[, i] <- results_FSC$shortage
-  #     consumption relative to initial consumption
-  C1_C0out[, i] <- results_FSC$C / C0_initial
-  #     change in reserves relative to initial consumption
-  dR_C0out[, i] <- results_FSC$dR / C0_initial
+  # Countries with zero baseline consumption (for example Netherlands Antilles)
+  # would otherwise produce Inf. Those ratios are stored as NA.
+  C1_C0out[, i] <- safe_ratio(results_FSC$C, C0_initial)
+  dR_C0out[, i] <- safe_ratio(results_FSC$dR, C0_initial)
   
   #   Output: 2D arrays
   Eout[, , i + 1]  <- results_FSC$E

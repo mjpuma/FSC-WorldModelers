@@ -1,0 +1,7 @@
+event_id,event_label,crop,iso3,year,production_loss_fraction,reactive_ban_fraction,shock_source,note
+thailand_2011,Thailand 2011,rice_milled,THA,2011,0.15,0.95,placeholder_pending_junshi,Placeholder loss until Junshi's flood shocks replace this file.
+pakistan_2022_wheat,Pakistan 2022,wheat,PAK,2022,0.10,0.95,placeholder_pending_junshi,Placeholder loss until Junshi's flood shocks replace this file.
+pakistan_2022_rice,Pakistan 2022,rice_milled,PAK,2022,0.10,0.95,placeholder_pending_junshi,Placeholder loss until Junshi's flood shocks replace this file.
+myanmar_2008,Myanmar 2008,rice_milled,MMR,2008,0.15,0.95,placeholder_pending_junshi,Placeholder loss until Junshi's flood shocks replace this file.
+us_midwest_2011_maize,US Midwest 2011,maize,USA,2011,0.10,0.95,placeholder_pending_junshi,Placeholder loss until Junshi's flood shocks replace this file. The shock is applied to the whole USA node.
+us_midwest_2011_wheat,US Midwest 2011,wheat,USA,2011,0.05,0.95,placeholder_pending_junshi,Placeholder loss until Junshi's flood shocks replace this file. The shock is applied to the whole USA node.

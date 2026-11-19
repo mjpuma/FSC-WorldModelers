@@ -1,0 +1,196 @@
+iso3,fao_code,m49,country_name,psd_code,psd_name,successor_note,reexport_hub,in_fsc195
+AFG,2,4,Afghanistan,AF,Afghanistan,,0,1
+ALB,3,8,Albania,AL,Albania,,0,1
+ANT,151,,Netherlands Antilles,,Netherlands Antilles,,0,1
+ARB,22,533,Aruba,AA,Aruba,,0,1
+ARE,225,784,United Arab Emirates,TC,United Arab Emirates,,1,1
+ARG,9,32,Argentina,AR,Argentina,,0,1
+ARM,1,51,Armenia,AM,Armenia,,0,1
+ATG,8,28,Antigua and Barbuda,AC,Antigua and Barbuda,,0,1
+AUS,10,36,Australia,AS,Australia,,0,1
+AUT,11,40,Austria,AU,Austria,,0,1
+AZE,52,31,Azerbaijan,AJ,Azerbaijan,,0,1
+BDI,29,108,Burundi,BY,Burundi,,0,1
+BEL,255,56,Belgium,S8,Belgium,,0,1
+BEN,53,204,Benin,DM,Benin,,0,1
+BFA,233,854,Burkina Faso,UV,Burkina,,0,1
+BGD,16,50,Bangladesh,BG,Bangladesh,,0,1
+BGR,27,100,Bulgaria,BU,Bulgaria,,0,1
+BHR,13,48,Bahrain,BA,Bahrain,,0,1
+BHS,12,44,Bahamas,BF,Bahamas,,0,1
+BIH,80,70,Bosnia and Herzegovina,BK,Bosnia and Herzegovina,,0,1
+BLR,57,112,Belarus,BO,Belarus,,0,1
+BLZ,23,84,Belize,BH,Belize,,0,1
+BMU,17,60,Bermuda,BD,Bermuda,,0,1
+BOL,19,68,Bolivia (Plurinational State of),BL,Bolivia,,0,1
+BRA,21,76,Brazil,BR,Brazil,,0,1
+BRB,14,52,Barbados,BB,Barbados,,0,1
+BRN,26,96,Brunei Darussalam,BX,Brunei,,0,1
+BTN,18,64,Bhutan,BT,Bhutan,,0,1
+BWA,20,72,Botswana,BC,Botswana,,0,1
+CAF,37,140,Central African Republic,CT,Central African Republic,,0,1
+CAN,33,124,Canada,CA,Canada,,0,1
+CHE,211,756,Switzerland,SZ,Switzerland,,0,1
+CHL,40,152,Chile,CI,Chile,,0,1
+CHN,41,156,China (mainland),CH,China,,0,1
+CIV,107,384,Cote dIvoire,IV,Cote d'Ivoire,,0,1
+CMR,32,120,Cameroon,CM,Cameroon,,0,1
+COD,250,180,Democratic Republic of the Congo,CG,Democratic Republic of the Congo,,0,1
+COG,46,178,Congo,CF,Congo,,0,1
+COK,47,184,Cook Islands,,Cook Islands,,0,1
+COL,44,170,Colombia,CO,Colombia,,0,1
+COM,45,174,Comoros,CN,Comoros,,0,1
+CPV,35,132,Cape Verde,CV,Cabo Verde,,0,1
+CRI,48,188,Costa Rica,CS,Costa Rica,,0,1
+CUB,49,192,Cuba,CU,Cuba,,0,1
+CYP,50,196,Cyprus,CY,Cyprus,,0,1
+CZE,167,203,Czech Republic,EZ,Czechia,,0,1
+DEU,79,276,Germany,GM,Germany,,0,1
+DJI,72,262,Djibouti,DJ,Djibouti,,0,1
+DMA,55,212,Dominica,DO,Dominica,,0,1
+DNK,54,208,Denmark,DA,Denmark,,0,1
+DOM,56,214,Dominican Republic,DR,Dominican Republic,,0,1
+DZA,4,12,Algeria,AG,Algeria,,0,1
+ECU,58,218,Ecuador,EC,Ecuador,,0,1
+EGY,59,818,Egypt,EG,Egypt,,0,1
+ERI,178,232,Eritrea,ER,Eritrea,,0,1
+ESP,203,724,Spain,SP,Spain,,0,1
+EST,63,233,Estonia,EN,Estonia,,0,1
+ETH,238,231,Ethiopia,ET,Ethiopia,,0,1
+FIN,67,246,Finland,FI,Finland,,0,1
+FJI,66,242,Fiji,FJ,Fiji,,0,1
+FRA,68,250,France,FR,France,,0,1
+FRO,64,234,Faroe Islands,FO,Faroe Islands,,0,1
+GAB,74,266,Gabon,GB,Gabon,,0,1
+GBR,229,826,United Kingdom,UK,United Kingdom,,0,1
+GEO,73,268,Georgia,GG,Georgia,,0,1
+GHA,81,288,Ghana,GH,Ghana,,0,1
+GIN,90,324,Guinea,GU,Guinea,,0,1
+GMB,75,270,Gambia,GA,"Gambia, The",,0,1
+GNB,175,624,Guinea-Bissau,PU,Guinea-Bissau,,0,1
+GNQ,61,226,Equatorial Guinea,EK,Equatorial Guinea,,0,1
+GRC,84,300,Greece,GR,Greece,,0,1
+GRD,86,308,Grenada,GJ,Grenada,,0,1
+GRL,85,304,Greenland,GL,Greenland,,0,1
+GTM,89,320,Guatemala,GT,Guatemala,,0,1
+GUY,91,328,Guyana,GY,Guyana,,0,1
+HKG,96,344,"Hong Kong SAR, China",HK,Hong Kong,,1,1
+HND,95,340,Honduras,HO,Honduras,,0,1
+HRV,98,191,Croatia,HR,Croatia,,0,1
+HTI,93,332,Haiti,HA,Haiti,,0,1
+HUN,97,348,Hungary,HU,Hungary,,0,1
+IDN,101,360,Indonesia,ID,Indonesia,,0,1
+IND,100,356,India,IN,India,,0,1
+IRL,104,372,Ireland,EI,Ireland,,0,1
+IRN,102,364,Iran (Islamic Republic of),IR,Iran,,0,1
+IRQ,103,368,Iraq,IZ,Iraq,,0,1
+ISL,99,352,Iceland,IC,Iceland,,0,1
+ISR,105,376,Israel,IS,Israel,,0,1
+ITA,106,380,Italy,IT,Italy,,1,1
+JAM,109,388,Jamaica,JM,Jamaica,,0,1
+JOR,112,400,Jordan,JO,Jordan,,0,1
+JPN,110,392,Japan,JA,Japan,,0,1
+KAZ,108,398,Kazakhstan,KZ,Kazakhstan,,0,1
+KEN,114,404,Kenya,KE,Kenya,,0,1
+KGZ,113,417,Kyrgyzstan,KG,Kyrgyzstan,,0,1
+KHM,115,116,Cambodia,CB,Cambodia,,0,1
+KIR,83,296,Kiribati,,Kiribati,,0,1
+KNA,188,659,Saint Kitts and Nevis,SC,Saint Kitts and Nevis,,0,1
+KOR,117,410,Republic of Korea,KS,"Korea, South",,0,1
+KWT,118,414,Kuwait,KU,Kuwait,,0,1
+LAO,120,418,Lao People's Democratic Republic,LA,Laos,,0,1
+LBN,121,422,Lebanon,LE,Lebanon,,0,1
+LBR,123,430,Liberia,LI,Liberia,,0,1
+LBY,124,434,Libya,LY,Libya,,0,1
+LCA,189,662,Saint Lucia,ST,Saint Lucia,,0,1
+LKA,38,144,Sri Lanka,CE,Sri Lanka,,0,1
+LSO,122,426,Lesotho,LT,Lesotho,,0,1
+LTU,126,440,Lithuania,LH,Lithuania,,0,1
+LUX,256,442,Luxembourg,LU,Luxembourg,,0,1
+LVA,119,428,Latvia,LG,Latvia,,0,1
+MAC,128,446,"Macao SAR, China",MC,"Macao SAR, China",,0,1
+MAR,143,504,Morocco,MO,Morocco,,0,1
+MDA,146,498,Republic of Moldova,MD,Moldova,,0,1
+MDG,129,450,Madagascar,MA,Madagascar,,0,1
+MDV,132,462,Maldives,MV,Maldives,,0,1
+MEX,138,484,Mexico,MX,Mexico,,0,1
+MKD,154,807,The former Yugoslav Republic of Macedonia,MK,North Macedonia,,0,1
+MLI,133,466,Mali,ML,Mali,,0,1
+MLT,134,470,Malta,MT,Malta,,0,1
+MMR,28,104,Myanmar,BM,Burma,,0,1
+MNE,273,499,Montenegro,,Montenegro,"Successor of FAO 186 from 2006, with the 2006-2008 production share of code 273. PSD often has no Montenegro row; those years stay missing unless the SCG split applies.",0,1
+MNG,141,496,Mongolia,MG,Mongolia,,0,1
+MOZ,144,508,Mozambique,MZ,Mozambique,,0,1
+MRT,136,478,Mauritania,MR,Mauritania,,0,1
+MUS,137,480,Mauritius,MP,Mauritius,,0,1
+MWI,130,454,Malawi,MI,Malawi,,0,1
+MYS,131,458,Malaysia,MY,Malaysia,,0,1
+NAM,147,516,Namibia,WA,Namibia,,0,1
+NCL,153,540,New Caledonia,NC,New Caledonia,,0,1
+NER,158,562,Niger,NG,Niger,,0,1
+NGA,159,566,Nigeria,NI,Nigeria,,0,1
+NIC,157,558,Nicaragua,NU,Nicaragua,,0,1
+NLD,150,528,Netherlands,NL,Netherlands,,1,1
+NOR,162,578,Norway,NO,Norway,,0,1
+NPL,149,524,Nepal,NP,Nepal,,0,1
+NZL,156,554,New Zealand,NZ,New Zealand,,0,1
+OMN,221,512,Oman,MU,Oman,,0,1
+PAK,165,586,Pakistan,PK,Pakistan,,0,1
+PAN,166,591,Panama,PN,Panama,,0,1
+PER,170,604,Peru,PE,Peru,,0,1
+PHL,171,608,Philippines,RP,Philippines,,0,1
+PNG,168,598,Papua New Guinea,PP,Papua New Guinea,,0,1
+POL,173,616,Poland,PL,Poland,,0,1
+PRK,116,408,Democratic People's Republic of Korea,KN,"Korea, North",,0,1
+PRT,174,620,Portugal,PO,Portugal,,0,1
+PRY,169,600,Paraguay,PA,Paraguay,,0,1
+PSE,299,275,Occupied Palestinian Territory,,Occupied Palestinian Territory,,0,1
+PYF,70,258,French Polynesia,FP,French Polynesia,,0,1
+QAT,179,634,Qatar,QA,Qatar,,0,1
+ROU,183,642,Romania,RO,Romania,,0,1
+RUS,185,643,Russian Federation,RS,Russia,,0,1
+RWA,184,646,Rwanda,RW,Rwanda,,0,1
+SAU,194,682,Saudi Arabia,SA,Saudi Arabia,,0,1
+SDN,276,729,Sudan,SU,Sudan,FAO 206 Sudan (former) is split into SDN (276) and SSD (277) through 2011 using 2012-2014 production shares. PSD 'Sudan' stays on SDN and is not split.,0,1
+SEN,195,686,Senegal,SG,Senegal,,0,1
+SGP,200,702,Singapore,SN,Singapore,,1,1
+SLB,25,90,Solomon Islands,BP,Solomon Islands,,0,1
+SLE,197,694,Sierra Leone,SL,Sierra Leone,,0,1
+SLV,60,222,El Salvador,ES,El Salvador,,0,1
+SOM,201,706,Somalia,SO,Somalia,,0,1
+SRB,272,688,Serbia,RB,Serbia,FAO 186 Serbia and Montenegro is split into SRB (272) and MNE (273) through 2005 using 2006-2008 production shares. PSD 'Serbia and Montenegro' uses the same shares.,0,1
+SSD,277,728,South Sudan,OD,South Sudan,"Successor of FAO 206 from 2012, with the 2012-2014 production share of code 277. Kept separate from Sudan.",0,1
+STP,193,678,Sao Tome and Principe,TP,Sao Tome and Principe,,0,1
+SUR,207,740,Suriname,NS,Suriname,,0,1
+SVK,199,703,Slovakia,LO,Slovakia,,0,1
+SVN,198,705,Slovenia,SI,Slovenia,,0,1
+SWE,210,752,Sweden,SW,Sweden,,0,1
+SWZ,209,748,Swaziland,WZ,Eswatini,,0,1
+SYC,196,690,Seychelles,SE,Seychelles,,0,1
+SYR,212,760,Syrian Arab Republic,SY,Syria,,0,1
+TCD,39,148,Chad,CD,Chad,,0,1
+TGO,217,768,Togo,TO,Togo,,0,1
+THA,216,764,Thailand,TH,Thailand,,0,1
+TJK,208,762,Tajikistan,TI,Tajikistan,,0,1
+TKM,213,795,Turkmenistan,TX,Turkmenistan,,0,1
+TLS,176,626,Timor-Leste,,Timor-Leste,,0,1
+TON,219,776,Tonga,TN,Tonga,,0,1
+TTO,220,780,Trinidad and Tobago,TD,Trinidad and Tobago,,0,1
+TUN,222,788,Tunisia,TS,Tunisia,,0,1
+TUR,223,792,Turkey,TU,Turkey,,0,1
+TUV,227,798,Tuvalu,,Tuvalu,,0,1
+TWN,214,158,Taiwan,TW,Taiwan,"Kept separate from China (mainland), FAO 41. Aggregate China FAO 351 is dropped.",0,1
+TZA,215,834,United Republic of Tanzania,TZ,Tanzania,,0,1
+UGA,226,800,Uganda,UG,Uganda,,0,1
+UKR,230,804,Ukraine,UP,Ukraine,,0,1
+URY,234,858,Uruguay,UY,Uruguay,,0,1
+USA,231,840,United States of America,US,United States,,0,1
+UZB,235,860,Uzbekistan,UZ,Uzbekistan,,0,1
+VCT,191,670,Saint Vincent and the Grenadines,VC,Saint Vincent and the Grenadines,,0,1
+VEN,236,862,Venezuela (Bolivarian Republic of),VE,Venezuela,,0,1
+VNM,237,704,Viet Nam,VM,Vietnam,,0,1
+VUT,155,548,Vanuatu,NH,Vanuatu,,0,1
+YEM,249,887,Yemen,YM,Yemen,,0,1
+ZAF,202,710,South Africa,SF,South Africa,,0,1
+ZMB,251,894,Zambia,ZA,Zambia,,0,1
+ZWE,181,716,Zimbabwe,RH,Zimbabwe,,0,1

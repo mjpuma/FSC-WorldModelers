@@ -1,0 +1,373 @@
+Warning message:
+package 'dplyr' was built under R version 4.3.1 
+Loading 2018-2021 networks
+wheat_exporter wheat RUS restriction 0.50 full alpha 0.00
+wheat_exporter wheat RUS restriction 0.50 full alpha 0.25
+wheat_exporter wheat RUS restriction 0.50 full alpha 0.50
+wheat_exporter wheat RUS restriction 0.50 full alpha 1.00
+wheat_exporter wheat RUS restriction 0.50 six_month alpha 0.00
+wheat_exporter wheat RUS restriction 0.50 six_month alpha 0.25
+wheat_exporter wheat RUS restriction 0.50 six_month alpha 0.50
+wheat_exporter wheat RUS restriction 0.50 six_month alpha 1.00
+wheat_exporter wheat RUS restriction 0.95 full alpha 0.00
+wheat_exporter wheat RUS restriction 0.95 full alpha 0.25
+wheat_exporter wheat RUS restriction 0.95 full alpha 0.50
+wheat_exporter wheat RUS restriction 0.95 full alpha 1.00
+wheat_exporter wheat RUS restriction 0.95 six_month alpha 0.00
+wheat_exporter wheat RUS restriction 0.95 six_month alpha 0.25
+wheat_exporter wheat RUS restriction 0.95 six_month alpha 0.50
+wheat_exporter wheat RUS restriction 0.95 six_month alpha 1.00
+wheat_exporter wheat CAN restriction 0.50 full alpha 0.00
+wheat_exporter wheat CAN restriction 0.50 full alpha 0.25
+wheat_exporter wheat CAN restriction 0.50 full alpha 0.50
+wheat_exporter wheat CAN restriction 0.50 full alpha 1.00
+wheat_exporter wheat CAN restriction 0.50 six_month alpha 0.00
+wheat_exporter wheat CAN restriction 0.50 six_month alpha 0.25
+wheat_exporter wheat CAN restriction 0.50 six_month alpha 0.50
+wheat_exporter wheat CAN restriction 0.50 six_month alpha 1.00
+wheat_exporter wheat CAN restriction 0.95 full alpha 0.00
+wheat_exporter wheat CAN restriction 0.95 full alpha 0.25
+wheat_exporter wheat CAN restriction 0.95 full alpha 0.50
+wheat_exporter wheat CAN restriction 0.95 full alpha 1.00
+wheat_exporter wheat CAN restriction 0.95 six_month alpha 0.00
+wheat_exporter wheat CAN restriction 0.95 six_month alpha 0.25
+wheat_exporter wheat CAN restriction 0.95 six_month alpha 0.50
+wheat_exporter wheat CAN restriction 0.95 six_month alpha 1.00
+wheat_exporter wheat EU-28 restriction 0.50 full alpha 0.00
+wheat_exporter wheat EU-28 restriction 0.50 full alpha 0.25
+wheat_exporter wheat EU-28 restriction 0.50 full alpha 0.50
+wheat_exporter wheat EU-28 restriction 0.50 full alpha 1.00
+wheat_exporter wheat EU-28 restriction 0.50 six_month alpha 0.00
+wheat_exporter wheat EU-28 restriction 0.50 six_month alpha 0.25
+wheat_exporter wheat EU-28 restriction 0.50 six_month alpha 0.50
+wheat_exporter wheat EU-28 restriction 0.50 six_month alpha 1.00
+wheat_exporter wheat EU-28 restriction 0.95 full alpha 0.00
+wheat_exporter wheat EU-28 restriction 0.95 full alpha 0.25
+wheat_exporter wheat EU-28 restriction 0.95 full alpha 0.50
+wheat_exporter wheat EU-28 restriction 0.95 full alpha 1.00
+wheat_exporter wheat EU-28 restriction 0.95 six_month alpha 0.00
+wheat_exporter wheat EU-28 restriction 0.95 six_month alpha 0.25
+wheat_exporter wheat EU-28 restriction 0.95 six_month alpha 0.50
+wheat_exporter wheat EU-28 restriction 0.95 six_month alpha 1.00
+wheat_exporter wheat USA restriction 0.50 full alpha 0.00
+wheat_exporter wheat USA restriction 0.50 full alpha 0.25
+wheat_exporter wheat USA restriction 0.50 full alpha 0.50
+wheat_exporter wheat USA restriction 0.50 full alpha 1.00
+wheat_exporter wheat USA restriction 0.50 six_month alpha 0.00
+wheat_exporter wheat USA restriction 0.50 six_month alpha 0.25
+wheat_exporter wheat USA restriction 0.50 six_month alpha 0.50
+wheat_exporter wheat USA restriction 0.50 six_month alpha 1.00
+wheat_exporter wheat USA restriction 0.95 full alpha 0.00
+wheat_exporter wheat USA restriction 0.95 full alpha 0.25
+wheat_exporter wheat USA restriction 0.95 full alpha 0.50
+wheat_exporter wheat USA restriction 0.95 full alpha 1.00
+wheat_exporter wheat USA restriction 0.95 six_month alpha 0.00
+wheat_exporter wheat USA restriction 0.95 six_month alpha 0.25
+wheat_exporter wheat USA restriction 0.95 six_month alpha 0.50
+wheat_exporter wheat USA restriction 0.95 six_month alpha 1.00
+wheat_exporter wheat UKR restriction 0.50 full alpha 0.00
+wheat_exporter wheat UKR restriction 0.50 full alpha 0.25
+wheat_exporter wheat UKR restriction 0.50 full alpha 0.50
+wheat_exporter wheat UKR restriction 0.50 full alpha 1.00
+wheat_exporter wheat UKR restriction 0.50 six_month alpha 0.00
+wheat_exporter wheat UKR restriction 0.50 six_month alpha 0.25
+wheat_exporter wheat UKR restriction 0.50 six_month alpha 0.50
+wheat_exporter wheat UKR restriction 0.50 six_month alpha 1.00
+wheat_exporter wheat UKR restriction 0.95 full alpha 0.00
+wheat_exporter wheat UKR restriction 0.95 full alpha 0.25
+wheat_exporter wheat UKR restriction 0.95 full alpha 0.50
+wheat_exporter wheat UKR restriction 0.95 full alpha 1.00
+wheat_exporter wheat UKR restriction 0.95 six_month alpha 0.00
+wheat_exporter wheat UKR restriction 0.95 six_month alpha 0.25
+wheat_exporter wheat UKR restriction 0.95 six_month alpha 0.50
+wheat_exporter wheat UKR restriction 0.95 six_month alpha 1.00
+wheat_exporter wheat AUS restriction 0.50 full alpha 0.00
+wheat_exporter wheat AUS restriction 0.50 full alpha 0.25
+wheat_exporter wheat AUS restriction 0.50 full alpha 0.50
+wheat_exporter wheat AUS restriction 0.50 full alpha 1.00
+wheat_exporter wheat AUS restriction 0.50 six_month alpha 0.00
+wheat_exporter wheat AUS restriction 0.50 six_month alpha 0.25
+wheat_exporter wheat AUS restriction 0.50 six_month alpha 0.50
+wheat_exporter wheat AUS restriction 0.50 six_month alpha 1.00
+wheat_exporter wheat AUS restriction 0.95 full alpha 0.00
+wheat_exporter wheat AUS restriction 0.95 full alpha 0.25
+wheat_exporter wheat AUS restriction 0.95 full alpha 0.50
+wheat_exporter wheat AUS restriction 0.95 full alpha 1.00
+wheat_exporter wheat AUS restriction 0.95 six_month alpha 0.00
+wheat_exporter wheat AUS restriction 0.95 six_month alpha 0.25
+wheat_exporter wheat AUS restriction 0.95 six_month alpha 0.50
+wheat_exporter wheat AUS restriction 0.95 six_month alpha 1.00
+wheat_exporter wheat ARG restriction 0.50 full alpha 0.00
+wheat_exporter wheat ARG restriction 0.50 full alpha 0.25
+wheat_exporter wheat ARG restriction 0.50 full alpha 0.50
+wheat_exporter wheat ARG restriction 0.50 full alpha 1.00
+wheat_exporter wheat ARG restriction 0.50 six_month alpha 0.00
+wheat_exporter wheat ARG restriction 0.50 six_month alpha 0.25
+wheat_exporter wheat ARG restriction 0.50 six_month alpha 0.50
+wheat_exporter wheat ARG restriction 0.50 six_month alpha 1.00
+wheat_exporter wheat ARG restriction 0.95 full alpha 0.00
+wheat_exporter wheat ARG restriction 0.95 full alpha 0.25
+wheat_exporter wheat ARG restriction 0.95 full alpha 0.50
+wheat_exporter wheat ARG restriction 0.95 full alpha 1.00
+wheat_exporter wheat ARG restriction 0.95 six_month alpha 0.00
+wheat_exporter wheat ARG restriction 0.95 six_month alpha 0.25
+wheat_exporter wheat ARG restriction 0.95 six_month alpha 0.50
+wheat_exporter wheat ARG restriction 0.95 six_month alpha 1.00
+wheat_exporter wheat KAZ restriction 0.50 full alpha 0.00
+wheat_exporter wheat KAZ restriction 0.50 full alpha 0.25
+wheat_exporter wheat KAZ restriction 0.50 full alpha 0.50
+wheat_exporter wheat KAZ restriction 0.50 full alpha 1.00
+wheat_exporter wheat KAZ restriction 0.50 six_month alpha 0.00
+wheat_exporter wheat KAZ restriction 0.50 six_month alpha 0.25
+wheat_exporter wheat KAZ restriction 0.50 six_month alpha 0.50
+wheat_exporter wheat KAZ restriction 0.50 six_month alpha 1.00
+wheat_exporter wheat KAZ restriction 0.95 full alpha 0.00
+wheat_exporter wheat KAZ restriction 0.95 full alpha 0.25
+wheat_exporter wheat KAZ restriction 0.95 full alpha 0.50
+wheat_exporter wheat KAZ restriction 0.95 full alpha 1.00
+wheat_exporter wheat KAZ restriction 0.95 six_month alpha 0.00
+wheat_exporter wheat KAZ restriction 0.95 six_month alpha 0.25
+wheat_exporter wheat KAZ restriction 0.95 six_month alpha 0.50
+wheat_exporter wheat KAZ restriction 0.95 six_month alpha 1.00
+wheat_exporter wheat PAK restriction 0.50 full alpha 0.00
+wheat_exporter wheat PAK restriction 0.50 full alpha 0.25
+wheat_exporter wheat PAK restriction 0.50 full alpha 0.50
+wheat_exporter wheat PAK restriction 0.50 full alpha 1.00
+wheat_exporter wheat PAK restriction 0.50 six_month alpha 0.00
+wheat_exporter wheat PAK restriction 0.50 six_month alpha 0.25
+wheat_exporter wheat PAK restriction 0.50 six_month alpha 0.50
+wheat_exporter wheat PAK restriction 0.50 six_month alpha 1.00
+wheat_exporter wheat PAK restriction 0.95 full alpha 0.00
+wheat_exporter wheat PAK restriction 0.95 full alpha 0.25
+wheat_exporter wheat PAK restriction 0.95 full alpha 0.50
+wheat_exporter wheat PAK restriction 0.95 full alpha 1.00
+wheat_exporter wheat PAK restriction 0.95 six_month alpha 0.00
+wheat_exporter wheat PAK restriction 0.95 six_month alpha 0.25
+wheat_exporter wheat PAK restriction 0.95 six_month alpha 0.50
+wheat_exporter wheat PAK restriction 0.95 six_month alpha 1.00
+rice_exporter rice_milled IND restriction 0.50 full alpha 0.00
+rice_exporter rice_milled IND restriction 0.50 full alpha 0.25
+rice_exporter rice_milled IND restriction 0.50 full alpha 0.50
+rice_exporter rice_milled IND restriction 0.50 full alpha 1.00
+rice_exporter rice_milled IND restriction 0.50 six_month alpha 0.00
+rice_exporter rice_milled IND restriction 0.50 six_month alpha 0.25
+rice_exporter rice_milled IND restriction 0.50 six_month alpha 0.50
+rice_exporter rice_milled IND restriction 0.50 six_month alpha 1.00
+rice_exporter rice_milled IND restriction 0.95 full alpha 0.00
+rice_exporter rice_milled IND restriction 0.95 full alpha 0.25
+rice_exporter rice_milled IND restriction 0.95 full alpha 0.50
+rice_exporter rice_milled IND restriction 0.95 full alpha 1.00
+rice_exporter rice_milled IND restriction 0.95 six_month alpha 0.00
+rice_exporter rice_milled IND restriction 0.95 six_month alpha 0.25
+rice_exporter rice_milled IND restriction 0.95 six_month alpha 0.50
+rice_exporter rice_milled IND restriction 0.95 six_month alpha 1.00
+rice_exporter rice_milled THA restriction 0.50 full alpha 0.00
+rice_exporter rice_milled THA restriction 0.50 full alpha 0.25
+rice_exporter rice_milled THA restriction 0.50 full alpha 0.50
+rice_exporter rice_milled THA restriction 0.50 full alpha 1.00
+rice_exporter rice_milled THA restriction 0.50 six_month alpha 0.00
+rice_exporter rice_milled THA restriction 0.50 six_month alpha 0.25
+rice_exporter rice_milled THA restriction 0.50 six_month alpha 0.50
+rice_exporter rice_milled THA restriction 0.50 six_month alpha 1.00
+rice_exporter rice_milled THA restriction 0.95 full alpha 0.00
+rice_exporter rice_milled THA restriction 0.95 full alpha 0.25
+rice_exporter rice_milled THA restriction 0.95 full alpha 0.50
+rice_exporter rice_milled THA restriction 0.95 full alpha 1.00
+rice_exporter rice_milled THA restriction 0.95 six_month alpha 0.00
+rice_exporter rice_milled THA restriction 0.95 six_month alpha 0.25
+rice_exporter rice_milled THA restriction 0.95 six_month alpha 0.50
+rice_exporter rice_milled THA restriction 0.95 six_month alpha 1.00
+rice_exporter rice_milled VNM restriction 0.50 full alpha 0.00
+rice_exporter rice_milled VNM restriction 0.50 full alpha 0.25
+rice_exporter rice_milled VNM restriction 0.50 full alpha 0.50
+rice_exporter rice_milled VNM restriction 0.50 full alpha 1.00
+rice_exporter rice_milled VNM restriction 0.50 six_month alpha 0.00
+rice_exporter rice_milled VNM restriction 0.50 six_month alpha 0.25
+rice_exporter rice_milled VNM restriction 0.50 six_month alpha 0.50
+rice_exporter rice_milled VNM restriction 0.50 six_month alpha 1.00
+rice_exporter rice_milled VNM restriction 0.95 full alpha 0.00
+rice_exporter rice_milled VNM restriction 0.95 full alpha 0.25
+rice_exporter rice_milled VNM restriction 0.95 full alpha 0.50
+rice_exporter rice_milled VNM restriction 0.95 full alpha 1.00
+rice_exporter rice_milled VNM restriction 0.95 six_month alpha 0.00
+rice_exporter rice_milled VNM restriction 0.95 six_month alpha 0.25
+rice_exporter rice_milled VNM restriction 0.95 six_month alpha 0.50
+rice_exporter rice_milled VNM restriction 0.95 six_month alpha 1.00
+rice_exporter rice_milled PAK restriction 0.50 full alpha 0.00
+rice_exporter rice_milled PAK restriction 0.50 full alpha 0.25
+rice_exporter rice_milled PAK restriction 0.50 full alpha 0.50
+rice_exporter rice_milled PAK restriction 0.50 full alpha 1.00
+rice_exporter rice_milled PAK restriction 0.50 six_month alpha 0.00
+rice_exporter rice_milled PAK restriction 0.50 six_month alpha 0.25
+rice_exporter rice_milled PAK restriction 0.50 six_month alpha 0.50
+rice_exporter rice_milled PAK restriction 0.50 six_month alpha 1.00
+rice_exporter rice_milled PAK restriction 0.95 full alpha 0.00
+rice_exporter rice_milled PAK restriction 0.95 full alpha 0.25
+rice_exporter rice_milled PAK restriction 0.95 full alpha 0.50
+rice_exporter rice_milled PAK restriction 0.95 full alpha 1.00
+rice_exporter rice_milled PAK restriction 0.95 six_month alpha 0.00
+rice_exporter rice_milled PAK restriction 0.95 six_month alpha 0.25
+rice_exporter rice_milled PAK restriction 0.95 six_month alpha 0.50
+rice_exporter rice_milled PAK restriction 0.95 six_month alpha 1.00
+rice_exporter rice_milled USA restriction 0.50 full alpha 0.00
+rice_exporter rice_milled USA restriction 0.50 full alpha 0.25
+rice_exporter rice_milled USA restriction 0.50 full alpha 0.50
+rice_exporter rice_milled USA restriction 0.50 full alpha 1.00
+rice_exporter rice_milled USA restriction 0.50 six_month alpha 0.00
+rice_exporter rice_milled USA restriction 0.50 six_month alpha 0.25
+rice_exporter rice_milled USA restriction 0.50 six_month alpha 0.50
+rice_exporter rice_milled USA restriction 0.50 six_month alpha 1.00
+rice_exporter rice_milled USA restriction 0.95 full alpha 0.00
+rice_exporter rice_milled USA restriction 0.95 full alpha 0.25
+rice_exporter rice_milled USA restriction 0.95 full alpha 0.50
+rice_exporter rice_milled USA restriction 0.95 full alpha 1.00
+rice_exporter rice_milled USA restriction 0.95 six_month alpha 0.00
+rice_exporter rice_milled USA restriction 0.95 six_month alpha 0.25
+rice_exporter rice_milled USA restriction 0.95 six_month alpha 0.50
+rice_exporter rice_milled USA restriction 0.95 six_month alpha 1.00
+rice_exporter rice_milled MMR restriction 0.50 full alpha 0.00
+rice_exporter rice_milled MMR restriction 0.50 full alpha 0.25
+rice_exporter rice_milled MMR restriction 0.50 full alpha 0.50
+rice_exporter rice_milled MMR restriction 0.50 full alpha 1.00
+rice_exporter rice_milled MMR restriction 0.50 six_month alpha 0.00
+rice_exporter rice_milled MMR restriction 0.50 six_month alpha 0.25
+rice_exporter rice_milled MMR restriction 0.50 six_month alpha 0.50
+rice_exporter rice_milled MMR restriction 0.50 six_month alpha 1.00
+rice_exporter rice_milled MMR restriction 0.95 full alpha 0.00
+rice_exporter rice_milled MMR restriction 0.95 full alpha 0.25
+rice_exporter rice_milled MMR restriction 0.95 full alpha 0.50
+rice_exporter rice_milled MMR restriction 0.95 full alpha 1.00
+rice_exporter rice_milled MMR restriction 0.95 six_month alpha 0.00
+rice_exporter rice_milled MMR restriction 0.95 six_month alpha 0.25
+rice_exporter rice_milled MMR restriction 0.95 six_month alpha 0.50
+rice_exporter rice_milled MMR restriction 0.95 six_month alpha 1.00
+There were 50 or more warnings (use warnings() to see the first 50)
+flood thailand_2011 production_only alpha 0.00
+flood thailand_2011 production_only alpha 0.25
+flood thailand_2011 production_only alpha 0.50
+flood thailand_2011 production_only alpha 1.00
+flood thailand_2011 production_plus_ban alpha 0.00
+flood thailand_2011 production_plus_ban alpha 0.25
+flood thailand_2011 production_plus_ban alpha 0.50
+flood thailand_2011 production_plus_ban alpha 1.00
+flood pakistan_2022_wheat production_only alpha 0.00
+flood pakistan_2022_wheat production_only alpha 0.25
+flood pakistan_2022_wheat production_only alpha 0.50
+flood pakistan_2022_wheat production_only alpha 1.00
+flood pakistan_2022_wheat production_plus_ban alpha 0.00
+flood pakistan_2022_wheat production_plus_ban alpha 0.25
+flood pakistan_2022_wheat production_plus_ban alpha 0.50
+flood pakistan_2022_wheat production_plus_ban alpha 1.00
+flood pakistan_2022_rice production_only alpha 0.00
+flood pakistan_2022_rice production_only alpha 0.25
+flood pakistan_2022_rice production_only alpha 0.50
+flood pakistan_2022_rice production_only alpha 1.00
+flood pakistan_2022_rice production_plus_ban alpha 0.00
+flood pakistan_2022_rice production_plus_ban alpha 0.25
+flood pakistan_2022_rice production_plus_ban alpha 0.50
+flood pakistan_2022_rice production_plus_ban alpha 1.00
+flood myanmar_2008 production_only alpha 0.00
+flood myanmar_2008 production_only alpha 0.25
+flood myanmar_2008 production_only alpha 0.50
+flood myanmar_2008 production_only alpha 1.00
+flood myanmar_2008 production_plus_ban alpha 0.00
+flood myanmar_2008 production_plus_ban alpha 0.25
+flood myanmar_2008 production_plus_ban alpha 0.50
+flood myanmar_2008 production_plus_ban alpha 1.00
+flood us_midwest_2011_maize production_only alpha 0.00
+flood us_midwest_2011_maize production_only alpha 0.25
+flood us_midwest_2011_maize production_only alpha 0.50
+flood us_midwest_2011_maize production_only alpha 1.00
+flood us_midwest_2011_maize production_plus_ban alpha 0.00
+flood us_midwest_2011_maize production_plus_ban alpha 0.25
+flood us_midwest_2011_maize production_plus_ban alpha 0.50
+flood us_midwest_2011_maize production_plus_ban alpha 1.00
+flood us_midwest_2011_wheat production_only alpha 0.00
+flood us_midwest_2011_wheat production_only alpha 0.25
+flood us_midwest_2011_wheat production_only alpha 0.50
+flood us_midwest_2011_wheat production_only alpha 1.00
+flood us_midwest_2011_wheat production_plus_ban alpha 0.00
+flood us_midwest_2011_wheat production_plus_ban alpha 0.25
+flood us_midwest_2011_wheat production_plus_ban alpha 0.50
+flood us_midwest_2011_wheat production_plus_ban alpha 1.00
+There were 32 warnings (use warnings() to see them)
+
+Wheat 95% full-year export ban, alpha 0.5. Cells are regional consumption-loss fractions.
+ label rice_price_index Western_Africa Middle_Africa Eastern_Africa    GCC
+   ARG               NA         0.0000        0.0000         0.0003 0.0000
+   AUS               NA         0.0000        0.0000         0.0000 0.0011
+   CAN               NA         0.0009        0.0008         0.0001 0.0001
+ EU-28               NA         0.0030        0.0034         0.0007 0.0017
+   KAZ               NA         0.0000        0.0000         0.0000 0.0000
+   PAK               NA         0.0000        0.0000         0.0000 0.0000
+   RUS               NA         0.0027        0.0063         0.0032 0.0008
+   UKR               NA         0.0002        0.0001         0.0002 0.0000
+   USA               NA         0.0013        0.0001         0.0000 0.0000
+ South_Asia Southeast_Asia  World
+      0e+00         0.0003 0.0002
+      0e+00         0.0016 0.0001
+      0e+00         0.0005 0.0001
+      0e+00         0.0000 0.0013
+      3e-04         0.0000 0.0002
+      0e+00         0.0000 0.0000
+      1e-04         0.0002 0.0006
+      0e+00         0.0009 0.0001
+      0e+00         0.0011 0.0003
+
+Rice 95% full-year export ban, alpha 0.5. Price index uses beta_surplus -1 and beta_stu -0.5.
+ label rice_price_index Western_Africa Middle_Africa Eastern_Africa    GCC
+   IND           1.8545          2e-03        0.0009         0.0041 0.0172
+   MMR           1.9162          0e+00        0.0002         0.0001 0.0000
+   PAK           1.9523          1e-04        0.0002         0.0012 0.0007
+   THA           2.1377          4e-04        0.0023         0.0004 0.0000
+   USA           2.0198          0e+00        0.0001         0.0000 0.0000
+   VNM           2.0138          3e-04        0.0001         0.0001 0.0001
+ South_Asia Southeast_Asia World
+     0.0013          0e+00 7e-04
+     0.0000          0e+00 0e+00
+     0.0001          0e+00 1e-04
+     0.0000          0e+00 1e-04
+     0.0000          0e+00 1e-04
+     0.0000          1e-04 0e+00
+
+Placeholder flood shocks, alpha 0.5. Replace inputs/yawei_placeholder_flood_shocks.csv with Junshi's fractions.
+                                              label rice_price_index
+           myanmar_2008 production_only rice_milled           1.9324
+       myanmar_2008 production_plus_ban rice_milled           2.0501
+     pakistan_2022_rice production_only rice_milled           1.9580
+ pakistan_2022_rice production_plus_ban rice_milled           1.9910
+          pakistan_2022_wheat production_only wheat               NA
+      pakistan_2022_wheat production_plus_ban wheat               NA
+          thailand_2011 production_only rice_milled           1.9895
+      thailand_2011 production_plus_ban rice_milled           2.4147
+        us_midwest_2011_maize production_only maize               NA
+    us_midwest_2011_maize production_plus_ban maize               NA
+        us_midwest_2011_wheat production_only wheat               NA
+    us_midwest_2011_wheat production_plus_ban wheat               NA
+ Western_Africa Middle_Africa Eastern_Africa    GCC South_Asia Southeast_Asia
+         0.0000        0.0002         0.0001 0.0000      0e+00         0.0004
+         0.0000        0.0002         0.0001 0.0000      0e+00         0.0008
+         0.0000        0.0000         0.0000 0.0000      0e+00         0.0000
+         0.0001        0.0002         0.0012 0.0007      1e-04         0.0000
+         0.0000        0.0000         0.0000 0.0000      1e-04         0.0000
+         0.0000        0.0000         0.0000 0.0000      1e-04         0.0000
+         0.0001        0.0004         0.0001 0.0000      0e+00         0.0001
+         0.0004        0.0023         0.0004 0.0000      0e+00         0.0000
+         0.0000        0.0000         0.0000 0.0000      0e+00         0.0000
+         0.0001        0.0001         0.0000 0.0026      0e+00         0.0002
+         0.0000        0.0000         0.0000 0.0000      0e+00         0.0000
+         0.0013        0.0001         0.0000 0.0000      0e+00         0.0011
+  World
+ 0.0001
+ 0.0002
+ 0.0000
+ 0.0001
+ 0.0000
+ 0.0000
+ 0.0000
+ 0.0001
+ 0.0003
+ 0.0095
+ 0.0000
+ 0.0003
+Wrote outputs/yawei_benchmarks/benchmark_results.csv
