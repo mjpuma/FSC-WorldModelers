@@ -8,7 +8,7 @@ The Food Shock Cascade (FSC) model simulates how agricultural production shocks 
 
 The published model is Heslin, Puma, Marchand, and coauthors, 2020, *Simulating the cascading effects of an extreme agricultural production shock*, Frontiers in Sustainable Food Systems, doi:10.3389/fsufs.2020.00026. That paper is the proportional-trade and reserves-trade pair, run in kilocalories. The earlier statement of the rules is Marchand and coauthors, 2016, *Reserves and trade jointly determine exposure to food supply shocks*, Environmental Research Letters, doi:10.1088/1748-9326/11/9/095009, with code at https://github.com/pmarchand1/cereals-network-shocks.
 
-This repository also holds a metric-ton build for 2002 to 2024, used for a flood comparison with Junshi Xia (RIKEN). That build is described under [Flood scenarios](#flood-scenarios). It does not replace the published kilocalorie scenarios.
+This repository also holds a metric-ton build for 2002 to 2024, used to examine flood-related production shocks. That build is described under [Flood scenarios](#flood-scenarios). It does not replace the published kilocalorie scenarios.
 
 Run every command from the repository root.
 
@@ -127,7 +127,7 @@ offer_i = 0.20 * R_i
 
 A banned exporter's offer is set to zero. With `alpha = 0` there is nothing to offer, so RTA leaves the loss on the importers. That is why an RTA run with no stocks looks like PTA with the network frozen.
 
-There is a third rule, used by Junshi Xia for the flood note of 12 November 2026, that is not in this code. After stocks, his cascade splits the remaining deficit in proportion to exports and domestic use, then passes the export cut to current partners and repeats until less than 1 tonne is left. FSC does not run that split. The flood section below says which rules were actually run.
+An alternative stock-then-split cascade rule considered for flood scenarios is not implemented in this code. After stock draws, that rule divides the remaining deficit between exports and domestic use, passes export cuts to existing trade partners, and repeats until the remaining deficit is less than 1 tonne. FSC does not implement that split. The flood section below specifies which FSC rules were run.
 
 ## How to run a published scenario
 
@@ -215,11 +215,11 @@ A shock file is a table of fractional production declines by country and year. P
 
 ## Flood scenarios
 
-This section is the metric-ton work for the RIKEN flood comparison. Junshi Xia's note of 12 November 2026 estimates flood losses of rice, wheat, and maize for 2002 to 2024 and runs a simple stock-then-split cascade on each year's trade network. He asked whether those shocks can be run on this network. The shock table itself (his 422 country-years) is not in the repository. Until it arrives, the flood runs use placeholder fractions.
+This section describes metric-ton flood scenarios for rice, wheat, and maize over 2002 to 2024. The intended country-year flood-loss inputs are not included in the repository, so the current flood runs use illustrative placeholder shock fractions rather than observed flood losses.
 
 ### What was run, and what was not
 
-The flood figures ran FSC, not Junshi's split.
+The flood figures use the FSC rules listed below, not the alternative stock-then-split rule.
 
 | Run | Rule in the code | Stocks | Trade |
 |---|---|---|---|
@@ -229,7 +229,7 @@ The flood figures ran FSC, not Junshi's split.
 
 Alpha 1 in those runs means all USDA beginning stocks may be drawn. The published default remains PTA with the freeze on. Turning the freeze off is a comparison switch for the flood figures. It is not a new default.
 
-The placeholder floods are not Junshi's losses. Each row is marked `placeholder_pending_junshi`. A US shock hits the whole United States node, not a Midwest subset.
+The placeholder shocks are illustrative, not estimates of historical flood losses. Each row is marked `placeholder_pending_junshi` in the input data (a legacy identifier). A US shock affects the whole United States node, not just a Midwest subset.
 
 | Event | Crop | Node | Production loss | Reactive ban |
 |---|---|---|---|---|
@@ -240,7 +240,7 @@ The placeholder floods are not Junshi's losses. Each row is marked `placeholder_
 | US Midwest 2011 | Maize | USA | 10% | 95% |
 | US Midwest 2011 | Wheat | USA | 5% | 95% |
 
-Replace `inputs/yawei_placeholder_flood_shocks.csv` with his fractions and rerun the two R scripts below. Do not treat the current flood maps as history.
+Replace the placeholder fractions in `inputs/yawei_placeholder_flood_shocks.csv` with validated flood-loss estimates and rerun the two R scripts below. Do not treat the current flood maps as historical results.
 
 ### Network package
 
@@ -250,7 +250,7 @@ Rice production is FAO item 27 (paddy) times 0.67. Rice trade uses 0.67 for padd
 
 Trade is FAOSTAT export quantity. Self-trade is dropped. Flows outside the 195-country list are dropped. Re-exports are netted for Hong Kong, the United Arab Emirates, Singapore, the Netherlands, and Italy. For each hub, re-exports are `min(exports, imports)`, and the export row is scaled down by that amount. The removed flow is not assigned to an upstream seller. `trade_mt_net` is the column to use. Its world sum is a sum of bilateral flows, so it can sit above a published "world trade" total.
 
-`beginning_stocks_mt` is blank when USDA has no row. `PSD_Missing_Flag` is 1 only then. `reserves_imputed_mt` is optional: the same-year median stock-to-use of countries with a reported stock, times domestic use. Junshi's note treats a missing stock as zero. The flood benchmark instead fills blanks with the imputation, then with zero. Both columns are in the file.
+`beginning_stocks_mt` is blank when USDA has no row. `PSD_Missing_Flag` is 1 only then. `reserves_imputed_mt` is optional: the same-year median stock-to-use of countries with a reported stock, times domestic use. The flood benchmark fills missing stocks with this imputation, then with zero if needed. Both columns are in the file.
 
 EU stocks are one USDA row and are shared across the EU-28 member list in `ProcessInputs_funcs.R`, including the United Kingdom. Malta is in the 195 and is not in that member list.
 
@@ -273,7 +273,7 @@ python3 main/export_riken_inputs.py \
 
 ### Benchmark and figures
 
-The benchmark builds 2018 to 2021 mean networks from the RIKEN package and runs export bans plus the placeholder floods.
+The benchmark builds 2018 to 2021 mean networks from the metric-ton network package and runs export bans plus the placeholder flood shocks.
 
 ```
 Rscript main/run_yawei_benchmarks.R
@@ -288,7 +288,7 @@ Rscript main/export_figure_cases.R
 python3 main/plot_report_figures.py
 ```
 
-Figures and `REPORT.md` land in `outputs/yawei_benchmarks/`. The figure cases are full-year 95% bans at alpha 0 and alpha 1, for the frozen PTA rule, the reroute PTA rule, and RTA on the headline shocks. The longer model note, with the food-security framing, is `outputs/yawei_benchmarks/FSC_model_food_security.docx`. A draft letter describing the network package is `outputs/export_for_RIKEN/Note_for_Junshi_Xia.docx`.
+Figures and `REPORT.md` land in `outputs/yawei_benchmarks/`. The figure cases are full-year 95% bans at alpha 0 and alpha 1, for the frozen PTA rule, the reroute PTA rule, and RTA on the headline shocks. The longer model note, with the food-security framing, is `outputs/yawei_benchmarks/FSC_model_food_security.docx`.
 
 Headline availability results on the 2018 to 2021 mean, 95% bans:
 
@@ -398,4 +398,4 @@ Those CSV paths sit under `inputs/2021_C2P2_scenarios/`. Scenarios 14 to 16, 24 
 
 ## Runtime
 
-Building inputs from the raw FAOSTAT files takes longer than a cascade. A cascade on the 195-country network is a few minutes on a desktop. The metric-ton benchmark grid is shorter than that once the RIKEN CSVs exist.
+Building inputs from the raw FAOSTAT files takes longer than a cascade. A cascade on the 195-country network is a few minutes on a desktop. The metric-ton benchmark grid is shorter than that once the network CSVs exist.
