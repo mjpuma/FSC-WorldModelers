@@ -822,7 +822,7 @@ def write_crop_files(frame, out_dir, stem, columns, year_start, year_end):
 def write_readme(path, args, log, coverage):
     blocked = coverage[coverage["status"] == "blocked_missing_faostat"]
     blocked_years = sorted(set(blocked["year"].tolist())) if len(blocked) else []
-    text = f"""# FSC inputs for the RIKEN flood-loss collaboration
+    text = f"""# FSC network inputs for flood-loss analysis
 
 Metric tons. Rice is milled equivalent. Country keys are ISO3. The panel is the
 195-country FSC list (`ancillary/country_list195_2012to2016.csv`).
@@ -933,8 +933,11 @@ def zip_directory(src, dest):
         dest.unlink()
     with zipfile.ZipFile(dest, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for path in sorted(src.rglob("*")):
-            if path.is_file():
-                zf.write(path, path.relative_to(src).as_posix())
+            if not path.is_file():
+                continue
+            if path.name.startswith("Note_for_") or path.name.startswith("."):
+                continue
+            zf.write(path, path.relative_to(src).as_posix())
 
 
 def run_internal_checks():

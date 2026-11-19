@@ -1,4 +1,4 @@
-# FSC inputs for the RIKEN flood-loss collaboration
+# FSC network inputs for flood-loss analysis
 
 Metric tons. Rice is milled equivalent. Country keys are ISO3. The panel is the
 195-country FSC list (`ancillary/country_list195_2012to2016.csv`).

@@ -229,7 +229,7 @@ The flood figures use the FSC rules listed below, not the alternative stock-then
 
 Alpha 1 in those runs means all USDA beginning stocks may be drawn. The published default remains PTA with the freeze on. Turning the freeze off is a comparison switch for the flood figures. It is not a new default.
 
-The placeholder shocks are illustrative, not estimates of historical flood losses. Each row is marked `placeholder_pending_junshi` in the input data (a legacy identifier). A US shock affects the whole United States node, not just a Midwest subset.
+The placeholder shocks are illustrative, not estimates of historical flood losses. Each row is marked `illustrative_placeholder`. A US shock affects the whole United States node, not just a Midwest subset. The year column is metadata. These runs stay on the 2018 to 2021 mean even when the year is earlier. Several rows with the same `event_id` are one scenario, so more than one country can lose production together.
 
 | Event | Crop | Node | Production loss | Reactive ban |
 |---|---|---|---|---|
@@ -240,13 +240,19 @@ The placeholder shocks are illustrative, not estimates of historical flood losse
 | US Midwest 2011 | Maize | USA | 10% | 95% |
 | US Midwest 2011 | Wheat | USA | 5% | 95% |
 
-Replace the placeholder fractions in `inputs/yawei_placeholder_flood_shocks.csv` with validated flood-loss estimates and rerun the two R scripts below. Do not treat the current flood maps as historical results.
+Replace `inputs/yawei_placeholder_flood_shocks.csv` with validated flood-loss estimates and rerun:
+
+```
+Rscript main/run_allocation_comparison.R
+```
+
+Each row needs `event_id`, `crop`, `year`, `iso3` or `fao_code`, and either `production_loss_fraction` or `production_loss_mt`. A fraction is a positive share of baseline production. Tonnes are positive losses. `reactive_ban_fraction` is optional and is the sensitivity, not the flood experiment. `shock_source` records provenance. `main/read_flood_shocks.R` rejects an unknown country, a duplicate country inside one event, a fraction outside (0, 1], and a tonne loss above that country's baseline production. Do not treat the current maps as historical results. Do not switch these benchmarks onto the annual networks unless that is an explicit later decision. The annual files remain in the network package.
 
 ### Network package
 
 `main/export_riken_inputs.py` writes `outputs/export_for_RIKEN/` and `outputs/export_for_RIKEN.zip`. Units are metric tons. Years are 2002 to 2024. Crops are milled rice, wheat, maize, and soybean. `README_FSC_Inputs.md` in that folder is the column-by-column note.
 
-Rice production is FAO item 27 (paddy) times 0.67. Rice trade uses 0.67 for paddy, 0.8375 for husked rice, and 1 for milled rice, broken rice, and rice flour. PSD `Rice, Milled` is already milled and is not scaled again. PSD values are published in thousand metric tons and stored here in metric tons. The PSD market year is joined to the FAO calendar year on the year number. There is no marketing-year shift.
+Rice production is FAO item 27 (paddy) times 0.67. Rice trade uses 0.67 for paddy, 0.8375 for husked rice, and 1 for milled rice, broken rice, and rice flour. PSD `Rice, Milled` is already milled and is not scaled again. Wheat trade adds flour, pasta, bread, bulgur, germ, and pastry as wheat-grain equivalents. Maize trade adds germ and flour. Maize oil and green maize are excluded. Soybean is beans only. Oil and cake are excluded. The factors are in `ancillary/mass_equivalent_factors.csv`. They are project assumptions. PSD values are published in thousand metric tons and stored here in metric tons. The PSD market year is joined to the FAO calendar year on the year number. There is no marketing-year shift.
 
 Trade is FAOSTAT export quantity. Self-trade is dropped. Flows outside the 195-country list are dropped. Re-exports are netted for Hong Kong, the United Arab Emirates, Singapore, the Netherlands, and Italy. For each hub, re-exports are `min(exports, imports)`, and the export row is scaled down by that amount. The removed flow is not assigned to an upstream seller. `trade_mt_net` is the column to use. Its world sum is a sum of bilateral flows, so it can sit above a published "world trade" total.
 
@@ -308,7 +314,7 @@ These percentages are shares of that commodity's use. They are not shares of cal
 
 | Name in the output | Code | Role |
 |---|---|---|
-| `modified_pta` | `sim_cascade_PTA`, `freeze_empty_reserves = FALSE` | Primary setting for a flood run. Other exporters can still move grain on existing links when usable reserves are zero. An explicit ban stays closed. |
+| `modified_pta` | `sim_cascade_PTA`, `freeze_empty_reserves = FALSE` | Preferred candidate for a flood run, not an empirically settled winner. Other exporters can still move grain on existing links when usable reserves are zero. An explicit ban stays closed. The proportional update can multiply a thin existing link. |
 | `published_pta` | `sim_cascade_PTA`, `freeze_empty_reserves = TRUE` | The published reference. At alpha 0 every exporter is frozen. `main.R` still uses this. |
 | `rta` | `sim_cascade_RTA`, `rexp = 0.2` | Reserves-offer sensitivity. Extra exports come only from remaining reserves, and only one fifth of those reserves is offered on each pass. At alpha 0 that offer is zero, so the result matches published PTA. |
 
@@ -326,7 +332,7 @@ Rscript main/run_allocation_comparison.R
 
 On the files as built: production has 195 countries in every year from 2002 to 2024, no duplicate country-years, and no negative tonnes. Rice production uses the single factor 0.67. Trade files have no self-trade and no negative flows. 2024 production in the package is 798 Mt of wheat, 1,215 Mt of maize, 398 Mt of soybean, and 549 Mt of milled rice. About a quarter of wheat stock rows have no USDA beginning stock. They are flagged, not filled with a silent zero.
 
-Wheat and rice ban runs close the world balance within 1 kt: the fall in use equals the stock build. Every maize run carries the same gap of about 0.12 Mt, including a production shock that stocks cover completely, so that residual is in the baseline maize balance. The largest other gap is 0.37 Mt, on the EU-28 wheat ban with trade frozen.
+Wheat and rice ban runs close the world balance within 1 kt, except the EU-28 wheat ban with trade frozen, where the gap is about 0.37 Mt. Every maize run carries the same gap of about 0.12 Mt. That equals baseline maize use below zero in Slovenia and Luxembourg: their processed-product exports exceed production plus imports. The diagnostic floors that negative use at zero. The cascade does not create the gap, and the outputs are not adjusted to hide it. Rice has the same kind of gap, about 0.65 kt, in Slovenia. Modified PTA often hits the 50-iteration cap when alpha is 0. The world total is stable if the loop continues, and some country totals still move, so a partner ranking from a capped run is approximate.
 
 ```
 Rscript tests/test_fsc_safety.R

@@ -40,7 +40,7 @@ run_spec <- function(net, targets, annual_fraction, alpha, dP, spec) {
     ran
 }
 
-diagnose <- function(net, final, dP, removed, alpha, home_iso = "") {
+diagnose <- function(net, final, dP, removed, alpha, home_iso = "", targets = character(), annual_fraction = 0) {
     C0 <- pmax(as.numeric(net$C), 0)
     C1 <- pmax(as.numeric(final$C[net$iso]), 0)
     P0 <- as.numeric(net$P)
@@ -54,6 +54,18 @@ diagnose <- function(net, final, dP, removed, alpha, home_iso = "") {
     drawn <- R_open - R_final
     loss <- pmax(C0 - C1, 0)
     home_loss <- if (nzchar(home_iso) && home_iso %in% net$iso) loss[net$iso == home_iso] else NA_real_
+    abroad <- loss
+    if (nzchar(home_iso) && home_iso %in% net$iso) abroad[net$iso == home_iso] <- 0
+    dE <- E1 - net$E
+    max_at <- which(dE == max(dE), arr.ind = TRUE)
+    max_at <- max_at[1, ]
+    base_link <- net$E[max_at[1], max_at[2]]
+    final_link <- E1[max_at[1], max_at[2]]
+    final_exports <- rowSums(E1)
+    ceiling_exports <- rowSums(net$E) - as.numeric(removed)
+    banned <- intersect(targets, net$iso)
+    reopened <- length(banned) > 0 && annual_fraction > 0 &&
+        any(final_exports[banned] > ceiling_exports[banned] + 1)
     data.frame(
         production_change_mt = sum(P1 - P0),
         intended_production_change_mt = sum(dP),
@@ -71,7 +83,18 @@ diagnose <- function(net, final, dP, removed, alpha, home_iso = "") {
         reserve_draw_mt = sum(pmax(drawn, 0)),
         reserve_overdraw = isTRUE(any(drawn > R_open + 1e-2)),
         home_iso3 = home_iso,
+        home_loss_mt = if (is.finite(home_loss)) home_loss else NA_real_,
         home_loss_share = if (sum(loss) > 0 && is.finite(home_loss)) home_loss / sum(loss) else NA_real_,
+        abroad_loss_mt = sum(abroad),
+        abroad_loss_share = if (sum(loss) > 0) sum(abroad) / sum(loss) else NA_real_,
+        countries_loss_gt_1kt = as.integer(sum(loss > 1000)),
+        max_flow_increase_mt = max(dE),
+        max_flow_from = rownames(net$E)[max_at[1]],
+        max_flow_to = colnames(net$E)[max_at[2]],
+        max_flow_baseline_mt = base_link,
+        max_flow_ratio = if (base_link > 1) final_link / base_link else NA_real_,
+        links_more_than_doubled = as.integer(sum(net$E > 1000 & E1 > 2 * net$E)),
+        export_restriction_reopened = isTRUE(reopened),
         iterations = if (is.null(final$cascade_iterations)) NA_integer_ else as.integer(final$cascade_iterations),
         converged = isTRUE(final$cascade_converged),
         stringsAsFactors = FALSE
@@ -88,12 +111,16 @@ empty_diag <- function() {
         net_consumption_change_mt = NA_real_, stock_change_mt = NA_real_, mass_gap_mt = NA_real_,
         neg_production = NA_integer_, neg_reserves = NA_integer_, neg_trade = NA_integer_,
         neg_use = NA_integer_, new_links = NA_integer_, reserve_draw_mt = NA_real_,
-        reserve_overdraw = NA, home_iso3 = "", home_loss_share = NA_real_,
+        reserve_overdraw = NA, home_iso3 = "", home_loss_mt = NA_real_, home_loss_share = NA_real_,
+        abroad_loss_mt = NA_real_, abroad_loss_share = NA_real_, countries_loss_gt_1kt = NA_integer_,
+        max_flow_increase_mt = NA_real_, max_flow_from = "", max_flow_to = "",
+        max_flow_baseline_mt = NA_real_, max_flow_ratio = NA_real_,
+        links_more_than_doubled = NA_integer_, export_restriction_reopened = NA,
         iterations = NA_integer_, converged = NA, stringsAsFactors = FALSE
     )
 }
 
-run_one <- function(event_id, crop, policy_variant, shock_source, targets, annual_fraction, alpha, dP, spec, home_iso = "") {
+run_one <- function(event_id, crop, policy_variant, shock_source, targets, annual_fraction, alpha, dP, spec, home_iso = "", shock_years = "") {
     net <- nets[[crop]]
     ran <- run_spec(net, targets, annual_fraction, alpha, dP, spec)
     base <- data.frame(
@@ -106,6 +133,7 @@ run_one <- function(event_id, crop, policy_variant, shock_source, targets, annua
         alpha = alpha,
         policy_variant = policy_variant,
         shock_source = shock_source,
+        shock_years = shock_years,
         annual_fraction = annual_fraction,
         ok = isTRUE(ran$ok),
         error = if (isTRUE(ran$ok)) "" else ran$message,
@@ -114,31 +142,39 @@ run_one <- function(event_id, crop, policy_variant, shock_source, targets, annua
         stringsAsFactors = FALSE
     )
     diag_row <- if (isTRUE(ran$ok)) {
-        diagnose(net, ran$net, dP, ran$removed, alpha, home_iso)
+        diagnose(net, ran$net, dP, ran$removed, alpha, home_iso, targets, annual_fraction)
     } else {
         empty_diag()
     }
     cbind(base, diag_row, row.names = NULL)
 }
 
-message("Flood grid: 6 events x 2 policies x 4 alphas x 3 rules")
-shocks <- read.csv("inputs/yawei_placeholder_flood_shocks.csv", stringsAsFactors = FALSE)
-for (i in seq_len(nrow(shocks))) {
-    shock <- shocks[i, ]
-    net <- nets[[shock$crop]]
-    dP <- setNames(rep(0, net$nc), net$iso)
-    dP[shock$iso3] <- -shock$production_loss_fraction * net$P[shock$iso3]
+message("Flood grid from inputs/yawei_placeholder_flood_shocks.csv")
+source("main/read_flood_shocks.R")
+fao_lookup <- read.csv("outputs/export_for_RIKEN/country_lookup_ISO3_FAO.csv", stringsAsFactors = FALSE)
+events <- read_flood_shocks(
+    "inputs/yawei_placeholder_flood_shocks.csv",
+    iso_codes = nets[[1]]$iso,
+    fao_lookup = fao_lookup
+)
+for (event in events) {
+    net <- nets[[event$crop]]
+    if (is.null(net)) stop("Unknown crop in shock file: ", event$crop)
+    dP <- shock_production_change(net, event)
+    home <- if (length(event$iso3) == 1) event$iso3 else ""
     for (policy in c("production_only", "production_plus_ban")) {
-        ban <- if (policy == "production_plus_ban") shock$reactive_ban_fraction else 0
+        ban <- if (policy == "production_plus_ban") event$reactive_ban_fraction else 0
+        targets <- if (ban > 0) event$iso3 else character()
         for (alpha in alphas) {
             for (spec in specs) {
                 message(sprintf(
                     "%s %s alpha %.2f %s",
-                    shock$event_id, policy, alpha, spec$allocation_rule
+                    event$event_id, policy, alpha, spec$allocation_rule
                 ))
                 add(run_one(
-                    shock$event_id, shock$crop, policy, shock$shock_source,
-                    shock$iso3, ban, alpha, dP, spec, home_iso = shock$iso3
+                    event$event_id, event$crop, policy, event$shock_source,
+                    targets, ban, alpha, dP, spec,
+                    home_iso = home, shock_years = event$years
                 ))
             }
         }
@@ -250,8 +286,35 @@ probe_one <- function(crop, iso3, fraction) {
         max_country_kt = max(abs(l50 - l200)) / 1e3
     )
 }
-thai <- probe_one("rice_milled", "THA", shocks$production_loss_fraction[shocks$event_id == "thailand_2011"])
-usa_maize <- probe_one("maize", "USA", shocks$production_loss_fraction[shocks$event_id == "us_midwest_2011_maize"])
+event_fraction <- function(event_id, iso3) {
+    event <- events[[which(vapply(events, function(e) e$event_id, "") == event_id)]]
+    event$fraction[event$iso3 == iso3]
+}
+thai <- probe_one("rice_milled", "THA", event_fraction("thailand_2011", "THA"))
+usa_maize <- probe_one("maize", "USA", event_fraction("us_midwest_2011_maize", "USA"))
+
+negative_use <- function(crop) {
+    net <- nets[[crop]]
+    hit <- which(net$C < -1)
+    if (!length(hit)) return("none")
+    paste(sprintf("%s %.1f kt", net$iso[hit], net$C[hit] / 1e3), collapse = "; ")
+}
+flow_note <- function() {
+    hit <- flood[
+        flood$allocation_rule == "modified_pta" & flood$alpha == 0 &
+            flood$policy_variant == "production_only" & flood$ok, ]
+    if (!nrow(hit)) return("No modified PTA production-only rows.")
+    top <- hit[which.max(hit$max_flow_increase_mt), ]
+    thin <- hit[which.max(hit$max_flow_ratio), ]
+    sprintf(
+        "On modified PTA with reserves closed, the largest bilateral increase is %.2f Mt, %s to %s, from a baseline of %.2f Mt (%.2f times). The largest ratio on the link that rose the most in each event is %.0f times, %s to %s, from a baseline of %.3f Mt. Links above 1 kt that more than double: %s.",
+        top$max_flow_increase_mt[1] / 1e6, top$max_flow_from[1], top$max_flow_to[1],
+        top$max_flow_baseline_mt[1] / 1e6, top$max_flow_ratio[1],
+        thin$max_flow_ratio[1], thin$max_flow_from[1], thin$max_flow_to[1],
+        thin$max_flow_baseline_mt[1] / 1e6,
+        paste(sprintf("%s %d", hit$event_id, hit$links_more_than_doubled), collapse = "; ")
+    )
+}
 
 mod0 <- flood[flood$allocation_rule == "modified_pta" & flood$alpha == 0, ]
 pub_prod <- flood[flood$allocation_rule == "published_pta" & flood$policy_variant == "production_only", ]
@@ -265,18 +328,19 @@ lines <- c(
     "Modified PTA is `sim_cascade_PTA` with `freeze_empty_reserves = FALSE`. Published PTA is the same function with that argument `TRUE`, which is what `main.R` runs. RTA is `sim_cascade_RTA` with its existing `rexp = 0.2`. A banned exporter stays frozen in all three. Every call passes the rule explicitly.",
     "",
     sprintf(
-        "Flood runs: %d, all completed. Converged before 50 iterations: %d of %d. Export-ban runs: %d, converged: %d of %d. New bilateral links: %d. Negative production, reserves, trade, or final use: %d. Reserve draws above usable reserves: %d. Production change off the requested shock by more than 1 gram: %d.",
+        "Flood runs: %d, all completed. Converged before 50 iterations: %d of %d. Export-ban runs: %d, converged: %d of %d. New bilateral links: %d. Negative production, reserves, trade, or final use: %d. Reserve draws above usable reserves: %d. Production change off the requested shock by more than 1 gram: %d. Export restrictions reopened: %d.",
         nrow(flood), sum(flood$converged), nrow(flood),
         nrow(bans), sum(bans$converged), nrow(bans),
         sum(comparison$new_links, na.rm = TRUE),
         sum(comparison$neg_production + comparison$neg_reserves + comparison$neg_trade + comparison$neg_use, na.rm = TRUE),
         sum(comparison$reserve_overdraw, na.rm = TRUE),
-        sum(abs(comparison$shock_gap_mt) > 1e-6, na.rm = TRUE)
+        sum(abs(comparison$shock_gap_mt) > 1e-6, na.rm = TRUE),
+        sum(comparison$export_restriction_reopened, na.rm = TRUE)
     ),
     "",
     sprintf(
-        "Mass balance is the change in use, minus the change in production, plus the stock change. Maize carries one constant gap of %.3f Mt on every maize run, so that residual is in the baseline maize balance. Rice sits between %.3f and %.3f kt. Wheat gaps larger than 1 kt: %s.",
-        maize_gap[1] / 1e6, rice_gap[1] / 1e3, rice_gap[2] / 1e3, wheat_note
+        "Mass balance is the change in use, minus the change in production, plus the stock change, after baseline use below zero is floored at zero. Maize carries one constant gap of %.3f Mt on every maize run. That equals baseline use below zero (%s), countries whose processed-product exports exceed production plus imports on this mean network. It is not created by the cascade. Rice sits between %.3f and %.3f kt, beside baseline use below zero (%s). Wheat gaps larger than 1 kt: %s.",
+        maize_gap[1] / 1e6, negative_use("maize"), rice_gap[1] / 1e3, rice_gap[2] / 1e3, negative_use("rice_milled"), wheat_note
     ),
     "",
     sprintf(
@@ -304,7 +368,9 @@ lines <- c(
         "World consumption loss when the placeholder production shock is combined with the file's reactive export restriction. This is a sensitivity, not the primary flood experiment. Million tonnes."
     ),
     "",
-    "Modified PTA is the primary specification for a later flood run. At alpha 0 the published rule freezes every exporter, so other countries cannot replace a lost flow on a link that already exists. Modified PTA allows that replacement and still keeps an explicit ban closed. The world total of a pure production shock is the same under all three rules when reserves are closed, because trade cancels. What changes is who absorbs the loss.",
+    "Modified PTA is the preferred candidate for a later flood run. It is not an empirically settled winner. At alpha 0 the published rule freezes every exporter, so other countries cannot replace a lost flow on a link that already exists. Modified PTA allows that replacement and still keeps an explicit ban closed. The world total of a pure production shock is the same under all three rules when reserves are closed, because trade cancels. What changes is who absorbs the loss. The proportional update can also multiply a thin existing link by a large factor. That is a property of the published update, and it is a reason to read partner rankings with the flow table rather than to treat the candidate as validated.",
+    "",
+    flow_note(),
     "",
     "On these placeholders, modified PTA leaves 1.8 to 9.9 percent of the consumption loss in the shocked country. Published PTA leaves about 1 percent when the shocked country is a large exporter, and much more when it is not (Pakistan wheat about 67 percent, Myanmar rice about 37 percent). RTA at alpha 0 matches published PTA. `rexp = 0.2` offers one fifth of remaining reserves on each pass, which is an offer of zero when alpha is 0.",
     "",

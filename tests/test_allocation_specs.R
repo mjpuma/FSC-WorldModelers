@@ -54,6 +54,8 @@ check(new_links(net$E, modified$E) == 0, "modified PTA opens no new link")
 check(new_links(net$E, rta$E) == 0, "RTA opens no new link")
 check(all(published$E >= -1e-8) && all(modified$E >= -1e-8) && all(rta$E >= -1e-8), "trade stays non-negative")
 check(abs(published$P["AAA"] - 70) < 1e-6, "the 30 unit production loss is applied")
+again <- sim_cascade_PTA(net, dP, rfrac = 0, verbose = FALSE, freeze_empty_reserves = TRUE)
+check(isTRUE(all.equal(published$E, again$E)), "the same published PTA case repeats")
 
 if (length(failures)) {
     stop(paste(failures, collapse = "\n"))

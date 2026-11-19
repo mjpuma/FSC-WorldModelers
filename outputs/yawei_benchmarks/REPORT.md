@@ -1,12 +1,12 @@
-# FSC results against the Yawei flood note and the Heslin wheat-shock paper
+# FSC flood and export-ban results on the 2018-2021 mean network
 
-The runs use the Food Shock Cascade on 2018–2021 mean networks, in milled-rice, wheat, and maize metric tons. A 95% export ban removes that share of the named exporter's flows and holds the grain as a stock build. Alpha is the share of USDA beginning stocks that can be drawn. PTA is proportional trade allocation. RTA is reserves-based trade allocation, with exporters offering 20% of remaining usable reserves.
+The runs use the Food Shock Cascade on 2018-2021 mean networks, in milled-rice, wheat, and maize metric tons. A 95% export ban removes that share of the named exporter's flows and holds the grain as a stock build. Alpha is the share of USDA beginning stocks that can be drawn. PTA is proportional trade allocation. RTA is reserves-based trade allocation, with exporters offering 20% of remaining usable reserves.
 
 ## What these figures are
 
-Junshi Xia's 12 Nov 2026 note plots a year-by-year cascade of observed flood losses on each year's trade network, with and without reserves, plus the partners and the routes the grain travels. His country-year flood table is not in this repository, so the panels below use the same comparisons on exporter bans and on placeholder flood fractions. They do not reconstruct his 2002–2024 totals of 31 Mt of rice, 28 Mt of wheat, and 26 Mt of maize.
+The panels compare export bans and illustrative flood fractions. They are availability results for one commodity. They are not observed flood losses, household consumption, prices, or nutritional outcomes. An observed country-year flood table is not in this repository.
 
-The uncalibrated rice price index in `benchmark_results.csv` is left out of the figures. With the placeholder coefficients it jumps by about 80–140% in a year when production does not fall. Yawei's Pink Sheet check finds no clear flood effect on prices once ENSO is included. A ban that leaves production unchanged is a different experiment from his slope of about 0.33 in log rice price per 1% of world production.
+The uncalibrated rice price index in `benchmark_results.csv` is left out of the figures. It is not a price forecast.
 
 ## Reserves, and two different meanings of no reserves
 
@@ -42,11 +42,11 @@ Russia wheat ban, trade frozen: Egypt 6.32 Mt (30% of use), Iraq 2.18 Mt (30% of
 
 ![Where the lost consumption sits](figures/fig_where_loss_sits.png)
 
-FSC takes only 1% of the remaining shortage out of domestic use on each iteration and pushes the rest into trade. A production shock therefore leaves the flooded country's own consumption close to baseline and cuts its exports. Yawei's cascade splits the residual, after stocks, in proportion to domestic use and exports, and in his no-reserves runs 80–93% of the loss stays at home. The Thai rice placeholder here, a 15% production cut, removes about 3.2 Mt of world rice use and only a small share of that is Thai consumption. That is the FSC allocation rule.
+FSC takes only 1% of the remaining shortage out of domestic use on each iteration and pushes the rest into trade. Under the reroute setting, the Thai rice placeholder, a 15% production cut, removes about 3.2 Mt of world rice use and only a small share of that is Thai consumption. Published PTA with the freeze on does not do that for every exporter. The comparison table records the shocked country's share. An alternative stock-then-split rule is not implemented.
 
 ## Where the grain travels
 
-Red arrows are the banned exporter's cuts of at least 50 kt. Teal arrows are increases of at least 50 kt on some other exporter's links. Orange circles are the larger consumption losses (0.2 Mt for rice, 0.8 Mt for wheat). This is the same layout as Yawei's route map and Heslin's consumption-decline map, drawn on the 2018–2021 mean network.
+Red arrows are the banned exporter's cuts of at least 50 kt. Teal arrows are increases of at least 50 kt on some other exporter's links. Orange circles are the larger consumption losses (0.2 Mt for rice, 0.8 Mt for wheat). The layout follows the route maps in Heslin et al., drawn on the 2018-2021 mean network.
 
 ![Indian rice routes when other exporters can reroute](figures/fig2_rice_india_network.png)
 
@@ -68,7 +68,7 @@ The wheat network has 2162 directed links of at least 1 kt and 227 Mt of trade. 
 
 ## Placeholder floods
 
-The US maize placeholder is a 10% cut in US production, about 36.4 Mt of world consumption when stocks are unused. Adding a 95% export ban raises the world consumption loss to 92.1 Mt, because the ban holds a further block of exports as stocks. With beginning stocks usable, the production-only case is almost fully covered and the ban still leaves the same residue as the pure US maize ban. Replace `inputs/yawei_placeholder_flood_shocks.csv` with Junshi's fractions before reading this panel as history. The US shock hits the whole United States node.
+The US maize placeholder is a 10% cut in US production, about 36.4 Mt of world consumption when stocks are unused. Adding a 95% export ban raises the world consumption loss to 92.1 Mt, because the ban holds a further block of exports as stocks. With beginning stocks usable, the production-only case is almost fully covered and the ban still leaves the same residue as the pure US maize ban. Replace `inputs/yawei_placeholder_flood_shocks.csv` before reading this panel as history. The US shock hits the whole United States node.
 
 ![Placeholder flood losses](figures/fig3_placeholder_floods.png)
 
@@ -104,11 +104,11 @@ The largest identity gap is 0.37 Mt, on wheat_EU28 under the frozen rule at alph
 
 ## Red team
 
-- The first pass called alpha = 0 a no-reserves case in Yawei's sense. In this code, alpha = 0 also freezes every export row. The frozen panels are that published rule. The reroute panels turn the freeze off and are the comparison with a cascade that still moves trade.
+- Alpha 0 closes reserves and, in published PTA, also freezes every export row. The frozen panels are that published rule. The reroute panels turn the freeze off.
 - World percentages under a ban are the size of the stock build. They stay the same when trade reroutes. The maps are what change.
 - Rankings use tonnes and a 0.1 Mt use floor. Percentage losses in very small markets are real on this network and are a poor guide to where the grain went.
-- FSC's 1% domestic-absorption step passes a production shock out through exports. Yawei's proportional split keeps most of a production loss at home. The placeholder flood maps follow FSC.
+- FSC's 1% domestic-absorption step passes a production shock out through exports under the reroute setting. An alternative stock-then-split rule is not implemented. The placeholder flood maps follow FSC.
 - The rice price index is uncalibrated and is not a Pink Sheet result.
 - EU-28 follows the existing FSC member list and includes the United Kingdom.
 - Losses are shares of that commodity's use. They are not shares of calories or of a household food basket.
-- The historical flood series in Yawei's Figure 1 needs his country-year loss table.
+- A historical flood series needs an observed country-year loss table. The year on a shock row stays metadata while these benchmarks use the 2018-2021 mean.
