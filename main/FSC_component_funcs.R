@@ -156,8 +156,11 @@ realloc_trade_prop_link <- function(food_net, need = food_net$shortage,
     prop_dE <- outer(!exp_freeze, prop_dT) %>%
         sweep(1, prop_dT, `-`)
 
+    labels <- rownames(food_net$E)
     food_net$E <- (1 + prop_dE) * food_net$E
     food_net$E[food_net$E < 0] <- 0
+    # outer() drops dimnames. Put them back. The factors above are unchanged.
+    if (!is.null(labels)) dimnames(food_net$E) <- list(labels, labels)
     update_shortage(food_net)
 }
 
@@ -168,8 +171,10 @@ reduce_exp_prop_link <- function(food_net, need = food_net$shortage) {
     Esum <- rowSums(food_net$E)
     prop_dE <- ifelse(Esum == 0, 0, pmin(need / Esum, 1))
     prop_dE[!is.finite(prop_dE)] <- 0
+    labels <- rownames(food_net$E)
     food_net$E <- sweep(food_net$E, 1, 1 - prop_dE, `*`)
     food_net$E[food_net$E < 0] <- 0
+    if (!is.null(labels)) dimnames(food_net$E) <- list(labels, labels)
     update_shortage(food_net)
 }
 
@@ -198,8 +203,10 @@ increase_imp_prop_resv <- function(food_net, need = food_net$shortage,
         avail <- pmax(avail - rowSums(E_accept), 0)
         dE <- dE + E_accept
     }
+    labels <- rownames(food_net$E)
     food_net$E <- food_net$E + dE
     food_net$E[food_net$E < 0] <- 0
+    if (!is.null(labels)) dimnames(food_net$E) <- list(labels, labels)
     update_shortage(food_net)
 }
 

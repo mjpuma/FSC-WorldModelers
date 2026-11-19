@@ -5,3 +5,6 @@
 .DS_Store
 __pycache__/
 ~$*
+main/build_note_for_junshi.py
+outputs/export_for_RIKEN/Note_for_Junshi_Xia.docx
+outputs/export_for_RIKEN 2/

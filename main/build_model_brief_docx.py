@@ -137,6 +137,55 @@ def render_equations():
         plt.close(fig)
 
 
+def production_only_rows():
+    import csv
+
+    path = ROOT / "outputs" / "yawei_benchmarks" / "allocation_comparison.csv"
+    with path.open(newline="") as handle:
+        rows = list(csv.DictReader(handle))
+
+    def one(event, rule):
+        hit = [
+            row for row in rows
+            if row["event_id"] == event
+            and row["allocation_rule"] == rule
+            and row["policy_variant"] == "production_only"
+            and abs(float(row["alpha"])) < 1e-8
+        ]
+        if len(hit) != 1:
+            raise SystemExit(f"{event} {rule}: expected one alpha-0 production row, found {len(hit)}")
+        return hit[0]
+
+    labels = [
+        ("thailand_2011", "Thailand 2011 rice, 15%"),
+        ("pakistan_2022_wheat", "Pakistan 2022 wheat, 10%"),
+        ("pakistan_2022_rice", "Pakistan 2022 rice, 10%"),
+        ("myanmar_2008", "Myanmar 2008 rice, 15%"),
+        ("us_midwest_2011_maize", "US maize, 10% of the US node"),
+        ("us_midwest_2011_wheat", "US wheat, 5% of the US node"),
+    ]
+    out = []
+    for event, label in labels:
+        modified = one(event, "modified_pta")
+        published = one(event, "published_pta")
+        rta = one(event, "rta")
+        worlds = [
+            float(modified["consumption_loss_mt"]),
+            float(published["consumption_loss_mt"]),
+            float(rta["consumption_loss_mt"]),
+        ]
+        if max(worlds) - min(worlds) > 1:
+            raise SystemExit(f"{event}: world loss differs across rules at alpha 0")
+        out.append([
+            label,
+            f"{worlds[0] / 1e6:.2f}",
+            f"{100 * float(modified['home_loss_share']):.1f}",
+            f"{100 * float(published['home_loss_share']):.1f}",
+            f"{100 * float(rta['home_loss_share']):.1f}",
+        ])
+    return out
+
+
 def build():
     render_equations()
     doc = Document()
@@ -157,7 +206,7 @@ def build():
     doc.paragraphs[-1].runs[0].font.color.rgb = NAVY
     paragraph(
         doc,
-        "Model, equations, data, and scenarios for the RIKEN flood-and-trade comparison",
+        "Model, equations, data, and scenarios for flood-related production shocks",
         size=13, italic=True, space_after=2,
     )
     paragraph(
@@ -167,10 +216,10 @@ def build():
     )
     paragraph(
         doc,
-        "This note describes the Food Shock Cascade (FSC) as it is run for the collaboration with RIKEN. "
+        "This note describes the Food Shock Cascade (FSC) as run for metric-ton flood scenarios. "
         "It states the equations actually used, the parameters, the input data, and the scenarios. "
-        "It then lines those scenarios up with Junshi Xia’s flood-loss construction and with the trade-cascade figures in his 12 November 2026 note. "
-        "Junshi’s note is marked preliminary and not for circulation. His totals are quoted here only so the scenarios can be compared with them. They are his results, not FSC output.",
+        "The flood rows are illustrative fractions on a fixed 2018–2021 network. They are not observed flood losses. "
+        "Availability here is physical commodity use. It is not household consumption, a price, or a nutritional outcome.",
     )
 
     add_heading_styled(doc, "1. Four pillars of food security", 1)
@@ -195,7 +244,7 @@ def build():
                 "Access",
                 "Outside the model",
                 "Prices, incomes, and whether households can obtain food",
-                "No price or income result. Junshi’s price checks are empirical and are not FSC output",
+                "No price or income result",
             ],
             [
                 "Utilization",
@@ -207,7 +256,7 @@ def build():
                 "Stability",
                 "Measured for one shock year",
                 "Whether availability holds through a shock, and whether that holds over time",
-                "One shock on a fixed 2018–2021 network. The 2002–2024 path is Junshi’s, and it needs his loss table",
+                "One shock on a fixed 2018–2021 network. Annual files for 2002–2024 are built and are not used in these benchmarks",
             ],
         ],
         [1.15, 1.25, 2.15, 2.25],
@@ -238,7 +287,7 @@ def build():
     caption(
         doc,
         "Table 2. Headline availability results on the 2018–2021 mean network. Bans remove 95% of the named exporter’s flows. "
-        "The US maize flood row is a placeholder fraction, not Junshi Xia’s estimate. Access and utilization have no entries because the model does not produce them.",
+        "The US maize flood row is an illustrative fraction, not an observed flood loss. Access and utilization have no entries because the model does not produce them.",
     )
     add_table(
         doc,
@@ -334,6 +383,7 @@ def build():
         ["Parameter", "Symbol", "Value in the figures", "Other values in the grid", "Role"],
         [
             ["Reserve access", "α", "0 and 1", "0.25 and 0.5", "Share of beginning stocks that can be drawn"],
+            ["Empty-reserve freeze", "—", "Off in the flood primary", "On in published PTA", "Off lets trade move when usable reserves are zero"],
             ["Domestic absorption", "γ", "0.01", "—", "Share of remaining shortage taken from use each iteration"],
             ["Iteration cap", "kmax", "50", "—", "Stops the loop if trade has not settled"],
             ["RTA offer", "rexp", "0.20", "—", "Share of remaining reserves an exporter may offer"],
@@ -352,7 +402,7 @@ def build():
     paragraph(
         doc,
         "The networks are built from outputs/export_for_RIKEN. Annual files cover 2002–2024. The scenarios average 2018–2021. "
-        "They do not rerun a separate network for each flood year. That is the step that waits on Junshi’s country-year losses.",
+        "They do not rerun a separate network for each flood year. The year on a shock row is metadata.",
     )
     add_table(
         doc,
@@ -364,100 +414,93 @@ def build():
             ["Domestic use", "PSD domestic consumption where it exists", "Otherwise production plus imports minus exports, floored at zero"],
             ["Countries", "FSC 195-country list", "China mainland (FAO 41) and Taiwan (FAO 214) stay separate. EU-28 in the scenarios includes the United Kingdom, matching the existing FSC member list"],
             ["Successor states", "Sudan and Serbia and Montenegro", "Historical FAO units are split with early-year production shares. PSD Sudan stays on Sudan and is not split"],
-            ["Flood losses", "Not yet attached", "inputs/yawei_placeholder_flood_shocks.csv holds stand-in fractions. shock_source is placeholder_pending_junshi"],
+            ["Flood losses", "Not yet attached", "inputs/yawei_placeholder_flood_shocks.csv holds illustrative fractions. shock_source is illustrative_placeholder"],
         ],
         [1.25, 2.15, 3.4],
     )
     caption(doc, "Table 5. Input data behind the 2018–2021 networks. Soybean is exported in the same files and is not shocked in this brief.")
     paragraph(
         doc,
+        "Trade includes primary crops and selected products, converted in ancillary/mass_equivalent_factors.csv. "
+        "Those factors are project assumptions, not a claim that FAO published each one as a standard. "
+        "Wheat includes grain plus flour, pasta, bread, bulgur, germ, and pastry, in wheat-grain equivalents. "
+        "Rice includes paddy at 0.67, husked rice at 0.8375, and milled rice, broken rice, and rice flour at 1. "
+        "Maize includes grain, germ, and flour. Maize oil and green maize are excluded. "
+        "Soybean is beans only. Oil and cake are excluded. "
+        "The benchmark fills a missing beginning stock with reserves_imputed_mt and then with zero. "
+        "A comparison that treats blanks as zero should use beginning_stocks_mt and ignore the imputed column. "
+        "trade_mt_net is the bilateral measure. "
+        "Angola is outside the 195-country list. Taiwan is separate from mainland China. "
         "PSD market years are joined to FAO calendar years with no shift. One PSD row per country, year, and attribute is used. "
         "The EU is one PSD row and is shared out to member countries with FAO production weights. "
         "Re-export netting removes the overlap of a hub’s imports and exports. It does not reassign that flow to an upstream producer.",
     )
 
-    add_heading_styled(doc, "6. Scenarios, and how they sit against Junshi’s work and the cascade figures", 1)
+    add_heading_styled(doc, "6. Flood scenarios on the fixed baseline", 1)
     paragraph(
         doc,
-        "The 12 November 2026 note is signed by Junshi Xia (RIKEN AIP). It has two parts that this project has been treating under two names. "
-        "Section 1 is Junshi’s flood-shock construction: flood extent, satellite productivity, and the crop split. "
-        "Section 2 and Figures 1, 2, and the appendix are the trade cascade, the reserves comparison, the partner rankings, and the route map. "
-        "Those are the figures the benchmarks were written to line up with. The cascade in the note follows Marchand et al. (2016) and Jägermeyr et al. (2020). It is not the same allocation rule as FSC.",
+        "The flood experiment is a production loss on the 2018–2021 mean network. "
+        "The file inputs/yawei_placeholder_flood_shocks.csv holds illustrative fractions. "
+        "Several rows can share an event_id, so more than one country can be shocked together. "
+        "The year is stored and is not used to select a network. "
+        "A loss is either a positive fraction of baseline production or a positive quantity in metric tons. "
+        "The reader rejects an unknown country, a duplicate country in one event, a fraction outside (0, 1], and a tonne loss larger than that country’s baseline production. "
+        "Replace the file and rerun Rscript main/run_allocation_comparison.R. Do not switch to the annual 2002–2024 networks unless that is a separate decision.",
     )
-    paragraph(doc, "Junshi’s shock, as described in that note, is built as follows. Flood extent comes from the Global Flood Database (MODIS, 2002–2018) and Sentinel-1 (2015–2024), crossed with cropland. Loss is a satellite productivity anomaly on flooded cropland in the flood year and the next year, on a 0.05 degree grid, converted to tonnes. He reports 422 country-years with a loss. The crop mix is a loss-weighted MapSPAM 2010 harvested-area mix, yield-weighted and capped at national harvested area. Where the flood date is known, only crops in season are counted. Rice is converted to milled with the factor 0.67. The shock in year t is the same-year loss of floods in t plus the following-year loss of floods in t−1.")
     paragraph(
         doc,
-        "His cascade uses each year’s own trade network. A deficit country draws stocks first. Whatever remains is split between an export cut and a domestic-use cut in proportion to exports and use. Export cuts are taken from current partners pro rata and become those partners’ deficits. The loop stops below 1 tonne. He runs two cases: all stocks usable, and no stocks. There are no prices, no new links, and no substitution across crops.",
+        "An alternative rule, used in published trade-cascade work, draws stocks and then splits the remaining deficit between exports and domestic use in proportion to the two. "
+        "FSC does not implement that split. Equation 8 still takes 1 percent of the remaining shortage from domestic use and leaves the rest for trade. "
+        "That choice is open. It is not a result of these runs.",
     )
     add_picture(doc, EQ / "eq_yawei.png", 5.8)
-    caption(doc, "Equation 12. The residual split in the 12 November note, after stocks. Di is the remaining deficit, Xi exports, Ui domestic use. FSC does not use this split. FSC takes 1 percent of the shortage from domestic use each iteration (Equation 8) and pushes the rest into trade.")
+    caption(doc, "Equation 12. A residual split that FSC does not use. Di is the remaining deficit, Xi exports, Ui domestic use. FSC uses Equation 8 instead.")
     paragraph(
         doc,
-        "That difference is why the two models answer different questions even when both are called a no-reserves case. "
-        "In his no-reserves runs, 80–93 percent of a flood loss stays in the flooded country and 7–20 percent is passed on, and no partner loses more than about 7 percent of use. "
-        "In FSC, the flooded country’s own use barely moves, because domestic absorption per iteration is 1 percent, and the loss leaves through exports. "
-        "His with-reserves runs absorb 95–99 percent of the flood losses. FSC with beginning stocks open absorbs the headline bans down to a few tenths of a percent of world use, except the US maize ban, which still leaves 4.0 Mt.",
+        "Within FSC there are three existing settings. Modified PTA leaves the empty-reserve freeze off, so trade can still move on existing links, and an explicit ban stays closed. "
+        "It is the preferred candidate for a flood run because the published freeze, at alpha 0, stops every exporter. It is not an empirically settled winner. "
+        "Published PTA keeps the freeze and is what main.R runs. RTA offers 20 percent of remaining reserves on each pass. At alpha 0 that offer is zero, so RTA matches published PTA. "
+        "The proportional update can multiply a thin existing link. Partner rankings from a run that hit the 50-iteration cap are approximate.",
     )
     add_table(
         doc,
-        ["His reported total, 2002–2024", "Rice", "Wheat", "Maize"],
-        [
-            ["Flood loss", "30.7 Mt", "27.7 Mt", "26.0 Mt"],
-            ["Share of world production, median / max", "0.2% / 0.9%", "0.1% / 0.5%", "0.1% / 0.4%"],
-            ["Absorbed by stocks", "96%", "99%", "95%"],
-            ["No reserves: kept at home", "93%", "80%", "91%"],
-            ["No reserves: passed to partners", "6.9%", "19.6%", "8.6%"],
-            ["Largest partner use cut", "6.3% (Georgia, 2012)", "7.0% (Guyana, 2010)", "3.4% (Qatar, 2008)"],
-        ],
-        [2.5, 1.5, 1.5, 1.5],
-    )
-    caption(doc, "Table 6. Figures from Junshi Xia’s preliminary 12 November 2026 note. They are not FSC results. The note asks that they not be circulated.")
-    paragraph(
-        doc,
-        "His price section is an empirical check, not a model. He finds no clear response in the flooded country’s producer price or in partners’ food CPI. "
-        "World Bank Pink Sheet prices move with global flood losses, and much of that movement is ENSO. "
-        "The rice slope that remains is about 0.3 in the log price per 1 percent of world production. "
-        "FSC’s uncalibrated index is not that regression, and it is omitted from the figures.",
-    )
-    add_table(
-        doc,
-        ["Scenario in this document", "Shock", "What it shares with the 12 Nov note", "What it does not share"],
+        ["Scenario", "Shock", "What it measures", "What it does not measure"],
         [
             [
                 "95% export bans, stocks unused, trade frozen",
                 "No production change. The ban is a stock build",
-                "An upper bound with stocks closed, in the spirit of his no-reserves panel",
-                "His loss is a flood, and his partners can still receive rerouted grain. Here every exporter is frozen",
+                "Who loses imports when no exporter can reroute",
+                "A flood. Every exporter is frozen, which is stronger than closing one country's reserves",
             ],
             [
                 "95% export bans, stocks unused, PTA reroute",
                 "Same ban",
-                "Trade still moves, which is closer to his no-reserves cascade",
-                "FSC passes the loss out through exports. His split keeps most of a production loss at home",
+                "Who loses use when other exporters can fill existing links",
+                "A flood, and it does not keep the loss in the banning country",
             ],
             [
                 "Same bans, beginning stocks usable",
                 "Same ban, alpha = 1",
-                "The with-reserves comparison in his Figure 1a",
-                "A ban is not a flood. World use falls only by the grain stocks cannot cover",
+                "How much of the withheld grain stocks can cover",
+                "A flood. World use falls only by the grain stocks cannot cover",
             ],
             [
                 "PTA versus RTA maps",
                 "Same ban, both rules, stocks unused",
-                "A network picture of where use falls, in the spirit of his Figure 2 and of Heslin’s maps",
-                "His Figure 2 sums real flood years. These maps are one ban on the 2018–2021 mean",
+                "Where use falls under the two published allocation rules",
+                "A multi-year flood series. These maps are one ban on the 2018–2021 mean",
             ],
             [
-                "Placeholder floods",
+                "Illustrative floods",
                 "Invented fractions, with and without a 95% reactive ban",
-                "The experiment his section 1 is meant to feed: a production loss on the trade network",
-                "The fractions are not his 422 country-years. The US shock hits the whole United States node",
+                "A production loss on the trade network, which is the flood experiment",
+                "Observed flood losses. The US shock hits the whole United States node",
             ],
         ],
-        [1.7, 1.45, 1.85, 1.8],
+        [1.7, 1.55, 1.8, 1.75],
     )
-    caption(doc, "Table 7. Crosswalk from the scenarios in this document to Junshi Xia’s note and to the cascade figures.")
-    paragraph(doc, "The placeholder file, until his table replaces it, is:")
+    caption(doc, "Table 6. What each scenario in this document is for. Losses are availability of one commodity, not household food insecurity.")
+    paragraph(doc, "The illustrative file is:")
     add_table(
         doc,
         ["Event", "Crop", "Node", "Production loss", "Reactive ban"],
@@ -471,7 +514,44 @@ def build():
         ],
         [1.5, 1.3, 1.6, 1.3, 1.1],
     )
-    caption(doc, "Table 8. Placeholder shocks in inputs/yawei_placeholder_flood_shocks.csv. Each is run as production only and as production plus the ban.")
+    caption(doc, "Table 7. Illustrative shocks in inputs/yawei_placeholder_flood_shocks.csv. Each is run as production only and as production plus the ban. These fractions are not observed flood losses.")
+
+    add_heading_styled(doc, "Three existing FSC settings on the same placeholders", 2)
+    paragraph(
+        doc,
+        "The comparison uses one network, the 2018–2021 mean, and does not add a new allocation rule. "
+        "Modified PTA is sim_cascade_PTA with the empty-reserve freeze off. It is the preferred candidate, not a settled winner: other exporters can still move grain on links that already exist, and an explicit ban stays closed. "
+        "Published PTA is the same function with the freeze on, which is what main.R runs. At alpha 0 that freezes every exporter. "
+        "RTA is sim_cascade_RTA with rexp = 0.2. At alpha 0 there is nothing to offer, so RTA matches published PTA. "
+        "Every call passes the rule explicitly. The grid is the six placeholders, alpha of 0, 0.25, 0.5, and 1, and two policies. Production only is the flood experiment. Production plus the reactive ban is a sensitivity. The same script also repeats the wheat and rice export-ban grid under all three rules.",
+    )
+    add_table(
+        doc,
+        ["Placeholder, production only, α = 0", "World loss, Mt", "Home %, modified PTA", "Home %, published PTA", "Home %, RTA"],
+        production_only_rows(),
+        [2.05, 1.05, 1.25, 1.3, 1.15],
+    )
+    caption(
+        doc,
+        "Table 8. Production shock only, reserves closed. Numbers are read from outputs/yawei_benchmarks/allocation_comparison.csv. "
+        "World consumption loss is the same under all three rules because trade cancels. "
+        "The home share is the shocked country’s share of that loss. These are illustrative fractions, not observed flood losses.",
+    )
+    paragraph(
+        doc,
+        "Opening beginning stocks covers the production-only placeholders almost completely. "
+        "The US maize row still shows the 0.12 Mt maize residual at alpha 1, which is the baseline gap rather than uncovered loss. "
+        "Adding the reactive ban does not change the world total at alpha 0. With stocks open, that combined US maize case still leaves 2.97 Mt under modified PTA, 4.02 Mt under published PTA, and 0.99 Mt under RTA.",
+    )
+    paragraph(
+        doc,
+        "Checks on the 144 flood runs and the 720 export-ban runs: production matches the requested shock, quantities stay non-negative, no new bilateral link appears, and reserve draws stay within usable reserves. "
+        "Maize carries the same −0.120 Mt gap on every maize run. Rice sits between −0.65 and −0.47 kt. "
+        "Wheat closes except the EU-28 95 percent full-year ban, about +0.365 Mt for published PTA and RTA at alpha 0, and +0.034 Mt for published PTA at alpha 0.25. Modified PTA closes that case. "
+        "Modified PTA hits the 50-iteration cap on every alpha 0 flood run. Extending the same equations to 200 iterations leaves the Thailand rice world loss at 3.20 Mt and the US maize world loss at 36.37 Mt. "
+        "Thailand’s share moves from 6.21 to 6.23 percent. One maize country total can still move by 76 kt, so a partner ranking from a capped run is approximate. The cap was not raised. "
+        "The full grid is outputs/yawei_benchmarks/allocation_comparison.csv.",
+    )
 
     add_heading_styled(doc, "7. Figures", 1)
     paragraph(
@@ -486,43 +566,42 @@ def build():
             "Figure 1. Milled-rice export bans of 95 percent. Left: published FSC with stocks unused, which freezes every exporter. "
             "Center: stocks unused and other exporters can reroute. Right: beginning stocks usable. "
             "India’s world loss is 13.4 Mt in both no-stock panels and 0.22 Mt when stocks are open. "
-            "This is the reserves comparison in his Figure 1, run on bans rather than on flood years.",
+            "The comparison is stocks closed versus stocks open, on a ban rather than on a flood.",
         ),
         (
             "figA1_wheat_reserves_vs_none.png",
             "Figure 2. The same three rules for wheat. A Russian ban withholds 33.8 Mt, 4.44 percent of world wheat use, when stocks are closed, and 0.18 Mt when they are open. "
-            "EU-28 includes the United Kingdom. This is the wheat counterpart of his appendix figure, again on bans rather than on the 2002–2024 flood series.",
+            "EU-28 includes the United Kingdom. This is a ban on the 2018–2021 mean, not a multi-year flood series.",
         ),
         (
             "figA2_maize_usa.png",
             "Figure 3. A 95 percent US maize export ban. World use falls 55.9 Mt with stocks closed and 4.0 Mt, 0.35 percent, with beginning stocks open. "
-            "This is the reserve case that does not disappear. His maize appendix is a flood series, and the largest partner cut he reports is about 3.4 percent of use.",
+            "This is the reserve case that does not disappear. Opening stocks still leaves about 4 Mt of world maize use.",
         ),
         (
             "fig1c_rice_india_partners.png",
             "Figure 4. Who loses rice use after a 95 percent Indian ban, among countries with at least 0.1 Mt of baseline use. "
             "When trade can reroute, the tonnes sit with other exporters: Thailand 1.58 Mt, Vietnam 1.13, China 1.07, Pakistan 0.89, the United States 0.74. "
-            "When trade is frozen, they sit with importers: Iran 1.07 Mt, Saudi Arabia 1.02, Benin 0.86. "
-            "His Figure 1c ranks partners of real flood years, and his largest rice partner cut is about 6 percent of use.",
+            "When trade is frozen, they sit with importers: Iran 1.07 Mt, Saudi Arabia 1.02, Benin 0.86.",
         ),
         (
             "fig1c_wheat_russia_partners.png",
             "Figure 5. The same ranking for a Russian wheat ban. Rerouting puts the loss on the United States (2.72 Mt), Canada (2.25), France (1.87), Ukraine (1.78), and Australia (1.34). "
-            "A frozen network puts it on Egypt (6.32 Mt), Iraq, Bangladesh, Yemen, and Nigeria. "
-            "His largest wheat receivers, summed over flood years with no reserves, are Indonesia, Japan, Korea, Italy, and the Philippines.",
+            "A frozen network puts it on Egypt (6.32 Mt), Iraq, Bangladesh, Yemen, and Nigeria.",
         ),
         (
             "fig_where_loss_sits.png",
             "Figure 6. Where the lost consumption sits. For a pure ban the shocked country’s own use barely changes, because the withdrawn grain is a stock build. "
             "Rerouting moves that loss onto countries that export more. Freezing the network leaves it on everyone else. "
-            "The Thai rice and US maize bars are placeholder production shocks. Even there, FSC keeps only a small share of the loss in the shocked country. "
-            "His cascade keeps 80–93 percent at home. Both numbers can be true, because the allocation rules differ.",
+            "The Thai rice and US maize bars are placeholder production shocks under modified PTA, the reroute setting. "
+            "On those two bars the shocked country keeps a small share of the loss. That is not true of published PTA for every exporter: Pakistan wheat keeps about 67 percent and Myanmar rice about 37 percent when every exporter is frozen. "
+            "Within FSC the freeze changes the location of the loss without changing the world total.",
         ),
         (
             "fig2_rice_india_network.png",
             "Figure 7. Routes for the Indian rice ban when other exporters can reroute and stocks are unused. "
             "Red arrows are India’s cuts of at least 50 kt. Teal arrows are increases of at least 50 kt on other exporters’ existing links. "
-            "Orange circles are consumption losses of at least 0.2 Mt. His Figure 2 uses red circles for flood losses, orange for partners’ use cuts, and curves for export cuts of at least 2 kt, summed over 2002–2024.",
+            "Orange circles are consumption losses of at least 0.2 Mt.",
         ),
         (
             "fig2_wheat_russia_network.png",
@@ -564,7 +643,7 @@ def build():
             "Red adds a 95 percent export ban. Green is that combined case with beginning stocks usable. "
             "The US maize placeholder is about 36 Mt of world use from the production cut alone, and about 92 Mt once the ban holds a further block of exports as stocks. "
             "With stocks open, the production cut is covered and the ban still leaves about 4 Mt, the same residue as the pure US maize ban. "
-            "Replace the placeholder file with Junshi’s fractions before reading this figure as history.",
+            "Replace the placeholder file with observed losses before reading this figure as history.",
         ),
     ]
     for filename, text in figures:
@@ -593,10 +672,11 @@ def build():
         ],
         [1.7, 1.35, 0.4, 0.85, 1.15, 1.0, 0.7],
     )
-    caption(doc, "Table 9. World balance, million tonnes. Gap is the change in use, minus the production change, plus the stock change. Wheat and rice headline runs close within 1 kt.")
+    caption(doc, "Table 10. World balance, million tonnes. Gap is the change in use, minus the production change, plus the stock change. Wheat and rice headline runs close within 1 kt.")
     paragraph(
         doc,
-        "Every maize run carries the same gap of about 0.12 Mt, including the production shock that reserves cover completely. That residual is in the baseline maize balance. "
+        "Every maize run carries the same gap of about 0.12 Mt, including the production shock that reserves cover completely. "
+        "That equals baseline maize use below zero in Slovenia and Luxembourg, where processed-product exports exceed production plus imports. The diagnostic floors that negative use at zero. The cascade does not create the gap, and the reported totals are not adjusted to remove it. "
         "The largest gap elsewhere is 0.37 Mt, on the EU-28 wheat ban with trade frozen. "
         "A gap of that size does not change the ranking of the scenarios.",
     )
@@ -610,13 +690,15 @@ def build():
     )
     paragraph(
         doc,
-        "Access is Junshi’s price section, and it is not reproduced here. Utilization would require a conversion to calories or nutrients and a basket of foods. "
-        "The original Heslin application was in kilocalories of wheat. These scenarios stay in tonnes of one commodity so they can be compared with his flood losses, which are also in tonnes, with rice on a milled basis.",
+        "Access and utilization are outside the model. Utilization would require a conversion to calories or nutrients and a basket of foods. "
+        "The original Heslin application was in kilocalories of wheat. These scenarios stay in tonnes of one commodity, with rice on a milled basis.",
     )
     paragraph(
         doc,
-        "The next run that would match his Figure 1 directly is a year-by-year cascade on the 2002–2024 networks, with his 422 country-year losses in place of Table 8. "
-        "The input files for those years are already built. The shock table is the missing piece.",
+        "The next flood run replaces Table 7 with an observed loss table and reruns the same 2018–2021 comparison. "
+        "The annual 2002–2024 networks are already built and stay unused until that choice is made explicitly. "
+        "The preferred FSC candidate is modified PTA. Published PTA remains the reference for the 2020 paper. RTA remains the reserves-offer check. "
+        "A stock-then-split rule is not implemented.",
     )
 
     add_heading_styled(doc, "References for the comparison", 1)
@@ -625,8 +707,7 @@ def build():
         "FAO. 2009. Declaration of the World Summit on Food Security. WSFS 2009/2. Availability, access, utilization, and stability.",
         "Heslin, A., Puma, M. J., Marchand, P., et al. 2020. Simulating the cascading effects of an extreme agricultural production shock. The PTA and RTA rules, originally in kilocalories. The choropleths and network diagrams in Section 7 follow that paper’s layout.",
         "Marchand, P., Carr, J. A., Dell’Angelo, J., et al. 2016. Reserves and trade jointly determine exposure to food supply shocks. Environmental Research Letters. The allocation rules FSC implements.",
-        "Jägermeyr, J., et al. 2020. A regional nuclear conflict would compromise global food security. Proceedings of the National Academy of Sciences. Cited in the 12 November note as the other source of the proportional stock-then-split cascade.",
-        "Xia, J. 12 November 2026. Flood-driven crop losses and their transmission through trade. Preliminary note for the RIKEN–Puma discussion. Not for circulation. Source of Table 6 and of the figure design these scenarios are lined up against.",
+        "Jägermeyr, J., et al. 2020. A regional nuclear conflict would compromise global food security. Proceedings of the National Academy of Sciences. A published source of a proportional stock-then-split cascade. That split is not implemented here.",
     ]:
         paragraph(doc, item, size=10, space_after=4)
 

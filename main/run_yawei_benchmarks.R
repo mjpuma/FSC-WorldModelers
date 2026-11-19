@@ -1,9 +1,11 @@
-# Yawei-aligned FSC benchmarks on the 2018-2021 metric-ton networks.
+# Flood and export-ban benchmarks on the 2018-2021 metric-ton networks.
 # Run from the repository root after export_riken_inputs.py:
 #   Rscript main/run_yawei_benchmarks.R
 #
-# Experiment 3 reads inputs/yawei_placeholder_flood_shocks.csv. Replace the
-# production_loss_fraction column with Junshi's flood shocks and re-run.
+# The three-specification comparison is main/run_allocation_comparison.R.
+# It reads inputs/yawei_placeholder_flood_shocks.csv. Replace that file with
+# observed flood losses and rerun. The year column is metadata. These runs
+# stay on the 2018-2021 mean.
 # The price coefficients are uncalibrated. beta_surplus and beta_stu are
 # negative so a fall in exportable surplus or stock-to-use raises the index.
 # They are not estimated Kuhla elasticities.
@@ -417,7 +419,7 @@ print_block("Rice 95% full-year export ban, alpha 0.5. Price index uses beta_sur
 
 flood_slice <- slice[slice$experiment == "flood_policy", ]
 flood_slice$label <- paste(flood_slice$event_id, flood_slice$variant, flood_slice$crop)
-print_block("Placeholder flood shocks, alpha 0.5. Replace inputs/yawei_placeholder_flood_shocks.csv with Junshi's fractions.", flood_slice)
+print_block("Illustrative flood shocks, alpha 0.5. Replace inputs/yawei_placeholder_flood_shocks.csv with observed losses.", flood_slice)
 
 message("Wrote ", file.path(out_dir, "benchmark_results.csv"))
 }
