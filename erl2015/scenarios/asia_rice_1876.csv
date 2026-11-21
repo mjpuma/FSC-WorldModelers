@@ -1,0 +1,19 @@
+# Export ban for the Great Drought (1876-1878) analogue on rice.
+# Countries starred in table S1 of Puma et al. (2015), Environ. Res. Lett. 10 024007:
+# Asian countries with negative 1876-1878 JJA PDSI over at least half their territory.
+# China is the mainland only (FAO area 41); Taiwan and Hong Kong are not starred.
+m49,name,ban_fraction
+156,China mainland,1
+104,Myanmar,1
+356,India,1
+360,Indonesia,1
+392,Japan,1
+408,Democratic People's Republic of Korea,1
+410,Republic of Korea,1
+418,Lao People's Democratic Republic,1
+458,Malaysia,1
+608,Philippines,1
+702,Singapore,1
+144,Sri Lanka,1
+764,Thailand,1
+704,Viet Nam,1

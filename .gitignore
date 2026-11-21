@@ -12,3 +12,7 @@ outputs/export_for_RIKEN 2/
 # Draft flood-shock table and everything built from it stay local.
 data/RIKEN_flood_shock_table_2002_2024_draft_2026-11-20.xlsx
 outputs/flood_shocks/
+
+# erl2015: cached FAOSTAT extracts and the original MATLAB stay local.
+erl2015/data/
+erl2015/original/

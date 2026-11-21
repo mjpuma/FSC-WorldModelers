@@ -1,0 +1,25 @@
+# Export ban for the "Year Without a Summer" (1816) analogue on wheat.
+# Countries starred in table S1 of Puma et al. (2015), Environ. Res. Lett. 10 024007:
+# European countries with a 1816 JJA cooling anomaly over at least half their territory.
+# Belgium-Luxembourg (058, to 1999) and Czechoslovakia (200, to 1992) are added as the
+# predecessors of starred countries so early years are covered.
+m49,name,ban_fraction
+040,Austria,1
+056,Belgium,1
+058,Belgium-Luxembourg,1
+070,Bosnia and Herzegovina,1
+200,Czechoslovakia,1
+203,Czechia,1
+250,France,1
+276,Germany,1
+348,Hungary,1
+372,Ireland,1
+380,Italy,1
+428,Latvia,1
+528,Netherlands,1
+578,Norway,1
+616,Poland,1
+620,Portugal,1
+724,Spain,1
+756,Switzerland,1
+826,United Kingdom,1

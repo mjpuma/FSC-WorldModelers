@@ -1,0 +1,53 @@
+# UN least developed countries, 44 countries, as listed by UN DESA after
+# Sao Tome and Principe graduated in December 2024 (Bhutan graduated in 2023).
+# Bangladesh, Lao PDR and Nepal are scheduled to graduate on 24 November 2026.
+# Predecessor areas in FAOSTAT are added so early years are covered:
+# Ethiopia PDR (230, to 1992) and Sudan (former) (736, to 2011).
+# Source: https://www.un.org/development/desa/dpad/least-developed-country-category.html
+m49,name,region
+024,Angola,Africa
+204,Benin,Africa
+854,Burkina Faso,Africa
+108,Burundi,Africa
+140,Central African Republic,Africa
+148,Chad,Africa
+174,Comoros,Africa
+180,Democratic Republic of the Congo,Africa
+262,Djibouti,Africa
+232,Eritrea,Africa
+231,Ethiopia,Africa
+270,Gambia,Africa
+324,Guinea,Africa
+624,Guinea-Bissau,Africa
+426,Lesotho,Africa
+430,Liberia,Africa
+450,Madagascar,Africa
+454,Malawi,Africa
+466,Mali,Africa
+478,Mauritania,Africa
+508,Mozambique,Africa
+562,Niger,Africa
+646,Rwanda,Africa
+686,Senegal,Africa
+694,Sierra Leone,Africa
+706,Somalia,Africa
+728,South Sudan,Africa
+729,Sudan,Africa
+768,Togo,Africa
+800,Uganda,Africa
+834,United Republic of Tanzania,Africa
+894,Zambia,Africa
+004,Afghanistan,Asia
+050,Bangladesh,Asia
+116,Cambodia,Asia
+418,Lao People's Democratic Republic,Asia
+104,Myanmar,Asia
+524,Nepal,Asia
+626,Timor-Leste,Asia
+887,Yemen,Asia
+332,Haiti,Americas
+296,Kiribati,Oceania
+090,Solomon Islands,Oceania
+798,Tuvalu,Oceania
+230,Ethiopia PDR,Africa
+736,Sudan (former),Africa

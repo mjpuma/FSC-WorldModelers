@@ -1,0 +1,5 @@
+# Countries that restricted wheat or rice exports during the 2007-2008 price spike,
+# used for the asterisks in figure 2. One row per crop and country. Fill from the
+# source the 2015 paper cites as reference [45], and record it in `source`.
+# Left empty on purpose: the list has not been checked against that source yet.
+crop,m49,name,source
