@@ -42,7 +42,7 @@ Russia wheat ban, trade frozen: Egypt 6.32 Mt (30% of use), Iraq 2.18 Mt (30% of
 
 ![Where the lost consumption sits](figures/fig_where_loss_sits.png)
 
-FSC takes only 1% of the remaining shortage out of domestic use on each iteration and pushes the rest into trade. Under the reroute setting, the Thai rice placeholder, a 15% production cut, removes about 3.2 Mt of world rice use and only a small share of that is Thai consumption. Published PTA with the freeze on does not do that for every exporter. The comparison table records the shocked country's share. An alternative stock-then-split rule is not implemented.
+FSC takes only 1% of the remaining shortage out of domestic use on each iteration and pushes the rest into trade. Under the reroute setting, the Thai rice placeholder, a 15% production cut, removes about 3.2 Mt of world rice use and only a small share of that is Thai consumption. Published PTA with the freeze on does not do that for every exporter. The comparison table records the shocked country's share. These placeholder maps follow FSC. The stock-then-split option is a separate run on the observed draft table.
 
 ## Where the grain travels
 
@@ -107,7 +107,7 @@ The largest identity gap is 0.37 Mt, on wheat_EU28 under the frozen rule at alph
 - Alpha 0 closes reserves and, in published PTA, also freezes every export row. The frozen panels are that published rule. The reroute panels turn the freeze off.
 - World percentages under a ban are the size of the stock build. They stay the same when trade reroutes. The maps are what change.
 - Rankings use tonnes and a 0.1 Mt use floor. Percentage losses in very small markets are real on this network and are a poor guide to where the grain went.
-- FSC's 1% domestic-absorption step passes a production shock out through exports under the reroute setting. An alternative stock-then-split rule is not implemented. The placeholder flood maps follow FSC.
+- FSC's 1% domestic-absorption step passes a production shock out through exports under the reroute setting. The placeholder flood maps follow FSC. Stock-then-split is a separate option and is the primary rule for the observed draft table.
 - The rice price index is uncalibrated and is not a Pink Sheet result.
 - EU-28 follows the existing FSC member list and includes the United Kingdom.
 - Losses are shares of that commodity's use. They are not shares of calories or of a household food basket.

@@ -132,6 +132,37 @@ draw_reserves <- function(food_net, need = food_net$shortage, avail = food_net$R
     update_shortage(food_net)
 }
 
+# Stock-then-split step. After reserves have been drawn, each country whose
+# shortage is at least `tol` tonnes splits that remainder between an export cut
+# and a domestic-use cut in proportion to current exports and domestic use.
+# The export cut is taken pro rata from links that already exist. No new link
+# is opened. This is not the published PTA or RTA update.
+split_residual_proportional <- function(food_net, tol = 1) {
+    labels <- rownames(food_net$E)
+    shortage <- pmax(as.numeric(food_net$shortage), 0)
+    shortage[!is.finite(shortage)] <- 0
+    exports <- pmax(rowSums(food_net$E), 0)
+    use <- pmax(as.numeric(food_net$C), 0)
+    denom <- exports + use
+    active <- shortage >= tol & denom > 0
+    exp_cut <- rep(0, length(shortage))
+    use_cut <- rep(0, length(shortage))
+    exp_cut[active] <- shortage[active] * exports[active] / denom[active]
+    use_cut[active] <- shortage[active] * use[active] / denom[active]
+    exp_cut <- pmin(exp_cut, exports)
+    use_cut <- pmin(use_cut, use)
+    scale <- ifelse(exports > 0, 1 - exp_cut / exports, 1)
+    food_net$E <- sweep(food_net$E, 1, scale, `*`)
+    food_net$E[food_net$E < 0] <- 0
+    if (!is.null(labels)) dimnames(food_net$E) <- list(labels, labels)
+    # use_cut is already bounded by positive domestic use, so this does not lift
+    # a negative baseline use up to zero. That baseline is a processed-trade
+    # imbalance, not a shortage the flood created.
+    food_net$C <- food_net$C - use_cut
+    food_net$last_split_tonnes <- sum(exp_cut) + sum(use_cut)
+    update_shortage(food_net)
+}
+
 # Cut consumption by a requested amount, never below zero and never by more than
 # current domestic use. A non-positive request removes nothing.
 cut_consumption <- function(food_net, amount = food_net$shortage) {

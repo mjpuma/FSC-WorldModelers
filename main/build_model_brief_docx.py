@@ -449,12 +449,12 @@ def build():
     )
     paragraph(
         doc,
-        "An alternative rule, used in published trade-cascade work, draws stocks and then splits the remaining deficit between exports and domestic use in proportion to the two. "
-        "FSC does not implement that split. Equation 8 still takes 1 percent of the remaining shortage from domestic use and leaves the rest for trade. "
-        "That choice is open. It is not a result of these runs.",
+        "A second rule draws stocks and then splits the remaining deficit between exports and domestic use in proportion to the two. "
+        "sim_cascade_split now implements that option for the observed flood table. Equation 8 is unchanged: published PTA still takes 1 percent of the remaining shortage from domestic use and leaves the rest for trade. "
+        "The placeholder comparison on the 2018–2021 mean does not use the split.",
     )
     add_picture(doc, EQ / "eq_yawei.png", 5.8)
-    caption(doc, "Equation 12. A residual split that FSC does not use. Di is the remaining deficit, Xi exports, Ui domestic use. FSC uses Equation 8 instead.")
+    caption(doc, "Equation 12. The stock-then-split option used for the flood table. Di is the remaining deficit after the reserve draw, Xi exports, Ui domestic use. It is not the published PTA rule. The published update remains Equation 8.")
     paragraph(
         doc,
         "Within FSC there are three existing settings. Modified PTA leaves the empty-reserve freeze off, so trade can still move on existing links, and an explicit ban stays closed. "
@@ -695,10 +695,10 @@ def build():
     )
     paragraph(
         doc,
-        "The next flood run replaces Table 7 with an observed loss table and reruns the same 2018–2021 comparison. "
-        "The annual 2002–2024 networks are already built and stay unused until that choice is made explicitly. "
-        "The preferred FSC candidate is modified PTA. Published PTA remains the reference for the 2020 paper. RTA remains the reserves-offer check. "
-        "A stock-then-split rule is not implemented.",
+        "The observed draft shock table is run on each year's own network by Rscript main/run_flood_shocks.R. "
+        "Stock-then-split is the primary result. Modified PTA, with the empty-reserve freeze off, is the sensitivity in which domestic use is defended. "
+        "Published PTA remains the reference for the 2020 paper. RTA remains the reserves-offer check. "
+        "Rows for 2015 to 2024 in that table are provisional.",
     )
 
     add_heading_styled(doc, "References for the comparison", 1)
@@ -707,7 +707,7 @@ def build():
         "FAO. 2009. Declaration of the World Summit on Food Security. WSFS 2009/2. Availability, access, utilization, and stability.",
         "Heslin, A., Puma, M. J., Marchand, P., et al. 2020. Simulating the cascading effects of an extreme agricultural production shock. The PTA and RTA rules, originally in kilocalories. The choropleths and network diagrams in Section 7 follow that paper’s layout.",
         "Marchand, P., Carr, J. A., Dell’Angelo, J., et al. 2016. Reserves and trade jointly determine exposure to food supply shocks. Environmental Research Letters. The allocation rules FSC implements.",
-        "Jägermeyr, J., et al. 2020. A regional nuclear conflict would compromise global food security. Proceedings of the National Academy of Sciences. A published source of a proportional stock-then-split cascade. That split is not implemented here.",
+        "Jägermeyr, J., et al. 2020. A regional nuclear conflict would compromise global food security. Proceedings of the National Academy of Sciences. A published source of a proportional stock-then-split cascade. FSC now offers that split as sim_cascade_split. It is not the published PTA default.",
     ]:
         paragraph(doc, item, size=10, space_after=4)
 

@@ -168,3 +168,53 @@ sim_cascade_RTA <-
     food_net$cascade_converged <- converged
     enforce_nonnegative_domestic(food_net)
   }
+
+## Stock-then-split cascade ====
+# Draw usable reserves first. Split any remaining shortage of at least `tol`
+# tonnes between exports and domestic use in proportion to the two, pass the
+# export cut to existing partners, and repeat. This does not change PTA or RTA.
+# Published main.R does not call it.
+
+sim_cascade_split <-
+  function(food_net,
+           dP,
+           rfrac,
+           tol = 1,
+           kmax = 5000,
+           verbose = FALSE) {
+    food_net <- prepare_shocked_network(food_net, dP, rfrac)
+    k <- 0L
+    converged <- FALSE
+    repeat {
+      k <- k + 1L
+      if (k > kmax) {
+        warning("No equilibrium reached after maximum number of iterations", call. = FALSE)
+        break
+      }
+      if (verbose) cat("iteration", k, "of", kmax, "\n")
+      if (max(pmax(food_net$shortage, 0), na.rm = TRUE) < tol) {
+        converged <- TRUE
+        break
+      }
+      food_net <- draw_reserves(food_net)
+      before_E <- food_net$E
+      before_C <- food_net$C
+      food_net <- split_residual_proportional(food_net, tol = tol)
+      stuck <- isTRUE(all.equal(before_E, food_net$E)) &&
+        isTRUE(all.equal(before_C, food_net$C))
+      if (max(pmax(food_net$shortage, 0), na.rm = TRUE) < tol) {
+        converged <- TRUE
+        break
+      }
+      if (stuck || isTRUE(food_net$last_split_tonnes < tol)) {
+        warning("Stock-then-split stopped with a remaining shortage above 1 tonne", call. = FALSE)
+        break
+      }
+    }
+    food_net$cascade_iterations <- as.integer(k)
+    food_net$cascade_converged <- converged
+    # Do not call enforce_nonnegative_domestic here. That closer rewrites every
+    # country's use to its supply and cuts exports wherever baseline use is
+    # already negative. The split leaves those baseline imbalances in place.
+    food_net
+  }

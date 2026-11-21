@@ -127,7 +127,7 @@ offer_i = 0.20 * R_i
 
 A banned exporter's offer is set to zero. With `alpha = 0` there is nothing to offer, so RTA leaves the loss on the importers. That is why an RTA run with no stocks looks like PTA with the network frozen.
 
-An alternative stock-then-split cascade rule considered for flood scenarios is not implemented in this code. After stock draws, that rule divides the remaining deficit between exports and domestic use, passes export cuts to existing trade partners, and repeats until the remaining deficit is less than 1 tonne. FSC does not implement that split. The flood section below specifies which FSC rules were run.
+`sim_cascade_split` is an additional option for the flood runs. After the reserve draw, it divides a remaining deficit of at least 1 tonne between exports and domestic use in proportion to the two, passes the export cut to partners that already buy from that country, and repeats until every remaining shortage is below 1 tonne. It does not open a new trade link. Published `main.R` does not call it, and it does not change the PTA or RTA equations. The flood section says which runs use it.
 
 ## How to run a published scenario
 
@@ -215,11 +215,11 @@ A shock file is a table of fractional production declines by country and year. P
 
 ## Flood scenarios
 
-This section describes metric-ton flood scenarios for rice, wheat, and maize over 2002 to 2024. The intended country-year flood-loss inputs are not included in the repository, so the current flood runs use illustrative placeholder shock fractions rather than observed flood losses.
+This section describes metric-ton flood scenarios for rice, wheat, and maize over 2002 to 2024. The comparison on the 2018 to 2021 mean still uses illustrative placeholder fractions. The observed draft shock table is a separate run, on each year's own network.
 
 ### What was run, and what was not
 
-The flood figures use the FSC rules listed below, not the alternative stock-then-split rule.
+The flood figures on the 2018 to 2021 mean use the FSC rules listed below. The observed draft table is run separately, with stock-then-split as the primary rule and modified PTA as the sensitivity.
 
 | Run | Rule in the code | Stocks | Trade |
 |---|---|---|---|
@@ -247,6 +247,20 @@ Rscript main/run_allocation_comparison.R
 ```
 
 Each row needs `event_id`, `crop`, `year`, `iso3` or `fao_code`, and either `production_loss_fraction` or `production_loss_mt`. A fraction is a positive share of baseline production. Tonnes are positive losses. `reactive_ban_fraction` is optional and is the sensitivity, not the flood experiment. `shock_source` records provenance. `main/read_flood_shocks.R` rejects an unknown country, a duplicate country inside one event, a fraction outside (0, 1], and a tonne loss above that country's baseline production. Do not treat the current maps as historical results. Do not switch these benchmarks onto the annual networks unless that is an explicit later decision. The annual files remain in the network package.
+
+The observed draft table is `data/RIKEN_flood_shock_table_2002_2024_draft_2026-11-20.xlsx`. One row is one crop, country, and calendar year. The applied loss is `shock_total_t`, which already adds the same-year loss and the second-year loss from floods in the previous year. Rice is milled. Three crop-country-years are capped at production: Papua New Guinea 2003 rice and maize, and Turkmenistan 2016 maize. Rows for 2015 to 2024 are a sample of the Sentinel-1 archive and are expected to change. Rows for 2002 to 2014 are not.
+
+```
+Rscript main/run_flood_shocks.R
+```
+
+That script builds one network for each crop and year from the annual package. It uses reported beginning stocks and treats a blank as zero. It does not use the imputed stock fill, a model price, or an export ban. Alpha is only 0 or 1. Every shocked country in the same crop-year is applied together. Results go to `outputs/flood_shocks/`. The lead question is whether the consumption loss stays in the directly shocked countries. That is a result to read from the run, not a premise.
+
+```
+python3 main/plot_flood_report.py
+```
+
+That writes `outputs/flood_shocks/REPORT.md`, a Word copy, and the maps, stock-to-use charts, and trade networks. The 2015 to 2024 rows in the draft table are provisional.
 
 ### Network package
 
@@ -373,12 +387,14 @@ Network summaries at the start and the end of the run:
 | `main/main.R` | Dynamic FSC. Argument 1 is PTA (0) or RTA (1). Argument 2 is the scenario. Argument 3 is alpha. Writes `outputs/`. |
 | `main/main_static.R` | Production shock only. One argument, the scenario number. Writes `outputs/`. |
 | `main/ProcessInputs.R` | Builds `E0`, `P0`, `R0` from FAOSTAT and PSD. |
-| `main/FSC_sim_funcs.R` | `sim_cascade_PTA` and `sim_cascade_RTA`. |
+| `main/FSC_sim_funcs.R` | `sim_cascade_PTA`, `sim_cascade_RTA`, and `sim_cascade_split`. |
 | `main/FSC_component_funcs.R` | Supply, shortage, reserve draw, trade update, export bans. |
 | `main/fetch_faostat_bulk.py` | Downloads FAOSTAT production and trade through at least 2024. |
 | `main/export_riken_inputs.py` | Writes the metric-ton package for 2002 to 2024. |
 | `main/run_yawei_benchmarks.R` | Export-ban and placeholder-flood grid. Writes `outputs/yawei_benchmarks/`. |
 | `main/run_allocation_comparison.R` | Same baseline under modified PTA, published PTA, and RTA. |
+| `main/run_flood_shocks.R` | Draft flood table on each year's network. Stock-then-split and modified PTA. |
+| `main/plot_flood_report.py` | Maps, stock-to-use, trade networks, and the flood report. |
 | `main/export_figure_cases.R` | Country and edge results for the figures. |
 | `main/plot_report_figures.py` | Maps and charts, and `outputs/yawei_benchmarks/REPORT.md`. |
 | `R/rice_price_step.R` | Uncalibrated rice price index. Not used in the figures. |
