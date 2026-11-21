@@ -2,7 +2,7 @@
   <img src="clean_vector_logo_on_white_background_a_circular.png" width="400" alt="Food Shock Cascade (FSC) model logo">
 </p>
 
-# Food Shock Cascade
+# Food Shock Cascade Model
 
 The Food Shock Cascade (FSC) model simulates how agricultural production shocks and export restrictions propagate through country-level trade networks, one crop at a time. A production loss or an export ban changes supply. Countries then draw stocks, cut domestic use, and adjust trade along links that already exist. The result is a new pattern of consumption and trade. There are no households, no prices in the cascade, and no substitution between crops.
 
