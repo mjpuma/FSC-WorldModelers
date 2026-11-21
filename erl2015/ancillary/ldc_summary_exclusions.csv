@@ -1,0 +1,8 @@
+# Countries left out of LDC medians, means and top-five tables. They stay in
+# countries_by_period.csv with their losses.
+# Djibouti is the port for Ethiopia: its grain imports and food balance include
+# transit grain (FAOSTAT cereal supply rises from 0.07 Mt in 1994 to 1.8 Mt in 2021
+# for about 1.1 million people), so its loss shares are not consumption losses.
+# Puma et al. (2015) excluded it for the same trade-balance mismatch.
+m49,name,reason
+262,Djibouti,Transit port for Ethiopia; imports and balance include re-exported grain

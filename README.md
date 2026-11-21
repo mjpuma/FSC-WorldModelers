@@ -6,11 +6,26 @@
 
 The Food Shock Cascade (FSC) model simulates how agricultural production shocks and export restrictions propagate through country-level trade networks, one crop at a time. A production loss or an export ban changes supply. Countries then draw stocks, cut domestic use, and adjust trade along links that already exist. The result is a new pattern of consumption and trade. There are no households, no prices in the cascade, and no substitution between crops.
 
+FSC began with Puma, Bose, Chon, and Cook, 2015, *Assessing the evolving fragility of the global food system*, Environmental Research Letters, doi:10.1088/1748-9326/10/2/024007. That paper built the country-level wheat and rice trade networks and asked what happens to importers when a block of exporters stops selling. A Python implementation of that model, updated for more recent data, is in [`erl2015/`](erl2015/). See [Lineage](#lineage).
+
 The published model is Heslin, Puma, Marchand, and coauthors, 2020, *Simulating the cascading effects of an extreme agricultural production shock*, Frontiers in Sustainable Food Systems, doi:10.3389/fsufs.2020.00026. That paper is the proportional-trade and reserves-trade pair, run in kilocalories. The earlier statement of the rules is Marchand and coauthors, 2016, *Reserves and trade jointly determine exposure to food supply shocks*, Environmental Research Letters, doi:10.1088/1748-9326/11/9/095009, with code at https://github.com/pmarchand1/cereals-network-shocks.
 
 This repository also holds a metric-ton build for 2002 to 2024, used to examine flood-related production shocks. That build is described under [Flood scenarios](#flood-scenarios). It does not replace the published kilocalorie scenarios.
 
 Run every command from the repository root.
+
+## Lineage
+
+Each step below kept the country trade network of the one before it and added one mechanism.
+
+| Step | Paper | What it added | Where it lives |
+|---|---|---|---|
+| 1. Export-ban accounting | Puma et al. 2015, ERL, doi:10.1088/1748-9326/10/2/024007 | Annual bilateral wheat and rice networks, network metrics, and continental export bans. Losses are counted with no reallocation (static) or with the remaining world exports handed to importers in descending GDP order (dynamic). No stocks and no iteration. | `erl2015/`, Python, FAOSTAT through 2024 |
+| 2. Reserves and proportional cascade | Marchand et al. 2016, ERL, doi:10.1088/1748-9326/11/9/095009 | Production shocks, stock draws, and an iterated proportional trade update along existing links | https://github.com/pmarchand1/cereals-network-shocks |
+| 3. Food Shock Cascade, PTA and RTA | Heslin et al. 2020, Front. Sustain. Food Syst., doi:10.3389/fsufs.2020.00026 | Published PTA and RTA rules, alpha for usable stocks, kilocalorie scenario library | `main/main.R` modes 0 and 1 |
+| 4. Stock-then-split | This repository, flood work | Remaining shortage split between exports and domestic use after stocks are drawn | `main/main.R` mode 2 |
+
+The 2015 module shares no code with the R cascade and does not change PTA, RTA, or stock-then-split. Its rules, data, and differences from the 2015 paper are in [`erl2015/README.md`](erl2015/README.md).
 
 ## What a run is
 
