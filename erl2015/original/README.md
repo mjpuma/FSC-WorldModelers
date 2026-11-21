@@ -9,12 +9,10 @@ The maintained implementation is the Python package in [`../fsc2015/`](../fsc201
 | File | Last saved | What it does (from its header comments) |
 |---|---|---|
 | `Global_Trade_network_twocommodities.m` | Dec 2014 | Builds the annual bilateral trade networks for two commodities (wheat and rice) and computes complex-network statistics. M.J. Puma, 2012–2014. |
-| `Global_VWground_network_twocommodities.m` | Feb 2015 | The same script as above; the only difference is which local `rootdir` line is commented out. |
 | `GTN_climatedisturbances.m` | Dec 2014 | Targeted attacks on the network (export bans), self-sufficiency ratios, and the bar plots and maps of losses in the ERL article. M.J. Puma, 2013–2014. |
 | `GTN_totalproduction.m` | Sep 2014 | Percentage of world production affected by a targeted attack. M.J. Puma, 2014. |
 | `ComplexNetworkExtract_climatedisturbances.m` | Oct 2014 | Network files for plotting in Cytoscape, and network statistics with and without an attack. M.J. Puma, 2013–2014. |
 | `GlobalFoodReserves.m` | May 2015 | Global food reserves (stocks) from FAO, IGC, USDA and national data compiled in November 2014. M.J. Puma, 2014. |
-| `cross_simulation_boxplots_FIXvsVAR_SSTs.m` | Jun 2014 | Box plots comparing climate-model simulations with fixed and varying sea surface temperatures. It reads from an irrigation and SST manuscript folder and appears to belong to a different study; it is kept because it was archived with these scripts. |
 
 ## Running them
 
