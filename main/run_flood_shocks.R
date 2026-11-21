@@ -11,8 +11,19 @@ suppressPackageStartupMessages(library(dplyr))
 source("main/FSC_component_funcs.R")
 source("main/FSC_sim_funcs.R")
 
-shock_path <- "data/RIKEN_flood_shock_table_2002_2024_draft_2026-11-20.xlsx"
-annual_dir <- "outputs/export_for_RIKEN/annual_networks_2002_2024"
+# The draft flood-shock table is kept local and is not distributed with the
+# repository. Point FSC_FLOOD_TABLE at it, or place one file matching
+# data/*flood_shock_table*.xlsx in data/.
+shock_path <- Sys.getenv("FSC_FLOOD_TABLE", "")
+if (!nzchar(shock_path)) {
+    found <- sort(Sys.glob("data/*flood_shock_table*.xlsx"), decreasing = TRUE)
+    if (length(found) == 0) {
+        stop("No draft flood-shock table found. Set FSC_FLOOD_TABLE or put the workbook in data/.")
+    }
+    shock_path <- found[1]
+}
+message("Shock table: ", shock_path)
+annual_dir <- "outputs/export_for_partners/annual_networks_2002_2024"
 out_dir <- "outputs/flood_shocks"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 

@@ -84,9 +84,9 @@ check(inherits(over, "error") && grepl("exceeds", over$message), "a tonne loss a
 unlink(list.files("tests/tmp", full.names = TRUE))
 
 real <- read_flood_shocks(
-    "inputs/yawei_placeholder_flood_shocks.csv",
+    "inputs/placeholder_flood_shocks.csv",
     iso_codes = c("THA", "PAK", "MMR", "USA"),
-    fao_lookup = read.csv("outputs/export_for_RIKEN/country_lookup_ISO3_FAO.csv", stringsAsFactors = FALSE)
+    fao_lookup = read.csv("outputs/export_for_partners/country_lookup_ISO3_FAO.csv", stringsAsFactors = FALSE)
 )
 check(length(real) == 6, "the illustrative shock file has six events")
 check(all(vapply(real, function(e) e$shock_source, "") == "illustrative_placeholder"),

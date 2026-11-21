@@ -1,9 +1,9 @@
 # Flood and export-ban benchmarks on the 2018-2021 metric-ton networks.
-# Run from the repository root after export_riken_inputs.py:
-#   Rscript main/run_yawei_benchmarks.R
+# Run from the repository root after export_inputs.py:
+#   Rscript main/run_flood_benchmarks.R
 #
 # The three-specification comparison is main/run_allocation_comparison.R.
-# It reads inputs/yawei_placeholder_flood_shocks.csv. Replace that file with
+# It reads inputs/placeholder_flood_shocks.csv. Replace that file with
 # observed flood losses and rerun. The year column is metadata. These runs
 # stay on the 2018-2021 mean.
 # The price coefficients are uncalibrated. beta_surplus and beta_stu are
@@ -40,8 +40,8 @@ regions <- list(
     Southeast_Asia = c("BRN", "KHM", "IDN", "LAO", "MYS", "MMR", "PHL", "SGP", "THA", "TLS", "VNM")
 )
 
-export_root <- "outputs/export_for_RIKEN"
-out_dir <- "outputs/yawei_benchmarks"
+export_root <- "outputs/export_for_partners"
+out_dir <- "outputs/flood_benchmarks"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 filled_stock <- function(beginning, imputed) {
@@ -310,11 +310,11 @@ counterfactual_block <- function(experiment, crop, exporters) {
     }
 }
 
-if (!identical(Sys.getenv("YAWEI_SOURCE_ONLY"), "1")) {
+if (!identical(Sys.getenv("FSC_SOURCE_ONLY"), "1")) {
 counterfactual_block("wheat_exporter", "wheat", wheat_exporters)
 counterfactual_block("rice_exporter", "rice_milled", rice_exporters)
 
-shocks <- read.csv("inputs/yawei_placeholder_flood_shocks.csv", stringsAsFactors = FALSE)
+shocks <- read.csv("inputs/placeholder_flood_shocks.csv", stringsAsFactors = FALSE)
 for (i in seq_len(nrow(shocks))) {
     shock <- shocks[i, ]
     net <- nets[[shock$crop]]
@@ -419,7 +419,7 @@ print_block("Rice 95% full-year export ban, alpha 0.5. Price index uses beta_sur
 
 flood_slice <- slice[slice$experiment == "flood_policy", ]
 flood_slice$label <- paste(flood_slice$event_id, flood_slice$variant, flood_slice$crop)
-print_block("Illustrative flood shocks, alpha 0.5. Replace inputs/yawei_placeholder_flood_shocks.csv with observed losses.", flood_slice)
+print_block("Illustrative flood shocks, alpha 0.5. Replace inputs/placeholder_flood_shocks.csv with observed losses.", flood_slice)
 
 message("Wrote ", file.path(out_dir, "benchmark_results.csv"))
 }

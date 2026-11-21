@@ -3,7 +3,7 @@
 #   Rscript main/run_allocation_comparison.R
 #
 # Baseline is the 2018-2021 mean. The shock file is
-# inputs/yawei_placeholder_flood_shocks.csv. Replace that file with observed
+# inputs/placeholder_flood_shocks.csv. Replace that file with observed
 # flood losses and rerun. The allocation rules are not changed by the file.
 #
 # Specs, passed explicitly on every call:
@@ -11,10 +11,10 @@
 #   published_pta  PTA, freeze_empty_reserves = TRUE
 #   rta            RTA, rexp = 0.2 (the function default)
 
-Sys.setenv(YAWEI_SOURCE_ONLY = "1")
-source("main/run_yawei_benchmarks.R")
+Sys.setenv(FSC_SOURCE_ONLY = "1")
+source("main/run_flood_benchmarks.R")
 
-out_dir <- "outputs/yawei_benchmarks"
+out_dir <- "outputs/flood_benchmarks"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 specs <- list(
@@ -149,11 +149,11 @@ run_one <- function(event_id, crop, policy_variant, shock_source, targets, annua
     cbind(base, diag_row, row.names = NULL)
 }
 
-message("Flood grid from inputs/yawei_placeholder_flood_shocks.csv")
+message("Flood grid from inputs/placeholder_flood_shocks.csv")
 source("main/read_flood_shocks.R")
-fao_lookup <- read.csv("outputs/export_for_RIKEN/country_lookup_ISO3_FAO.csv", stringsAsFactors = FALSE)
+fao_lookup <- read.csv("outputs/export_for_partners/country_lookup_ISO3_FAO.csv", stringsAsFactors = FALSE)
 events <- read_flood_shocks(
-    "inputs/yawei_placeholder_flood_shocks.csv",
+    "inputs/placeholder_flood_shocks.csv",
     iso_codes = nets[[1]]$iso,
     fao_lookup = fao_lookup
 )
@@ -323,7 +323,7 @@ rta_prod <- flood[flood$allocation_rule == "rta" & flood$policy_variant == "prod
 lines <- c(
     "# Allocation comparison on the 2018-2021 mean network",
     "",
-    "Three existing FSC settings. No new allocation rule was added. The flood rows use the placeholder fractions in `inputs/yawei_placeholder_flood_shocks.csv`. Those fractions are not observed flood losses.",
+    "Three existing FSC settings. No new allocation rule was added. The flood rows use the placeholder fractions in `inputs/placeholder_flood_shocks.csv`. Those fractions are not observed flood losses.",
     "",
     "Modified PTA is `sim_cascade_PTA` with `freeze_empty_reserves = FALSE`. Published PTA is the same function with that argument `TRUE`, which is what `main.R` runs. RTA is `sim_cascade_RTA` with its existing `rexp = 0.2`. A banned exporter stays frozen in all three. Every call passes the rule explicitly.",
     "",

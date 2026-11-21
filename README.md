@@ -14,6 +14,42 @@ This repository also holds a metric-ton build for 2002 to 2024, used to examine 
 
 Run every command from the repository root.
 
+## Quick start
+
+Published R cascade (PTA, scenario 1, half of beginning stocks usable):
+
+```
+Rscript main/Requirements.R
+Rscript main/main.R 0 1 0.5
+```
+
+The first argument picks the mode: 0 is PTA, 1 is RTA, 2 is stock-then-split. The second is the scenario number and the third is alpha. Results go to `outputs/`. See [How to run a published scenario](#how-to-run-a-published-scenario).
+
+Flood run on each year's own network. This needs the draft flood-shock table, which is kept local (see [Data that stays local](#data-that-stays-local)):
+
+```
+FSC_FLOOD_TABLE=/path/to/draft_flood_shock_table.xlsx Rscript main/run_flood_shocks.R
+python3 main/plot_flood_report.py
+```
+
+Without the draft table, the placeholder flood comparison runs from tracked files:
+
+```
+Rscript main/run_allocation_comparison.R
+```
+
+Puma et al. 2015 export-ban model, in Python:
+
+```
+cd erl2015
+pip install -r requirements.txt
+python3 -m fsc2015 prepare
+python3 -m fsc2015 run
+python3 -m fsc2015 figures
+```
+
+See [`erl2015/README.md`](erl2015/README.md) for options and tests.
+
 ## Lineage
 
 Each step below kept the country trade network of the one before it and added one mechanism.
@@ -188,7 +224,7 @@ The static model only applies the production decline to supply. It does not real
 Rscript main/main_static.R 1
 ```
 
-`main.R` and `main_static.R` write fixed file names under `outputs/`. Running them replaces the saved scenario outputs. Use the flood scripts in the next section when the goal is the metric-ton comparison. Those scripts write under `outputs/yawei_benchmarks/` and `outputs/export_for_RIKEN/`.
+`main.R` and `main_static.R` write fixed file names under `outputs/`. Running them replaces the saved scenario outputs. Use the flood scripts in the next section when the goal is the metric-ton comparison. Those scripts write under `outputs/flood_benchmarks/` and `outputs/export_for_partners/`.
 
 Processed kilocalorie networks for the scenario library already live in `inputs_processed/`. You can skip input preparation for scenarios 1 to 4 and the static scenarios listed below.
 
@@ -238,13 +274,17 @@ A shock file is a table of fractional production declines by country and year. P
 
 - `inputs/Scenario1_COVID_WheatDeclineFraction_1Year_195countries.csv`
 - `inputs/Scenario4_USDustBowl_WheatDeclineFraction_4Years_195countries.csv`
-- `inputs/yawei_placeholder_flood_shocks.csv` for the flood comparison
+- `inputs/placeholder_flood_shocks.csv` for the flood comparison
 
 ### Processed files
 
 `ProcessInputs.R` writes `inputs_processed/`: an export matrix `E0`, production `P0`, and reserves `R0`, plus the shock file copied forward. The published scenarios are in kilocalories on a 2015 to 2017 mean network.
 
 ## Flood scenarios
+
+### Data that stays local
+
+The draft flood-shock table and everything built from it in `outputs/flood_shocks/` are kept on the author's machine and are not distributed. Both are listed in `.gitignore`. The draft rows are provisional and will change as the Sentinel-1 archive is processed. The metric-ton network package, the placeholder shocks, and the benchmark outputs described below are tracked and can be shared.
 
 This section describes metric-ton flood scenarios for rice, wheat, and maize over 2002 to 2024. The comparison on the 2018 to 2021 mean still uses illustrative placeholder fractions. The observed draft shock table is a separate run, on each year's own network.
 
@@ -271,7 +311,7 @@ The placeholder shocks are illustrative, not estimates of historical flood losse
 | US Midwest 2011 | Maize | USA | 10% | 95% |
 | US Midwest 2011 | Wheat | USA | 5% | 95% |
 
-Replace `inputs/yawei_placeholder_flood_shocks.csv` with validated flood-loss estimates and rerun:
+Replace `inputs/placeholder_flood_shocks.csv` with validated flood-loss estimates and rerun:
 
 ```
 Rscript main/run_allocation_comparison.R
@@ -279,13 +319,13 @@ Rscript main/run_allocation_comparison.R
 
 Each row needs `event_id`, `crop`, `year`, `iso3` or `fao_code`, and either `production_loss_fraction` or `production_loss_mt`. A fraction is a positive share of baseline production. Tonnes are positive losses. `reactive_ban_fraction` is optional and is the sensitivity, not the flood experiment. `shock_source` records provenance. `main/read_flood_shocks.R` rejects an unknown country, a duplicate country inside one event, a fraction outside (0, 1], and a tonne loss above that country's baseline production. Do not treat the current maps as historical results. Do not switch these benchmarks onto the annual networks unless that is an explicit later decision. The annual files remain in the network package.
 
-The observed draft table is `data/RIKEN_flood_shock_table_2002_2024_draft_2026-11-20.xlsx`. One row is one crop, country, and calendar year. The applied loss is `shock_total_t`, which already adds the same-year loss and the second-year loss from floods in the previous year. Rice is milled. Three crop-country-years are capped at production: Papua New Guinea 2003 rice and maize, and Turkmenistan 2016 maize. Rows for 2015 to 2024 are a sample of the Sentinel-1 archive and are expected to change. Rows for 2002 to 2014 are not.
+The observed draft flood-shock table is an Excel workbook with a `shocks` sheet. It is kept local and is not part of this repository. `main/run_flood_shocks.R` reads the path in `FSC_FLOOD_TABLE`, or else the newest file in `data/` that matches `*flood_shock_table*.xlsx`. One row is one crop, country, and calendar year. The applied loss is `shock_total_t`, which already adds the same-year loss and the second-year loss from floods in the previous year. Rice is milled. Three crop-country-years are capped at production: Papua New Guinea 2003 rice and maize, and Turkmenistan 2016 maize. Rows for 2015 to 2024 are a sample of the Sentinel-1 archive and are expected to change. Rows for 2002 to 2014 are not.
 
 ```
 Rscript main/run_flood_shocks.R
 ```
 
-That script builds one network for each crop and year from the annual package. It uses reported beginning stocks and treats a blank as zero. It does not use the imputed stock fill, a model price, or an export ban. Alpha is only 0 or 1. Every shocked country in the same crop-year is applied together. Results go to `outputs/flood_shocks/`. The lead question is whether the consumption loss stays in the directly shocked countries. That is a result to read from the run, not a premise.
+That script builds one network for each crop and year from the annual package. It uses reported beginning stocks and treats a blank as zero. It does not use the imputed stock fill, a model price, or an export ban. Alpha is only 0 or 1. Every shocked country in the same crop-year is applied together. Results go to `outputs/flood_shocks/`, which is also kept local. The lead question is whether the consumption loss stays in the directly shocked countries. That is a result to read from the run, not a premise.
 
 ```
 python3 main/plot_flood_report.py
@@ -295,7 +335,7 @@ That writes `outputs/flood_shocks/REPORT.md`, a Word copy, and the maps, stock-t
 
 ### Network package
 
-`main/export_riken_inputs.py` writes `outputs/export_for_RIKEN/` and `outputs/export_for_RIKEN.zip`. Units are metric tons. Years are 2002 to 2024. Crops are milled rice, wheat, maize, and soybean. `README_FSC_Inputs.md` in that folder is the column-by-column note.
+`main/export_inputs.py` writes `outputs/export_for_partners/` and `outputs/export_for_partners.zip`. Units are metric tons. Years are 2002 to 2024. Crops are milled rice, wheat, maize, and soybean. `README_FSC_Inputs.md` in that folder is the column-by-column note.
 
 Rice production is FAO item 27 (paddy) times 0.67. Rice trade uses 0.67 for paddy, 0.8375 for husked rice, and 1 for milled rice, broken rice, and rice flour. PSD `Rice, Milled` is already milled and is not scaled again. Wheat trade adds flour, pasta, bread, bulgur, germ, and pastry as wheat-grain equivalents. Maize trade adds germ and flour. Maize oil and green maize are excluded. Soybean is beans only. Oil and cake are excluded. The factors are in `ancillary/mass_equivalent_factors.csv`. They are project assumptions. PSD values are published in thousand metric tons and stored here in metric tons. The PSD market year is joined to the FAO calendar year on the year number. There is no marketing-year shift.
 
@@ -308,29 +348,29 @@ EU stocks are one USDA row and are shared across the EU-28 member list in `Proce
 Rebuild:
 
 ```
-python3 main/export_riken_inputs.py
+python3 main/export_inputs.py
 ```
 
 Or pass new FAOSTAT paths after a bulk refresh:
 
 ```
-python3 main/export_riken_inputs.py \
+python3 main/export_inputs.py \
   --production /path/to/Production_Crops_Livestock_E_All_Data_(Normalized).csv \
   --trade /path/to/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).csv \
   --psd /path/to/psd_alldata.csv
 ```
 
-`main/export_riken_inputs.R` is a thin wrapper around the same Python script. Run it from the repository root.
+`main/export_inputs.R` is a thin wrapper around the same Python script. Run it from the repository root.
 
 ### Benchmark and figures
 
 The benchmark builds 2018 to 2021 mean networks from the metric-ton network package and runs export bans plus the placeholder flood shocks.
 
 ```
-Rscript main/run_yawei_benchmarks.R
+Rscript main/run_flood_benchmarks.R
 ```
 
-Bans cover wheat exporters (Russia, Canada, EU-28, the United States, Ukraine, Australia, Argentina, Kazakhstan, Pakistan) and rice exporters (India, Thailand, Vietnam, Pakistan, the United States, Myanmar). Restrictions are 50% and 95%. Durations are a full year and six months, with the six-month case counted as half of the annual fraction. Alpha is 0, 0.25, 0.5, and 1. Results go to `outputs/yawei_benchmarks/benchmark_results.csv`. The rice price column in that file uses an uncalibrated index (`beta_surplus = -1`, `beta_stu = -0.5`). It is not a world-price forecast and it is not plotted.
+Bans cover wheat exporters (Russia, Canada, EU-28, the United States, Ukraine, Australia, Argentina, Kazakhstan, Pakistan) and rice exporters (India, Thailand, Vietnam, Pakistan, the United States, Myanmar). Restrictions are 50% and 95%. Durations are a full year and six months, with the six-month case counted as half of the annual fraction. Alpha is 0, 0.25, 0.5, and 1. Results go to `outputs/flood_benchmarks/benchmark_results.csv`. The rice price column in that file uses an uncalibrated index (`beta_surplus = -1`, `beta_stu = -0.5`). It is not a world-price forecast and it is not plotted.
 
 Country and edge detail for the figures:
 
@@ -339,7 +379,7 @@ Rscript main/export_figure_cases.R
 python3 main/plot_report_figures.py
 ```
 
-Figures and `REPORT.md` land in `outputs/yawei_benchmarks/`. The figure cases are full-year 95% bans at alpha 0 and alpha 1, for the frozen PTA rule, the reroute PTA rule, and RTA on the headline shocks. The longer model note, with the food-security framing, is `outputs/yawei_benchmarks/FSC_model_food_security.docx`.
+Figures and `REPORT.md` land in `outputs/flood_benchmarks/`. The figure cases are full-year 95% bans at alpha 0 and alpha 1, for the frozen PTA rule, the reroute PTA rule, and RTA on the headline shocks. The longer model note, with the food-security framing, is `outputs/flood_benchmarks/FSC_model_food_security.docx`.
 
 Headline availability results on the 2018 to 2021 mean, 95% bans:
 
@@ -367,7 +407,7 @@ The grid is every placeholder flood, four values of alpha (0, 0.25, 0.5, 1), and
 
 On the placeholders, with reserves closed, the world consumption loss is the same under all three rules. The shocked country's share of that loss is not. Modified PTA keeps that share between 1.8 and 9.9 percent. Published PTA keeps it near 1 percent for a large exporter and much higher for a smaller one. Domestic use still takes only 1 percent of the remaining shortage on each pass, so the loss still leaves mostly through trade. That step was not changed.
 
-Modified PTA often reaches the 50-iteration cap when alpha is 0. The world total is stable if the same case is allowed to run longer. Country totals can still shift, so a partner ranking from a capped run is approximate. The cap was not raised. Mass-balance notes, including the constant maize residual and the EU-28 wheat gap under the published rule, are in `outputs/yawei_benchmarks/ALLOCATION_COMPARISON.md`.
+Modified PTA often reaches the 50-iteration cap when alpha is 0. The world total is stable if the same case is allowed to run longer. Country totals can still shift, so a partner ranking from a capped run is approximate. The cap was not raised. Mass-balance notes, including the constant maize residual and the EU-28 wheat gap under the published rule, are in `outputs/flood_benchmarks/ALLOCATION_COMPARISON.md`.
 
 ```
 Rscript main/run_allocation_comparison.R
@@ -415,19 +455,19 @@ Network summaries at the start and the end of the run:
 
 | Script | Role |
 |---|---|
-| `main/main.R` | Dynamic FSC. Argument 1 is PTA (0) or RTA (1). Argument 2 is the scenario. Argument 3 is alpha. Writes `outputs/`. |
+| `main/main.R` | Dynamic FSC. Argument 1 is PTA (0), RTA (1), or stock-then-split (2). Argument 2 is the scenario. Argument 3 is alpha. Writes `outputs/`. |
 | `main/main_static.R` | Production shock only. One argument, the scenario number. Writes `outputs/`. |
 | `main/ProcessInputs.R` | Builds `E0`, `P0`, `R0` from FAOSTAT and PSD. |
 | `main/FSC_sim_funcs.R` | `sim_cascade_PTA`, `sim_cascade_RTA`, and `sim_cascade_split`. |
 | `main/FSC_component_funcs.R` | Supply, shortage, reserve draw, trade update, export bans. |
 | `main/fetch_faostat_bulk.py` | Downloads FAOSTAT production and trade through at least 2024. |
-| `main/export_riken_inputs.py` | Writes the metric-ton package for 2002 to 2024. |
-| `main/run_yawei_benchmarks.R` | Export-ban and placeholder-flood grid. Writes `outputs/yawei_benchmarks/`. |
+| `main/export_inputs.py` | Writes the metric-ton package for 2002 to 2024. |
+| `main/run_flood_benchmarks.R` | Export-ban and placeholder-flood grid. Writes `outputs/flood_benchmarks/`. |
 | `main/run_allocation_comparison.R` | Same baseline under modified PTA, published PTA, and RTA. |
 | `main/run_flood_shocks.R` | Draft flood table on each year's network. Stock-then-split and modified PTA. |
 | `main/plot_flood_report.py` | Maps, stock-to-use, trade networks, and the flood report. |
 | `main/export_figure_cases.R` | Country and edge results for the figures. |
-| `main/plot_report_figures.py` | Maps and charts, and `outputs/yawei_benchmarks/REPORT.md`. |
+| `main/plot_report_figures.py` | Maps and charts, and `outputs/flood_benchmarks/REPORT.md`. |
 | `R/rice_price_step.R` | Uncalibrated rice price index. Not used in the figures. |
 
 ## Scenario library
@@ -474,3 +514,13 @@ Those CSV paths sit under `inputs/2021_C2P2_scenarios/`. Scenarios 14 to 16, 24 
 ## Runtime
 
 Building inputs from the raw FAOSTAT files takes longer than a cascade. A cascade on the 195-country network is a few minutes on a desktop. The metric-ton benchmark grid is shorter than that once the network CSVs exist.
+
+## How to cite
+
+If you use this model, please cite the papers it comes from.
+
+- Puma, M. J., Bose, S., Chon, S. Y., and Cook, B. I. (2015). Assessing the evolving fragility of the global food system. *Environmental Research Letters*, 10, 024007. doi:[10.1088/1748-9326/10/2/024007](https://doi.org/10.1088/1748-9326/10/2/024007)
+- Marchand, P., et al. (2016). Reserves and trade jointly determine exposure to food supply shocks. *Environmental Research Letters*, 11, 095009. doi:[10.1088/1748-9326/11/9/095009](https://doi.org/10.1088/1748-9326/11/9/095009)
+- Heslin, A., Puma, M. J., Marchand, P., et al. (2020). Simulating the cascading effects of an extreme agricultural production shock. *Frontiers in Sustainable Food Systems*, 4, 26. doi:[10.3389/fsufs.2020.00026](https://doi.org/10.3389/fsufs.2020.00026)
+
+`CITATION.cff` in the repository root holds the same references in machine-readable form, and GitHub shows it under "Cite this repository".

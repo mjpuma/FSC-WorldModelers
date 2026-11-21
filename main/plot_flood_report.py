@@ -27,7 +27,7 @@ from matplotlib.lines import Line2D
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "outputs" / "flood_shocks"
 FIG = OUT / "figures"
-ANNUAL = ROOT / "outputs" / "export_for_RIKEN" / "annual_networks_2002_2024"
+ANNUAL = ROOT / "outputs" / "export_for_partners" / "annual_networks_2002_2024"
 CROPS = ["rice_milled", "wheat", "maize"]
 CROP_LABEL = {"rice_milled": "Milled rice", "wheat": "Wheat", "maize": "Maize"}
 CROP_LOWER = {"rice_milled": "milled rice", "wheat": "wheat", "maize": "maize"}
@@ -116,7 +116,7 @@ def by_crop(values, fmt):
 # Inputs -----------------------------------------------------------------------
 
 def names_table():
-    lookup = pd.read_csv(ROOT / "outputs" / "export_for_RIKEN" / "country_lookup_ISO3_FAO.csv")
+    lookup = pd.read_csv(ROOT / "outputs" / "export_for_partners" / "country_lookup_ISO3_FAO.csv")
     return dict(zip(lookup.iso3, lookup.country_name))
 
 

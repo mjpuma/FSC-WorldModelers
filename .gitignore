@@ -5,12 +5,13 @@
 .DS_Store
 __pycache__/
 ~$*
-main/build_note_for_junshi.py
-outputs/export_for_RIKEN/Note_for_Junshi_Xia.docx
-outputs/export_for_RIKEN 2/
+# Local notes for collaborators and stray copies of the export folder.
+main/build_note_for_*.py
+outputs/export_for_*/Note_for_*.docx
+outputs/export_for_* 2/
 
 # Draft flood-shock table and everything built from it stay local.
-data/RIKEN_flood_shock_table_2002_2024_draft_2026-11-20.xlsx
+data/*flood_shock_table*.xlsx
 outputs/flood_shocks/
 
 # erl2015: cached FAOSTAT extracts and the original MATLAB stay local.

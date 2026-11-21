@@ -11,9 +11,9 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Inches, Pt, RGBColor
 
 ROOT = Path(__file__).resolve().parents[1]
-FIG = ROOT / "outputs" / "yawei_benchmarks" / "figures"
+FIG = ROOT / "outputs" / "flood_benchmarks" / "figures"
 EQ = FIG / "equations"
-OUT = ROOT / "outputs" / "yawei_benchmarks" / "FSC_model_food_security.docx"
+OUT = ROOT / "outputs" / "flood_benchmarks" / "FSC_model_food_security.docx"
 
 NAVY = RGBColor(0x0B, 0x3A, 0x4A)
 TEAL = "0B3A4A"
@@ -127,7 +127,7 @@ def render_equations():
         "eq_pi": r"$\pi_j = \min\left(1,\ \mathrm{need}_j / T_j\right), \quad T_j = \sum_k E_{jk} + \sum_{i \notin F} E_{ij}$",
         "eq_close": r"$C_i = \max(S_i,\ 0)$",
         "eq_price": r"$x_i=\exp\!\left[\beta_s\!\left(\frac{Z_i}{\bar Z_i}-1\right)+\beta_u\ln\!\left(\frac{\mathrm{STU}_i}{\mathrm{STU}^{\mathrm{ref}}_i}\right)\right]$",
-        "eq_yawei": r"$\mathrm{export\ cut}_i = D_i \dfrac{X_i}{X_i+U_i}, \qquad \mathrm{domestic\ cut}_i = D_i \dfrac{U_i}{X_i+U_i}$",
+        "eq_split": r"$\mathrm{export\ cut}_i = D_i \dfrac{X_i}{X_i+U_i}, \qquad \mathrm{domestic\ cut}_i = D_i \dfrac{U_i}{X_i+U_i}$",
     }
     for name, tex in specs.items():
         fig = plt.figure(figsize=(7.6, 0.42))
@@ -140,7 +140,7 @@ def render_equations():
 def production_only_rows():
     import csv
 
-    path = ROOT / "outputs" / "yawei_benchmarks" / "allocation_comparison.csv"
+    path = ROOT / "outputs" / "flood_benchmarks" / "allocation_comparison.csv"
     with path.open(newline="") as handle:
         rows = list(csv.DictReader(handle))
 
@@ -377,7 +377,7 @@ def build():
     )
 
     add_heading_styled(doc, "4. Parameters", 1)
-    paragraph(doc, "The figure set uses the corners of a larger grid. The full grid is in outputs/yawei_benchmarks/benchmark_results.csv.")
+    paragraph(doc, "The figure set uses the corners of a larger grid. The full grid is in outputs/flood_benchmarks/benchmark_results.csv.")
     add_table(
         doc,
         ["Parameter", "Symbol", "Value in the figures", "Other values in the grid", "Role"],
@@ -401,7 +401,7 @@ def build():
     add_heading_styled(doc, "5. Input data", 1)
     paragraph(
         doc,
-        "The networks are built from outputs/export_for_RIKEN. Annual files cover 2002–2024. The scenarios average 2018–2021. "
+        "The networks are built from outputs/export_for_partners. Annual files cover 2002–2024. The scenarios average 2018–2021. "
         "They do not rerun a separate network for each flood year. The year on a shock row is metadata.",
     )
     add_table(
@@ -414,7 +414,7 @@ def build():
             ["Domestic use", "PSD domestic consumption where it exists", "Otherwise production plus imports minus exports, floored at zero"],
             ["Countries", "FSC 195-country list", "China mainland (FAO 41) and Taiwan (FAO 214) stay separate. EU-28 in the scenarios includes the United Kingdom, matching the existing FSC member list"],
             ["Successor states", "Sudan and Serbia and Montenegro", "Historical FAO units are split with early-year production shares. PSD Sudan stays on Sudan and is not split"],
-            ["Flood losses", "Not yet attached", "inputs/yawei_placeholder_flood_shocks.csv holds illustrative fractions. shock_source is illustrative_placeholder"],
+            ["Flood losses", "Not yet attached", "inputs/placeholder_flood_shocks.csv holds illustrative fractions. shock_source is illustrative_placeholder"],
         ],
         [1.25, 2.15, 3.4],
     )
@@ -440,7 +440,7 @@ def build():
     paragraph(
         doc,
         "The flood experiment is a production loss on the 2018–2021 mean network. "
-        "The file inputs/yawei_placeholder_flood_shocks.csv holds illustrative fractions. "
+        "The file inputs/placeholder_flood_shocks.csv holds illustrative fractions. "
         "Several rows can share an event_id, so more than one country can be shocked together. "
         "The year is stored and is not used to select a network. "
         "A loss is either a positive fraction of baseline production or a positive quantity in metric tons. "
@@ -453,7 +453,7 @@ def build():
         "sim_cascade_split now implements that option for the observed flood table. Equation 8 is unchanged: published PTA still takes 1 percent of the remaining shortage from domestic use and leaves the rest for trade. "
         "The placeholder comparison on the 2018–2021 mean does not use the split.",
     )
-    add_picture(doc, EQ / "eq_yawei.png", 5.8)
+    add_picture(doc, EQ / "eq_split.png", 5.8)
     caption(doc, "Equation 12. The stock-then-split option used for the flood table. Di is the remaining deficit after the reserve draw, Xi exports, Ui domestic use. It is not the published PTA rule. The published update remains Equation 8.")
     paragraph(
         doc,
@@ -514,7 +514,7 @@ def build():
         ],
         [1.5, 1.3, 1.6, 1.3, 1.1],
     )
-    caption(doc, "Table 7. Illustrative shocks in inputs/yawei_placeholder_flood_shocks.csv. Each is run as production only and as production plus the ban. These fractions are not observed flood losses.")
+    caption(doc, "Table 7. Illustrative shocks in inputs/placeholder_flood_shocks.csv. Each is run as production only and as production plus the ban. These fractions are not observed flood losses.")
 
     add_heading_styled(doc, "Three existing FSC settings on the same placeholders", 2)
     paragraph(
@@ -533,7 +533,7 @@ def build():
     )
     caption(
         doc,
-        "Table 8. Production shock only, reserves closed. Numbers are read from outputs/yawei_benchmarks/allocation_comparison.csv. "
+        "Table 8. Production shock only, reserves closed. Numbers are read from outputs/flood_benchmarks/allocation_comparison.csv. "
         "World consumption loss is the same under all three rules because trade cancels. "
         "The home share is the shocked country’s share of that loss. These are illustrative fractions, not observed flood losses.",
     )
@@ -550,7 +550,7 @@ def build():
         "Wheat closes except the EU-28 95 percent full-year ban, about +0.365 Mt for published PTA and RTA at alpha 0, and +0.034 Mt for published PTA at alpha 0.25. Modified PTA closes that case. "
         "Modified PTA hits the 50-iteration cap on every alpha 0 flood run. Extending the same equations to 200 iterations leaves the Thailand rice world loss at 3.20 Mt and the US maize world loss at 36.37 Mt. "
         "Thailand’s share moves from 6.21 to 6.23 percent. One maize country total can still move by 76 kt, so a partner ranking from a capped run is approximate. The cap was not raised. "
-        "The full grid is outputs/yawei_benchmarks/allocation_comparison.csv.",
+        "The full grid is outputs/flood_benchmarks/allocation_comparison.csv.",
     )
 
     add_heading_styled(doc, "7. Figures", 1)

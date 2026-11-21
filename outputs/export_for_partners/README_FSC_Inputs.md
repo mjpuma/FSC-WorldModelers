@@ -3,7 +3,7 @@
 Metric tons. Rice is milled equivalent. Country keys are ISO3. The panel is the
 195-country FSC list (`ancillary/country_list195_2012to2016.csv`).
 
-This package was built by `main/export_riken_inputs.py`. Agrimate / sheaf-model
+This package was built by `main/export_inputs.py`. Agrimate / sheaf-model
 was read and not modified.
 
 ## Units
@@ -85,7 +85,7 @@ Blocked FAOSTAT years in this build: none.
 ## Rebuild
 
 ```bash
-Rscript main/export_riken_inputs.R \
+Rscript main/export_inputs.R \
   --production /path/to/Production_....csv \
   --trade /path/to/Trade_DetailedTradeMatrix_....csv \
   --psd /path/to/psd_alldata.csv

@@ -16,8 +16,8 @@ from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
 ROOT = Path(__file__).resolve().parents[1]
-FIG = ROOT / "outputs" / "yawei_benchmarks" / "figures"
-OUT = ROOT / "outputs" / "yawei_benchmarks"
+FIG = ROOT / "outputs" / "flood_benchmarks" / "figures"
+OUT = ROOT / "outputs" / "flood_benchmarks"
 
 REGIONS = {
     "Western Africa": ["BEN", "BFA", "CPV", "CIV", "GMB", "GHA", "GIN", "GNB", "LBR", "MLI", "MRT", "NER", "NGA", "SEN", "SLE", "TGO"],
@@ -43,7 +43,7 @@ COLORS = ["#9b2226", "#bb3e03", "#ca6702", "#ee9b00", "#0a9396", "#005f73"]
 
 
 def names_table():
-    lookup = pd.read_csv(ROOT / "outputs" / "export_for_RIKEN" / "country_lookup_ISO3_FAO.csv")
+    lookup = pd.read_csv(ROOT / "outputs" / "export_for_partners" / "country_lookup_ISO3_FAO.csv")
     return dict(zip(lookup.iso3, lookup.country_name))
 
 
@@ -496,7 +496,7 @@ def write_report(countries, balance, metrics, names):
         "",
         "## Placeholder floods",
         "",
-        f"The US maize placeholder is a 10% cut in US production, about {us_flood_mt:.1f} Mt of world consumption when stocks are unused. Adding a 95% export ban raises the world consumption loss to {us_both_mt:.1f} Mt, because the ban holds a further block of exports as stocks. With beginning stocks usable, the production-only case is almost fully covered and the ban still leaves the same residue as the pure US maize ban. Replace `inputs/yawei_placeholder_flood_shocks.csv` before reading this panel as history. The US shock hits the whole United States node.",
+        f"The US maize placeholder is a 10% cut in US production, about {us_flood_mt:.1f} Mt of world consumption when stocks are unused. Adding a 95% export ban raises the world consumption loss to {us_both_mt:.1f} Mt, because the ban holds a further block of exports as stocks. With beginning stocks usable, the production-only case is almost fully covered and the ban still leaves the same residue as the pure US maize ban. Replace `inputs/placeholder_flood_shocks.csv` before reading this panel as history. The US shock hits the whole United States node.",
         "",
         "![Placeholder flood losses](figures/fig3_placeholder_floods.png)",
         "",

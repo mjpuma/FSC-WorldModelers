@@ -1,0 +1,59 @@
+cff-version: 1.2.0
+message: "If you use the Food Shock Cascade model, please cite the papers below."
+title: "Food Shock Cascade Model"
+type: software
+authors:
+  - family-names: Puma
+    given-names: Michael J.
+repository-code: "https://github.com/mjpuma/FoodShockCascadeModel"
+keywords:
+  - food security
+  - trade networks
+  - production shocks
+  - export restrictions
+preferred-citation:
+  type: article
+  title: "Assessing the evolving fragility of the global food system"
+  authors:
+    - family-names: Puma
+      given-names: Michael J.
+    - family-names: Bose
+      given-names: Satyajit
+    - family-names: Chon
+      given-names: So Young
+    - family-names: Cook
+      given-names: Benjamin I.
+  journal: "Environmental Research Letters"
+  volume: 10
+  issue: 2
+  start: "024007"
+  year: 2015
+  doi: "10.1088/1748-9326/10/2/024007"
+references:
+  - type: article
+    title: "Reserves and trade jointly determine exposure to food supply shocks"
+    authors:
+      - family-names: Marchand
+        given-names: Philippe
+      - name: "et al."
+    journal: "Environmental Research Letters"
+    volume: 11
+    issue: 9
+    start: "095009"
+    year: 2016
+    doi: "10.1088/1748-9326/11/9/095009"
+  - type: article
+    title: "Simulating the cascading effects of an extreme agricultural production shock"
+    authors:
+      - family-names: Heslin
+        given-names: Alison
+      - family-names: Puma
+        given-names: Michael J.
+      - family-names: Marchand
+        given-names: Philippe
+      - name: "et al."
+    journal: "Frontiers in Sustainable Food Systems"
+    volume: 4
+    start: "26"
+    year: 2020
+    doi: "10.3389/fsufs.2020.00026"
