@@ -68,7 +68,7 @@ The wheat network has 2162 directed links of at least 1 kt and 227 Mt of trade. 
 
 ## Placeholder floods
 
-The US maize placeholder is a 10% cut in US production, about 36.4 Mt of world consumption when stocks are unused. Adding a 95% export ban raises the world consumption loss to 92.1 Mt, because the ban holds a further block of exports as stocks. With beginning stocks usable, the production-only case is almost fully covered and the ban still leaves the same residue as the pure US maize ban. Replace `inputs/yawei_placeholder_flood_shocks.csv` before reading this panel as history. The US shock hits the whole United States node.
+The US maize placeholder is a 10% cut in US production, about 36.4 Mt of world consumption when stocks are unused. Adding a 95% export ban raises the world consumption loss to 92.1 Mt, because the ban holds a further block of exports as stocks. With beginning stocks usable, the production-only case is almost fully covered and the ban still leaves the same residue as the pure US maize ban. Replace `inputs/placeholder_flood_shocks.csv` before reading this panel as history. The US shock hits the whole United States node.
 
 ![Placeholder flood losses](figures/fig3_placeholder_floods.png)
 

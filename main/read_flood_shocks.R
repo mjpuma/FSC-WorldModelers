@@ -7,7 +7,7 @@
 # Several rows with the same event_id are one scenario. They must share a crop,
 # a shock_source, and a reactive_ban_fraction.
 #
-#   shocks <- read_flood_shocks("inputs/yawei_placeholder_flood_shocks.csv", iso, fao)
+#   shocks <- read_flood_shocks("inputs/placeholder_flood_shocks.csv", iso, fao)
 
 read_flood_shocks <- function(path, iso_codes, fao_lookup = NULL) {
     raw <- utils::read.csv(path, stringsAsFactors = FALSE, na.strings = c("", "NA"))

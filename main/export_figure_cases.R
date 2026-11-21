@@ -1,11 +1,11 @@
 # Country-level outcomes for the report figures.
-#   YAWEI_SOURCE_ONLY=1 Rscript main/export_figure_cases.R
+#   FSC_SOURCE_ONLY=1 Rscript main/export_figure_cases.R
 # Run from the repository root.
 
-Sys.setenv(YAWEI_SOURCE_ONLY = "1")
-source("main/run_yawei_benchmarks.R")
+Sys.setenv(FSC_SOURCE_ONLY = "1")
+source("main/run_flood_benchmarks.R")
 
-out_dir <- "outputs/yawei_benchmarks/figures"
+out_dir <- "outputs/flood_benchmarks/figures"
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 cases <- list(
@@ -118,7 +118,7 @@ for (case in cases[c(1, 4, 8)]) {
     }
 }
 
-shocks <- read.csv("inputs/yawei_placeholder_flood_shocks.csv", stringsAsFactors = FALSE)
+shocks <- read.csv("inputs/placeholder_flood_shocks.csv", stringsAsFactors = FALSE)
 for (i in seq_len(nrow(shocks))) {
     shock <- shocks[i, ]
     for (alpha in c(0, 1)) {

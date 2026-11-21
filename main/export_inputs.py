@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the RIKEN input package for the Food Shock Cascade.
+"""Build the metric-ton input package for the Food Shock Cascade.
 
 Reads FAOSTAT production, the FAOSTAT bilateral trade matrix, and USDA PSD.
 The Agrimate / sheaf-model checkout is an input source only. This script does
@@ -7,11 +7,11 @@ not write into that repository.
 
 Run from anywhere:
 
-    python3 main/export_riken_inputs.py
+    python3 main/export_inputs.py
 
 Refresh 2022-2024 later by passing the new FAOSTAT files:
 
-    python3 main/export_riken_inputs.py \\
+    python3 main/export_inputs.py \\
         --production /path/to/production.csv \\
         --trade /path/to/trade.csv
 """
@@ -178,8 +178,8 @@ def parse_args():
     p.add_argument("--country-table", type=Path, default=Path("/Users/mjp38/GitHub/sheaf-model/data/faostat_network/country_conversion_table.csv"))
     p.add_argument("--fsc-countries", type=Path, default=ROOT / "ancillary/country_list195_2012to2016.csv")
     p.add_argument("--factors", type=Path, default=ROOT / "ancillary/mass_equivalent_factors.csv")
-    p.add_argument("--out", type=Path, default=ROOT / "outputs/export_for_RIKEN")
-    p.add_argument("--zip", type=Path, default=ROOT / "outputs/export_for_RIKEN.zip")
+    p.add_argument("--out", type=Path, default=ROOT / "outputs/export_for_partners")
+    p.add_argument("--zip", type=Path, default=ROOT / "outputs/export_for_partners.zip")
     p.add_argument("--year-start", type=int, default=YEAR_START)
     p.add_argument("--year-end", type=int, default=YEAR_END)
     p.add_argument("--baseline-start", type=int, default=BASELINE_START)
@@ -827,7 +827,7 @@ def write_readme(path, args, log, coverage):
 Metric tons. Rice is milled equivalent. Country keys are ISO3. The panel is the
 195-country FSC list (`ancillary/country_list195_2012to2016.csv`).
 
-This package was built by `main/export_riken_inputs.py`. Agrimate / sheaf-model
+This package was built by `main/export_inputs.py`. Agrimate / sheaf-model
 was read and not modified.
 
 ## Units
@@ -909,7 +909,7 @@ Blocked FAOSTAT years in this build: {blocked_years if blocked_years else "none"
 ## Rebuild
 
 ```bash
-Rscript main/export_riken_inputs.R \\
+Rscript main/export_inputs.R \\
   --production /path/to/Production_....csv \\
   --trade /path/to/Trade_DetailedTradeMatrix_....csv \\
   --psd /path/to/psd_alldata.csv

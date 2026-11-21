@@ -1,6 +1,6 @@
 # Allocation comparison on the 2018-2021 mean network
 
-Three existing FSC settings. No new allocation rule was added. The flood rows use the placeholder fractions in `inputs/yawei_placeholder_flood_shocks.csv`. Those fractions are not observed flood losses.
+Three existing FSC settings. No new allocation rule was added. The flood rows use the placeholder fractions in `inputs/placeholder_flood_shocks.csv`. Those fractions are not observed flood losses.
 
 Modified PTA is `sim_cascade_PTA` with `freeze_empty_reserves = FALSE`. Published PTA is the same function with that argument `TRUE`, which is what `main.R` runs. RTA is `sim_cascade_RTA` with its existing `rexp = 0.2`. A banned exporter stays frozen in all three. Every call passes the rule explicitly.
 
