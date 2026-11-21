@@ -14,6 +14,5 @@ outputs/export_for_* 2/
 data/*flood_shock_table*.xlsx
 outputs/flood_shocks/
 
-# erl2015: cached FAOSTAT extracts and the original MATLAB stay local.
+# erl2015: cached FAOSTAT extracts stay local. The original 2014-2015 MATLAB is tracked in erl2015/original/.
 erl2015/data/
-erl2015/original/

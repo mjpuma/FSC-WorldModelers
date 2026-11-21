@@ -2,7 +2,7 @@
 
 This folder is a Python implementation of the model in Puma, M.J., Bose, S., Chon, S.Y., and Cook, B.I. (2015), *Assessing the evolving fragility of the global food system*, Environmental Research Letters 10, 024007, doi:10.1088/1748-9326/10/2/024007. It is updated for FAOSTAT data through 2024. It is the first step in the Food Shock Cascade line; the [repository README](../README.md#lineage) traces the steps after it.
 
-It is a new implementation, not a port of the 2015 MATLAB code, and it is not built to reproduce the paper's numbers exactly. The rules are the paper's. The data, the units, and a few choices listed under [Differences from the 2015 paper](#differences-from-the-2015-paper) are current.
+It is a new implementation, not a port of the 2015 MATLAB code (which is kept unchanged in [`original/`](original/)), and it is not built to reproduce the paper's numbers exactly. The rules are the paper's. The data, the units, and a few choices listed under [Differences from the 2015 paper](#differences-from-the-2015-paper) are current.
 
 ## The model
 
@@ -151,4 +151,4 @@ The rice loss shares are lower here mainly because losses are now milled tonnes 
 | `fsc2015/figures.py` | Paper figures 2 to 5 |
 | `fsc2015/__main__.py` | Command line |
 
-The original MATLAB scripts can be kept in `erl2015/original/` for reference. That folder is gitignored and is not part of the published code.
+The original MATLAB scripts behind the 2015 paper are in [`original/`](original/), unchanged, as a record of what produced the published results. See [`original/README.md`](original/README.md).
