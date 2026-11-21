@@ -98,14 +98,15 @@ World trade cancels. The change in world use equals the production change minus 
 
 Because `gamma` is 0.01, a production loss is mostly pushed into trade. The shocked country keeps most of its own use and cuts exports. That is the published FSC behavior. It is a different question from "what share of a harvest loss stays in the country that lost the crop?"
 
-## Two modes
+## Three modes
 
-`main/main.R` selects the mode with its first argument.
+`main/main.R` selects the mode with its first argument. PTA is the published default. RTA is the published alternative. Stock-then-split is a third option added for the flood work.
 
 | Argument | Mode | What trade does |
 |---|---|---|
 | 0 | Proportional trade allocation (PTA) | A country with unmet need cuts its own exports and raises imports along links that already exist. No new link is opened. |
 | 1 | Reserves-based trade allocation (RTA) | Exports are cut in proportion to need. Exporters may then offer 20 percent of remaining usable reserves along existing links. |
+| 2 | Stock-then-split | Usable stocks are drawn first. A remaining shortage is split between an export cut and a domestic-use cut in proportion to exports and domestic use. Export cuts pass along existing links only. No shipment is raised and no new link is opened. |
 
 PTA. Let `F` be the set of frozen exporters. Country `j` can cover its need from its own exports plus imports from exporters that are not frozen:
 
@@ -127,7 +128,16 @@ offer_i = 0.20 * R_i
 
 A banned exporter's offer is set to zero. With `alpha = 0` there is nothing to offer, so RTA leaves the loss on the importers. That is why an RTA run with no stocks looks like PTA with the network frozen.
 
-`sim_cascade_split` is an additional option for the flood runs. After the reserve draw, it divides a remaining deficit of at least 1 tonne between exports and domestic use in proportion to the two, passes the export cut to partners that already buy from that country, and repeats until every remaining shortage is below 1 tonne. It does not open a new trade link. Published `main.R` does not call it, and it does not change the PTA or RTA equations. The flood section says which runs use it.
+Stock-then-split (`sim_cascade_split`). After the reserve draw, country `i` with a remaining shortage `s_i` at or above the tolerance cuts
+
+```
+export cut_i = s_i * X_i / (X_i + U_i)
+use cut_i    = s_i * U_i / (X_i + U_i)
+```
+
+where `X_i` is its current exports and `U_i` its current domestic use. The export cut is taken pro rata from its existing export links, so its importers now carry a shortage of their own. The loop repeats until every shortage is below the tolerance. The default tolerance is 1, meaning 1 tonne in the metric-ton flood runs. `main.R` mode 2 works on the kilocalorie scenario library, so it sets the tolerance to one billionth of the largest baseline use instead. Unlike PTA and RTA, this mode does not end by resetting use to supply, so a baseline in which exports already exceed production plus imports is left as it is rather than cut.
+
+Adding mode 2 does not change the PTA or RTA equations, their defaults, or the published outputs. The flood section says which runs use each rule.
 
 ## How to run a published scenario
 
@@ -137,7 +147,7 @@ Install the R packages once:
 Rscript main/Requirements.R
 ```
 
-The dynamic model takes three arguments: mode, scenario number, alpha.
+The dynamic model takes three arguments: mode (0, 1, or 2), scenario number, alpha.
 
 ```
 Rscript main/main.R 0 1 0.5
@@ -150,6 +160,12 @@ Rscript main/main.R 1 4 1
 ```
 
 That line is RTA, scenario 4 (four-year US wheat shock), and all beginning stocks available.
+
+```
+Rscript main/main.R 2 1 0
+```
+
+That line is stock-then-split, scenario 1, and no beginning stocks available.
 
 The static model only applies the production decline to supply. It does not reallocate trade. It takes the scenario number:
 

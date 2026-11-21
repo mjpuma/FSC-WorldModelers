@@ -173,7 +173,7 @@ sim_cascade_RTA <-
 # Draw usable reserves first. Split any remaining shortage of at least `tol`
 # tonnes between exports and domestic use in proportion to the two, pass the
 # export cut to existing partners, and repeat. This does not change PTA or RTA.
-# Published main.R does not call it.
+# main.R runs it as mode 2.
 
 sim_cascade_split <-
   function(food_net,
@@ -207,7 +207,7 @@ sim_cascade_split <-
         break
       }
       if (stuck || isTRUE(food_net$last_split_tonnes < tol)) {
-        warning("Stock-then-split stopped with a remaining shortage above 1 tonne", call. = FALSE)
+        warning("Stock-then-split stopped with a remaining shortage at or above tol", call. = FALSE)
         break
       }
     }

@@ -70,5 +70,17 @@ check(abs(held$E["DDD", "AAA"] - 10) < 1e-6, "exports that create a negative bas
 pta <- sim_cascade_PTA(net, dP, rfrac = 0, verbose = FALSE, freeze_empty_reserves = FALSE)
 check(abs(pta$C["AAA"] - split$C["AAA"]) > 1, "modified PTA does not copy the split")
 
+# Kilocalorie scale, as in the scenario library. main.R mode 2 passes a
+# tolerance relative to the largest baseline use.
+k <- 1e13
+big <- net
+big$P <- net$P * k
+big$E <- net$E * k
+big$C <- net$C * k
+big_tol <- max(1, 1e-9 * max(abs(big$C)))
+scaled <- sim_cascade_split(big, dP * k, rfrac = 0, tol = big_tol, verbose = FALSE)
+check(isTRUE(scaled$cascade_converged), "split converges at kilocalorie scale with a relative tolerance")
+check(abs(scaled$C["AAA"] / k - split$C["AAA"]) < 1e-3, "kilocalorie-scale split matches the tonne-scale split")
+
 if (length(failures)) stop(paste(failures, collapse = "\n"))
 message("All stock-then-split checks passed")
