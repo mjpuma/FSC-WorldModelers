@@ -8,3 +8,7 @@ __pycache__/
 main/build_note_for_junshi.py
 outputs/export_for_RIKEN/Note_for_Junshi_Xia.docx
 outputs/export_for_RIKEN 2/
+
+# Draft flood-shock table and everything built from it stay local.
+data/RIKEN_flood_shock_table_2002_2024_draft_2026-11-20.xlsx
+outputs/flood_shocks/

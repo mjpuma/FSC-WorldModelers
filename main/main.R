@@ -17,15 +17,18 @@ if (dir.exists("outputs") == FALSE) {
 #  Command line : e.g., "rscript main/main.R 0 1 0.5"
 # Parse arguments ====
 args <- commandArgs(trailingOnly = TRUE)
-FSCversion <- c(as.numeric(args[1]))             # PTA or RTA version of the Food Shock Cascade Model
+FSCversion <- c(as.numeric(args[1]))             # 0 = PTA, 1 = RTA, 2 = stock-then-split
 i_scenario <- c(as.numeric(args[2]))             # Scenario from the FSC Scenario Library
 fractional_reserve_access <- clamp_alpha(args[3]) # Accessible share of existing reserves (alpha)
+if (length(FSCversion) != 1 || !(FSCversion %in% c(0, 1, 2))) {
+    stop("Mode must be 0 (PTA), 1 (RTA), or 2 (stock-then-split)")
+}
 
 # #  RStudio or similar integrated development environment (IDE)
 # #  Specify arguments  ====
 # # Specify working directory
 # setwd("~/GitHub_mjpuma/FSC-WorldModelers/")
-# # Specify model version to run: 0-> PTA; 1-> RTA
+# # Specify model version to run: 0-> PTA; 1-> RTA; 2-> stock-then-split
 # FSCversion = 0
 # # Scenario from the FSC Scenario Library
 # i_scenario = 1
@@ -219,6 +222,11 @@ for (i in 1:length(years)) {
     results_FSC <- sim_cascade_PTA(trade_dat, dP, fractional_reserve_access)  # Run Proportional Trade Allocation (PTA) Model
   } else if (FSCversion == 1) {
     results_FSC <- sim_cascade_RTA(trade_dat, dP, fractional_reserve_access)  # Run Reserves-based Trade Allocation (RTA) Model
+  } else if (FSCversion == 2) {
+    # Stock-then-split. The scenario library is in kilocalories, so the stopping
+    # tolerance is relative to the largest baseline use instead of 1 tonne.
+    split_tol <- max(1, 1e-9 * max(abs(trade_dat$C), na.rm = TRUE))
+    results_FSC <- sim_cascade_split(trade_dat, dP, fractional_reserve_access, tol = split_tol, verbose = FALSE)
   }
   
   # Store outputs of interest from simulations ====
